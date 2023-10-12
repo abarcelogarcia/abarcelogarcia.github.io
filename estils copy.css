@@ -20,14 +20,25 @@
     /* FONTS */
     --titulo: 'Bahnschrift';
     --texto: 'Roboto';
+    
 
+
+}
+
+.heading{
+
+    font-family: var(--titulo);
+    font-size: 28px;
+    background-color: var(--azul-corp);
+    color: var(--blanco-corp);
 
 }
 
 
 .navbar-bg {
-    background-color: var(--gris_corp);
+    background-color: var(--gris_corp)
 }
+
 
 .bg-page {
 
@@ -35,22 +46,14 @@
 
 }
 
-.heading {
+.heading
 
-    background-color: var(--azul-corp);
+a {
     font-family: var(--titulo);
-    font-size: 28px;
-    color: var(--blanco-corp);
-
-}
-
-.topic {
-
     color: var(--azul-corp);
     text-decoration-line: none;
 }
 
-/* Hamburguer menu */
 .offcanvas-body {
 
     font-size: xx-large;
@@ -75,43 +78,44 @@ ul {
 
 }
 
+.btn, .form-control {
 
-
-/* all buttons */
-.btn.btn-amarillo {
-
-    background-color: var(--amarillo-corp);
     border-radius: 0px;
-    font-family: var(--texto);
-}
-
-.btn.btn-delete {
-
-    background-color: var(--rojo-corp);
-    border-radius: 0px;
-    font-family: var(--texto);
-}
-
-.btn.btn-publish {
-
-    background-color: var(--azul-corp);
-    border-radius: 0px;
-    font-family: var(--texto);
+    font-family: 'Roboto';
 }
 
 /* CARDS */
 
 .card-text {
-
-    font-family: var(--texto);
-    font-size: 12px;
-
+    
+    font-family: var(--card_texto_font);
+    font-size: var(--card_texto_size);
+    
 }
 
 .card-title {
-
-
-    font-family: var(--titulo);
-    font-size: 18px;
-
+    
+    
+    font-family: var(--card_titulo_font);
+    font-size: var(--card_titulo_size);
+    
 }
+
+.topic {
+    
+    
+    font-family: var(--topic_titulo_font);
+    font-size: var(--topic_titulo_size);
+    
+}
+
+
+
+h1, input{
+
+    
+    font-family: var(--card_titulo_font);
+    
+    
+}
+
