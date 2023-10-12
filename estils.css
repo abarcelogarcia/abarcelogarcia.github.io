@@ -1,0 +1,124 @@
+@font-face {
+
+    font-family: 'Bahnschrift';
+    src: url(/fonts/BAHNSCHRIFT.TTF);
+
+
+}
+
+:root {
+
+    --fondo: #f3f5f7;
+
+    /* Navbar */
+    --navbar_fondo: #ADB6C4;
+
+    /* Headings */
+    --heading_font: 'Bahnschrift';
+    --heading_font_size: 28px;
+    --heading_color: #001B2E;
+    --heading_font_color: white;
+
+    /* Cards */
+    --card_titulo_font: 'Bahnschrift';
+    --card_titulo_size: 20px;
+
+    --card_texto_font: 'Roboto';
+    --card_texto_size: 12px;
+
+    /* Topic */
+
+    --topic_titulo_font: 'Bahnschrift';
+    --topic_titulo_size: 28px;
+
+
+
+}
+
+
+.navbar-bg {
+    background-color: #ADB6C4;
+    /* background: linear-gradient(to bottom, var(--navbar_fondo), var(--fondo)); */
+}
+
+
+
+
+.bg-page {
+
+
+    background-color: var(--fondo);
+
+}
+
+.heading {
+
+    background-color: var(--heading_color);
+    font-family: var(--heading_font);
+    font-size: var(--heading_font_size);
+    color: var(--fondo);
+
+}
+
+a {
+
+    color: #001B2E;
+    text-decoration-line: none;
+}
+
+.offcanvas-body {
+
+
+    font-size: xx-large;
+
+}
+
+.offcanvas {
+
+    background-color: var(--fondo);
+    font-size: xx-large;
+
+
+}
+
+ul {
+
+    list-style-type: none;
+}
+
+.offcanvas-title {
+
+    font-size: xx-large;
+
+}
+
+.btn {
+
+    border-radius: 0px;
+    font-family: 'Roboto';
+}
+
+/* CARDS */
+
+.card-text {
+
+    font-family: var(--card_texto_font);
+    font-size: var(--card_texto_size);
+
+}
+
+.card-title {
+
+
+    font-family: var(--card_titulo_font);
+    font-size: var(--card_titulo_size);
+
+}
+
+.topic {
+
+
+    font-family: var(--topic_titulo_font);
+    font-size: var(--topic_titulo_size);
+
+}
