@@ -121,3 +121,27 @@ ul {
     filter: invert();
 
 }
+
+/* UD4 ACTIVITY 1 */
+
+[name*="avatar"]{
+
+
+    opacity: 0.5;
+
+
+}
+
+[name*="avatar"]:hover{
+
+    opacity: 1;
+
+
+}
+
+[name*="avatar"]:hover{
+
+    opacity: 1;
+
+
+}
