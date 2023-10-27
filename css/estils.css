@@ -145,16 +145,19 @@ ul {
 
 
 }
-
+/* Quitar punto selector  */
 input[type="radio"] {
     display: none;
 }
 
+
 [type="radio"]:checked + label > img {
     opacity: 1;
-
+    
+    
 }
-[type="radio"]:checked img {
-    display: none;
+[type="radio"]:checked ~ #avatar2 {
+    /* display: none; */
+    opacity: 1;
 
 }
