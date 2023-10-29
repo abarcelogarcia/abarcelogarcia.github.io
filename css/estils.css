@@ -140,23 +140,16 @@ ul {
 
 }
 
-[type="radio"]:checked + label > img{
+input[type="radio"]:checked + label > img{
 
     opacity: 1;
-
-
-}
-[type="radio"]:checked * {
-
-    display: none;
-
 
 }
 
 
 /* Quitar punto selector  */
 input[type="radio"] {
-    visibility: hidden;
+    display: none;
 }
 
 
