@@ -124,6 +124,7 @@ ul {
 
 /* UD4 ACTIVITY 1 */
 
+
 [name*="avatar"]{
 
 
@@ -139,25 +140,23 @@ ul {
 
 }
 
-[name*="avatar"]:hover{
+[type="radio"]:checked + label > img{
 
     opacity: 1;
 
 
 }
+[type="radio"]:checked * {
+
+    display: none;
+
+
+}
+
+
 /* Quitar punto selector  */
 input[type="radio"] {
-    display: none;
+    visibility: hidden;
 }
 
 
-[type="radio"]:checked + label > img {
-    opacity: 1;
-    
-    
-}
-[type="radio"]:checked ~ #avatar2 {
-    /* display: none; */
-    opacity: 1;
-
-}
