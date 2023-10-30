@@ -125,31 +125,124 @@ ul {
 /* UD4 ACTIVITY 1 */
 
 
-[name*="avatar"]{
-
-
-    opacity: 0.5;
-
-
+/* Hide radio selector  */
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-[name*="avatar"]:hover{
 
+/* Create transparence images */
+[name*="avatar"] {
+    opacity: 0.25;
+}
+
+/* Delete transparece on mouse hover */
+[name*="avatar"]:hover {
     opacity: 1;
-
-
+    transition-duration: 1s;
 }
 
-input[type="radio"]:checked + label > img{
+#reset-btn {
 
-    opacity: 1;
-
-}
-
-
-/* Quitar punto selector  */
-input[type="radio"] {
     display: none;
+    /* visibility: hidden; */
+
 }
 
 
+/* Hide not checked image */
+/* AVATAR 1 */
+input[value="1"]:checked~label>#avatar-img1 {
+    opacity: 1;
+}
+
+input[value="1"]:checked~label>#avatar-img2,
+input[value="1"]:checked~label>#avatar-img3 {
+    display: none;
+    /* visibility: hidden; */
+
+}
+
+input[value="1"]:checked~label>#avatar-img3 {
+    display: none;
+    /* visibility: hidden; */
+
+}
+
+input[value="1"]:checked~div>#reset-btn {
+
+    display: block;
+    /* visibility: visible; */
+
+}
+
+
+
+
+
+/* AVATAR 2 */
+input[value="2"]:checked~label>#avatar-img2 {
+    opacity: 1;
+}
+
+input[value="2"]:checked~label>#avatar-img1,
+input[value="2"]:checked~label>#avatar-img3 {
+    display: none;
+    /* visibility: hidden; */
+}
+
+input[value="2"]:checked~div~label>#reset-img2 {
+
+    display: block;
+    /* visibility: visible; */
+
+}
+
+input[value="2"]:checked~div>#reset-btn {
+
+    display: block;
+    /* visibility: visible; */
+
+}
+
+
+/* AVATAR 3 */
+input[value="3"]:checked~label>#avatar-img3 {
+    opacity: 1;
+}
+
+input[value="3"]:checked~label>#avatar-img1,
+input[value="3"]:checked~label>#avatar-img2 {
+    display: none;
+    /* visibility: hidden; */
+
+}
+
+input[value="3"]:checked~div>#reset-btn {
+
+    display: block;
+    /* visibility: visible; */
+
+}
+
+
+
+/* Reset (show) hidden images after checked one of them */
+
+input[name="reset"]:checked~label>#avatar-img1,
+input[name="reset"]:checked~label>#avatar-img2,
+input[name="reset"]:checked~label>#avatar-img3 {
+
+    display: block;
+    /* visibility: visible; */
+
+
+}
+
+input[name="reset"]:checked~label>#reset {
+
+    visibility: hidden;
+}
