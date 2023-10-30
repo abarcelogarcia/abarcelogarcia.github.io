@@ -145,87 +145,68 @@ ul {
     transition-duration: 1s;
 }
 
+/* hide reset button since an avatar is selected */
 #reset-btn {
 
     display: none;
-    /* visibility: hidden; */
 
 }
 
 
-/* Hide not checked image */
-/* AVATAR 1 */
+/* HIDE NOT CHECKED IMAGES */
+
+    /* AVATAR 1 */
+
+/* Delete transparency in avatar 1 */
 input[value="1"]:checked~label>#avatar-img1 {
     opacity: 1;
 }
 
+/* Hide others avatars */
 input[value="1"]:checked~label>#avatar-img2,
 input[value="1"]:checked~label>#avatar-img3 {
     display: none;
-    /* visibility: hidden; */
 
 }
-
-input[value="1"]:checked~label>#avatar-img3 {
-    display: none;
-    /* visibility: hidden; */
-
-}
-
+/* Show reset button */
 input[value="1"]:checked~div>#reset-btn {
-
     display: block;
-    /* visibility: visible; */
-
 }
 
 
+    /* AVATAR 2 */
 
-
-
-/* AVATAR 2 */
+/* Delete transparency in avatar 2 */
 input[value="2"]:checked~label>#avatar-img2 {
     opacity: 1;
 }
-
+/* Hide others avatars */
 input[value="2"]:checked~label>#avatar-img1,
 input[value="2"]:checked~label>#avatar-img3 {
     display: none;
-    /* visibility: hidden; */
 }
 
-input[value="2"]:checked~div~label>#reset-img2 {
-
-    display: block;
-    /* visibility: visible; */
-
-}
-
+/* Show reset button */
 input[value="2"]:checked~div>#reset-btn {
-
     display: block;
-    /* visibility: visible; */
-
 }
 
 
-/* AVATAR 3 */
+    /* AVATAR 3 */
+
+/* Delete transparency in avatar 3 */
 input[value="3"]:checked~label>#avatar-img3 {
     opacity: 1;
 }
-
+/* Hide others avatars */
 input[value="3"]:checked~label>#avatar-img1,
 input[value="3"]:checked~label>#avatar-img2 {
     display: none;
-    /* visibility: hidden; */
 
 }
-
+/* Show reset button */
 input[value="3"]:checked~div>#reset-btn {
-
     display: block;
-    /* visibility: visible; */
-
 }
 
 
@@ -235,13 +216,10 @@ input[value="3"]:checked~div>#reset-btn {
 input[name="reset"]:checked~label>#avatar-img1,
 input[name="reset"]:checked~label>#avatar-img2,
 input[name="reset"]:checked~label>#avatar-img3 {
-
     display: block;
-    /* visibility: visible; */
-
-
 }
 
+/* Hide reset button */
 input[name="reset"]:checked~label>#reset {
 
     visibility: hidden;
