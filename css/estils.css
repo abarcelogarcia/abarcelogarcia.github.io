@@ -6,6 +6,11 @@
 
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url(https://fonts.googleapis.com/css?family=Roboto) format('ttf');
+}
+
 :root {
 
     /* COLORS */
@@ -15,7 +20,7 @@
     --rojo-corp: #CC0000;
     --amarillo-corp: #FF9900;
     --verde-corp: #294C60;
-    --gris_corp: #ADB6C4;
+    --gris-corp: #ADB6C4;
 
     /* FONTS */
     --titulo: 'Bahnschrift';
@@ -24,7 +29,8 @@
 
 
 .navbar-bg {
-    background-color: var(--gris_corp);
+    background-color: var(--gris-corp);
+    color: var(--azul-corp);
 }
 
 .bg-page {
@@ -124,6 +130,20 @@ ul {
 
 /* UD4 ACTIVITY 1 */
 
+/* Assign default fonts to the modal*/
+.modal {
+    font-family: var(--texto);
+}
+
+.modal-header {
+    font-family: var(--titulo);
+}
+
+/* Apply background with transparency */
+.modal-body {
+
+    background-color: rgba(0, 27, 46, 0.2);
+}
 
 /* Hide radio selector  */
 [type=radio] {
@@ -134,55 +154,51 @@ ul {
 }
 
 
-/* Create transparence images */
+/* Create avatar transparency */
 [name*="avatar"] {
     opacity: 0.25;
 }
 
-/* Delete transparece on mouse hover */
+/* Delete transparency on mouse hover */
 [name*="avatar"]:hover {
     opacity: 1;
     transition-duration: 1s;
 }
 
-/* hide reset button since an avatar is selected */
+/* Hide the reset button while there is no avatar selected */
 #reset-btn {
-
     display: none;
-
 }
 
 
-/* HIDE NOT CHECKED IMAGES */
+/* HIDE UNSELECTED AVATARS */
 
-    /* AVATAR 1 */
+/* AVATAR 1 SELECTED */
 
-/* Delete transparency in avatar 1 */
+/* Remove transparency in avatar 1 */
 input[value="1"]:checked~label>#avatar-img1 {
     opacity: 1;
 }
 
-/* Hide others avatars */
-input[value="1"]:checked~label>#avatar-img2,
-input[value="1"]:checked~label>#avatar-img3 {
+/* Hide other avatars */
+input[value="1"]:checked~label>:not(#avatar-img1) {
     display: none;
-
 }
+
 /* Show reset button */
 input[value="1"]:checked~div>#reset-btn {
     display: block;
 }
 
+/* AVATAR 2 SELECTED */
 
-    /* AVATAR 2 */
-
-/* Delete transparency in avatar 2 */
+/* Remove transparency in avatar 2 */
 input[value="2"]:checked~label>#avatar-img2 {
     opacity: 1;
 }
-/* Hide others avatars */
-input[value="2"]:checked~label>#avatar-img1,
-input[value="2"]:checked~label>#avatar-img3 {
+
+/* Hide other avatars */
+input[value="2"]:checked~label>:not(#avatar-img2) {
     display: none;
 }
 
@@ -191,36 +207,47 @@ input[value="2"]:checked~div>#reset-btn {
     display: block;
 }
 
+/* AVATAR 3 SELECTED */
 
-    /* AVATAR 3 */
-
-/* Delete transparency in avatar 3 */
+/* Remove transparency in avatar 3 */
 input[value="3"]:checked~label>#avatar-img3 {
     opacity: 1;
 }
-/* Hide others avatars */
-input[value="3"]:checked~label>#avatar-img1,
-input[value="3"]:checked~label>#avatar-img2 {
-    display: none;
 
+/* Hide other avatars */
+input[value="3"]:checked~label>:not(#avatar-img3) {
+    display: none;
 }
+
 /* Show reset button */
 input[value="3"]:checked~div>#reset-btn {
     display: block;
 }
 
+/* AVATAR 4 SELECTED */
 
+/* Remove transparency in avatar 3 */
+input[value="4"]:checked~label>#avatar-img4 {
+    opacity: 1;
+}
+
+/* Hide other avatars */
+input[value="4"]:checked~label>:not(#avatar-img4) {
+    display: none;
+}
+
+/* Show reset button */
+input[value="4"]:checked~div>#reset-btn {
+    display: block;
+}
 
 /* Reset (show) hidden images after checked one of them */
-
-input[name="reset"]:checked~label>#avatar-img1,
-input[name="reset"]:checked~label>#avatar-img2,
-input[name="reset"]:checked~label>#avatar-img3 {
+input[name="reset"]:checked~label>img {
     display: block;
 }
 
 /* Hide reset button */
 input[name="reset"]:checked~label>#reset {
 
-    visibility: hidden;
+    display: none;
 }
