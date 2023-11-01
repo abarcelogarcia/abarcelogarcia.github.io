@@ -130,6 +130,12 @@ ul {
 
 /* UD4 ACTIVITY 1 */
 
+@keyframes vibrate {
+    0%   {transform: rotateZ(-5deg);}
+    50%  {transform: rotateZ(0deg) scale(.9);}
+    100%   {transform: rotateZ(5deg);}
+  }
+
 /* Assign default fonts to the modal*/
 .modal {
     font-family: var(--texto);
@@ -137,6 +143,7 @@ ul {
 
 .modal-header {
     font-family: var(--titulo);
+    text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5); /* UD4 ACTIVITY 2 */
 }
 
 /* Apply background with transparency */
@@ -157,12 +164,15 @@ ul {
 /* Create avatar transparency */
 [name*="avatar"] {
     opacity: 0.25;
+    filter: grayscale(100%);
 }
 
 /* Delete transparency on mouse hover */
 [name*="avatar"]:hover {
     opacity: 1;
     transition-duration: 1s;
+    filter: grayscale(0%);
+    animation: vibrate 0.1s 2;
 }
 
 /* Hide the reset button while there is no avatar selected */
@@ -178,6 +188,7 @@ ul {
 /* Remove transparency in avatar 1 */
 input[value="1"]:checked~label>#avatar-img1 {
     opacity: 1;
+    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
@@ -195,6 +206,7 @@ input[value="1"]:checked~div>#reset-btn {
 /* Remove transparency in avatar 2 */
 input[value="2"]:checked~label>#avatar-img2 {
     opacity: 1;
+    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
@@ -212,6 +224,7 @@ input[value="2"]:checked~div>#reset-btn {
 /* Remove transparency in avatar 3 */
 input[value="3"]:checked~label>#avatar-img3 {
     opacity: 1;
+    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
@@ -229,6 +242,7 @@ input[value="3"]:checked~div>#reset-btn {
 /* Remove transparency in avatar 3 */
 input[value="4"]:checked~label>#avatar-img4 {
     opacity: 1;
+    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
@@ -250,4 +264,11 @@ input[name="reset"]:checked~label>img {
 input[name="reset"]:checked~label>#reset {
 
     display: none;
+}
+
+/* UD4 ACTIVITY 2 */
+
+form *> input:focus{
+
+    background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
 }
