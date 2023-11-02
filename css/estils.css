@@ -132,17 +132,11 @@ ul {
 /* UD4 ACTIVITY 1 */
 
 @keyframes vibrate {
-    0% {
-        transform: rotateZ(-5deg);
-    }
+    0% { transform: rotateZ(-5deg); }
 
-    50% {
-        transform: rotateZ(0deg) scale(.9);
-    }
+    50% { transform: rotateZ(0deg) scale(.9); }
 
-    100% {
-        transform: rotateZ(5deg);
-    }
+    100% { transform: rotateZ(5deg); }
 }
 
 
@@ -179,7 +173,7 @@ ul {
     filter: grayscale(100%);
 }
 
-/* Delete transparency on mouse hover */
+/* Delete transparency, grayscale and vibrate animation on mouse hover */
 [name*="avatar"]:hover {
     opacity: 1;
     transition-duration: 1s;
@@ -261,8 +255,6 @@ input[value="3"]:checked~div>#reset-btn {
     opacity: 1;
     transform: translate(165px);
 
-
-
 }
 
 /* AVATAR 4 SELECTED */
@@ -284,7 +276,6 @@ input[value="4"]:checked~label>:not(#avatar-img4) {
 input[value="4"]:checked~div>#reset-btn {
     opacity: 1;
     transform: translate(250px);
-
 
 }
 
@@ -309,3 +300,4 @@ input[type=number]:focus {
     box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
     border-color: var(--gris-corp);
 }
+
