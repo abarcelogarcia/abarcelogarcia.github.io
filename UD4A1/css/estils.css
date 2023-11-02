@@ -28,7 +28,6 @@
 }
 
 
-
 .navbar-bg {
     background-color: var(--gris-corp);
     color: var(--azul-corp);
@@ -131,16 +130,6 @@ ul {
 
 /* UD4 ACTIVITY 1 */
 
-@keyframes vibrate {
-    0% { transform: rotateZ(-5deg); }
-
-    50% { transform: rotateZ(0deg) scale(.9); }
-
-    100% { transform: rotateZ(5deg); }
-}
-
-
-
 /* Assign default fonts to the modal*/
 .modal {
     font-family: var(--texto);
@@ -148,8 +137,6 @@ ul {
 
 .modal-header {
     font-family: var(--titulo);
-    text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5);
-
 }
 
 /* Apply background with transparency */
@@ -170,26 +157,17 @@ ul {
 /* Create avatar transparency */
 [name*="avatar"] {
     opacity: 0.25;
-    filter: grayscale(100%);
 }
 
-/* Delete transparency, grayscale and vibrate animation on mouse hover */
+/* Delete transparency on mouse hover */
 [name*="avatar"]:hover {
     opacity: 1;
     transition-duration: 1s;
-    filter: grayscale(0%);
-    animation: vibrate 0.1s 2;
 }
 
 /* Hide the reset button while there is no avatar selected */
 #reset-btn {
-    opacity: 0;
-}
-
-#reset-btn:hover {
-    background-color: var(--rojo-corp);
-    color: var(--blanco-corp);
-    transition-duration: 0.5s;
+    display: none;
 }
 
 
@@ -200,19 +178,16 @@ ul {
 /* Remove transparency in avatar 1 */
 input[value="1"]:checked~label>#avatar-img1 {
     opacity: 1;
-    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
 input[value="1"]:checked~label>:not(#avatar-img1) {
-    opacity: 0;
-    transition-duration: 1s;
+    display: none;
 }
 
 /* Show reset button */
 input[value="1"]:checked~div>#reset-btn {
-    opacity: 1;
-
+    display: block;
 }
 
 /* AVATAR 2 SELECTED */
@@ -220,20 +195,16 @@ input[value="1"]:checked~div>#reset-btn {
 /* Remove transparency in avatar 2 */
 input[value="2"]:checked~label>#avatar-img2 {
     opacity: 1;
-    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
 input[value="2"]:checked~label>:not(#avatar-img2) {
-    opacity: 0;
-    transition-duration: 1s;
+    display: none;
 }
 
 /* Show reset button */
 input[value="2"]:checked~div>#reset-btn {
-    opacity: 1;
-    transform: translate(80px);
-
+    display: block;
 }
 
 /* AVATAR 3 SELECTED */
@@ -241,20 +212,16 @@ input[value="2"]:checked~div>#reset-btn {
 /* Remove transparency in avatar 3 */
 input[value="3"]:checked~label>#avatar-img3 {
     opacity: 1;
-    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
 input[value="3"]:checked~label>:not(#avatar-img3) {
-    opacity: 0;
-    transition-duration: 1s;
+    display: none;
 }
 
 /* Show reset button */
 input[value="3"]:checked~div>#reset-btn {
-    opacity: 1;
-    transform: translate(165px);
-
+    display: block;
 }
 
 /* AVATAR 4 SELECTED */
@@ -262,21 +229,16 @@ input[value="3"]:checked~div>#reset-btn {
 /* Remove transparency in avatar 3 */
 input[value="4"]:checked~label>#avatar-img4 {
     opacity: 1;
-    filter: grayscale(0%);
 }
 
 /* Hide other avatars */
 input[value="4"]:checked~label>:not(#avatar-img4) {
-    opacity: 0;
-    transition-duration: 1s;
-
+    display: none;
 }
 
 /* Show reset button */
 input[value="4"]:checked~div>#reset-btn {
-    opacity: 1;
-    transform: translate(250px);
-
+    display: block;
 }
 
 /* Reset (show) hidden images after checked one of them */
@@ -284,20 +246,8 @@ input[name="reset"]:checked~label>img {
     display: block;
 }
 
+/* Hide reset button */
+input[name="reset"]:checked~label>#reset {
 
-/* UD4 ACTIVITY 2 */
-
-form *>input:focus {
-
-    background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
-
+    display: none;
 }
-
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=number]:focus {
-
-    box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
-    border-color: var(--gris-corp);
-}
-
