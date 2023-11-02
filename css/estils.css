@@ -155,7 +155,7 @@ ul {
 .modal-header {
     font-family: var(--titulo);
     text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5);
-    /* UD4 ACTIVITY 2 */
+
 }
 
 /* Apply background with transparency */
@@ -189,14 +189,13 @@ ul {
 
 /* Hide the reset button while there is no avatar selected */
 #reset-btn {
-    /* display: none; */
     opacity: 0;
 }
 
 #reset-btn:hover {
     background-color: var(--rojo-corp);
     color: var(--blanco-corp);
-    transition-duration: 0.2s;
+    transition-duration: 0.5s;
 }
 
 
@@ -218,7 +217,6 @@ input[value="1"]:checked~label>:not(#avatar-img1) {
 
 /* Show reset button */
 input[value="1"]:checked~div>#reset-btn {
-    /* display: block; */
     opacity: 1;
 
 }
@@ -301,8 +299,7 @@ input[name="reset"]:checked~label>img {
 form *>input:focus {
 
     background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
-    /* box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
-    border-color: var(--gris-corp); */
+
 }
 
 input[type=text]:focus,
