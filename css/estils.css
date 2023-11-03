@@ -5,11 +5,12 @@
 
 
 }
-
+/* 
 @font-face {
     font-family: 'Roboto';
     src: url(https://fonts.googleapis.com/css?family=Roboto) format('ttf');
-}
+} */
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 :root {
 
