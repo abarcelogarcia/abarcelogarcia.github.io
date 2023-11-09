@@ -1,83 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="css/estils_sass.css">
-    <title>Post</title>
+  <link rel="stylesheet" href="css/estils_sass.css">
+  <title>Post</title>
 </head>
+
 <body class="bg-page">
 
-    <header class="sticky-top">
-        <div class="container-fluid navbar-bg" id="navbar">
-          <!-- LOGO & LOGIN BAR -->
-          <div class="row align-items-center">
-            <!-- Use display bootstrap class for swap logo depends its resolution -->
-    
-            <!-- Mobile -->
-            <div class="col p-2 d-sm-none">
-              <a class="d-sm-none" data-bs-toggle="offcanvas" href="#topics" role="button" aria-controls="menu_topics">
-                <img src="../img/button_hamburguer.png" alt="menu_topics" class="d-sm-none" />
-              </a>
-              <a href="index.html">
-                <img src="../img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" />
-              </a>
-            </div>
-    
-            <!-- Desktop -->
-            <div class="col p-2 d-none d-sm-block">
-              <a href="index.html">
-                <img src="../img/LogoBloggIn.png" alt="logo" class="d-none d-sm-block" />
-              </a>
-            </div>
-    
-            <div class="col-auto">
-              <img src="../img/button_search.png" alt="logo" />
-    
-              <!-- Button trigger modal -->
-              <img src="../img/button_login.png" role="button" alt="logo" data-bs-toggle="modal" data-bs-target="#login" />
-            </div>
+  <header class="sticky-top">
+    <div class="container-fluid navbar-bg" id="navbar">
+      <!-- LOGO & LOGIN BAR -->
+      <div class="row align-items-center">
+        <!-- Use display bootstrap class for swap logo depends its resolution -->
+
+        <!-- Mobile -->
+        <div class="col p-2 d-sm-none">
+          <a class="d-sm-none" data-bs-toggle="offcanvas" href="#topics" role="button" aria-controls="menu_topics">
+            <img src="../img/button_hamburguer.png" alt="menu_topics" class="d-sm-none" />
+          </a>
+          <a href="index.html">
+            <img src="../img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" />
+          </a>
+        </div>
+
+        <!-- Desktop -->
+        <div class="col p-2 d-none d-sm-block">
+          <a href="index.html">
+            <img src="../img/LogoBloggIn.png" alt="logo" class="d-none d-sm-block" />
+          </a>
+        </div>
+
+        <div class="col-auto">
+          <img src="../img/button_search.png" alt="logo" />
+
+          <!-- Button trigger modal -->
+          <img src="../img/button_login.png" role="button" alt="logo" data-bs-toggle="modal" data-bs-target="#login" />
+        </div>
+      </div>
+
+      <!-- TOPICS BAR -->
+      <!-- Hide topics bar in mobile resolution -->
+      <div class="container-fluid text-center d-none d-sm-block">
+        <div class="row">
+          <div class="col mb-2">
+            <a class="topic" href="#sports">Topic</a>
           </div>
-    
-          <!-- TOPICS BAR -->
-          <!-- Hide topics bar in mobile resolution -->
-          <div class="container-fluid text-center d-none d-sm-block">
-            <div class="row">
-              <div class="col mb-2">
-                <a class="topic" href="#sports">Topic</a>
-              </div>
-              <div class="col">
-                <a class="topic" href="#health">Topic</a>
-              </div>
-              <div class="col">
-                <a class="topic" href="#sport2">Topic</a>
-              </div>
-              <div class="col">
-                <a class="topic" href="#health2">Topic</a>
-              </div>
-              <div class="col">
-                <a class="topic" href="#">Topic</a>
-              </div>
-              <div class="col">
-                <a class="topic" href="#">Topic</a>
-              </div>
-            </div>
+          <div class="col">
+            <a class="topic" href="#health">Topic</a>
+          </div>
+          <div class="col">
+            <a class="topic" href="#sport2">Topic</a>
+          </div>
+          <div class="col">
+            <a class="topic" href="#health2">Topic</a>
+          </div>
+          <div class="col">
+            <a class="topic" href="#">Topic</a>
+          </div>
+          <div class="col">
+            <a class="topic" href="#">Topic</a>
           </div>
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
-      <main>
+  <main>
 
-        <article>
-            <div class="container-fluid text-center p-4">
-                <h1>Sport</h1>
-                <img src="../img/Sport_Post.jpeg" alt="image1">
+    <article>
+      <div class="container text-center p-4">
+        <h1>Sport</h1>
+        <img src="../img/Sport_Post.jpg" alt="image1" class="img-fluid">
+      </div>
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col">
+            <h2>Title</h2>
+          </div>
+          <div class="col-1">
+            <img src="../img/star.png" alt="star">
+          </div>
+
+          <div class="row">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia blanditiis impedit necessitatibus libero
+              enim nam eos perferendis delectus cupiditate incidunt, aperiam asperiores. Totam provident accusantium
+              perspiciatis, ducimus possimus iure eos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+              vero ipsum praesentium saepe obcaecati laudantium autem distinctio sunt optio, pariatur fugiat, quos nam,
+              illum quas labore. Minus natus ut tenetur! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
+              fuga ratione officiis? Blanditiis qui, commodi nam ab eius sapiente, cum quae laudantium quis dolor dicta
+              cupiditate rerum neque? Quas, dolorem? Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
+              ratione dolore incidunt iste tenetur excepturi aliquam sapiente, dolorum, eos sint aspernatur id, omnis
+              quaerat ex molestiae! Aperiam voluptate quasi aliquam! Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. A, eveniet ipsa amet blanditiis distinctio incidunt necessitatibus sequi doloribus, atque nam natus,
+              non quibusdam minus similique officia soluta ab quidem corrupti! Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Libero, quae reiciendis. Natus sequi, illum quam inventore repellendus eum in maiores,
+              sint doloremque ab expedita velit amet, harum rem molestias aut! Lorem ipsum, dolor sit amet consectetur
+              adipisicing elit. Architecto ea consequatur incidunt. Nobis, vitae quae? Labore at eos, natus officia modi
+              adipisci numquam minima consectetur pariatur sapiente voluptate distinctio asperiores! Lorem, ipsum dolor
+              sit amet consectetur adipisicing elit. Ad, voluptas laboriosam? Unde, debitis eos! Maxime quas sed eum ex
+              modi eaque maiores praesentium, tempore aliquid hic? Dolor, quo hic! Eum? Lorem, ipsum dolor sit amet
+              consectetur adipisicing elit. Illo dolorum quasi obcaecati asperiores libero. Ex corrupti earum placeat
+              aperiam obcaecati sequi beatae dolores quaerat ipsam! Debitis, eligendi perferendis assumenda sapiente,
+              voluptate obcaecati impedit veritatis reprehenderit omnis praesentium consequatur voluptates distinctio
+              ea. Aspernatur repellendus non dolores? Laborum nesciunt culpa numquam ad! Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Molestiae, eum. Voluptatibus facilis eveniet nesciunt labore aliquid
+              exercitationem, quo ut maiores dolores laudantium sit illum? Nisi quaerat optio placeat dicta? Eveniet
+              commodi expedita sit molestiae modi. Voluptates, dolor recusandae. Aperiam, quidem culpa. Totam nulla
+              dolorem quis ea cumque placeat deleniti explicabo, eius quo fuga maiores animi qui mollitia, blanditiis
+              non! Expedita ea rerum, aut similique magni cumque culpa maxime odit illo. Eos hic enim, molestiae unde
+            </p>
+          </div>
+          <div class="row row-cols-1 row-cols-lg-2 mb-2">
+            <div class="col">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis ex ab eum ut delectus
+                voluptas excepturi nisi veritatis aperiam eveniet deleniti nulla alias omnis, a deserunt cum animi nam
+                ratione minima laudantium atque rem assumenda! Ratione necessitatibus corporis perferendis laborum
+                itaque ad suscipit blanditiis esse, optio, eius laudantium recusandae ea dolores consequuntur unde id
+                natus expedita excepturi fugit quae illo reprehenderit impedit. Quo saepe dignissimos deserunt. Neque
+                atque maiores quod quidem sunt impedit odit ea. Temporibus nam autem culpa ut ex incidunt molestiae
+                recusandae. Vel necessitatibus velit soluta blanditiis consequuntur sit, quaerat minus laborum?
+                Voluptatem quia recusandae eius dolorum ipsam nam, accusantium sapiente culpa asperiores aut enim quas
+                obcaecati? Dolor provident perspiciatis sit voluptate sequi in l</p>
+
             </div>
-        </article>
+            <div class="col">
+              <img src="../img/sport_post2.jpg" alt="image sport_post2" class="img-fluid">
 
-      </main>
-    
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+      <div class="container">
+
+        <h2>More Info</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit temporibus nesciunt quibusdam ipsa hic fugit?
+          Explicabo enim cumque possimus dolores ipsa, similique architecto repellendus excepturi laudantium cum,
+          voluptates, dignissimos porro unde quae libero! Vero voluptatem officia nihil sit eos labore aliquam nisi
+          maiores. Eius labore earum deleniti aliquid saepe vero animi minus culpa repellat sapiente voluptas, id sunt,
+          error maiores dolore veritatis molestiae expedita accusamus. Sint unde, maiores aperiam nulla repudiandae ab
+          animi! Architecto cupiditate ea assumenda commodi ullam necessitatibus accusantium animi delectus corrupti
+          adipisci impedit vitae explicabo similique dolore aliquam tenetur suscipit expedita, hic voluptates distinctio
+          eos magni! Accusamus.</p>
+
+
+      </div>
+      <div class="container">
+
+
+        <div class="row">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia blanditiis impedit necessitatibus libero
+            enim nam eos perferendis delectus cupiditate incidunt, aperiam asperiores. Totam provident accusantium
+            perspiciatis, ducimus possimus iure eos. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            vero ipsum praesentium saepe obcaecati laudantium autem distinctio sunt optio, pariatur fugiat, quos nam,
+            illum quas labore. Minus natus ut tenetur! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
+            fuga ratione officiis? Blanditiis qui, commodi nam ab eius sapiente, cum quae laudantium quis dolor dicta
+            cupiditate rerum neque? Quas, dolorem? Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
+            ratione dolore incidunt iste tenetur excepturi aliquam sapiente, dolorum, eos sint aspernatur id, omnis
+            quaerat ex molestiae! Aperiam voluptate quasi aliquam! Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. A, eveniet ipsa amet blanditiis distinctio incidunt necessitatibus sequi doloribus, atque nam natus,
+            non quibusdam minus similique officia soluta ab quidem corrupti! Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Libero, quae reiciendis. Natus sequi, illum quam inventore repellendus eum in maiores,
+            sint doloremque ab expedita velit amet, harum rem molestias aut! Lorem ipsum, dolor sit amet consectetur
+            adipisicing elit. Architecto ea consequatur incidunt. Nobis, vitae quae? Labore at eos, natus officia modi
+            adipisci numquam minima consectetur pariatur sapiente voluptate distinctio asperiores! Lorem, ipsum dolor
+            sit amet consectetur adipisicing elit. Ad, voluptas laboriosam? Unde, debitis eos! Maxime quas sed eum ex
+            modi eaque maiores praesentium, tempore aliquid hic? Dolor, quo hic! Eum? Lorem, ipsum dolor sit amet
+            consectetur adipisicing elit. Illo dolorum quasi obcaecati asperiores libero. Ex corrupti earum placeat
+            aperiam obcaecati sequi beatae dolores quaerat ipsam! Debitis, eligendi perferendis assumenda sapiente,
+            voluptate obcaecati impedit veritatis reprehenderit omnis praesentium consequatur voluptates distinctio
+            ea. Aspernatur repellendus non dolores? Laborum nesciunt culpa numquam ad! Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Molestiae, eum. Voluptatibus facilis eveniet nesciunt labore aliquid
+            exercitationem, quo ut maiores dolores laudantium sit illum? Nisi quaerat optio placeat dicta? Eveniet
+            commodi expedita sit molestiae modi. Voluptates, dolor recusandae. Aperiam, quidem culpa. Totam nulla
+            dolorem quis ea cumque placeat deleniti explicabo, eius quo fuga maiores animi qui mollitia, blanditiis
+            non! Expedita ea rerum, aut similique magni cumque culpa maxime odit illo. Eos hic enim, molestiae unde
+          </p>
+        </div>
+        <div class="row row-cols-1 row-cols-lg-2 mb-2">
+          <div class="col">
+            <img src="../img/sport_post2.jpg" alt="image sport_post2" class="img-fluid">
+
+          </div>
+          <div class="col">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis ex ab eum ut delectus
+              voluptas excepturi nisi veritatis aperiam eveniet deleniti nulla alias omnis, a deserunt cum animi nam
+              ratione minima laudantium atque rem assumenda! Ratione necessitatibus corporis perferendis laborum
+              itaque ad suscipit blanditiis esse, optio, eius laudantium recusandae ea dolores consequuntur unde id
+              natus expedita excepturi fugit quae illo reprehenderit impedit. Quo saepe dignissimos deserunt. Neque
+              atque maiores quod quidem sunt impedit odit ea. Temporibus nam autem culpa ut ex incidunt molestiae
+              recusandae. Vel necessitatibus velit soluta blanditiis consequuntur sit, quaerat minus laborum?
+              Voluptatem quia recusandae eius dolorum ipsam nam, accusantium sapiente culpa asperiores aut enim quas
+              obcaecati? Dolor provident perspiciatis sit voluptate sequi in l</p>
+
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+  </main>
+
 </body>
+
 </html>
