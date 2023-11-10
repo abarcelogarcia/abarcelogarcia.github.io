@@ -1,56 +1,51 @@
 @font-face {
 
     font-family: 'Bahnschrift';
-    src: url(/fonts/BAHNSCHRIFT.TTF);
+    src: url(../fonts/BAHNSCHRIFT.TTF);
 
 
 }
-/* 
-@font-face {
-    font-family: 'Roboto';
-    src: url(https://fonts.googleapis.com/css?family=Roboto) format('ttf');
-} */
+
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-:root {
+// Variables
 
-    /* COLORS */
+ /* COLORS */
 
-    --blanco-corp: #f3f5f7;
-    --azul-corp: #001B2E;
-    --rojo-corp: #CC0000;
-    --amarillo-corp: #FF9900;
-    --verde-corp: #294C60;
-    --gris-corp: #ADB6C4;
+ $blanco-corp: #f3f5f7;
+ $azul-corp: #001B2E;
+ $rojo-corp: #CC0000;
+ $amarillo-corp: #FF9900;
+ $verde-corp: #294C60;
+ $gris-corp: #ADB6C4;
+ 
 
-    /* FONTS */
-    --titulo: 'Bahnschrift';
-    --texto: 'Roboto';
-}
+ /* FONTS */
+ $titulo: 'Bahnschrift';
+ $texto: 'Roboto';
 
 
-
-.navbar-bg {
-    background-color: var(--gris-corp);
-    color: var(--azul-corp);
+ .navbar-bg {
+    background-color: $gris-corp;
+    color: $azul-corp;
 }
 
 .bg-page {
 
-    background-color: var(--blanco-corp);
+    background-color: $blanco-corp;
 }
 
 .heading {
-    background-color: var(--azul-corp);
-    font-family: var(--titulo);
+    background-color: $azul-corp;
+    font-family: $titulo;
     font-size: 28px;
-    color: var(--blanco-corp);
+    color: $blanco-corp;
 }
 
 .topic,
 .topic a {
 
-    color: var(--azul-corp);
+    color: $azul-corp;
     text-decoration-line: none;
 }
 
@@ -63,7 +58,7 @@
 
 .offcanvas {
 
-    background-color: var(--blanco-corp);
+    background-color: $blanco-corp;
     font-size: xx-large;
 
 }
@@ -79,58 +74,6 @@ ul {
     font-size: xx-large;
 
 }
-
-
-
-/* all buttons */
-.btn.btn-amarillo {
-
-    background-color: var(--amarillo-corp);
-    border-radius: 0px;
-    font-family: var(--texto);
-}
-
-.btn.btn-delete {
-
-    background-color: var(--rojo-corp);
-    border-radius: 0px;
-    font-family: var(--texto);
-}
-
-.btn.btn-publish {
-
-    background-color: var(--azul-corp);
-    border-radius: 0px;
-    font-family: var(--texto);
-}
-
-/* CARDS */
-
-.card-text {
-
-    font-family: var(--texto);
-    font-size: 12px;
-
-}
-
-.card-title {
-
-
-    font-family: var(--titulo);
-    font-size: 18px;
-
-}
-
-
-/* Carousel black arrows */
-.carousel-control-next-icon,
-.carousel-control-prev-icon {
-
-    filter: invert();
-
-}
-
-/* UD4 ACTIVITY 1 */
 
 @keyframes vibrate {
     0% { transform: rotateZ(-5deg); }
@@ -300,5 +243,33 @@ input[type=number]:focus {
 
     box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
     border-color: var(--gris-corp);
+}
+
+.principal {
+
+    h2{
+
+        font-family: $titulo;
+        background-color: $azul-corp;
+        color: $blanco-corp;
+        padding-left: 2px;
+    }
+    p{
+
+        font-family: $texto;
+        text-align: justify;
+    }
+
+}
+
+.moreinfo{
+
+
+    @extend .principal;
+
+    h2{
+        background-color: $gris-corp;
+    }
+
 }
 
