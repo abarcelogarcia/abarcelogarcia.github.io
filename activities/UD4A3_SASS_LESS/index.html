@@ -9,7 +9,8 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" /> -->
   <!-- <link rel="stylesheet" href="/abarcelogarcia.github.io/bootstrap-5.3.2-dist/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="css/estils.css" />
+  <!-- <link rel="stylesheet" href="css/estils.css" /> -->
+  <link rel="stylesheet" href="css/bootstrap_custom.css" />
 </head>
 
 <body class="bg-page">
@@ -74,10 +75,10 @@
   <main>
     <!-- Section Article of the week -->
     <section id="article_week">
-      <div class="heading mb-2">
+      <div class="heading mb-2 fs-1">
         <div class="row align-items-center">
           <div class="col">
-            <div class="ms-2">Article of the week</div>
+            <div class="ms-2 bg-primary">Article of the week</div>
           </div>
           <div class="col-auto">
             <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" />
@@ -89,12 +90,12 @@
           <div class="card bg-page mx-5 border-0">
             <div class="row g-2">
               <div class="col-md-4 text-center mt-2">
-                <a href="views/post.html"><img src="img/blogg_img_12215.png" class="img-fluid rounded-start" alt="..." /></a>
+                <a href="views/post.html"><img src="img/blogg_img_12215.png" class="img-fluid rounded-start" alt="img post"/></a>
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Title</h5>
-                  <p class="card-text">
+                  <h5 class="card-title fs-2">Title</h5>
+                  <p class="card-text fs-3">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Perferendis provident consectetur accusamus enim magni
                     eveniet et deserunt unde quam, iste atque porro neque
@@ -103,7 +104,7 @@
                   </p>
                   <img src="img/star.png" alt="star" />
                   <div class="text-end me-5">
-                    <button class="btn btn-amarillo">Read</button>
+                    <button class="btn btn-warning">Read</button>
                   </div>
                 </div>
               </div>
@@ -114,25 +115,25 @@
     </section>
     <!-- Section most current -->
     <section id="most_current">
-      <div class="heading my-2">
+      <div class="heading my-2 fs-1">
         <div class="row align-items-center">
           <div class="col">
-            <div class="ms-2">Most current by topic</div>
+            <div class="ms-2 bg-primary">Most current by topic</div>
           </div>
           <div class="col-auto">
-            <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" />
+            <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings"  />
           </div>
         </div>
       </div>
       <!-- Section with 1 container. Contains 2 carousel with 2 articles for each carousel -->
       <section>
         <div class="container">
-          <!-- mobile 1 column / desktop 2 columns -->
-          <div class="row row-cols-1 row-cols-sm-2">
+          <!-- mobile 1 column / big desktop 2 columns -->
+          <div class="row row-cols-sm-1 row-cols-xl-2">
             <div id="carouselSport1" class="carousel slide">
-              <h1 class="topic">Sport</h1>
+              <h1 class="topic display-3">Sport</h1>
               <div class="carousel-inner">
-                <div class="carousel-item active">
+                <a href="views/post.html"><div class="carousel-item active">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -142,8 +143,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -153,7 +154,7 @@
                               </p>
                               <img src="img/star.png" alt="star" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -161,8 +162,8 @@
                       </div>
                     </div>
                   </article>
-                </div>
-                <div class="carousel-item">
+                </div></a>
+                <a href="views/post.html"><div class="carousel-item">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -172,8 +173,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -184,7 +185,7 @@
                               <img src="img/star.png" alt="star1" />
                               <img src="img/star.png" alt="star2" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -192,7 +193,7 @@
                       </div>
                     </div>
                   </article>
-                </div>
+                </div></a>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselSport1" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -204,9 +205,9 @@
               </button>
             </div>
             <div id="carouselTech" class="carousel slide">
-              <h1 class="topic">Tech</h1>
+              <h1 class="topic display-3">Tech</h1>
               <div class="carousel-inner">
-                <div class="carousel-item">
+                <a href="views/post.html"><div class="carousel-item">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -216,8 +217,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -227,7 +228,7 @@
                               </p>
                               <img src="img/star.png" alt="star" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -235,8 +236,8 @@
                       </div>
                     </div>
                   </article>
-                </div>
-                <div class="carousel-item active">
+                </div></a>
+                <a href="views/post.html"><div class="carousel-item active">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -246,8 +247,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -258,7 +259,7 @@
                               <img src="img/star.png" alt="star1" />
                               <img src="img/star.png" alt="star2" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -266,7 +267,7 @@
                       </div>
                     </div>
                   </article>
-                </div>
+                </div></a>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselTech" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -283,12 +284,12 @@
       <!-- Section with 1 container. Contains 2 carousel with 2 articles for each carousel -->
       <section>
         <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2">
+          <div class="row row-cols-sm-1 row-cols-xl-2">
             <!-- mobile 1 column / desktop 2 columns -->
             <div id="carouselHealth" class="carousel slide">
-              <h1 class="topic">Health</h1>
+              <h1 class="topic display-3">Health</h1>
               <div class="carousel-inner">
-                <div class="carousel-item active">
+                <a href="views/post.html"><div class="carousel-item active">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -298,8 +299,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -309,7 +310,7 @@
                               </p>
                               <img src="img/star.png" alt="star" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -317,8 +318,8 @@
                       </div>
                     </div>
                   </article>
-                </div>
-                <div class="carousel-item">
+                </div></a>
+                <a href="views/post.html"><div class="carousel-item">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -328,8 +329,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -340,7 +341,7 @@
                               <img src="img/star.png" alt="star1" />
                               <img src="img/star.png" alt="star2" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -348,7 +349,7 @@
                       </div>
                     </div>
                   </article>
-                </div>
+                </div></a>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselHealth" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -360,9 +361,9 @@
               </button>
             </div>
             <div id="carouselSociety" class="carousel slide">
-              <h1 class="topic">Society</h1>
+              <h1 class="topic display-3">Society</h1>
               <div class="carousel-inner">
-                <div class="carousel-item">
+                <a href="views/post.html"><div class="carousel-item">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -372,8 +373,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -383,7 +384,7 @@
                               </p>
                               <img src="img/star.png" alt="star" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -391,8 +392,8 @@
                       </div>
                     </div>
                   </article>
-                </div>
-                <div class="carousel-item active">
+                </div></a>
+                <a href="views/post.html"><div class="carousel-item active">
                   <article>
                     <div class="col">
                       <div class="card bg-page mx-5 border-0">
@@ -402,8 +403,8 @@
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <h5 class="card-title">Title</h5>
-                              <p class="card-text">
+                              <h5 class="card-title fs-2">Title</h5>
+                              <p class="card-text fs-3">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Perferendis provident
                                 consectetur accusamus enim magni eveniet et
@@ -414,7 +415,7 @@
                               <img src="img/star.png" alt="star1" />
                               <img src="img/star.png" alt="star2" />
                               <div class="text-end">
-                                <button class="btn btn-amarillo">Read</button>
+                                <button class="btn btn-warning">Read</button>
                               </div>
                             </div>
                           </div>
@@ -422,7 +423,7 @@
                       </div>
                     </div>
                   </article>
-                </div>
+                </div></a>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselSociety"
                 data-bs-slide="prev">
@@ -451,7 +452,7 @@
             <img src="img/socialbutton.png" alt="" srcset="" />
             <img src="img/socialbutton.png" alt="" srcset="" />
           </div>
-          <div class="col text-center text-sm-end" style="font-size: 10px">
+          <div class="col text-center text-sm-end">
             Bloggin, S.L.
             <br />
             Ses Moreres 1258, 07701 Maó
@@ -491,7 +492,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <img src="img/LogoBloggIn_login.png" alt="login_logo" />
-          <h1 class="modal-title fs-3 w-100 p-1" id="staticBackdropLabel">
+          <h1 class="modal-title fs-1 w-100 p-1" id="staticBackdropLabel">
             Login
           </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -556,7 +557,7 @@
                   <img src="img/avatar4.png" alt="avatar 4" name="avatar" id="avatar-img4" />
                 </label>
                 <div class="text-start mt-2 ms-2">
-                  <button type="reset" class="btn btn-amarillo" id="reset-btn">
+                  <button type="reset" class="btn btn-warning" id="reset-btn">
                     Reset
                   </button>
                 </div>
@@ -565,7 +566,7 @@
           </div>
           <div class="modal-footer">
             <div class="text-end">
-              <button type="submit" class="btn btn-amarillo">Submit</button>
+              <button type="submit" class="btn btn-warning">Submit</button>
             </div>
           </div>
         </form>
