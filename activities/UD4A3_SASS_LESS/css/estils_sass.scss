@@ -24,6 +24,8 @@
  $titulo: 'Bahnschrift';
  $texto: 'Roboto';
 
+ $titulo_size: 28px;
+
 
  .navbar-bg {
     background-color: $gris-corp;
@@ -38,7 +40,7 @@
 .heading {
     background-color: $azul-corp;
     font-family: $titulo;
-    font-size: 28px;
+    font-size: $titulo_size;
     color: $blanco-corp;
 }
 
@@ -87,11 +89,11 @@ ul {
 
 /* Assign default fonts to the modal*/
 .modal {
-    font-family: var(--texto);
+    font-family: $texto;
 }
 
 .modal-header {
-    font-family: var(--titulo);
+    font-family: $titulo;
     text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5);
 
 }
@@ -131,8 +133,8 @@ ul {
 }
 
 #reset-btn:hover {
-    background-color: var(--rojo-corp);
-    color: var(--blanco-corp);
+    background-color: $rojo-corp;
+    color: $blanco-corp;
     transition-duration: 0.5s;
 }
 
@@ -229,11 +231,9 @@ input[name="reset"]:checked~label>img {
 }
 
 
-/* UD4 ACTIVITY 2 */
-
 form *>input:focus {
 
-    background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
+    background-image: linear-gradient(to right, $blanco-corp, $blanco-corp, $blanco-corp, rgba(0, 27, 46, 0.2));
 
 }
 
@@ -242,7 +242,7 @@ input[type=password]:focus,
 input[type=number]:focus {
 
     box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
-    border-color: var(--gris-corp);
+    border-color: $gris-corp;
 }
 
 .principal {
@@ -258,6 +258,7 @@ input[type=number]:focus {
 
         font-family: $texto;
         text-align: justify;
+        font-size: calc(#{$titulo_size}/2)
     }
 
 }

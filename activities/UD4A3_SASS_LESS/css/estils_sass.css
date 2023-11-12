@@ -59,11 +59,11 @@ ul {
 }
 /* Assign default fonts to the modal*/
 .modal {
-  font-family: var(--texto);
+  font-family: "Roboto";
 }
 
 .modal-header {
-  font-family: var(--titulo);
+  font-family: "Bahnschrift";
   text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5);
 }
 
@@ -100,8 +100,8 @@ ul {
 }
 
 #reset-btn:hover {
-  background-color: var(--rojo-corp);
-  color: var(--blanco-corp);
+  background-color: #CC0000;
+  color: #f3f5f7;
   transition-duration: 0.5s;
 }
 
@@ -186,16 +186,15 @@ input[name=reset]:checked ~ label > img {
   display: block;
 }
 
-/* UD4 ACTIVITY 2 */
 form * > input:focus {
-  background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
+  background-image: linear-gradient(to right, #f3f5f7, #f3f5f7, #f3f5f7, rgba(0, 27, 46, 0.2));
 }
 
 input[type=text]:focus,
 input[type=password]:focus,
 input[type=number]:focus {
   box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
-  border-color: var(--gris-corp);
+  border-color: #ADB6C4;
 }
 
 .principal h2, .moreinfo h2 {
@@ -207,6 +206,7 @@ input[type=number]:focus {
 .principal p, .moreinfo p {
   font-family: "Roboto";
   text-align: justify;
+  font-size: calc(28px / 2);
 }
 
 .moreinfo h2 {
