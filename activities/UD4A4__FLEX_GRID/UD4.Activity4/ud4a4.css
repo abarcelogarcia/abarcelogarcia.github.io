@@ -3,6 +3,11 @@
   padding: 0;
   
 }
+
+main {
+  position: relative;
+}
+
   
 .image{
     text-align: center;
@@ -15,9 +20,10 @@
 .menu-element{
     display: inline-block;
   }
-
-.menu{
+  
+  .menu{
     text-align: center;
+    background-color: aquamarine;
   }
 
 a{
@@ -30,6 +36,78 @@ a{
     padding: 15px;
   }
 
+.list-group{
+
+margin-bottom: 15px;
+  
+}
+
+.menu2-element{
+
+  padding: 5px;
+  
+
+}
+
+
+li{
+  list-style: none;
+  
+}
+
+#products-filter{
+
+  background-color: brown;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+}
+
+article{
+
+ 
+  display: inline-block;
+
+}
+
+.footer{
+
+  background-color: gray;
+  text-align: center;
+}
+
+#load-more-products{
+
+  text-align: center;
+  padding: 30px;
+}
+
+#back-to-top{
+
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+
+.product-name{
+
+  font-weight: bold;
+  
+  display: block;
+  
+}
+.item-details{
+  
+  margin-bottom: 5px;
+
+}
+
+.menu>div{
+
+  position: absolute;
+  top: 85px;
+  right: 5px;
+}
   
 
   @media (min-width: 600px) {
@@ -37,8 +115,9 @@ a{
     aside {
       width: 200px;
       padding: 10px;
-      position: ab;
-      top: 200;
+      position: absolute;
+      background-color: aqua;
+      top: 0;
       left: 0;
       bottom: 0;
     }
