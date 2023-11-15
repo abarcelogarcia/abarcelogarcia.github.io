@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  
+}
+  
+.image{
+    text-align: center;
+  }
+
+.logo{
+    width: 90px;
+  }
+
+.menu-element{
+    display: inline-block;
+  }
+
+.menu{
+    text-align: center;
+  }
+
+a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+
+.menu-element{
+    padding: 15px;
+  }
+
+  
+
+  @media (min-width: 600px) {
+
+    aside {
+      width: 200px;
+      padding: 10px;
+      position: ab;
+      top: 200;
+      left: 0;
+      bottom: 0;
+    }
+  
+    section{
+  
+      margin-left: 220px;
+  
+    }
+
+
+
+  }
