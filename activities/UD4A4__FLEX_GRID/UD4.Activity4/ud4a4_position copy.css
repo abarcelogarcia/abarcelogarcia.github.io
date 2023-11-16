@@ -1,3 +1,5 @@
+
+
 :root {
 
   /* COLORS */
@@ -17,6 +19,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Gill Sans,Gill Sans MT,Calibri,sans-serif; 
 
 }
 
@@ -25,6 +28,13 @@ main {
   background-color: var(--blanco-corp);
 }
 
+.menu>div {
+
+  position: relative;
+  top: 185px;
+  right: 150px;
+  background-color: #CC0000;
+}
 
 .image {
   text-align: center;
@@ -36,22 +46,28 @@ main {
 
 .menu-element {
   display: inline-block;
-}
-
-.menu {
-  text-align: center;
-  background-color: var(--gris-corp);
+  padding: 15px;
 }
 
 a {
   text-decoration: none;
   color: black;
-  font-weight: bold;
+}
+.menu{
+
+  background-color: var(--gris-corp);
+  text-align: center;
+
 }
 
-.menu-element {
-  padding: 15px;
+
+a:hover{
+
+  color: var(--amarillo-corp);
+  text-decoration: underline;
+
 }
+
 
 .list-group {
 
@@ -62,8 +78,6 @@ a {
 .menu2-element {
 
   padding: 5px;
-
-
 }
 
 
@@ -82,10 +96,7 @@ li {
 }
 
 article {
-
-
   display: inline-block;
-
 }
 
 .footer {
@@ -126,12 +137,9 @@ article {
 
 }
 
-.menu>div {
 
-  position: absolute;
-  top: 85px;
-  right: 5px;
-}
+
+
 
 #load-more-products>button {
 
