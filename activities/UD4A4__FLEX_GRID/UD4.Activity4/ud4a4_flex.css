@@ -1,68 +1,206 @@
-*{
-margin: 0;
-padding: 0;
+:root {
+
+  /* COLORS */
+
+  --blanco-corp: #f3f5f7;
+  --azul-corp: #001B2E;
+  --rojo-corp: #CC0000;
+  --amarillo-corp: #FF9900;
+  --verde-corp: #294C60;
+  --gris-corp: #ADB6C4;
+
+  /* FONTS */
+  --titulo: 'Bahnschrift';
+  --texto: 'Roboto';
+  font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
+
 }
 
-header{
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main>div {
+  display: flex;
+  flex: 1;
+
+}
+
+header {
 
   text-align: center;
 
 }
 
-.menu{
-  background-color: aquamarine;
+footer {
+
+  background-color: var(--gris-corp);
+  text-align: center;
+
+}
+
+.menu>div>:not(#search) {
+
+  background-color: var(--amarillo-corp);
+  padding: 5px 10px;
+  border: none;
+
+}
+
+#search {
+  border: none;
+
+  padding: 5px 10px;
+
+}
+
+.menu {
+  background-color: var(--gris-corp);
+  padding: 15px;
 }
 
 .menu>div {
   position: absolute;
   top: 90px;
   right: 30px;
-  
+
 }
-.menu>ul{
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    padding: 15px;
-    
-  }
 
-.menu>ul>li{
-flex-wrap: nowrap;
-padding: 5px;
+.menu>ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
 
+}
 
-  }
+.menu>ul>li {
+  padding: 5px;
+}
 
-  a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
+a {
+  text-decoration: none;
+  color: black;
+}
 
-  .menu>div{
+.menu>div {
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-  }
-  
-
-  aside {  
-    width: 200px;
-    background-color: #f4f4f4;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  article{
-    display: flex;
-    flex-wrap: nowrap;
+}
 
 
-   
+aside {
+  width: 200px;
+  background-color: var(--blanco-corp);
+  padding: 10px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+article {
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+}
+
+article>div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+img {
+
+  max-width: 350px;
+}
 
 
-  }
+li {
+  list-style: none;
+}
 
-  
+#back-to-top {
+
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: var(--amarillo-corp);
+  padding: 10px 42px;
+  border: none;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+#products-filter {
+  background-color: var(--verde-corp);
+  color: var(--blanco-corp);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+}
+
+.product-name {
+
+  font-weight: bold;
+}
+
+.item-details {
+  margin-bottom: 5px;
+}
+
+
+#load-more-products {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+#load-more-products>button {
+
+  background-color: var(--rojo-corp);
+  color: var(--blanco-corp);
+  padding: 10px 32px;
+  border: none;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+
+/* ASIDE MENU */
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+
+  color: var(--amarillo-corp);
+  text-decoration: underline;
+
+}
+
+.list-group {
+
+  margin-bottom: 25px;
+
+}
+
+.menu2-element {
+  padding: 3px;
+  margin-left: 10px;
+}
+
+.menu-element {
+
+  margin-right: 30px;
+}

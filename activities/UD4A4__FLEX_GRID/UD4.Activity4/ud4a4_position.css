@@ -12,13 +12,13 @@
   /* FONTS */
   --titulo: 'Bahnschrift';
   --texto: 'Roboto';
-  
+
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: Gill Sans,Gill Sans MT,Calibri,sans-serif;
+  font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
 }
 
 main {
@@ -26,7 +26,7 @@ main {
   background-color: var(--blanco-corp);
 }
 
-header{
+header {
 
   text-align: center;
 }
@@ -41,22 +41,23 @@ header{
 }
 
 .menu>div {
-  position: absolute;
-  top: 80px;
-  right: 30px;
-  
+  position: relative;
+  padding: 10px;
+
+
 }
+
 .menu>div>:not(#search) {
- 
+
   background-color: var(--amarillo-corp);
   padding: 5px 10px;
   border: none;
-  
+
 }
 
-#search{
+#search {
   border: none;
-  
+
   padding: 5px 10px;
 
 }
@@ -67,7 +68,7 @@ a {
   color: black;
 }
 
-a:hover{
+a:hover {
 
   color: var(--amarillo-corp);
   text-decoration: underline;
@@ -75,17 +76,46 @@ a:hover{
 }
 
 .menu-element {
-  padding: 15px;
+  padding: 12px;
+}
+
+nav>ul {
+
+  margin-left: 0px;
+
 }
 
 .list-group {
 
-  margin-bottom: 15px;
+  display: inline-block;
+  margin-bottom: 30px;
+
+}
+
+.list-group>ul {
+
+  margin-top: 5px;
+
+
+}
+
+.list-group>ul>li {
+
+  display: inline-block;
+
+}
+
+.list-group strong {
+
+  background-color: var(--verde-corp);
+  color: var(--blanco-corp);
+  width: 100%;
+  padding: 5px;
 
 }
 
 .menu2-element {
-  padding: 5px;
+  padding: 3px;
 }
 
 
@@ -120,7 +150,7 @@ article {
 
   position: fixed;
   bottom: 80px;
-  right: 80px;
+  right: 20px;
   background-color: var(--amarillo-corp);
   padding: 10px 32px;
   border: none;
@@ -150,10 +180,26 @@ article {
 
 
 }
-img{
+
+img {
 
   max-width: 400px;
 }
+
+aside {
+  position: static;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px 20px 20px 0;
+  background-color: var(--blanco-corp);
+}
+
+section>ul {
+
+  text-align: center;
+
+}
+
 
 
 @media (min-width: 600px) {
@@ -162,7 +208,6 @@ img{
     width: 200px;
     padding: 10px;
     position: absolute;
-    background-color: var(--blanco-corp);
     top: 0;
     left: 0;
     bottom: 0;
@@ -174,6 +219,54 @@ img{
 
   }
 
+  .list-group {
+
+    margin-bottom: 25px;
+    display: block;
+
+  }
+
+  .list-group>ul>li {
+
+    display: block;
+
+  }
+
+
+
+  section>ul {
+
+    text-align: start;
+
+  }
+
+  .menu2-element {
+    margin-left: 10px;
+  }
+
+  .menu>div {
+    position: absolute;
+    top: 80px;
+    right: 30px;
+    padding: 0px;
+
+
+  }
+
+  .menu>div>:not(#search) {
+
+    background-color: var(--amarillo-corp);
+    padding: 5px 10px;
+    border: none;
+
+  }
+
+  #search {
+    border: none;
+
+    padding: 5px 10px;
+
+  }
 
 
 }
