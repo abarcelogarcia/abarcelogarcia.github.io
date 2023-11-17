@@ -27,7 +27,6 @@ main {
 }
 
 header {
-
   text-align: center;
 }
 
@@ -43,8 +42,6 @@ header {
 .menu>div {
   position: relative;
   padding: 10px;
-
-
 }
 
 .menu>div>:not(#search) {
@@ -87,7 +84,7 @@ nav>ul {
 
 .list-group {
 
-  display: inline-block;
+  display: block;
   margin-bottom: 30px;
 
 }
@@ -202,7 +199,7 @@ section>ul {
 
 
 
-@media (min-width: 600px) {
+@media (min-width: 1000px)  {
 
   aside {
     width: 200px;
