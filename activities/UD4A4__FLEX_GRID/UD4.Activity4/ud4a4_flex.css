@@ -1,3 +1,18 @@
+/* ------------------------------------------ */
+/* FONTS */
+/* ------------------------------------------ */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+@font-face {
+  font-family: "Bahnschrift";
+  src: url(fonts/BAHNSCHRIFT.TTF);
+}
+
+/* ------------------------------------------ */
+/* VARIABLES */
+/* ------------------------------------------ */
+
 :root {
 
   /* COLORS */
@@ -15,68 +30,25 @@
   
 }
 
+/* ------------------------------------------ */
+/* GENERAL CONFIGURATION */
+/* ------------------------------------------ */
+
+/* Skip general margins */
 * {
   margin: 0;
   padding: 0;
-  font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
+  font-family: var(--texto);
 }
 
 main {
   display: flex;
   flex: 1;
-
+  background-color: var(--blanco-corp);
 }
 
-header {
-
-  text-align: center;
-
-}
-
-footer {
-
-  background-color: var(--gris-corp);
-  text-align: center;
-
-}
-
-.menu>div>:not(#search) {
-
-  background-color: var(--amarillo-corp);
-  padding: 5px 10px;
-  border: none;
-
-}
-
-#search {
-  border: none;
-
-  padding: 5px 10px;
-
-}
-
-.menu {
-  background-color: var(--gris-corp);
-  padding: 15px;
-}
-
-.menu>div {
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-
-}
-
-.menu>ul {
-  list-style-type: none;
-  display: flex;
-  justify-content: center;
-
-}
-
-.menu>ul>li {
-  padding: 5px;
+h1{
+  font-family: var(--titulo);
 }
 
 a {
@@ -84,30 +56,109 @@ a {
   color: black;
 }
 
-.menu>div {
-
-  display: flex;
-  align-items: center;
-
+a:hover {
+  color: var(--amarillo-corp);
+  text-decoration: underline;
 }
 
+li {
+  list-style: none;
+}
 
-aside {
-  background-color: var(--blanco-corp);
+/* ------------------------------------------ */
+/* HEADER */
+/* ------------------------------------------ */
+
+header {
+  text-align: center;
+}
+
+/* button & input search*/
+.menu>div>:not(#search) {
+  background-color: var(--amarillo-corp);
+  padding: 5px 10px;
+  border: none;
+}
+
+#search {
+  border: none;
+  padding: 5px 10px;
+}
+
+/* Header menu */
+.menu {
+  background-color: var(--gris-corp);
+  padding: 15px;
+}
+
+/* list menu */
+.menu>ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.menu>ul>li {
   padding: 10px;
 }
+
+/* ------------------------------------------ */
+/* ASIDE */
+/* ------------------------------------------ */
+
+aside {
+  padding: 10px;
+}
+
+.list-group{
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.list-group>ul{
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.list-group>strong{
+  background-color: var(--verde-corp);
+  color: var(--blanco-corp);
+  width: 100%;
+  padding: 5px;
+}
+
+.menu2-element {
+  padding: 8px;
+}
+
+
+
+/* ------------------------------------------ */
+/* PRODUCTS SECTION */
+/* ------------------------------------------ */
 
 section {
   display: flex;
   flex-direction: column;
   flex: 1;
+  margin-top: 10px;
+}
+
+
+/* Filter Bar */
+#products-filter {
+  background-color: var(--verde-corp);
+  color: var(--blanco-corp);
+  padding: 20px;
+  position: sticky;
+  top: 0;
 }
 
 article {
   display: inline-flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
-
 }
 
 article>div {
@@ -117,50 +168,20 @@ article>div {
   flex-wrap: wrap;
 }
 
+/* limit size to show almost 4 products on full screen */
 img {
-
   max-width: 350px;
 }
 
-
-li {
-  list-style: none;
-}
-
-#back-to-top {
-
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background-color: var(--amarillo-corp);
-  padding: 10px 42px;
-  border: none;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-}
-
-#products-filter {
-  background-color: var(--verde-corp);
-  color: var(--blanco-corp);
-  padding: 20px;
-  position: sticky;
-  top: 0;
-}
-
 .product-name {
-
   font-weight: bold;
-}
-
-#product-listing>li>article {
-
- 
 }
 
 .item-details {
   margin-bottom: 5px;
 }
 
+/* Load more */
 
 #load-more-products {
 
@@ -180,57 +201,42 @@ li {
   border-bottom-right-radius: 50px;
 }
 
+/* ------------------------------------------ */
+/* FOOTER */
+/* ------------------------------------------ */
 
-/* ASIDE MENU */
-a {
-  text-decoration: none;
-  color: black;
-}
 
-a:hover {
+  footer {
 
-  color: var(--amarillo-corp);
-  text-decoration: underline;
-
-}
-
-.list-group>ul{
-
-  display: flex;
-  flex-direction: row;
-  margin-top: 5px;
+    background-color: var(--gris-corp);
+    text-align: center;
   
   }
 
-  .list-group{
+  /* Top button */
+  #back-to-top {
 
-  padding: 10px;
-  
-  }
-  .list-group>strong{
-
-    background-color: var(--verde-corp);
-    color: var(--blanco-corp);
-    width: 100%;
-    padding: 5px;
-  
-  }
-  
-  .menu2-element {
-    
-    padding: 8px;
-  }
-  
-  .menu-element {
-  
-    margin-right: 30px;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: var(--amarillo-corp);
+    padding: 10px 42px;
+    border: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
   }
 
 @media (min-width: 1000px){
 
+  main>div {
+    display: flex;
+    flex: 1;
+  }
+
+  /* button & input search*/
   .menu>div {
     position: absolute;
-    top: 88px;
+    top: 93px;
     right: 30px;
   padding: 0px;
   
@@ -241,29 +247,14 @@ a:hover {
     padding: 10px;
   }
 
-  main>div {
-    display: flex;
-    flex: 1;
-  
-  }
-
-  
-  
   .menu2-element {
     padding: 3px;
     margin-left: 10px;
   }
   
-  .menu-element {
-  
-    margin-right: 30px;
-  }
-
+  /* Change menu aside direction */
   .list-group>ul{
-
     flex-direction: column;
-    
-    
     }
   
 }

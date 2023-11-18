@@ -1,3 +1,18 @@
+/* ------------------------------------------ */
+/* FONTS */
+/* ------------------------------------------ */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+@font-face {
+  font-family: "Bahnschrift";
+  src: url(fonts/BAHNSCHRIFT.TTF);
+}
+
+/* ------------------------------------------ */
+/* VARIABLES */
+/* ------------------------------------------ */
+
 :root {
 
   /* COLORS */
@@ -15,10 +30,16 @@
 
 }
 
+
+/* ------------------------------------------ */
+/* GENERAL CONFIGURATION */
+/* ------------------------------------------ */
+
+/* Skip general margins */
 * {
   margin: 0;
   padding: 0;
-  font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
+  font-family: var(--texto);
 }
 
 main {
@@ -26,26 +47,39 @@ main {
   background-color: var(--blanco-corp);
 }
 
+h1{
+  font-family: var(--titulo);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: var(--amarillo-corp);
+  text-decoration: underline;
+}
+
+li {
+  list-style: none;
+}
+
+/* ------------------------------------------ */
+/* HEADER */
+/* ------------------------------------------ */
+
 header {
   text-align: center;
 }
 
-
-.menu {
-  background-color: var(--gris-corp);
-}
-
-.menu-element {
-  display: inline-block;
-}
-
+/* button & input search*/
 .menu>div {
   position: relative;
   padding: 10px;
 }
 
 .menu>div>:not(#search) {
-
   background-color: var(--amarillo-corp);
   padding: 5px 10px;
   border: none;
@@ -54,61 +88,52 @@ header {
 
 #search {
   border: none;
-
   padding: 5px 10px;
-
 }
 
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-a:hover {
-
-  color: var(--amarillo-corp);
-  text-decoration: underline;
-
+/* Header menu */
+.menu {
+  background-color: var(--gris-corp);
+  padding: 15px;
 }
 
 .menu-element {
-  padding: 12px;
+  display: inline-block;
+  padding: 10px;
 }
 
-nav>ul {
+/* ------------------------------------------ */
+/* ASIDE */
+/* ------------------------------------------ */
 
-  margin-left: 0px;
-
+aside {
+  position: static;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px 20px 20px 0;
+  background-color: var(--blanco-corp);
 }
 
 .list-group {
-
   display: block;
-  margin-bottom: 30px;
+  padding: 10px;
+  margin-top: 10px;
 
 }
 
 .list-group>ul {
-
   margin-top: 5px;
-
-
 }
 
 .list-group>ul>li {
-
   display: inline-block;
-
 }
 
 .list-group strong {
-
   background-color: var(--verde-corp);
   color: var(--blanco-corp);
   width: 100%;
   padding: 5px;
-
 }
 
 .menu2-element {
@@ -116,10 +141,16 @@ nav>ul {
 }
 
 
-li {
-  list-style: none;
+/* ------------------------------------------ */
+/* PRODUCTS SECTION */
+/* ------------------------------------------ */
+
+/* in mobile version, center product */
+section>ul {
+  text-align: center;
 }
 
+/* Filter Bar */
 #products-filter {
 
   background-color: var(--verde-corp);
@@ -133,15 +164,39 @@ article {
   display: inline-block;
 }
 
-.footer {
-  background-color: gray;
-  text-align: center;
+.product-name {
+  font-weight: bold;
+  display: block;
 }
 
+.item-details {
+  margin-bottom: 5px;
+}
+
+/* limit size to show almost 4 products on full screen */
+img {
+  max-width: 400px;
+}
+
+/* Load more */
 #load-more-products {
   text-align: center;
   padding: 30px;
 }
+
+#load-more-products>button {
+  background-color: var(--rojo-corp);
+  color: var(--blanco-corp);
+  padding: 10px 32px;
+  border: none;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+
+/* ------------------------------------------ */
+/* FOOTER */
+/* ------------------------------------------ */
 
 #back-to-top {
 
@@ -155,51 +210,41 @@ article {
   border-top-right-radius: 50px;
 }
 
-.product-name {
-  font-weight: bold;
-  display: block;
-}
-
-.item-details {
-  margin-bottom: 5px;
-}
-
-
-#load-more-products>button {
-
-  background-color: var(--rojo-corp);
-  color: var(--blanco-corp);
-  padding: 10px 32px;
-  border: none;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-
-
-
-}
-
-img {
-
-  max-width: 400px;
-}
-
-aside {
-  position: static;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 20px 20px 20px 0;
-  background-color: var(--blanco-corp);
-}
-
-section>ul {
-
+footer {
+  background-color: var(--gris-corp);
   text-align: center;
-
 }
-
 
 
 @media (min-width: 1000px)  {
+
+  /* ------------------------------------------ */
+  /* HEADER */
+  /* ------------------------------------------ */
+
+  .menu>div {
+    position: absolute;
+    top: 93px;
+    right: 30px;
+    padding: 0px;
+  }
+
+  .menu>div>:not(#search) {
+    background-color: var(--amarillo-corp);
+    padding: 5px 10px;
+    border: none;
+  }
+
+  #search {
+    border: none;
+
+    padding: 5px 10px;
+
+  }
+
+  /* ------------------------------------------ */
+  /* ASIDE */
+  /* ------------------------------------------ */
 
   aside {
     width: 200px;
@@ -210,59 +255,29 @@ section>ul {
     bottom: 0;
   }
 
-  section {
-
-    margin-left: 220px;
-
-  }
-
   .list-group {
-
     margin-bottom: 25px;
     display: block;
-
   }
 
   .list-group>ul>li {
-
     display: block;
-
-  }
-
-
-
-  section>ul {
-
-    text-align: start;
-
   }
 
   .menu2-element {
     margin-left: 10px;
   }
 
-  .menu>div {
-    position: absolute;
-    top: 80px;
-    right: 30px;
-    padding: 0px;
+  /* ------------------------------------------ */
+  /* PRODUCTS SECTION */
+  /* ------------------------------------------ */
 
-
+  section {
+    margin-left: 220px;
   }
-
-  .menu>div>:not(#search) {
-
-    background-color: var(--amarillo-corp);
-    padding: 5px 10px;
-    border: none;
-
-  }
-
-  #search {
-    border: none;
-
-    padding: 5px 10px;
-
+  
+  section>ul {
+    text-align: start;
   }
 
 
