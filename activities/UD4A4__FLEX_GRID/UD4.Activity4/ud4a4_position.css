@@ -193,11 +193,6 @@ img {
   border-bottom-right-radius: 50px;
 }
 
-
-/* ------------------------------------------ */
-/* FOOTER */
-/* ------------------------------------------ */
-
 #back-to-top {
 
   position: fixed;
@@ -209,6 +204,11 @@ img {
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
 }
+
+
+/* ------------------------------------------ */
+/* FOOTER */
+/* ------------------------------------------ */
 
 footer {
   background-color: var(--gris-corp);
@@ -237,9 +237,7 @@ footer {
 
   #search {
     border: none;
-
     padding: 5px 10px;
-
   }
 
   /* ------------------------------------------ */

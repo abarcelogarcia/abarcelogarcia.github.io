@@ -205,12 +205,18 @@ img {
 /* FOOTER */
 /* ------------------------------------------ */
 
-
-  footer {
-
+  footer{
     background-color: var(--gris-corp);
-    text-align: center;
+  }
   
+  footer>ul>li{
+    display: flex;
+    justify-content: center;
+  }
+
+  footer>div{
+    display: flex;
+    justify-content: center;
   }
 
   /* Top button */
