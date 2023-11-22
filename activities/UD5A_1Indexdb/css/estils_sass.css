@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url("avatar_effect.css");
+@font-face {
+  font-family: "Bahnschrift";
+  src: url(../fonts/BAHNSCHRIFT.TTF);
+}
+/* COLORS */
+/* FONTS */
+.navbar-bg {
+  background-color: #ADB6C4;
+  color: #001B2E;
+}
+
+.bg-page {
+  background-color: #f3f5f7;
+}
+
+.heading {
+  background-color: #001B2E;
+  font-family: "Bahnschrift";
+  font-size: 28px;
+  color: #f3f5f7;
+}
+
+.topic,
+.topic a {
+  color: #001B2E;
+  text-decoration-line: none;
+}
+
+/* Hamburguer menu */
+.offcanvas-body {
+  font-size: xx-large;
+}
+
+.offcanvas {
+  background-color: #f3f5f7;
+  font-size: xx-large;
+}
+
+ul {
+  list-style-type: none;
+  text-decoration-line: none;
+}
+
+.offcanvas-title {
+  font-size: xx-large;
+}
+
+.principal h2, .moreinfo h2 {
+  font-family: "Bahnschrift";
+  background-color: #001B2E;
+  color: #f3f5f7;
+  padding-left: 2px;
+}
+.principal p, .moreinfo p {
+  font-family: "Roboto";
+  text-align: justify;
+  font-size: calc(28px / 2);
+}
+
+.moreinfo h2 {
+  background-color: #ADB6C4;
+}
+
+/*# sourceMappingURL=estils_sass.css.map */

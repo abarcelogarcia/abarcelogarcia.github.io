@@ -1,0 +1,101 @@
+@font-face {
+
+    font-family: 'Bahnschrift';
+    src: url(../fonts/BAHNSCHRIFT.TTF);
+
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+@import url("avatar_effect.css");
+
+// Variables
+
+ /* COLORS */
+
+ $blanco-corp: #f3f5f7;
+ $azul-corp: #001B2E;
+ $rojo-corp: #CC0000;
+ $amarillo-corp: #FF9900;
+ $verde-corp: #294C60;
+ $gris-corp: #ADB6C4;
+ 
+
+ /* FONTS */
+ $titulo: 'Bahnschrift';
+ $texto: 'Roboto';
+ $titulo_size: 28px;
+
+
+ .navbar-bg {
+    background-color: $gris-corp;
+    color: $azul-corp;
+}
+
+.bg-page {
+
+    background-color: $blanco-corp;
+}
+
+.heading {
+    background-color: $azul-corp;
+    font-family: $titulo;
+    font-size: $titulo_size;
+    color: $blanco-corp;
+}
+
+.topic,
+.topic a {
+
+    color: $azul-corp;
+    text-decoration-line: none;
+}
+
+/* Hamburguer menu */
+.offcanvas-body {
+
+    font-size: xx-large;
+
+}
+
+.offcanvas {
+
+    background-color: $blanco-corp;
+    font-size: xx-large;
+
+}
+
+ul {
+
+    list-style-type: none;
+    text-decoration-line: none;
+}
+
+.offcanvas-title {
+
+    font-size: xx-large;
+
+}
+
+
+.principal {
+    h2{
+        font-family: $titulo;
+        background-color: $azul-corp;
+        color: $blanco-corp;
+        padding-left: 2px;
+    }
+    p{
+        font-family: $texto;
+        text-align: justify;
+        font-size: calc(#{$titulo_size}/2)
+    }
+}
+
+.moreinfo{
+    @extend .principal;
+    h2{
+        background-color: $gris-corp;
+    }
+}
+
