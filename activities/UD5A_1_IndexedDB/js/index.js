@@ -1,5 +1,5 @@
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-var database = "usersDB";
+var database = "blogginDB";
 const DB_STORE_NAME = 'users';
 const DB_VERSION = 1;
 var db;
@@ -7,6 +7,8 @@ var opened = false;
 // const EDIT_USER = "Edit user";
 // const NEW_USER = "New user";
 // const ADD_USER = "Add user";
+
+
 
 /**
  * openCreateDb
@@ -56,6 +58,8 @@ function openCreateDb(onDbCompleted) {
     console.log("openCreateDb: Index created on address");
     store.createIndex('age', 'age', { unique: false });
     console.log("openCreateDb: Index created on age");
+    store.createIndex('avatar', 'avatar', { unique: false });
+    console.log("openCreateDb: Index created on avatar");
   };
 
   req.onerror = function (e) {
@@ -64,6 +68,83 @@ function openCreateDb(onDbCompleted) {
 }
 
 
+function sendData(action){
+
+  openCreateDb(function(db){
+    
+    if (action == 'add_user'){
+      addUser(db);
+    } else {
+      console.log("change user values");
+      editUser(db);
+    }    
+
+  });
+}
+
+function addUser(db){
+  var user = document.getElementById("user");
+  var password = document.getElementById("password");
+  var name = document.getElementById("name");
+  var surname = document.getElementById("surname");
+  var address = document.getElementById("address");
+  var age = document.getElementById("age");
+  var avatar = getAvatarPath();
+  console.log(avatar);
+  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar};
+
+
+  // Start a new transaction in readwrite mode. We can use readonly also
+  var tx = db.transaction(DB_STORE_NAME, "readwrite");  
+  var store = tx.objectStore(DB_STORE_NAME);
+
+  try {
+    // Inserts data in our ObjectStore
+    req = store.add(obj);
+  } catch (e) {
+    console.log("Catch");
+  }
+
+  req.onsuccess = function (e) {
+    console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
+    
+    // Operations we want to do after inserting data
+    // readData();
+    // clearFormInputs();
+    
+  };
+  req.onerror = function(e) {
+    console.error("addUser: error creating data", this.error);   
+  };
+
+  //After transaction is completed we close de database
+  tx.oncomplete = function() {
+    console.log("addUser: transaction completed");
+    db.close();
+    opened = false;
+  };
+}
+
+
+function getAvatarPath(){
+
+  var ele = document.getElementsByName('avatar');
+ 
+  for (i = 0; i < ele.length; i++) {
+      
+    if (ele[i].checked){
+
+        return "img/avatar" + (i+1) + ".png";
+
+      }
+          
+  }
+
+
+}
 window.addEventListener('load', (event) => {
     openCreateDb();
+
+   
   });
+
