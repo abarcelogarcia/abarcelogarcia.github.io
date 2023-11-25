@@ -1,8 +1,10 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url("avatar_effect.css");
 @font-face {
   font-family: "Bahnschrift";
   src: url(../fonts/BAHNSCHRIFT.TTF);
+  font-display: auto;
 }
 /* COLORS */
 /* FONTS */
@@ -39,9 +41,11 @@
   --bs-primary: #001B2E;
   --bs-danger: #CC0000;
   --bs-warning: #FF9900;
+  --bs-info: #294C60;
   --bs-primary-rgb: 0, 27, 46;
   --bs-danger-rgb: 204, 0, 0;
   --bs-warning-rgb: 255, 153, 0;
+  --bs-info-rgb: 41, 76, 96;
   --bs-primary-text-emphasis: #052c65;
   --bs-secondary-text-emphasis: #2b2f32;
   --bs-success-text-emphasis: #0a3622;
@@ -3017,6 +3021,23 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #FF9900;
 }
 
+.btn-info {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #294C60;
+  --bs-btn-border-color: #294C60;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #234152;
+  --bs-btn-hover-border-color: #213d4d;
+  --bs-btn-focus-shadow-rgb: 73, 103, 120;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #213d4d;
+  --bs-btn-active-border-color: #1f3948;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #294C60;
+  --bs-btn-disabled-border-color: #294C60;
+}
+
 .btn-outline-primary {
   --bs-btn-color: #001B2E;
   --bs-btn-border-color: #001B2E;
@@ -3065,6 +3086,23 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #FF9900;
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #FF9900;
+  --bs-gradient: none;
+}
+
+.btn-outline-info {
+  --bs-btn-color: #294C60;
+  --bs-btn-border-color: #294C60;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #294C60;
+  --bs-btn-hover-border-color: #294C60;
+  --bs-btn-focus-shadow-rgb: 41, 76, 96;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #294C60;
+  --bs-btn-active-border-color: #294C60;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #294C60;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #294C60;
   --bs-gradient: none;
 }
 
@@ -4123,7 +4161,7 @@ textarea.form-control-lg {
 .card {
   --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
-  --bs-card-title-spacer-y: 2px;
+  --bs-card-title-spacer-y: 0.5rem;
   --bs-card-title-color: ;
   --bs-card-subtitle-color: ;
   --bs-card-border-width: var(--bs-border-width);
@@ -4660,6 +4698,13 @@ textarea.form-control-lg {
   --bs-alert-link-color: var(--bs-warning-text-emphasis);
 }
 
+.alert-info {
+  --bs-alert-color: var(--bs-info-text-emphasis);
+  --bs-alert-bg: var(--bs-info-bg-subtle);
+  --bs-alert-border-color: var(--bs-info-border-subtle);
+  --bs-alert-link-color: var(--bs-info-text-emphasis);
+}
+
 @keyframes progress-bar-stripes {
   0% {
     background-position-x: 1rem;
@@ -4998,6 +5043,19 @@ textarea.form-control-lg {
   --bs-list-group-active-color: var(--bs-warning-bg-subtle);
   --bs-list-group-active-bg: var(--bs-warning-text-emphasis);
   --bs-list-group-active-border-color: var(--bs-warning-text-emphasis);
+}
+
+.list-group-item-info {
+  --bs-list-group-color: var(--bs-info-text-emphasis);
+  --bs-list-group-bg: var(--bs-info-bg-subtle);
+  --bs-list-group-border-color: var(--bs-info-border-subtle);
+  --bs-list-group-action-hover-color: var(--bs-emphasis-color);
+  --bs-list-group-action-hover-bg: var(--bs-info-border-subtle);
+  --bs-list-group-action-active-color: var(--bs-emphasis-color);
+  --bs-list-group-action-active-bg: var(--bs-info-border-subtle);
+  --bs-list-group-active-color: var(--bs-info-bg-subtle);
+  --bs-list-group-active-bg: var(--bs-info-text-emphasis);
+  --bs-list-group-active-border-color: var(--bs-info-text-emphasis);
 }
 
 .btn-close {
@@ -6505,6 +6563,11 @@ textarea.form-control-lg {
   background-color: RGBA(var(--bs-warning-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
+.text-bg-info {
+  color: #fff !important;
+  background-color: RGBA(var(--bs-info-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
 .link-primary {
   color: RGBA(var(--bs-primary-rgb), var(--bs-link-opacity, 1)) !important;
   text-decoration-color: RGBA(var(--bs-primary-rgb), var(--bs-link-underline-opacity, 1)) !important;
@@ -6530,6 +6593,15 @@ textarea.form-control-lg {
 .link-warning:hover, .link-warning:focus {
   color: RGBA(255, 173, 51, var(--bs-link-opacity, 1)) !important;
   text-decoration-color: RGBA(255, 173, 51, var(--bs-link-underline-opacity, 1)) !important;
+}
+
+.link-info {
+  color: RGBA(var(--bs-info-rgb), var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(var(--bs-info-rgb), var(--bs-link-underline-opacity, 1)) !important;
+}
+.link-info:hover, .link-info:focus {
+  color: RGBA(33, 61, 77, var(--bs-link-opacity, 1)) !important;
+  text-decoration-color: RGBA(33, 61, 77, var(--bs-link-underline-opacity, 1)) !important;
 }
 
 .link-body-emphasis {
@@ -6943,6 +7015,10 @@ textarea.form-control-lg {
   --bs-focus-ring-color: rgba(var(--bs-warning-rgb), var(--bs-focus-ring-opacity));
 }
 
+.focus-ring-info {
+  --bs-focus-ring-color: rgba(var(--bs-info-rgb), var(--bs-focus-ring-opacity));
+}
+
 .position-static {
   position: static !important;
 }
@@ -7076,6 +7152,11 @@ textarea.form-control-lg {
 .border-warning {
   --bs-border-opacity: 1;
   border-color: rgba(var(--bs-warning-rgb), var(--bs-border-opacity)) !important;
+}
+
+.border-info {
+  --bs-border-opacity: 1;
+  border-color: rgba(var(--bs-info-rgb), var(--bs-border-opacity)) !important;
 }
 
 .border-black {
@@ -7992,6 +8073,11 @@ textarea.form-control-lg {
   color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-info {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-info-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-black {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
@@ -8169,6 +8255,11 @@ textarea.form-control-lg {
   text-decoration-color: rgba(var(--bs-warning-rgb), var(--bs-link-underline-opacity)) !important;
 }
 
+.link-underline-info {
+  --bs-link-underline-opacity: 1;
+  text-decoration-color: rgba(var(--bs-info-rgb), var(--bs-link-underline-opacity)) !important;
+}
+
 .link-underline {
   --bs-link-underline-opacity: 1;
   text-decoration-color: rgba(var(--bs-link-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
@@ -8235,6 +8326,11 @@ textarea.form-control-lg {
 .bg-warning {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-info {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-info-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-black {
@@ -11390,7 +11486,6 @@ textarea.form-control-lg {
 }
 
 .heading {
-  background-color: #001B2E;
   font-family: "Bahnschrift";
   color: #f3f5f7;
 }
@@ -11427,157 +11522,6 @@ ul {
 
 .offcanvas-title {
   font-size: xx-large;
-}
-
-@keyframes vibrate {
-  0% {
-    transform: rotateZ(-5deg);
-  }
-  50% {
-    transform: rotateZ(0deg) scale(0.9);
-  }
-  100% {
-    transform: rotateZ(5deg);
-  }
-}
-/* Assign default fonts to the modal*/
-.modal {
-  font-family: "Roboto";
-}
-
-.modal-header {
-  font-family: "Bahnschrift";
-  text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5);
-}
-
-/* Apply background with transparency */
-.modal-body {
-  background-color: rgba(0, 27, 46, 0.2);
-}
-
-/* Hide radio selector  */
-[type=radio] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Create avatar transparency */
-[name*=avatar] {
-  opacity: 0.25;
-  filter: grayscale(100%);
-}
-
-/* Delete transparency, grayscale and vibrate animation on mouse hover */
-[name*=avatar]:hover {
-  opacity: 1;
-  transition-duration: 1s;
-  filter: grayscale(0%);
-  animation: vibrate 0.1s 2;
-}
-
-/* Hide the reset button while there is no avatar selected */
-#reset-btn {
-  opacity: 0;
-}
-
-#reset-btn:hover {
-  background-color: #CC0000;
-  color: #f3f5f7;
-  transition-duration: 0.5s;
-}
-
-/* HIDE UNSELECTED AVATARS */
-/* AVATAR 1 SELECTED */
-/* Remove transparency in avatar 1 */
-input[value="1"]:checked ~ label > #avatar-img1 {
-  opacity: 1;
-  filter: grayscale(0%);
-}
-
-/* Hide other avatars */
-input[value="1"]:checked ~ label > :not(#avatar-img1) {
-  opacity: 0;
-  transition-duration: 1s;
-}
-
-/* Show reset button */
-input[value="1"]:checked ~ div > #reset-btn {
-  opacity: 1;
-}
-
-/* AVATAR 2 SELECTED */
-/* Remove transparency in avatar 2 */
-input[value="2"]:checked ~ label > #avatar-img2 {
-  opacity: 1;
-  filter: grayscale(0%);
-}
-
-/* Hide other avatars */
-input[value="2"]:checked ~ label > :not(#avatar-img2) {
-  opacity: 0;
-  transition-duration: 1s;
-}
-
-/* Show reset button */
-input[value="2"]:checked ~ div > #reset-btn {
-  opacity: 1;
-  transform: translate(80px);
-}
-
-/* AVATAR 3 SELECTED */
-/* Remove transparency in avatar 3 */
-input[value="3"]:checked ~ label > #avatar-img3 {
-  opacity: 1;
-  filter: grayscale(0%);
-}
-
-/* Hide other avatars */
-input[value="3"]:checked ~ label > :not(#avatar-img3) {
-  opacity: 0;
-  transition-duration: 1s;
-}
-
-/* Show reset button */
-input[value="3"]:checked ~ div > #reset-btn {
-  opacity: 1;
-  transform: translate(165px);
-}
-
-/* AVATAR 4 SELECTED */
-/* Remove transparency in avatar 3 */
-input[value="4"]:checked ~ label > #avatar-img4 {
-  opacity: 1;
-  filter: grayscale(0%);
-}
-
-/* Hide other avatars */
-input[value="4"]:checked ~ label > :not(#avatar-img4) {
-  opacity: 0;
-  transition-duration: 1s;
-}
-
-/* Show reset button */
-input[value="4"]:checked ~ div > #reset-btn {
-  opacity: 1;
-  transform: translate(250px);
-}
-
-/* Reset (show) hidden images after checked one of them */
-input[name=reset]:checked ~ label > img {
-  display: block;
-}
-
-form * > input:focus {
-  background-image: linear-gradient(to right, #f3f5f7, #f3f5f7, #f3f5f7, rgba(0, 27, 46, 0.2));
-}
-
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=number]:focus {
-  box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
-  border-color: #ADB6C4;
 }
 
 footer {

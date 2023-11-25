@@ -2,6 +2,7 @@
 
   font-family: 'Bahnschrift';
   src: url(../fonts/BAHNSCHRIFT.TTF);
+  font-display: auto;
 
 
 }
@@ -25,7 +26,8 @@ $gris-corp: #ADB6C4;
 $theme-colors: (
   "primary": $azul-corp,
   "danger": $rojo-corp,
-  "warning": $amarillo-corp
+  "warning": $amarillo-corp,
+  "info": $verde-corp
 );
 
 /* FONTS */

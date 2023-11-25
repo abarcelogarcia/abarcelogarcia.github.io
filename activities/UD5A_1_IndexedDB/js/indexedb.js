@@ -35,13 +35,13 @@ function AlmacenarContacto() {
     var I = document.querySelector("#id").value;
     var E = document.querySelector("#edad").value;
 
-    var transaccion = bd.transaction(["Contactos"], "readwrite");
+    var transaccion = bd.transaction("Contactos", "readwrite");
     var almacen = transaccion.objectStore("Contactos");
     transaccion.addEventListener("complete", Mostrar)
 
     almacen.add({
         nombre: N,
-        id: I,
+        pais: I,
         edad: E
     });
 

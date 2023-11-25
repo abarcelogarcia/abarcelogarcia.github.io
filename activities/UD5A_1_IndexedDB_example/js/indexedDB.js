@@ -26,8 +26,10 @@ function Comenzar(evento) {
 
 function CrearAlmacen(evento) {
     var basededatos = evento.target.result;
-    var almacen = basededatos.createObjectStore("Contactos", { keyPath: "id" });
-    almacen.createIndex("BuscarNombre", "nombre", { unique: false });
+    var almacen = basededatos.createObjectStore("Contactos", { keyPath: "id", autoIncrement: true });
+    almacen.createIndex("nombre", "nombre", { unique: false });
+    almacen.createIndex("ID", "ID", { unique: false });
+    almacen.createIndex("edad", "edad", { unique: false });
 }
 
 function AlmacenarContacto() {
@@ -35,7 +37,7 @@ function AlmacenarContacto() {
     var I = document.querySelector("#id").value;
     var E = document.querySelector("#edad").value;
 
-    var transaccion = bd.transaction(["Contactos"], "readwrite");
+    var transaccion = bd.transaction("Contactos", "readwrite");
     var almacen = transaccion.objectStore("Contactos");
     transaccion.addEventListener("complete", Mostrar)
 
@@ -97,7 +99,7 @@ function buscarContacto(evento) {
     var transaccion = bd.transaction(["Contactos"]);
     var almacen = transaccion.objectStore("Contactos");
 
-    var indice = almacen.index("BuscarNombre");
+    var indice = almacen.index("nombre");
     var rango = IDBKeyRange.only(buscar);
     var puntero = indice.openCursor(rango);
 

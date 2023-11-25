@@ -111,6 +111,9 @@ function addUser(db){
     // Operations we want to do after inserting data
     // readData();
     // clearFormInputs();
+
+    const regUsers = new bootstrap.Modal("#users");
+    regUsers.show();
     
   };
   req.onerror = function(e) {
@@ -142,7 +145,7 @@ function getAvatarPath(){
 
 
 }
-window.addEventListener('load', (event) => {
+window.addEventListener('load', () => {
     openCreateDb();
 
    
