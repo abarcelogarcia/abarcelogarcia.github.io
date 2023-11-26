@@ -128,6 +128,89 @@ function addUser(db){
   };
 }
 
+function readUsers(){
+
+  var registered = document.getElementById('registered_user_table');
+
+  registered.innerHTML = '<div class="container registered-users-cab">'+
+  '<div class="row align-items-center">'+
+    '<div class="col-1">'+
+      'ID'+
+    '</div>'+
+    '<div class="col">'+
+      'User'+
+    '</div>'+
+    '<div class="col">'+
+      'Name'+
+    '</div>'+
+    '<div class="col">'+
+      'Surname'+
+    '</div>'+
+    '<div class="col">'+
+      'Address'+
+    '</div>'+
+    '<div class="col text-center">'+
+      'Age'+
+    '</div>'+
+    '<div class="col text-center">'+
+      'Edit'+
+    '</div>'+
+    '<div class="col text-center">'+
+      'Delete'+
+    '</div>'+
+  '</div>'+
+'</div>';
+
+  var tx = db.transaction(DB_STORE_NAME, "readonly"); 
+  var store = tx.objectStore(DB_STORE_NAME);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e){
+
+    var cursor = this.result;
+
+    if(cursor){
+
+      registered.innerHTML += '<div class="container registered-users">'+
+      '<div class="row align-items-center">'+
+        '<div class="col-1">'+
+        cursor.value.id +
+        '</div>'+
+        '<div class="col">'+
+        cursor.value.user +
+        '</div>'+
+        '<div class="col">'+
+        cursor.value.name+
+        '</div>'+
+        '<div class="col">'+
+        cursor.value.surname +
+        '</div>'+
+        '<div class="col">'+
+        cursor.value.address +
+        '</div>'+
+        '<div class="col text-center">'+
+        cursor.value.age +
+        '</div>'+
+        '<div class="col text-center">'+
+        '<input type="button" class="btn btn-warning" value="Edit" >'+
+        '</div>'+
+        '<div class="col text-center">'+
+        '<input type="button" class="btn btn-danger" value="Delete" >'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+    
+  cursor.continue();
+
+
+    }
+
+    
+  }
+  
+
+}
+
 
 function getAvatarPath(){
 

@@ -11529,4 +11529,16 @@ footer {
   font-size: 10px;
 }
 
+.registered-users-cab {
+  background-color: #f3f5f7;
+  padding: 10px;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.registered-users {
+  padding: 10px;
+  margin: 5px;
+}
+
 /*# sourceMappingURL=bootstrap_custom.css.map */
