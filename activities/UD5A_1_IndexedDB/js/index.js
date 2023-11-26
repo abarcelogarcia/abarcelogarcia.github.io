@@ -137,26 +137,29 @@ function readUsers(){
     '<div class="col-1">'+
       'ID'+
     '</div>'+
-    '<div class="col">'+
+    '<div class="col-2">'+
       'User'+
     '</div>'+
-    '<div class="col">'+
+    '<div class="col-2">'+
       'Name'+
     '</div>'+
-    '<div class="col">'+
+    '<div class="col-1">'+
       'Surname'+
     '</div>'+
-    '<div class="col">'+
+    '<div class="col-2">'+
       'Address'+
     '</div>'+
-    '<div class="col text-center">'+
+    '<div class="col-1 text-center">'+
       'Age'+
     '</div>'+
-    '<div class="col text-center">'+
-      'Edit'+
+    '<div class="col-1 text-center">'+
+      'Avatar'+
     '</div>'+
-    '<div class="col text-center">'+
-      'Delete'+
+    '<div class="col-1 text-center">'+
+      ''+
+    '</div>'+
+    '<div class="col-1 text-center">'+
+      ''+
     '</div>'+
   '</div>'+
 '</div>';
@@ -176,25 +179,28 @@ function readUsers(){
         '<div class="col-1">'+
         cursor.value.id +
         '</div>'+
-        '<div class="col">'+
+        '<div class="col-2">'+
         cursor.value.user +
         '</div>'+
-        '<div class="col">'+
+        '<div class="col-2">'+
         cursor.value.name+
         '</div>'+
-        '<div class="col">'+
+        '<div class="col-1">'+
         cursor.value.surname +
         '</div>'+
-        '<div class="col">'+
+        '<div class="col-2">'+
         cursor.value.address +
         '</div>'+
-        '<div class="col text-center">'+
+        '<div class="col-1 text-center">'+
         cursor.value.age +
         '</div>'+
-        '<div class="col text-center">'+
+        '<div class="col-1 text-center">'+
+        '<img src='+ cursor.value.avatar +' alt="avatar" style="width: 40px;" />'+
+        '</div>'+
+        '<div class="col-1 text-center">'+
         '<input type="button" class="btn btn-warning" value="Edit" >'+
         '</div>'+
-        '<div class="col text-center">'+
+        '<div class="col-1 text-center">'+
         '<input type="button" class="btn btn-danger" value="Delete" >'+
         '</div>'+
       '</div>'+
