@@ -82,6 +82,12 @@ function sendData(action){
   });
 }
 
+function readData(){
+  openCreateDb(function(db){
+    readUsers(db);
+  });
+}
+
 function addUser(db){
   var user = document.getElementById("user");
   var password = document.getElementById("password");
@@ -128,7 +134,7 @@ function addUser(db){
   };
 }
 
-function readUsers(){
+function readUsers(db){
 
   var registered = document.getElementById('registered_user_table');
 
@@ -176,7 +182,7 @@ function readUsers(){
 
       registered.innerHTML += '<div class="container registered-users">'+
       '<div class="row align-items-center">'+
-        '<div class="col-1">'+
+        '<div class="col-1" id="' + cursor.value.id + '">'+
         cursor.value.id +
         '</div>'+
         '<div class="col-2">'+
@@ -234,9 +240,9 @@ function getAvatarPath(){
 
 
 }
-window.addEventListener('load', () => {
-    openCreateDb();
+// window.addEventListener('load', () => {
+//     openCreateDb();
 
    
-  });
+//   });
 
