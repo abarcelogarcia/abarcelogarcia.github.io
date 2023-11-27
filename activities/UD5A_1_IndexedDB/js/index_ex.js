@@ -14,7 +14,7 @@ const ADD_USER = "Add user";
  */
 function openCreateDb(onDbCompleted) {
 
-  if(opened){
+  if (opened) {
     db.close();
     opened = false;
   }
@@ -31,17 +31,17 @@ function openCreateDb(onDbCompleted) {
     onDbCompleted(db);
 
   };
-  
+
   // Very important event fired when
   // 1. ObjectStore first time creation
   // 2. Version change
-  req.onupgradeneeded = function() {
-        
+  req.onupgradeneeded = function () {
+
     //Value of previous db instance is lost. We get it back using the event
     db = req.result; //Or this.result
 
     console.log("openCreateDb: upgrade needed " + db);
-    var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true});
+    var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true });
     console.log("openCreateDb: Object store created");
 
     store.createIndex('fname', 'fname', { unique: false });
@@ -57,27 +57,27 @@ function openCreateDb(onDbCompleted) {
   };
 }
 
-function sendData(){
+function sendData() {
 
-  openCreateDb(function(db){
+  openCreateDb(function (db) {
     var hiddenId = document.getElementById("hiddenId").value;
-    if (hiddenId == 0){
+    if (hiddenId == 0) {
       addUser(db);
     } else {
       console.log("change user values");
       editUser(db);
-    }    
+    }
   });
 }
 
-function addUser(db){
+function addUser(db) {
   var fname = document.getElementById("fname");
   var lname = document.getElementById("lname");
   var dni = document.getElementById("dni");
   var obj = { fname: fname.value, lname: lname.value, dni: dni.value };
 
   // Start a new transaction in readwrite mode. We can use readonly also
-  var tx = db.transaction(DB_STORE_NAME, "readwrite");  
+  var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
 
   try {
@@ -89,39 +89,39 @@ function addUser(db){
 
   req.onsuccess = function (e) {
     console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
-    
+
     // Operations we want to do after inserting data
     readData();
     clearFormInputs();
-    
+
   };
-  req.onerror = function(e) {
-    console.error("addUser: error creating data", this.error);   
+  req.onerror = function (e) {
+    console.error("addUser: error creating data", this.error);
   };
 
   //After transaction is completed we close de database
-  tx.oncomplete = function() {
+  tx.oncomplete = function () {
     console.log("addUser: transaction completed");
     db.close();
     opened = false;
   };
 }
 
-function readData(){
-  openCreateDb(function(db){
+function readData() {
+  openCreateDb(function (db) {
     readUsers(db);
   });
 }
 
 // Reads all the records from our ObjectStore
 function readUsers(db) {
-  var tx = db.transaction(DB_STORE_NAME, "readonly"); 
+  var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
 
   var result = [];
   var req = store.openCursor();
-  
-  req.onsuccess = function(e){
+
+  req.onsuccess = function (e) {
     var cursor = e.target.result;
 
     if (cursor) {
@@ -133,66 +133,66 @@ function readUsers(db) {
       console.log(result);
       //Operations to do after reading all the records
       addUsersToHTML(result);
-    }  
+    }
   };
 
-  req.onerror = function(e){
+  req.onerror = function (e) {
     console.error("readUsers: error reading data:", e.target.errorCode);
   };
 
-  tx.oncomplete = function() {
+  tx.oncomplete = function () {
     console.log("readUsers: tx completed");
     db.close();
     opened = false;
   };
 }
 
-function addUsersToHTML(users){
+function addUsersToHTML(users) {
   var ul = document.getElementById("users-ul");
 
   ul.innerHTML = "";
 
   for (let i = 0; i < users.length; i++) {
-    ul.innerHTML += "<li><span>"+users[i].id+" "+users[i].fname+" "+users[i].lname+" "+users[i].dni+"</span><button user_id="+users[i].id+" id=edit_"+users[i].id+">Edit user</button><button user_id="+users[i].id+" id=delete_"+users[i].id+">Delete user</button></li>";
+    ul.innerHTML += "<li><span>" + users[i].id + " " + users[i].fname + " " + users[i].lname + " " + users[i].dni + "</span><button user_id=" + users[i].id + " id=edit_" + users[i].id + ">Edit user</button><button user_id=" + users[i].id + " id=delete_" + users[i].id + ">Delete user</button></li>";
   }
 
   for (let i = 0; i < users.length; i++) {
-    document.getElementById("edit_"+users[i].id).addEventListener("click", readUser, false);
-    document.getElementById("delete_"+users[i].id).addEventListener("click", deleteUser, false);
+    document.getElementById("edit_" + users[i].id).addEventListener("click", readUser, false);
+    document.getElementById("delete_" + users[i].id).addEventListener("click", deleteUser, false);
   }
 }
 
-function readUser(e){
+function readUser(e) {
   console.log("readUser");
-  
+
   //Both options work
   //var button_id = e.target.id;
   //var user_id = document.getElementById(button_id).getAttribute("user_id");
   var user_id = e.target.getAttribute("user_id");
 
-  openCreateDb(function(db){
+  openCreateDb(function (db) {
     console.log(db);
     console.log("Id user: " + user_id);
 
-    var tx = db.transaction(DB_STORE_NAME, "readonly"); 
+    var tx = db.transaction(DB_STORE_NAME, "readonly");
     var store = tx.objectStore(DB_STORE_NAME);
 
     // Reads one record from our ObjectStore
     var req = store.get(parseInt(user_id));
-    
-    req.onsuccess = function(e){
+
+    req.onsuccess = function (e) {
       var record = e.target.result;
-      console.log(record);  
-      
+      console.log(record);
+
       //Operations to do after reading a user
       updateFormInputsToEdit(record);
     };
 
-    req.onerror = function(e){
+    req.onerror = function (e) {
       console.error("readUser: error reading data:", e.target.errorCode);
     };
 
-    tx.oncomplete = function() {
+    tx.oncomplete = function () {
       console.log("readUser: tx completed");
       db.close();
       opened = false;
@@ -201,32 +201,33 @@ function readUser(e){
   });
 }
 
-function deleteUser(e){
+function deleteUser(e) {
   console.log("deleteUser");
+
   var button_id = e.target.id;
   var user_id = document.getElementById(button_id).getAttribute("user_id");
-  
-  openCreateDb(function(db){
+
+  openCreateDb(function (db) {
     console.log(user_id);
-    var tx = db.transaction(DB_STORE_NAME, "readwrite"); 
+    var tx = db.transaction(DB_STORE_NAME, "readwrite");
     var store = tx.objectStore(DB_STORE_NAME);
 
     //Delete data in our ObjectStore
     var req = store.delete(parseInt(user_id));
 
-    req.onsuccess = function(e){
-      
-      console.log("deleteUser: Data successfully removed: " + user_id);  
+    req.onsuccess = function (e) {
+
+      console.log("deleteUser: Data successfully removed: " + user_id);
 
       //Operation to do after deleting a record
       readData();
     };
 
-    req.onerror = function(e){
+    req.onerror = function (e) {
       console.error("deleteUser: error removing data:", e.target.errorCode);
     };
 
-    tx.oncomplete = function() {
+    tx.oncomplete = function () {
       console.log("deleteUser: tx completed");
       db.close();
       opened = false;
@@ -234,7 +235,7 @@ function deleteUser(e){
   });
 }
 
-function editUser(db){
+function editUser(db) {
   var idUpdate = document.getElementById("hiddenId");
   var fname = document.getElementById("fname");
   var lname = document.getElementById("lname");
@@ -242,7 +243,7 @@ function editUser(db){
 
   var obj = { id: parseInt(idUpdate.value), fname: fname.value, lname: lname.value, dni: dni.value };
 
-  var tx = db.transaction(DB_STORE_NAME, "readwrite");   
+  var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
 
   //Updates data in our ObjectStore
@@ -250,24 +251,24 @@ function editUser(db){
 
   req.onsuccess = function (e) {
     console.log("Data successfully updated");
-    
+
     //Operations to do after updating data
     readData();
-    clearFormInputs();    
+    clearFormInputs();
   };
 
-  req.onerror = function(e) {
-    console.error("editUser: Error updating data", this.error);   
+  req.onerror = function (e) {
+    console.error("editUser: Error updating data", this.error);
   };
 
-  tx.oncomplete = function() {
+  tx.oncomplete = function () {
     console.log("editUser: tx completed");
     db.close();
     opened = false;
   };
 }
 
-function clearFormInputs(){
+function clearFormInputs() {
   document.getElementById("hiddenId").value = 0;
   document.getElementById("fname").value = "";
   document.getElementById("lname").value = "";
@@ -276,7 +277,7 @@ function clearFormInputs(){
   document.getElementById("h1Title").innerHTML = NEW_USER;
 }
 
-function updateFormInputsToEdit (record){
+function updateFormInputsToEdit(record) {
   document.getElementById("hiddenId").value = record.id;
   document.getElementById("fname").value = record.fname;
   document.getElementById("lname").value = record.lname;

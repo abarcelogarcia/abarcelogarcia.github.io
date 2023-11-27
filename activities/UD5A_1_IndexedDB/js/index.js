@@ -68,15 +68,17 @@ function openCreateDb(onDbCompleted) {
 }
 
 
-function sendData(action){
+function sendData(action, user_id){
+  
 
   openCreateDb(function(db){
     
     if (action == 'add_user'){
-      addUser(db);
+      addUser(db, user_id);
     } else {
       console.log("change user values");
-      editUser(db);
+      updateUser(db, user_id);
+
     }    
 
   });
@@ -115,7 +117,7 @@ function addUser(db){
     console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
     
     // Operations we want to do after inserting data
-    // readData();
+    readData();
     // clearFormInputs();
 
     const regUsers = new bootstrap.Modal("#users");
@@ -204,10 +206,10 @@ function readUsers(db){
         '<img src='+ cursor.value.avatar +' alt="avatar" style="width: 40px;" />'+
         '</div>'+
         '<div class="col-1 text-center">'+
-        '<input type="button" class="btn btn-warning" value="Edit" >'+
+        '<input type="button" data-bs-toggle="modal" data-bs-target="#login" class="btn btn-warning" value="Edit" onclick="selectUserToEdit('+cursor.value.id+')">'+
         '</div>'+
         '<div class="col-1 text-center">'+
-        '<input type="button" class="btn btn-danger" value="Delete" >'+
+        '<input type="button" class="btn btn-danger" value="Delete" onclick="deleteUser('+cursor.value.id+')" >'+
         '</div>'+
       '</div>'+
     '</div>';
@@ -223,14 +225,152 @@ function readUsers(db){
 
 }
 
+function deleteUser(user_id){
+
+  if (confirm("Are you sure you want to delete the user?") == true) {
+    
+  
+
+  openCreateDb(function(db){
+    console.log(user_id);
+    var tx = db.transaction(DB_STORE_NAME, "readwrite"); 
+    var store = tx.objectStore(DB_STORE_NAME);
+
+    //Delete data in our ObjectStore
+    var req = store.delete(parseInt(user_id));
+
+    req.onsuccess = function(e){
+      
+      console.log("deleteUser: Data successfully removed: " + user_id);  
+
+      //Operation to do after deleting a record
+      readData();
+    };
+
+    req.onerror = function(e){
+      console.error("deleteUser: error removing data:", e.target.errorCode);
+    };
+
+    tx.oncomplete = function() {
+      console.log("deleteUser: tx completed");
+      db.close();
+      opened = false;
+    };
+  });
+} 
+
+
+}
+
+function selectUserToEdit(user_id) {
+  console.log("readUser");
+
+  //Both options work
+  //var button_id = e.target.id;
+  //var user_id = document.getElementById(button_id).getAttribute("user_id");
+  // var user_id = e.target.getAttribute("user_id");
+
+  openCreateDb(function (db) {
+    console.log(db);
+    console.log("Id user: " + user_id);
+
+    var tx = db.transaction(DB_STORE_NAME, "readonly");
+    var store = tx.objectStore(DB_STORE_NAME);
+
+    // Reads one record from our ObjectStore
+    var req = store.get(parseInt(user_id));
+
+    req.onsuccess = function (e) {
+      var record = e.target.result;
+      console.log(record);
+
+      //Operations to do after reading a user
+      updateFormInputsToEdit(record);
+    };
+
+    req.onerror = function (e) {
+      console.error("readUser: error reading data:", e.target.errorCode);
+    };
+
+    tx.oncomplete = function () {
+      console.log("readUser: tx completed");
+      db.close();
+      opened = false;
+    };
+
+  });
+}
+
+function updateFormInputsToEdit(record) {
+  document.getElementById("user").value = record.user;
+  document.getElementById("user").disabled = true;
+  document.getElementById("password").value = record.password;
+  document.getElementById("password").disabled = true;
+  document.getElementById("name").value = record.name;
+  document.getElementById("surname").value = record.surname;
+  document.getElementById("address").value = record.address;
+  document.getElementById("age").value = record.age;
+  document.getElementById("add_user").setAttribute('action', 'edit_user');
+  document.getElementById("add_user").setAttribute('user_id', record.id);
+  document.getElementById("collapseRegister").classList.add('show');
+}
+
+function updateUser(db, user_id) {
+  var user = document.getElementById("user");
+  var password = document.getElementById("password");
+  var name = document.getElementById("name");
+  var surname = document.getElementById("surname");
+  var address = document.getElementById("address");
+  var age = document.getElementById("age");
+  var avatar = getAvatarPath();
+  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar};
+
+  var tx = db.transaction(DB_STORE_NAME, "readwrite");
+  var store = tx.objectStore(DB_STORE_NAME);
+
+  //Updates data in our ObjectStore
+  req = store.put(obj);
+
+  req.onsuccess = function (e) {
+    console.log("Data successfully updated");
+
+    //Operations to do after updating data
+    readData();
+    clearFormInputs();
+  };
+
+  req.onerror = function (e) {
+    console.error("editUser: Error updating data", this.error);
+  };
+
+  tx.oncomplete = function () {
+    console.log("editUser: tx completed");
+    db.close();
+    opened = false;
+  };
+}
+
+function clearFormInputs(){
+
+  document.getElementById("user").value="";
+  document.getElementById("password").value="";
+  document.getElementById("name").value="";
+  document.getElementById("surname").value="";
+  document.getElementById("address").value="";
+  document.getElementById("age").value="";
+  document.getElementById("user").disabled = false;
+  document.getElementById("password").disabled = false;
+  uncheckAvatar();
+
+}
 
 function getAvatarPath(){
 
-  var ele = document.getElementsByName('avatar');
+  var avatar = document.getElementsByName('avatar');
  
-  for (i = 0; i < ele.length; i++) {
+  for (i = 0; i < avatar.length; i++) {
       
-    if (ele[i].checked){
+    if (avatar[i].checked){
 
         return "img/avatar" + (i+1) + ".png";
 
@@ -240,6 +380,12 @@ function getAvatarPath(){
 
 
 }
+
+function uncheckAvatar(){
+   var avatar = document.getElementsByName("avatar");
+   for(var i=0;i<avatar.length;i++){avatar[i].checked = false;}
+}
+
 // window.addEventListener('load', () => {
 //     openCreateDb();
 

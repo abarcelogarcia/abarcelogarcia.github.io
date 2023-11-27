@@ -498,7 +498,7 @@
           </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="/forms/register.html" method="POST" class="grad">
+        <form action="/forms/register.html" method="POST" class="grad" id="users_form">
           <div class="modal-body">
             <div class="mb-3">
               <input type="text" class="form-control" id="user" name="user" placeholder="User/email" />
@@ -510,7 +510,7 @@
 
             <div class="mb-3">
               <a class="btn texto" data-bs-toggle="collapse" data-bs-target="#collapseRegister" role="button"
-                aria-expanded="false" aria-controls="collapseRegister">
+                aria-expanded="false" aria-controls="collapseRegister" id="user_collapse_data">
                 Not registred yet?
               </a>
             </div>
@@ -549,7 +549,7 @@
                   <img src="img/avatar1.png" alt="avatar 1" name="avatar" id="avatar-img1" />
                 </label>
                 <label for="avatar2">
-                  <img src="img/avatar2.png" alt="avatar 2" name="avatar" id="avatar-img2"/>
+                  <img src="img/avatar2.png" alt="avatar 2" name="avatar" id="avatar-img2" />
                 </label>
                 <label for="avatar3">
                   <img src="img/avatar3.png" alt="avatar 3" name="avatar" id="avatar-img3" />
@@ -558,7 +558,7 @@
                   <img src="img/avatar4.png" alt="avatar 4" name="avatar" id="avatar-img4" />
                 </label>
                 <div class="text-start mt-2 ms-2">
-                  <button type="reset" class="btn btn-warning" id="reset-btn">
+                  <button type="button" class="btn btn-warning" id="reset-btn" onclick="uncheckAvatar()">
                     Reset
                   </button>
                 </div>
@@ -567,8 +567,11 @@
           </div>
           <div class="modal-footer">
             <div class="text-end">
-              <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-warning" name="add_user" id="add_user" onclick="sendData(this.name)">Save</button>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#users" class="btn btn-info" onclick="readData()">Registration</button>
+              <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-warning" action="add_user"
+                user_id="0" id="add_user"
+                onclick="sendData(this.getAttribute('action'), this.getAttribute('user_id'))">Save</button>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#users" class="btn btn-info"
+                onclick="readData()">Registration</button>
             </div>
           </div>
         </form>
@@ -587,16 +590,16 @@
           </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-          <div class="modal-body" id="registered_user_table">
+        <div class="modal-body" id="registered_user_table">
 
-            <p>There are no users registered</p>
-            
+          <p>There are no users registered</p>
+
+        </div>
+        <div class="modal-footer">
+          <div class="text-end">
+            <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger">Close</button>
           </div>
-          <div class="modal-footer">
-            <div class="text-end">
-              <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger">Close</button>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
   </div>
