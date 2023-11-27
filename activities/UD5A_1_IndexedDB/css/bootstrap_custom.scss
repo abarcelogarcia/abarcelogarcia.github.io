@@ -34,25 +34,34 @@ $theme-colors: (
 $titulo: 'Bahnschrift';
 $texto: 'Roboto';
 
-$display-font-sizes: (  //Default
-  1: 4rem,      //5rem
-  2: 3.5rem,    //4.5rem
-  3: 3rem,      //4rem
-  4: 2.5rem,    //3.5rem
-  5: 2rem,      //3rem
-  6: 1.5rem     //2.5rem
+$display-font-sizes: (
+  //Default
+  1: 4rem,
+  //5rem
+  2: 3.5rem,
+  //4.5rem
+  3: 3rem,
+  //4rem
+  4: 2.5rem,
+  //3.5rem
+  5: 2rem,
+  //3rem
+  6: 1.5rem //2.5rem
 );
 
 // DISPLAY FONT (h1 class="display-x")
 $display-font-family: 'Bahnschrift';
-$display-font-style:  null;
+$display-font-style: null;
 $display-font-weight: 400;
 
 // FONT SIZE (class="fs-x")
-$font-sizes: (  //default
-1: 28px,      //$h1-font-size
-2: 22px,      //$h2-font-size
-3: 14px       //$h3-font-size
+$font-sizes: (
+  //default
+  1: 28px,
+  //$h1-font-size
+  2: 22px,
+  //$h2-font-size
+  3: 14px //$h3-font-size
 );
 
 
@@ -60,23 +69,23 @@ $font-sizes: (  //default
 $btn-border-radius: 0px;
 
 // INPUT FORMS
-$input-border-radius:0px;
+$input-border-radius: 0px;
 
 
 // MODAL
 // SIZE               //Default
-  $modal-sm: 400px;   //300px
-  $modal-md: 600px;   //500px
-  $modal-lg: 900px;   //800px
-  $modal-xl: 1240px;  //1140px
+$modal-sm: 400px; //300px
+$modal-md: 600px; //500px
+$modal-lg: 900px; //800px
+$modal-xl: 1240px; //1140px
 // TRANSITION
-  $modal-transition: transform 1s ease-out;
+$modal-transition: transform 1s ease-out;
 
 
 
 // CAROUSEL                             //Default
-$carousel-control-color:$azul-corp;     //$white
-$carousel-transition-duration:.3s;      //.6s
+$carousel-control-color: $azul-corp; //$white
+$carousel-transition-duration: .3s; //.6s
 
 
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -104,17 +113,18 @@ $carousel-transition-duration:.3s;      //.6s
   font-family: $titulo;
 }
 
-.card-title{
+.card-title {
 
   background-color: $gris-corp;
 
 }
 
-.card-text{
+.card-text {
 
   text-align: justify;
 
 }
+
 /* Hamburguer menu */
 .offcanvas-body {
 
@@ -145,26 +155,24 @@ ul {
 
 
 
-footer{
+footer {
 
   font-family: $texto;
   font-size: 10px;
 }
 
-.registered-users-cab{
+.registered-users-cab {
 
   background-color: $blanco-corp;
   padding: 10px;
-  margin: 5px;
+  margin: auto;
   font-weight: bold;
 
 }
 
-.registered-users{
+.registered-users {
 
   padding: 10px;
-  margin: 5px;
+  margin: auto;
 
 }
-
-

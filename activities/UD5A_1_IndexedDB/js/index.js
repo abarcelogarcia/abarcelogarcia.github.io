@@ -140,7 +140,7 @@ function readUsers(db){
 
   var registered = document.getElementById('registered_user_table');
 
-  registered.innerHTML = '<div class="container registered-users-cab">'+
+  registered.innerHTML = '<div class="container registered-users-cab m-auto">'+
   '<div class="row align-items-center">'+
     '<div class="col-1">'+
       'ID'+
@@ -154,13 +154,13 @@ function readUsers(db){
     '<div class="col-1">'+
       'Surname'+
     '</div>'+
-    '<div class="col-2">'+
+    '<div class="col-2 d-none d-xl-block">'+
       'Address'+
     '</div>'+
-    '<div class="col-1 text-center">'+
+    '<div class="col-1 d-none d-xl-block text-center">'+
       'Age'+
     '</div>'+
-    '<div class="col-1 text-center">'+
+    '<div class="col-1 d-none d-xl-block text-center">'+
       'Avatar'+
     '</div>'+
     '<div class="col-1 text-center">'+
@@ -182,7 +182,7 @@ function readUsers(db){
 
     if(cursor){
 
-      registered.innerHTML += '<div class="container registered-users">'+
+      registered.innerHTML += '<div class="container registered-users m-auto ">'+
       '<div class="row align-items-center">'+
         '<div class="col-1" id="' + cursor.value.id + '">'+
         cursor.value.id +
@@ -196,13 +196,13 @@ function readUsers(db){
         '<div class="col-1">'+
         cursor.value.surname +
         '</div>'+
-        '<div class="col-2">'+
+        '<div class="col-2 d-none d-xl-block">'+
         cursor.value.address +
         '</div>'+
-        '<div class="col-1 text-center">'+
+        '<div class="col-1 d-none d-xl-block text-center">'+
         cursor.value.age +
         '</div>'+
-        '<div class="col-1 text-center">'+
+        '<div class="col-1 d-none d-xl-block text-center">'+
         '<img src='+ cursor.value.avatar +' alt="avatar" style="width: 40px;" />'+
         '</div>'+
         '<div class="col-1 text-center">'+
