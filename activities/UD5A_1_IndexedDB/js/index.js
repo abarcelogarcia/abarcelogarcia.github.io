@@ -73,12 +73,17 @@ function sendData(action, user_id) {
 
   openCreateDb(function (db) {
 
-    if (action == 'add_user') {
+    if (action == 'add_user' && document.getElementById("add_user")=='Save & submit') {
       addUser(db, user_id);
-    } else {
+    } else if (action == 'login') {
+
+      login(db);
+      
+    }else{
+      
       console.log("change user values");
       updateUser(db, user_id);
-
+      
     }
 
   });
@@ -98,8 +103,9 @@ function addUser(db) {
   var address = document.getElementById("address");
   var age = document.getElementById("age");
   var avatar = getAvatarPath();
+  var admin = document.getElementById("admin_check");
   console.log(avatar);
-  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar };
+  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
 
 
   // Start a new transaction in readwrite mode. We can use readonly also
@@ -134,6 +140,43 @@ function addUser(db) {
     db.close();
     opened = false;
   };
+}
+
+function login(db){
+
+  var user = document.getElementById("user");
+  var password = document.getElementById("password");
+
+  var tx = db.transaction(DB_STORE_NAME, "readonly");
+  var store = tx.objectStore(DB_STORE_NAME);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+
+    var cursor = this.result;
+
+    if (cursor) {
+
+     if(user.value == cursor.user.value && password.value == cursor.password.value){
+
+
+      window.location.href = registered_users.html;
+
+     }
+
+
+
+      cursor.continue();
+
+
+    }
+
+
+  }
+
+
+
+
 }
 
 function readUsers(db) {
@@ -322,8 +365,9 @@ function updateUser(db, user_id) {
   var surname = document.getElementById("surname");
   var address = document.getElementById("address");
   var age = document.getElementById("age");
+  var admin = document.getElementById("admin_check");
   var avatar = getAvatarPath();
-  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar };
+  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
 
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -397,10 +441,13 @@ document.getElementById("user_collapse_data").addEventListener("click", function
   const saveButton = document.getElementById("add_user");
   if (saveButton.textContent == 'Submit') {
 
-    saveButton.textContent = 'Save & submit'
+    saveButton.textContent = 'Save & submit';
   } else {
 
-    saveButton.textContent = 'Submit'
+    saveButton.textContent = 'Submit';
+    saveButton.setAttribute('action', 'login');
+
+
 
   }
 
