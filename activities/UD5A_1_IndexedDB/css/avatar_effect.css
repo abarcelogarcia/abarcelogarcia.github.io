@@ -15,11 +15,17 @@
 }
 
 @keyframes vibrate {
-    0% { transform: rotateZ(-5deg); }
+    0% {
+        transform: rotateZ(-5deg);
+    }
 
-    50% { transform: rotateZ(0deg) scale(.9); }
+    50% {
+        transform: rotateZ(0deg) scale(.9);
+    }
 
-    100% { transform: rotateZ(5deg); }
+    100% {
+        transform: rotateZ(5deg);
+    }
 }
 
 
@@ -170,7 +176,7 @@ input[name="reset"]:checked~label>img {
 
 /* UD4 ACTIVITY 2 */
 
-form *>input:focus {
+form *>input:not([type="checkbox"]):focus {
 
     background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
 

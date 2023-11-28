@@ -16,7 +16,7 @@ var opened = false;
  */
 function openCreateDb(onDbCompleted) {
 
-  if(opened){
+  if (opened) {
     db.close();
     opened = false;
   }
@@ -33,17 +33,17 @@ function openCreateDb(onDbCompleted) {
     onDbCompleted(db);
 
   };
-  
+
   // Very important event fired when
   // 1. ObjectStore first time creation
   // 2. Version change
-  req.onupgradeneeded = function() {
-        
+  req.onupgradeneeded = function () {
+
     //Value of previous db instance is lost. We get it back using the event
     db = req.result; //Or this.result
 
     console.log("openCreateDb: upgrade needed " + db);
-    var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true});
+    var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true });
     console.log("openCreateDb: Object store created");
 
     store.createIndex('user', 'user', { unique: true });
@@ -68,29 +68,29 @@ function openCreateDb(onDbCompleted) {
 }
 
 
-function sendData(action, user_id){
-  
+function sendData(action, user_id) {
 
-  openCreateDb(function(db){
-    
-    if (action == 'add_user'){
+
+  openCreateDb(function (db) {
+
+    if (action == 'add_user') {
       addUser(db, user_id);
     } else {
       console.log("change user values");
       updateUser(db, user_id);
 
-    }    
+    }
 
   });
 }
 
-function readData(){
-  openCreateDb(function(db){
+function readData() {
+  openCreateDb(function (db) {
     readUsers(db);
   });
 }
 
-function addUser(db){
+function addUser(db) {
   var user = document.getElementById("user");
   var password = document.getElementById("password");
   var name = document.getElementById("name");
@@ -99,11 +99,11 @@ function addUser(db){
   var age = document.getElementById("age");
   var avatar = getAvatarPath();
   console.log(avatar);
-  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar};
+  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar };
 
 
   // Start a new transaction in readwrite mode. We can use readonly also
-  var tx = db.transaction(DB_STORE_NAME, "readwrite");  
+  var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
 
   try {
@@ -115,149 +115,149 @@ function addUser(db){
 
   req.onsuccess = function (e) {
     console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
-    
+
     // Operations we want to do after inserting data
     readData();
     // clearFormInputs();
 
     const regUsers = new bootstrap.Modal("#users");
     regUsers.show();
-    
+
   };
-  req.onerror = function(e) {
-    console.error("addUser: error creating data", this.error);   
+  req.onerror = function (e) {
+    console.error("addUser: error creating data", this.error);
   };
 
   //After transaction is completed we close de database
-  tx.oncomplete = function() {
+  tx.oncomplete = function () {
     console.log("addUser: transaction completed");
     db.close();
     opened = false;
   };
 }
 
-function readUsers(db){
+function readUsers(db) {
 
   var registered = document.getElementById('registered_user_table');
 
-  registered.innerHTML = '<div class="container registered-users-cab m-auto">'+
-  '<div class="row align-items-center">'+
-    '<div class="col-1">'+
-      'ID'+
-    '</div>'+
-    '<div class="col-2">'+
-      'User'+
-    '</div>'+
-    '<div class="col-2">'+
-      'Name'+
-    '</div>'+
-    '<div class="col-1">'+
-      'Surname'+
-    '</div>'+
-    '<div class="col-2 d-none d-xl-block">'+
-      'Address'+
-    '</div>'+
-    '<div class="col-1 d-none d-xl-block text-center">'+
-      'Age'+
-    '</div>'+
-    '<div class="col-1 d-none d-xl-block text-center">'+
-      'Avatar'+
-    '</div>'+
-    '<div class="col-1 text-center">'+
-      ''+
-    '</div>'+
-    '<div class="col-1 text-center">'+
-      ''+
-    '</div>'+
-  '</div>'+
-'</div>';
+  registered.innerHTML = '<div class="container registered-users-cab m-auto">' +
+    '<div class="row align-items-center">' +
+    '<div class="col-1">' +
+    'ID' +
+    '</div>' +
+    '<div class="col-5 col-sm-2">' +
+    'User' +
+    '</div>' +
+    '<div class="col-3 d-none d-sm-block">' +
+    'Name' +
+    '</div>' +
+    '<div class="col-3 d-none d-xl-block">' +
+    'Surname' +
+    '</div>' +
+    '<div class="col-2 d-none d-xl-block">' +
+    'Address' +
+    '</div>' +
+    '<div class="col-1 d-none d-xl-block text-center">' +
+    'Age' +
+    '</div>' +
+    '<div class="col-1 d-none d-xl-block text-center">' +
+    'Avatar' +
+    '</div>' +
+    '<div class="col-3 col-sm-1 text-center">' +
+    '' +
+    '</div>' +
+    '<div class="col-3 col-sm-1 text-center">' +
+    '' +
+    '</div>' +
+    '</div>' +
+    '</div>';
 
-  var tx = db.transaction(DB_STORE_NAME, "readonly"); 
+  var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
 
-  req.onsuccess = function (e){
+  req.onsuccess = function (e) {
 
     var cursor = this.result;
 
-    if(cursor){
+    if (cursor) {
 
-      registered.innerHTML += '<div class="container registered-users m-auto ">'+
-      '<div class="row align-items-center">'+
-        '<div class="col-1" id="' + cursor.value.id + '">'+
+      registered.innerHTML += '<div class="container registered-users m-auto ">' +
+        '<div class="row align-items-center">' +
+        '<div class="col-1" id="' + cursor.value.id + '">' +
         cursor.value.id +
-        '</div>'+
-        '<div class="col-2">'+
+        '</div>' +
+        '<div class="col-7 col-sm-2" >' +
         cursor.value.user +
-        '</div>'+
-        '<div class="col-2">'+
-        cursor.value.name+
-        '</div>'+
-        '<div class="col-1">'+
+        '</div>' +
+        '<div class="col-3 d-none d-sm-block">' +
+        cursor.value.name +
+        '</div>' +
+        '<div class="col-1 d-none d-sm-block">' +
         cursor.value.surname +
-        '</div>'+
-        '<div class="col-2 d-none d-xl-block">'+
+        '</div>' +
+        '<div class="col-2 d-none d-xl-block">' +
         cursor.value.address +
-        '</div>'+
-        '<div class="col-1 d-none d-xl-block text-center">'+
+        '</div>' +
+        '<div class="col-1 d-none d-xl-block text-center">' +
         cursor.value.age +
-        '</div>'+
-        '<div class="col-1 d-none d-xl-block text-center">'+
-        '<img src='+ cursor.value.avatar +' alt="avatar" style="width: 40px;" />'+
-        '</div>'+
-        '<div class="col-1 text-center">'+
-        '<input type="button" data-bs-toggle="modal" data-bs-target="#login" class="btn btn-warning" value="Edit" onclick="selectUserToEdit('+cursor.value.id+')">'+
-        '</div>'+
-        '<div class="col-1 text-center">'+
-        '<input type="button" class="btn btn-danger" value="Delete" onclick="deleteUser('+cursor.value.id+')" >'+
-        '</div>'+
-      '</div>'+
-    '</div>';
-    
-  cursor.continue();
+        '</div>' +
+        '<div class="col-1 d-none d-xl-block text-center">' +
+        '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" />' +
+        '</div>' +
+        '<div class="col-2 col-sm-1 text-center">' +
+        '<input type="button" data-bs-toggle="modal" data-bs-target="#login" class="btn btn-warning" value="Edit" onclick="selectUserToEdit(' + cursor.value.id + ')">' +
+        '</div>' +
+        '<div class="col-2 col-sm-1 text-center">' +
+        '<input type="button" class="btn btn-danger" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+
+      cursor.continue();
 
 
     }
 
-    
+
   }
-  
+
 
 }
 
-function deleteUser(user_id){
+function deleteUser(user_id) {
 
   if (confirm("Are you sure you want to delete the user?") == true) {
-    
-  
 
-  openCreateDb(function(db){
-    console.log(user_id);
-    var tx = db.transaction(DB_STORE_NAME, "readwrite"); 
-    var store = tx.objectStore(DB_STORE_NAME);
 
-    //Delete data in our ObjectStore
-    var req = store.delete(parseInt(user_id));
 
-    req.onsuccess = function(e){
-      
-      console.log("deleteUser: Data successfully removed: " + user_id);  
+    openCreateDb(function (db) {
+      console.log(user_id);
+      var tx = db.transaction(DB_STORE_NAME, "readwrite");
+      var store = tx.objectStore(DB_STORE_NAME);
 
-      //Operation to do after deleting a record
-      readData();
-    };
+      //Delete data in our ObjectStore
+      var req = store.delete(parseInt(user_id));
 
-    req.onerror = function(e){
-      console.error("deleteUser: error removing data:", e.target.errorCode);
-    };
+      req.onsuccess = function (e) {
 
-    tx.oncomplete = function() {
-      console.log("deleteUser: tx completed");
-      db.close();
-      opened = false;
-    };
-  });
-} 
+        console.log("deleteUser: Data successfully removed: " + user_id);
+
+        //Operation to do after deleting a record
+        readData();
+      };
+
+      req.onerror = function (e) {
+        console.error("deleteUser: error removing data:", e.target.errorCode);
+      };
+
+      tx.oncomplete = function () {
+        console.log("deleteUser: tx completed");
+        db.close();
+        opened = false;
+      };
+    });
+  }
 
 
 }
@@ -323,7 +323,7 @@ function updateUser(db, user_id) {
   var address = document.getElementById("address");
   var age = document.getElementById("age");
   var avatar = getAvatarPath();
-  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar};
+  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar };
 
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -350,45 +350,60 @@ function updateUser(db, user_id) {
   };
 }
 
-function clearFormInputs(){
+function clearFormInputs() {
 
-  document.getElementById("user").value="";
-  document.getElementById("password").value="";
-  document.getElementById("name").value="";
-  document.getElementById("surname").value="";
-  document.getElementById("address").value="";
-  document.getElementById("age").value="";
+  document.getElementById("user").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("surname").value = "";
+  document.getElementById("address").value = "";
+  document.getElementById("age").value = "";
   document.getElementById("user").disabled = false;
   document.getElementById("password").disabled = false;
   uncheckAvatar();
 
 }
 
-function getAvatarPath(){
+function getAvatarPath() {
 
   var avatar = document.getElementsByName('avatar');
- 
+
   for (i = 0; i < avatar.length; i++) {
-      
-    if (avatar[i].checked){
 
-        return "img/avatar" + (i+1) + ".png";
+    if (avatar[i].checked) {
 
-      }
-          
+      return "img/avatar" + (i + 1) + ".png";
+
+    }
+
   }
 
 
 }
 
-function uncheckAvatar(){
-   var avatar = document.getElementsByName("avatar");
-   for(var i=0;i<avatar.length;i++){avatar[i].checked = false;}
+function uncheckAvatar() {
+  var avatar = document.getElementsByName("avatar");
+  for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
 }
 
 // window.addEventListener('load', () => {
 //     openCreateDb();
 
-   
+
 //   });
 
+document.getElementById("user_collapse_data").addEventListener("click", function () {
+
+  const saveButton = document.getElementById("add_user");
+  if (saveButton.textContent == 'Submit') {
+
+    saveButton.textContent = 'Save & submit'
+  } else {
+
+    saveButton.textContent = 'Submit'
+
+  }
+
+
+
+})
