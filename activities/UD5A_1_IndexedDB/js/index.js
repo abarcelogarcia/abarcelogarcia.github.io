@@ -5,9 +5,6 @@ const DB_STORE_LOGIN = 'login';
 const DB_VERSION = 1;
 var db;
 var opened = false;
-// const EDIT_USER = "Edit user";
-// const NEW_USER = "New user";
-// const ADD_USER = "Add user";
 
 
 
@@ -111,7 +108,7 @@ function addUser(db) {
   var avatar = getAvatarPath();
   var admin = document.getElementById("admin_check");
   console.log(avatar);
-  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
+  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatarPath, admin: admin.checked };
 
 
   // Start a new transaction in readwrite mode. We can use readonly also
@@ -163,8 +160,6 @@ function login(db) {
 
     if (cursor) {
 
-
-
       if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin == true)) {
 
         openCreateDb(function (db) {
@@ -191,20 +186,9 @@ function login(db) {
         return;
         
       }
-      
-
-
       cursor.continue();
-
-
     }
-
-
   }
-
-
-
-
 }
 
 function setLogin(user, admin){
@@ -227,6 +211,8 @@ function setLogin(user, admin){
     console.log("InsertLogin: Data insertion successfully done. Session_Id: " + e.target.result);
 
 
+
+
   };
   req.onerror = function (e) {
     console.error("addUser: error creating data", this.error);
@@ -243,29 +229,28 @@ function setLogin(user, admin){
 
 }
 
-function setLogout(user) {
+function setLogout() {
 
   openCreateDb(function (db) {
-    var tx = db.transaction(DB_STORE_LOGING, "readwrite");
-    var store = tx.objectStore(DB_STORE_LOGING);
+    var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
+    var store = tx.objectStore(DB_STORE_LOGIN);
 
     //Delete data in our ObjectStore
-    var req = store.delete(parseInt(user_id));
+    var req = store.clear();
 
     req.onsuccess = function (e) {
 
-      console.log("deleteUser: Data successfully removed: " + user_id);
+      console.log("Delete Login: Session_id successfully removed");
+      window.location.href = "index.html";
 
-      //Operation to do after deleting a record
-      readData();
     };
 
     req.onerror = function (e) {
-      console.error("deleteUser: error removing data:", e.target.errorCode);
+      console.error("Delete Login: error deleting Session_id");
     };
 
     tx.oncomplete = function () {
-      console.log("deleteUser: tx completed");
+      console.log("Delete Login: tx complete");
       db.close();
       opened = false;
     };
@@ -358,6 +343,7 @@ function readUsers(db) {
         '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
         '</div>' +
         '</div>' +
+        '<input  type="checkbox" id="password-' + cursor.value.password + '" hidden>' +
         '</div>';
 
       //  Check if is an admin 
@@ -456,6 +442,7 @@ function updateFormInputsToEdit(record) {
 
   document.getElementById("user-" + record.id).disabled = false;
   document.getElementById("user-" + record.id).value = record.user;
+  document.getElementById("password-" + record.id).value = record.password;
   document.getElementById("name-" + record.id).disabled = false;
   document.getElementById("name-" + record.id).value = record.name;
   document.getElementById("surname-" + record.id).disabled = false;
@@ -494,14 +481,14 @@ function cancelar(user_id) {
 
 function updateUser(db, user_id) {
   var user = document.getElementById("user-" + user_id);
-  // var password = document.getElementById("password");
+  var password = document.getElementById("password-" + user_id);
   var name = document.getElementById("name-" + user_id);
   var surname = document.getElementById("surname-" + user_id);
   var address = document.getElementById("address-" + user_id);
   var age = document.getElementById("age-" + user_id);
   var admin = document.getElementById("admin_check-" + user_id).checked;
   var avatar = getAvatarPath();
-  var obj = { id: parseInt(user_id), user: user.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin };
+  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin };
 
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
