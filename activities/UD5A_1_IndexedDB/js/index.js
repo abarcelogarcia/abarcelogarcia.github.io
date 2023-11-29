@@ -1,7 +1,7 @@
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-var database = "blogginDB2";
+var database = "bloggin";
 const DB_STORE_NAME = 'users';
-const DB_STORE_LOGING = 'loging';
+const DB_STORE_LOGIN = 'login';
 const DB_VERSION = 1;
 var db;
 var opened = false;
@@ -47,7 +47,7 @@ function openCreateDb(onDbCompleted) {
 
     console.log("openCreateDb: upgrade needed " + db);
     var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true });
-    db.createObjectStore(DB_STORE_LOGING, { keyPath: "id", autoIncrement: true });
+    db.createObjectStore(DB_STORE_LOGIN, { keyPath: "session_id", autoIncrement: true });
     console.log("openCreateDb: Object store created");
 
     store.createIndex('user', 'user', { unique: true });
@@ -132,19 +132,9 @@ function addUser(db) {
     // readData();
     // clearFormInputs();
 
-    if(admin.checked == true){
+    login(db);
 
-      window.location.href = "index_admin.html";
-      
-      
-    }else{
-      
-      window.location.href = "index.html";
-
-    }
-
-
-
+    
   };
   req.onerror = function (e) {
     console.error("addUser: error creating data", this.error);
@@ -177,11 +167,12 @@ function login(db) {
 
       if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin == true)) {
 
-        
-        window.location.href = "index_admin.html";
+        openCreateDb(function (db) {
+          setLogin(cursor.value.user, true);
+        });
+
         alert('Welcome ' + user.value);
-        setLogin(cursor.value.user, true);
-        
+        window.location.href = "index_admin.html";
         return;
         
       }else if((user.value == cursor.value.user) && (password.value != cursor.value.password)){
@@ -192,9 +183,11 @@ function login(db) {
         
       }else if((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin != true)){
         
+        openCreateDb(function (db) {
+          setLogin(cursor.value.user, false);
+        });
         alert('Welcome ' + user.value);
         window.location.href = "index.html";
-        setLogin(cursor.value.user, false);
         return;
         
       }
@@ -216,12 +209,12 @@ function login(db) {
 
 function setLogin(user, admin){
 
-  var obj = {loged: 1, user: user, admin: admin};
+  var obj = {logged: 1, user: user, admin: admin};
 
   console.log(obj);
 
-  var tx = db.transaction(DB_STORE_LOGING, "readwrite");
-  var store = tx.objectStore(DB_STORE_LOGING);
+  var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
+  var store = tx.objectStore(DB_STORE_LOGIN);
 
   try {
     // Inserts data in our ObjectStore
@@ -231,14 +224,8 @@ function setLogin(user, admin){
   }
 
   req.onsuccess = function (e) {
-    console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
+    console.log("InsertLogin: Data insertion successfully done. Session_Id: " + e.target.result);
 
-    // Operations we want to do after inserting data
-    readData();
-    // clearFormInputs();
-
-    const regUsers = new bootstrap.Modal("#users");
-    regUsers.show();
 
   };
   req.onerror = function (e) {
