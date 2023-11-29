@@ -11530,15 +11530,14 @@ footer {
 }
 
 .registered-users-cab {
-  background-color: #f3f5f7;
+  background-color: #ADB6C4;
   padding: 10px;
   margin: auto;
   font-weight: bold;
 }
 
-.registered-users {
-  padding: 10px;
-  margin: auto;
+.input_reg:disabled {
+  border: none;
 }
 
 /*# sourceMappingURL=bootstrap_custom.css.map */

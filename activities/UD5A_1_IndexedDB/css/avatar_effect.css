@@ -48,12 +48,12 @@
 }
 
 /* Hide radio selector  */
-[type=radio] {
+/* [type=radio] {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
-}
+} */
 
 
 /* Create avatar transparency */

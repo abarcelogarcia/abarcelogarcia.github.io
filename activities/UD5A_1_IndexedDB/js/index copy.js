@@ -188,11 +188,8 @@ function readUsers(db) {
 
   registered.innerHTML = '<div class="container registered-users-cab m-auto">' +
     '<div class="row align-items-center">' +
-    '<div class="col">' +
+    '<div class="col-1">' +
     'ID' +
-    '</div>' +
-    '<div class="col">' +
-    'AD' +
     '</div>' +
     '<div class="col-2">' +
     'User' +
@@ -231,46 +228,37 @@ function readUsers(db) {
 
     if (cursor) {
 
-
       registered.innerHTML += '<div class="container registered-users m-auto mb-4">' +
         '<div class="row align-items-center">' +
-        '<div class="col" id="' + cursor.value.id + '">' +
+        '<div class="col-1" id="' + cursor.value.id + '">' +
         cursor.value.id +
         '</div>' +
-        '<div class="col">' +
-        '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" disabled>' +
+        '<div class="col-2">' +
+        '<input class="input_reg" type="text" id="user-' + cursor.value.id + '"  name="name" aria-describedby="name" value="' + cursor.value.user + '" disabled/>' +
         '</div>' +
-        '<div class="col-2 ">' +
-        '<input class="input_reg" type="text" id="user-' + cursor.value.id + '"  name="user" aria-describedby="user" value="' + cursor.value.user + '" disabled/>' +
+        '<div class="col-1">' +
+        cursor.value.name +
         '</div>' +
-        '<div class="col-1 ">' +
-        '<input class="input_reg" type="text" id="name-' + cursor.value.id + '"  name="name" aria-describedby="name" value="' + cursor.value.name + '" disabled/>' +
+        '<div class="col-2">' +
+        cursor.value.surname +
         '</div>' +
-        '<div class="col-2 ">' +
-        '<input class="input_reg" type="text" id="surname-' + cursor.value.id + '"  name="surname" aria-describedby="surname" value="' + cursor.value.surname + '" disabled/>' +
+        '<div class="col-2">' +
+        cursor.value.address +
         '</div>' +
-        '<div class="col-2 ">' +
-        '<input class="input_reg " type="text" id="address-' + cursor.value.id + '"  name="address" aria-describedby="address" value="' + cursor.value.address + '" disabled/>' +
+        '<div class="col-1 text-center">' +
+        cursor.value.age +
         '</div>' +
-        '<div class="col-1 text-center ">' +
-        '<input class="input_reg" type="text" id="age-' + cursor.value.id + '"  name="age" aria-describedby="age" value="' + cursor.value.age + '" disabled/>' +
+        '<div class="col-1 text-center">' +
+        '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" />' +
         '</div>' +
-        '<div class="col-1 text-center ">' +
-        '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
+        '<div class="col-1 text-center">' +
+        '<input type="button" class="btn btn-warning" value="Edit" onclick="selectUserToEdit(' + cursor.value.id + ')">' +
         '</div>' +
-        '<div class="col-1 text-center ">' +
-        '<input type="button" class="btn btn-warning" value="Edit"  id="edit-reg-' + cursor.value.id + '" action="edit-user" onclick="selectUserToEdit(' + cursor.value.id + ')">' +
-        '</div>' +
-        '<div class="col-1 text-center ">' +
-        '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
+        '<div class="col-1 text-center">' +
+        '<input type="button" class="btn btn-danger" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
         '</div>' +
         '</div>' +
         '</div>';
-
-      //  Check if is an admin 
-      if (cursor.value.admin == true) {
-        document.getElementById("admin_check-" + cursor.value.id).checked = true;
-      }
 
       cursor.continue();
 
@@ -363,53 +351,28 @@ function updateFormInputsToEdit(record) {
 
   document.getElementById("user-" + record.id).disabled = false;
   document.getElementById("user-" + record.id).value = record.user;
-  document.getElementById("name-" + record.id).disabled = false;
-  document.getElementById("name-" + record.id).value = record.name;
-  document.getElementById("surname-" + record.id).disabled = false;
-  document.getElementById("surname-" + record.id).value = record.surname;
-  document.getElementById("address-" + record.id).disabled = false;
-  document.getElementById("address-" + record.id).value = record.address;
-  document.getElementById("age-" + record.id).disabled = false;
-  document.getElementById("age-" + record.id).value = record.age;
-  document.getElementById("admin_check-" + record.id).disabled = false;
-  document.getElementById("avatar-" + record.id).setAttribute("data-bs-toggle", "modal");
-  document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
-  // document.getElementById("age-" + record.id).setAttribute("src", record.avatar);
-  document.getElementById("del-reg-" + record.id).value = "Cancel";
-  document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
-  document.getElementById("edit-reg-" + record.id).value = "Save";
-  document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData( '', " + record.id + ")");
-
-
-}
-
-function cancelar(user_id) {
-
-
-  document.getElementById("user-" + user_id).disabled = true;
-  document.getElementById("name-" + user_id).disabled = true;
-  document.getElementById("surname-" + user_id).disabled = true;
-  document.getElementById("address-" + user_id).disabled = true;
-  document.getElementById("age-" + user_id).disabled = true;
-  document.getElementById("del-reg-" + user_id).value = "Delete";
-  document.getElementById("del-reg-" + user_id).setAttribute("onclick", "deleteUser(' + cursor.value.id + ')");
-  document.getElementById("avatar-" + user_id).removeAttribute("data-bs-toggle");
-  document.getElementById("avatar-" + user_id).removeAttribute("data-bs-target");
-
-  readData(db);
-
+  document.getElementById("user").disabled = true;
+  document.getElementById("password").value = record.password;
+  document.getElementById("password").disabled = true;
+  document.getElementById("name").value = record.name;
+  document.getElementById("surname").value = record.surname;
+  document.getElementById("address").value = record.address;
+  document.getElementById("age").value = record.age;
+  document.getElementById("add_user").setAttribute('action', 'edit_user');
+  document.getElementById("add_user").setAttribute('user_id', record.id);
+  document.getElementById("collapseRegister").classList.add('show');
 }
 
 function updateUser(db, user_id) {
-  var user = document.getElementById("user-" + user_id);
-  // var password = document.getElementById("password");
-  var name = document.getElementById("name-" + user_id);
-  var surname = document.getElementById("surname-" + user_id);
-  var address = document.getElementById("address-" + user_id);
-  var age = document.getElementById("age-" + user_id);
-  var admin = document.getElementById("admin_check-" + user_id).checked;
+  var user = document.getElementById("user");
+  var password = document.getElementById("password");
+  var name = document.getElementById("name");
+  var surname = document.getElementById("surname");
+  var address = document.getElementById("address");
+  var age = document.getElementById("age");
+  var admin = document.getElementById("admin_check");
   var avatar = getAvatarPath();
-  var obj = { id: parseInt(user_id), user: user.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin };
+  var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
 
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -422,7 +385,7 @@ function updateUser(db, user_id) {
 
     //Operations to do after updating data
     readData();
-    // clearFormInputs();
+    clearFormInputs();
   };
 
   req.onerror = function (e) {
@@ -453,7 +416,6 @@ function clearFormInputs() {
 function getAvatarPath() {
 
   var avatar = document.getElementsByName('avatar');
-  console.log(avatar[1]);
 
   for (i = 0; i < avatar.length; i++) {
 
@@ -461,24 +423,12 @@ function getAvatarPath() {
 
       return "img/avatar" + (i + 1) + ".png";
 
-    } else {
-
-      return "img/avatar1.png";
     }
 
   }
 
 
 }
-
-function setAvatarPath(path) {
-
-  // document.getElementById("avatar-" + user_id).setAttribute("src", path);
-
-  console.log(path);
-}
-
-
 
 function uncheckAvatar() {
   var avatar = document.getElementsByName("avatar");
