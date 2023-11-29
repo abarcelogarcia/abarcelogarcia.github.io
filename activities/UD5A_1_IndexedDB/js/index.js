@@ -1,6 +1,7 @@
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-var database = "blogginDB";
+var database = "blogginDB2";
 const DB_STORE_NAME = 'users';
+const DB_STORE_LOGING = 'loging';
 const DB_VERSION = 1;
 var db;
 var opened = false;
@@ -29,6 +30,8 @@ function openCreateDb(onDbCompleted) {
     console.log("openCreateDb: Databased opened " + db);
     opened = true;
 
+    
+
     //The function passed by parameter is called after creating/opening database
     onDbCompleted(db);
 
@@ -44,6 +47,7 @@ function openCreateDb(onDbCompleted) {
 
     console.log("openCreateDb: upgrade needed " + db);
     var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true });
+    db.createObjectStore(DB_STORE_LOGING, { keyPath: "id", autoIncrement: true });
     console.log("openCreateDb: Object store created");
 
     store.createIndex('user', 'user', { unique: true });
@@ -73,7 +77,7 @@ function sendData(action, user_id) {
 
   openCreateDb(function (db) {
 
-    if ((action == 'add_user') && (document.getElementById("add_user") == 'Save & submit')) {
+    if (action == 'add_user') {
 
       addUser(db, user_id);
 
@@ -125,11 +129,21 @@ function addUser(db) {
     console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
 
     // Operations we want to do after inserting data
-    readData();
+    // readData();
     // clearFormInputs();
 
-    const regUsers = new bootstrap.Modal("#users");
-    regUsers.show();
+    if(admin.checked == true){
+
+      window.location.href = "index_admin.html";
+      
+      
+    }else{
+      
+      window.location.href = "index.html";
+
+    }
+
+
 
   };
   req.onerror = function (e) {
@@ -160,13 +174,31 @@ function login(db) {
     if (cursor) {
 
 
-      if ((user.value == cursor.value.user) && (password.value == cursor.value.password)) {
 
+      if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin == true)) {
 
+        
         window.location.href = "index_admin.html";
-
+        alert('Welcome ' + user.value);
+        setLogin(cursor.value.user, true);
+        
+        return;
+        
+      }else if((user.value == cursor.value.user) && (password.value != cursor.value.password)){
+        
+        alert('Incorrect password!');
+        window.location.href = "index.html";
+        return;
+        
+      }else if((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin != true)){
+        
+        alert('Welcome ' + user.value);
+        window.location.href = "index.html";
+        setLogin(cursor.value.user, false);
+        return;
+        
       }
-
+      
 
 
       cursor.continue();
@@ -182,11 +214,85 @@ function login(db) {
 
 }
 
+function setLogin(user, admin){
+
+  var obj = {loged: 1, user: user, admin: admin};
+
+  console.log(obj);
+
+  var tx = db.transaction(DB_STORE_LOGING, "readwrite");
+  var store = tx.objectStore(DB_STORE_LOGING);
+
+  try {
+    // Inserts data in our ObjectStore
+    req = store.add(obj);
+  } catch (e) {
+    console.log("Catch");
+  }
+
+  req.onsuccess = function (e) {
+    console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
+
+    // Operations we want to do after inserting data
+    readData();
+    // clearFormInputs();
+
+    const regUsers = new bootstrap.Modal("#users");
+    regUsers.show();
+
+  };
+  req.onerror = function (e) {
+    console.error("addUser: error creating data", this.error);
+  };
+
+  //After transaction is completed we close de database
+  tx.oncomplete = function () {
+    console.log("addUser: transaction completed");
+    db.close();
+    opened = false;
+  };
+
+
+
+}
+
+function setLogout(user) {
+
+  openCreateDb(function (db) {
+    var tx = db.transaction(DB_STORE_LOGING, "readwrite");
+    var store = tx.objectStore(DB_STORE_LOGING);
+
+    //Delete data in our ObjectStore
+    var req = store.delete(parseInt(user_id));
+
+    req.onsuccess = function (e) {
+
+      console.log("deleteUser: Data successfully removed: " + user_id);
+
+      //Operation to do after deleting a record
+      readData();
+    };
+
+    req.onerror = function (e) {
+      console.error("deleteUser: error removing data:", e.target.errorCode);
+    };
+
+    tx.oncomplete = function () {
+      console.log("deleteUser: tx completed");
+      db.close();
+      opened = false;
+    };
+  });
+
+
+  
+}
+
 function readUsers(db) {
 
   var registered = document.getElementById('registered_user_table');
 
-  registered.innerHTML = '<div class="container registered-users-cab m-auto">' +
+  registered.innerHTML = '<div class="container registered-users-cab m-auto mt-4">' +
     '<div class="row align-items-center">' +
     '<div class="col">' +
     'ID' +
@@ -232,7 +338,7 @@ function readUsers(db) {
     if (cursor) {
 
 
-      registered.innerHTML += '<div class="container registered-users m-auto mb-4">' +
+      registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
         '<div class="row align-items-center">' +
         '<div class="col" id="' + cursor.value.id + '">' +
         cursor.value.id +
@@ -240,28 +346,28 @@ function readUsers(db) {
         '<div class="col">' +
         '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" disabled>' +
         '</div>' +
-        '<div class="col-2 ">' +
+        '<div class="col-2">' +
         '<input class="input_reg" type="text" id="user-' + cursor.value.id + '"  name="user" aria-describedby="user" value="' + cursor.value.user + '" disabled/>' +
         '</div>' +
-        '<div class="col-1 ">' +
+        '<div class="col-1">' +
         '<input class="input_reg" type="text" id="name-' + cursor.value.id + '"  name="name" aria-describedby="name" value="' + cursor.value.name + '" disabled/>' +
         '</div>' +
-        '<div class="col-2 ">' +
+        '<div class="col-2">' +
         '<input class="input_reg" type="text" id="surname-' + cursor.value.id + '"  name="surname" aria-describedby="surname" value="' + cursor.value.surname + '" disabled/>' +
         '</div>' +
-        '<div class="col-2 ">' +
+        '<div class="col-2">' +
         '<input class="input_reg " type="text" id="address-' + cursor.value.id + '"  name="address" aria-describedby="address" value="' + cursor.value.address + '" disabled/>' +
         '</div>' +
-        '<div class="col-1 text-center ">' +
+        '<div class="col-1 text-center">' +
         '<input class="input_reg" type="text" id="age-' + cursor.value.id + '"  name="age" aria-describedby="age" value="' + cursor.value.age + '" disabled/>' +
         '</div>' +
-        '<div class="col-1 text-center ">' +
+        '<div class="col-1 text-center">' +
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
-        '<div class="col-1 text-center ">' +
+        '<div class="col-1 text-center">' +
         '<input type="button" class="btn btn-warning" value="Edit"  id="edit-reg-' + cursor.value.id + '" action="edit-user" onclick="selectUserToEdit(' + cursor.value.id + ')">' +
         '</div>' +
-        '<div class="col-1 text-center ">' +
+        '<div class="col-1 text-center">' +
         '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
         '</div>' +
         '</div>' +
@@ -374,7 +480,6 @@ function updateFormInputsToEdit(record) {
   document.getElementById("admin_check-" + record.id).disabled = false;
   document.getElementById("avatar-" + record.id).setAttribute("data-bs-toggle", "modal");
   document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
-  // document.getElementById("age-" + record.id).setAttribute("src", record.avatar);
   document.getElementById("del-reg-" + record.id).value = "Cancel";
   document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
   document.getElementById("edit-reg-" + record.id).value = "Save";
@@ -477,8 +582,6 @@ function setAvatarPath(path) {
 
   console.log(path);
 }
-
-
 
 function uncheckAvatar() {
   var avatar = document.getElementsByName("avatar");
