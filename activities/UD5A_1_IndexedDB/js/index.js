@@ -162,7 +162,7 @@ function login(db) {
       if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin == true)) {
 
         openCreateDb(function (db) {
-          setLogin(cursor.value.user, true);
+          setLogin(cursor.value.user, true, cursor.value.avatar);
         });
 
         alert('Welcome ' + user.value);
@@ -178,7 +178,7 @@ function login(db) {
       } else if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin != true)) {
 
         openCreateDb(function (db) {
-          setLogin(cursor.value.user, false);
+          setLogin(cursor.value.user, false, cursor.value.avatar);
         });
         alert('Welcome ' + user.value);
         window.location.href = "index.html";
@@ -190,9 +190,9 @@ function login(db) {
   }
 }
 
-function setLogin(user, admin) {
+function setLogin(user, admin, avatar) {
 
-  var obj = { logged: 1, user: user, admin: admin };
+  var obj = { logged: 1, user: user, admin: admin, avatar: avatar };
 
   console.log(obj);
 
@@ -531,7 +531,8 @@ function clearFormInputs() {
 function getAvatarPath() {
 
   var avatar = document.getElementsByName('avatar');
-  console.log(avatar[1]);
+
+  console.log();
 
   for (i = 0; i < avatar.length; i++) {
 
@@ -541,7 +542,7 @@ function getAvatarPath() {
 
     } else {
 
-      return "img/avatar1.png";
+      return "img/logo_headings.png";
     }
 
   }
@@ -561,8 +562,39 @@ function uncheckAvatar() {
   for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
 }
 
+function validateUser(db){
+
+  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+  var store = tx.objectStore(DB_STORE_LOGIN);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+
+      var cursor = this.result;
+
+      if(cursor){
+
+          if(cursor.value.admin == false){
+  
+              document.getElementById("img-profile").setAttribute("src", cursor.value.avatar);
+              console.log(cursor.value.avatar);
+  
+          }
+          
+      }
+  
+    }
+}
+
+function verify_user() {
+  openCreateDb(function (db) {
+      validateUser(db);
+  });
+}
+
 window.addEventListener('load', () => {
   readData();
+  verify_user();
 
 
 });
