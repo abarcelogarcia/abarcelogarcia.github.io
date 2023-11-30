@@ -332,7 +332,7 @@ function readUsers(db) {
         '<div class="col-1 text-center">' +
         '<input class="input_reg" type="text" id="age-' + cursor.value.id + '"  name="age" aria-describedby="age" value="' + cursor.value.age + '" disabled/>' +
         '</div>' +
-        '<div class="col-1">' +
+        '<div class="col-1 text-center">' +
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
         '<div class="col-1 text-center">' +
