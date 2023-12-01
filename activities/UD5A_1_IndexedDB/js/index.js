@@ -76,16 +76,11 @@ function sendData(action, user_id) {
 
     if (action == 'add_user') {
 
-      addUser(db, user_id);
+      addUser(db);
 
     } else if (action == 'login') {
 
       login(db);
-
-    } else {
-
-      console.log("change user values");
-      updateUser(db, user_id);
 
     }
 
@@ -562,7 +557,7 @@ function uncheckAvatar() {
   for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
 }
 
-function validateUser(db){
+function validateUser(db) {
 
   var tx = db.transaction(DB_STORE_LOGIN, "readonly");
   var store = tx.objectStore(DB_STORE_LOGIN);
@@ -570,25 +565,25 @@ function validateUser(db){
 
   req.onsuccess = function (e) {
 
-      var cursor = this.result;
+    var cursor = this.result;
 
-      if(cursor){
+    if (cursor) {
 
-          if(cursor.value.admin == false){
-  
-              document.getElementById("img-profile").setAttribute("src", cursor.value.avatar);
-              console.log(cursor.value.avatar);
-  
-          }
-          
+      if (cursor.value.admin == false) {
+
+        document.getElementById("img-profile").setAttribute("src", cursor.value.avatar);
+        console.log(cursor.value.avatar);
+
       }
-  
+
     }
+
+  }
 }
 
 function verify_user() {
   openCreateDb(function (db) {
-      validateUser(db);
+    validateUser(db);
   });
 }
 
@@ -606,10 +601,13 @@ document.getElementById("user_collapse_data").addEventListener("click", function
 
     saveButton.textContent = 'Save & submit';
     saveButton.setAttribute('action', 'add_user');
+    saveButton.setAttribute('onclick', 'validateForm()');
+
   } else {
 
     saveButton.textContent = 'Submit';
     saveButton.setAttribute('action', 'login');
+    saveButton.setAttribute('onclick', 'sendData()');
 
 
 

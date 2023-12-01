@@ -504,13 +504,15 @@
         </div>
         <form action="/forms/register.html" method="POST" class="grad" id="users_form">
           <div class="modal-body">
-            <div class="mb-3">
+            <div class="mb-3 assessed">
               <input type="email" class="form-control" id="user" name="user" placeholder="email" required />
+              <small>Error message</small>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 assessed">
               <input type="password" class="form-control" id="password" name="password" placeholder="Password"
                 required />
+              <small>Error message</small>
             </div>
 
 
@@ -535,9 +537,10 @@
                 <input type="text" class="form-control" id="address" name="address" aria-describedby="address"
                   placeholder="Address" />
               </div>
-              <div class="mb-3">
+              <div class="mb-3 assessed">
                 <input type="number" class="form-control" id="age" name="age" aria-describedby="age" min="18"
                   placeholder="Age" />
+                <small>Error message</small>
               </div>
               <div class="mb-3">
                 <div class="form-check">
@@ -551,10 +554,10 @@
                 <h6>Choose your avatar</h6>
 
                 <!-- input type radio for control :checked state in css file -->
-                <input type="radio" id="avatar1" name="avatar" value="1" path="img/avatar1.png"/>
-                <input type="radio" id="avatar2" name="avatar" value="2" path="img/avatar2.png"/>
-                <input type="radio" id="avatar3" name="avatar" value="3" path="img/avatar3.png"/>
-                <input type="radio" id="avatar4" name="avatar" value="4" path="img/avatar4.png"/>
+                <input type="radio" id="avatar1" name="avatar" value="1" path="img/avatar1.png" />
+                <input type="radio" id="avatar2" name="avatar" value="2" path="img/avatar2.png" />
+                <input type="radio" id="avatar3" name="avatar" value="3" path="img/avatar3.png" />
+                <input type="radio" id="avatar4" name="avatar" value="4" path="img/avatar4.png" />
                 <input type="reset" name="reset" id="reset" hidden />
                 <!--Reset button -->
 
@@ -583,9 +586,8 @@
           </div>
           <div class="modal-footer">
             <div class="text-end">
-              <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-warning" action="login"
-                user_id="0" id="add_user"
-                onclick="sendData(this.getAttribute('action'), this.getAttribute('user_id'))">Submit</button>
+              <button type="button" class="btn btn-warning" action="login" user_id="0" id="add_user"
+                onclick="sendData()">Submit</button>
 
             </div>
           </div>
@@ -594,34 +596,10 @@
     </div>
   </div>
 
-  <!-- Modal Registered_users -->
-  <div class="modal fade" id="users" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <img src="img/LogoBloggIn_login.png" alt="login_logo" />
-          <h1 class="modal-title fs-1 w-100 p-1" id="staticBackdropLabel">
-            Users Registration
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
 
-          <div class="m-auto" id="registered_user_table"></div>
-
-
-        </div>
-        <div class="modal-footer">
-          <div class="text-end">
-            <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <script src="./js/index.js"></script>
   <!-- <script src="./js/indexedb.js"></script> -->
+  <script src="./js/form_validator.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
     crossorigin="anonymous"></script>

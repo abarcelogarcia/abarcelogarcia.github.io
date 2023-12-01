@@ -11539,4 +11539,21 @@ footer {
   border: none;
 }
 
+.assessed.correct input {
+  border-color: #294C60;
+}
+
+.assessed.error input {
+  border-color: #CC0000;
+}
+
+.assessed small, .assessed .small {
+  visibility: hidden;
+}
+
+.assessed.error small, .assessed.error .small {
+  color: #CC0000;
+  visibility: visible;
+}
+
 /*# sourceMappingURL=bootstrap_custom.css.map */
