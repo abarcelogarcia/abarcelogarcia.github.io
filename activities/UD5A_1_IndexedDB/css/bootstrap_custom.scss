@@ -166,10 +166,21 @@ footer {
   background-color: $gris-corp;
   font-weight: bold;
   padding: 10px;
-
+  
 }
 
-.registered-users {}
+.registered-users {
+  
+  // background-color: $gris-corp;
+  
+}
+
+.input_reg{
+  
+  // background-color: $blanco-corp;
+  border: none;
+
+}
 
 .input_reg:disabled {
 

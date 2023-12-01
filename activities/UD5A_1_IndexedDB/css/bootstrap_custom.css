@@ -11535,6 +11535,10 @@ footer {
   padding: 10px;
 }
 
+.input_reg {
+  border: none;
+}
+
 .input_reg:disabled {
   border: none;
 }

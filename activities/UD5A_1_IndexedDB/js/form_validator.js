@@ -1,9 +1,12 @@
-//Variables
+//VARIABLES
 const user = document.getElementById('user');
 const password = document.getElementById('password');
-const age = document.getElementById('age');
 
-//Functions
+
+//FUNCTIONS
+
+
+// Messages
 function errorMessage(input, message) {
     const assessed = input.parentElement;
     assessed.className = 'mb-3 assessed error';
@@ -16,6 +19,7 @@ function correctMessage(input) {
     assessed.className = 'mb-3 assessed correct';
 }
 
+// Validators
 function isValidEmail(email) {
     const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailPattern.test(String(email).toLowerCase());
@@ -32,11 +36,13 @@ function isValidPassword(password) {
     return passPattern.test(password);
 }
 
-function validateForm() {
+
+
+// Form Validatior
+function validateForm(action) {
 
     let isUserOK = false;
     let isPasswordOK = false;
-    // let isAgeOk = false;
 
     // Validate email
     if (user.value === '') {
@@ -59,61 +65,10 @@ function validateForm() {
         isPasswordOK = true;
     }
 
-    // Valide age
-    // if (age.value < 18) {
-    //     errorMessage(age, 'the minimum age for registration is 18 years old');
-    //     console.log(age.value);
-    // } else {
-    //     correctMessage(password);
-    //     isAgeOk = true;
-    // }
-
+    // Two fields are ok. Continue to send data to add new user
     if (isUserOK && isPasswordOK) {
-
-        console.log('HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-
-        sendData();
+        sendData(action);
     }
 
 
 }
-
-//Event Listeners
-// form.addEventListener('submit', function (e) {
-//     e.preventDefault();//evita que realice el evento que tenga por defecto
-
-//     if (user.value === '') {
-//         errorMessage(user, 'is requiered');
-//     } else {
-//         correctMessage(user);
-//     }
-
-//     if (email.value === '') {
-//         errorMessage(email, 'is requiered');
-//     } else if (!isValidEmail(email.value)) {
-//         errorMessage(email, 'not valid');
-//     } else {
-//         correctMessage(email);
-//     }
-
-//     if (password.value === '') {
-//         errorMessage(password, 'is requiered');
-//     } else {
-//         correctMessage(password);
-//     }
-
-//     if (password.value === '') {
-//         errorMessage(password, 'is requiered');
-//     } else {
-//         correctMessage(password);
-//     }
-
-//     if (password.value === '') {
-//         errorMessage(password, 'is requiered');
-//     } else if (!isValidPassword(email.value)) {
-//         errorMessage(password, 'Invalid password. It must be at least 8 digits long and must include at least one uppercase letter, one lowercase letter and one symbol.');
-//     } else {
-//         correctMessage(password);
-//     }
-
-// });

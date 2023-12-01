@@ -1,79 +1,10 @@
-var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-var database = "bloggin";
-const DB_STORE_NAME = 'users';
-const DB_STORE_LOGIN = 'login';
-const DB_VERSION = 1;
-var db;
-var opened = false;
-
-
-/**
- * openCreateDb
- * opens and/or creates an IndexedDB database
- */
-function openCreateDb(onDbCompleted) {
-
-    if (opened) {
-        db.close();
-        opened = false;
-    }
-    //We could open changing version ..open(database, 3)
-    var req = indexedDB.open(database, DB_VERSION);
-
-    //This is how we pass the DB instance to our var
-    req.onsuccess = function (e) {
-        db = this.result; // Or event.target.result
-        console.log("openCreateDb: Databased opened " + db);
-        opened = true;
-
-
-
-        //The function passed by parameter is called after creating/opening database
-        onDbCompleted(db);
-
-    };
-
-    // Very important event fired when
-    // 1. ObjectStore first time creation
-    // 2. Version change
-    req.onupgradeneeded = function () {
-
-        //Value of previous db instance is lost. We get it back using the event
-        db = req.result; //Or this.result
-
-        console.log("openCreateDb: upgrade needed " + db);
-        var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true });
-        db.createObjectStore(DB_STORE_LOGIN, { keyPath: "session_id", autoIncrement: true });
-        console.log("openCreateDb: Object store created");
-
-        store.createIndex('user', 'user', { unique: true });
-        console.log("openCreateDb: Index created on user");
-        store.createIndex('password', 'password', { unique: false });
-        console.log("openCreateDb: Index created on password");
-        store.createIndex('name', 'name', { unique: false });
-        console.log("openCreateDb: Index created on name");
-        store.createIndex('surname', 'surname', { unique: false });
-        console.log("openCreateDb: Index created on surname");
-        store.createIndex('address', 'address', { unique: false });
-        console.log("openCreateDb: Index created on address");
-        store.createIndex('age', 'age', { unique: false });
-        console.log("openCreateDb: Index created on age");
-        store.createIndex('avatar', 'avatar', { unique: false });
-        console.log("openCreateDb: Index created on avatar");
-    };
-
-    req.onerror = function (e) {
-        console.error("openCreateDb: error opening or creating DB:", e.target.errorCode);
-    };
-}
-
 function verify_user() {
     openCreateDb(function (db) {
-        validateUser(db);
+        setUser(db);
     });
 }
 
-function validateUser(db){
+function setUser(db){
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
     var store = tx.objectStore(DB_STORE_LOGIN);
@@ -112,27 +43,14 @@ function validateUser(db){
 
 }
 
-function sendData(action, user_id) {
+function sendData(user_id) {
 
+     openCreateDb(function (db) {
+       
+         console.log("update user values");
+         updateUser(db, user_id);
 
-    openCreateDb(function (db) {
-  
-      if (action == 'add_user') {
-  
-        addUser(db, user_id);
-  
-      } else if (action == 'login') {
-  
-        login(db);
-  
-      } else {
-  
-        console.log("change user values");
-        updateUser(db, user_id);
-  
-      }
-  
-    });
+     });
 }
   
 function readData() {
@@ -222,7 +140,6 @@ function readUsers(db) {
   
       if (cursor) {
   
-  
         registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
           '<div class="row align-items-center">' +
           '<div class="col" id="' + cursor.value.id + '">' +
@@ -256,7 +173,7 @@ function readUsers(db) {
           '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
           '</div>' +
           '</div>' +
-          '<input  type="checkbox" id="password-' + cursor.value.password + '" hidden>' +
+          '<input  class="input_reg" type="password" id="password-' + cursor.value.password + '" value="' + cursor.value.password + '" hidden>' +
           '</div>';
   
         //  Check if is an admin 
@@ -278,9 +195,6 @@ function readUsers(db) {
   function deleteUser(user_id) {
 
     if (confirm("Are you sure you want to delete the user?") == true) {
-  
-  
-  
       openCreateDb(function (db) {
         console.log(user_id);
         var tx = db.transaction(DB_STORE_NAME, "readwrite");
@@ -313,13 +227,7 @@ function readUsers(db) {
   }
   
   function selectUserToEdit(user_id) {
-    console.log("readUser");
-  
-    //Both options work
-    //var button_id = e.target.id;
-    //var user_id = document.getElementById(button_id).getAttribute("user_id");
-    // var user_id = e.target.getAttribute("user_id");
-  
+     
     openCreateDb(function (db) {
       console.log(db);
       console.log("Id user: " + user_id);
@@ -327,12 +235,10 @@ function readUsers(db) {
       var tx = db.transaction(DB_STORE_NAME, "readonly");
       var store = tx.objectStore(DB_STORE_NAME);
   
-      // Reads one record from our ObjectStore
       var req = store.get(parseInt(user_id));
   
       req.onsuccess = function (e) {
         var record = e.target.result;
-        console.log(record);
   
         //Operations to do after reading a user
         updateFormInputsToEdit(record);
@@ -370,7 +276,7 @@ function readUsers(db) {
     document.getElementById("del-reg-" + record.id).value = "Cancel";
     document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
     document.getElementById("edit-reg-" + record.id).value = "Save";
-    document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData( '', " + record.id + ")");
+    document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData("+ record.id + ")");
   
   
   }
@@ -426,6 +332,28 @@ function readUsers(db) {
       db.close();
       opened = false;
     };
+  }
+
+  function getAvatarPath() {
+
+    var avatar = document.getElementsByName('avatar');
+  
+    console.log();
+  
+    for (i = 0; i < avatar.length; i++) {
+  
+      if (avatar[i].checked) {
+  
+        return "img/avatar" + (i + 1) + ".png";
+  
+      } else {
+  
+        return "img/logo_headings.png";
+      }
+  
+    }
+  
+  
   }
 
   window.addEventListener('load', () => {
