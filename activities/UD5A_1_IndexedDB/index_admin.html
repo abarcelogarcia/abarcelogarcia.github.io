@@ -167,7 +167,7 @@
             <!-- label linked to their inputs -->
 
             <label for="avatar1">
-              <img src="img/avatar1.png" alt="avatar 1" name="avatar" id="avatar-img1" />
+              <img src="img/avatar1.png" alt="avatar 1" name="avatar" id="avatar-img1"/>
             </label>
             <label for="avatar2">
               <img src="img/avatar2.png" alt="avatar 2" name="avatar" id="avatar-img2" />
@@ -189,8 +189,8 @@
         </div>
         <div class="modal-footer">
           <div class="text-end">
-            <button type="button" aria-label="Close" class="btn btn-warning" id="save_avatar"
-              onclick="setAvatarPath(getAvatarPath())">Select</button>
+            <button type="button" aria-label="Close" data-bs-dismiss="modal" class="btn btn-warning" id="save_avatar"
+              onclick="readData()">Select</button>
 
           </div>
         </div>

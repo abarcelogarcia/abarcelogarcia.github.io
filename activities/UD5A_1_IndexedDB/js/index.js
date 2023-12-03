@@ -15,12 +15,6 @@ function sendData(action) {
   });
 }
 
-// function readData() {
-//   openCreateDb(function (db) {
-//     readUsers(db);
-//   });
-// }
-
 function addUser(db) {
   var user = document.getElementById("user");
   var password = document.getElementById("password");
@@ -48,9 +42,6 @@ function addUser(db) {
     console.log("addUser: Data insertion successfully done. Id: " + e.target.result);
 
     // Operations we want to do after inserting data
-    // readData();
-    // clearFormInputs();
-
     login(db);
 
 
@@ -82,35 +73,40 @@ function login(db) {
 
     if (cursor) {
 
-      if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin == true)) {
+      if ((user.value == cursor.value.user) && (password.value == cursor.value.password)) {
 
-        openCreateDb(function (db) {
-          setLogin(cursor.value.user, true, cursor.value.avatar);
-        });
+    
+        setLogin(cursor.value.user, cursor.value.admin, cursor.value.avatar);
 
-        alert('Welcome ' + user.value);
-        window.location.href = "index_admin.html";
+        if(cursor.value.admin==true){
+
+          alert('Welcome admin ' + user.value);
+          window.location.href = "index_admin.html";
+          
+          
+        }else{
+          
+          alert('Welcome user ' + user.value);
+          // window.location.href = "index.html";
+
+        }
+
         return;
 
       } else if ((user.value == cursor.value.user) && (password.value != cursor.value.password)) {
 
         alert('Incorrect password!');
-        window.location.href = "index.html";
+        // window.location.href = "index.html";
         return;
+        
+      } 
 
-      } else if ((user.value == cursor.value.user) && (password.value == cursor.value.password) && (cursor.value.admin != true)) {
-
-        openCreateDb(function (db) {
-          setLogin(cursor.value.user, false, cursor.value.avatar);
-        });
-        alert('Welcome ' + user.value);
-        window.location.href = "index.html";
-        return;
-
-      }
       cursor.continue();
     }
+
+    
   }
+
 }
 
 function setLogin(user, admin, avatar) {
@@ -130,10 +126,7 @@ function setLogin(user, admin, avatar) {
   }
 
   req.onsuccess = function (e) {
-    console.log("InsertLogin: Data insertion successfully done. Session_Id: " + e.target.result);
-
-
-
+    console.log("Insert Login: Data insertion successfully done. Session_Id: " + e.target.result);
 
   };
   req.onerror = function (e) {
@@ -151,312 +144,24 @@ function setLogin(user, admin, avatar) {
 
 }
 
-function setLogout() {
-
-  openCreateDb(function (db) {
-    var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
-    var store = tx.objectStore(DB_STORE_LOGIN);
-
-    //Delete data in our ObjectStore
-    var req = store.clear();
-
-    req.onsuccess = function (e) {
-
-      console.log("Delete Login: Session_id successfully removed");
-      window.location.href = "index.html";
-
-    };
-
-    req.onerror = function (e) {
-      console.error("Delete Login: error deleting Session_id");
-    };
-
-    tx.oncomplete = function () {
-      console.log("Delete Login: tx complete");
-      db.close();
-      opened = false;
-    };
-  });
-
-
-
-}
-
-// function readUsers(db) {
-
-//   var registered = document.getElementById('registered_user_table');
-
-//   registered.innerHTML = '<div class="container registered-users-cab m-auto mt-4">' +
-//     '<div class="row align-items-center">' +
-//     '<div class="col">' +
-//     'ID' +
-//     '</div>' +
-//     '<div class="col">' +
-//     'AD' +
-//     '</div>' +
-//     '<div class="col-2">' +
-//     'User' +
-//     '</div>' +
-//     '<div class="col-1">' +
-//     'Name' +
-//     '</div>' +
-//     '<div class="col-2">' +
-//     'Surname' +
-//     '</div>' +
-//     '<div class="col-2">' +
-//     'Address' +
-//     '</div>' +
-//     '<div class="col-1 text-center">' +
-//     'Age' +
-//     '</div>' +
-//     '<div class="col-1 text-center">' +
-//     '' +
-//     '</div>' +
-//     '<div class="col-1 text-center">' +
-//     '' +
-//     '</div>' +
-//     '<div class="col-1 text-center">' +
-//     '' +
-//     '</div>' +
-//     '</div>' +
-//     '</div>';
-
-//   var tx = db.transaction(DB_STORE_NAME, "readonly");
-//   var store = tx.objectStore(DB_STORE_NAME);
-//   var req = store.openCursor();
-
-//   req.onsuccess = function (e) {
-
-//     var cursor = this.result;
-
-//     if (cursor) {
-
-
-//       registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
-//         '<div class="row align-items-center">' +
-//         '<div class="col" id="' + cursor.value.id + '">' +
-//         cursor.value.id +
-//         '</div>' +
-//         '<div class="col">' +
-//         '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" disabled>' +
-//         '</div>' +
-//         '<div class="col-2">' +
-//         '<input class="input_reg" type="text" id="user-' + cursor.value.id + '"  name="user" aria-describedby="user" value="' + cursor.value.user + '" disabled/>' +
-//         '</div>' +
-//         '<div class="col-1">' +
-//         '<input class="input_reg" type="text" id="name-' + cursor.value.id + '"  name="name" aria-describedby="name" value="' + cursor.value.name + '" disabled/>' +
-//         '</div>' +
-//         '<div class="col-2">' +
-//         '<input class="input_reg" type="text" id="surname-' + cursor.value.id + '"  name="surname" aria-describedby="surname" value="' + cursor.value.surname + '" disabled/>' +
-//         '</div>' +
-//         '<div class="col-2">' +
-//         '<input class="input_reg " type="text" id="address-' + cursor.value.id + '"  name="address" aria-describedby="address" value="' + cursor.value.address + '" disabled/>' +
-//         '</div>' +
-//         '<div class="col-1 text-center">' +
-//         '<input class="input_reg" type="text" id="age-' + cursor.value.id + '"  name="age" aria-describedby="age" value="' + cursor.value.age + '" disabled/>' +
-//         '</div>' +
-//         '<div class="col-1">' +
-//         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
-//         '</div>' +
-//         '<div class="col-1 text-center">' +
-//         '<input type="button" class="btn btn-warning" value="Edit"  id="edit-reg-' + cursor.value.id + '" action="edit-user" onclick="selectUserToEdit(' + cursor.value.id + ')">' +
-//         '</div>' +
-//         '<div class="col-1 text-center">' +
-//         '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
-//         '</div>' +
-//         '</div>' +
-//         '<input  type="checkbox" id="password-' + cursor.value.password + '" hidden>' +
-//         '</div>';
-
-//       //  Check if is an admin 
-//       if (cursor.value.admin == true) {
-//         document.getElementById("admin_check-" + cursor.value.id).checked = true;
-//       }
-
-//       cursor.continue();
-
-
-//     }
-
-
-//   }
-
-
-// }
-
-
-
-
-// function deleteUser(user_id) {
-
-//   if (confirm("Are you sure you want to delete the user?") == true) {
-
-
-
-//     openCreateDb(function (db) {
-//       console.log(user_id);
-//       var tx = db.transaction(DB_STORE_NAME, "readwrite");
-//       var store = tx.objectStore(DB_STORE_NAME);
-
-//       //Delete data in our ObjectStore
-//       var req = store.delete(parseInt(user_id));
-
-//       req.onsuccess = function (e) {
-
-//         console.log("deleteUser: Data successfully removed: " + user_id);
-
-//         //Operation to do after deleting a record
-//         readData();
-//       };
-
-//       req.onerror = function (e) {
-//         console.error("deleteUser: error removing data:", e.target.errorCode);
-//       };
-
-//       tx.oncomplete = function () {
-//         console.log("deleteUser: tx completed");
-//         db.close();
-//         opened = false;
-//       };
-//     });
-//   }
-
-
-// }
-
-// function selectUserToEdit(user_id) {
-//   console.log("readUser");
-
-//   //Both options work
-//   //var button_id = e.target.id;
-//   //var user_id = document.getElementById(button_id).getAttribute("user_id");
-//   // var user_id = e.target.getAttribute("user_id");
-
-//   openCreateDb(function (db) {
-//     console.log(db);
-//     console.log("Id user: " + user_id);
-
-//     var tx = db.transaction(DB_STORE_NAME, "readonly");
-//     var store = tx.objectStore(DB_STORE_NAME);
-
-//     // Reads one record from our ObjectStore
-//     var req = store.get(parseInt(user_id));
-
-//     req.onsuccess = function (e) {
-//       var record = e.target.result;
-//       console.log(record);
-
-//       //Operations to do after reading a user
-//       updateFormInputsToEdit(record);
-//     };
-
-//     req.onerror = function (e) {
-//       console.error("readUser: error reading data:", e.target.errorCode);
-//     };
-
-//     tx.oncomplete = function () {
-//       console.log("readUser: tx completed");
-//       db.close();
-//       opened = false;
-//     };
-
-//   });
-// }
-
-// function updateFormInputsToEdit(record) {
-
-//   document.getElementById("user-" + record.id).disabled = false;
-//   document.getElementById("user-" + record.id).value = record.user;
-//   document.getElementById("password-" + record.id).value = record.password;
-//   document.getElementById("name-" + record.id).disabled = false;
-//   document.getElementById("name-" + record.id).value = record.name;
-//   document.getElementById("surname-" + record.id).disabled = false;
-//   document.getElementById("surname-" + record.id).value = record.surname;
-//   document.getElementById("address-" + record.id).disabled = false;
-//   document.getElementById("address-" + record.id).value = record.address;
-//   document.getElementById("age-" + record.id).disabled = false;
-//   document.getElementById("age-" + record.id).value = record.age;
-//   document.getElementById("admin_check-" + record.id).disabled = false;
-//   document.getElementById("avatar-" + record.id).setAttribute("data-bs-toggle", "modal");
-//   document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
-//   document.getElementById("del-reg-" + record.id).value = "Cancel";
-//   document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
-//   document.getElementById("edit-reg-" + record.id).value = "Save";
-//   document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData( '', " + record.id + ")");
-
-
-// }
-
-// function cancelar(user_id) {
-
-
-//   document.getElementById("user-" + user_id).disabled = true;
-//   document.getElementById("name-" + user_id).disabled = true;
-//   document.getElementById("surname-" + user_id).disabled = true;
-//   document.getElementById("address-" + user_id).disabled = true;
-//   document.getElementById("age-" + user_id).disabled = true;
-//   document.getElementById("del-reg-" + user_id).value = "Delete";
-//   document.getElementById("del-reg-" + user_id).setAttribute("onclick", "deleteUser(' + cursor.value.id + ')");
-//   document.getElementById("avatar-" + user_id).removeAttribute("data-bs-toggle");
-//   document.getElementById("avatar-" + user_id).removeAttribute("data-bs-target");
-
-//   readData(db);
-
-// }
-
-// function updateUser(db, user_id) {
-//   var user = document.getElementById("user-" + user_id);
-//   var password = document.getElementById("password-" + user_id);
-//   var name = document.getElementById("name-" + user_id);
-//   var surname = document.getElementById("surname-" + user_id);
-//   var address = document.getElementById("address-" + user_id);
-//   var age = document.getElementById("age-" + user_id);
-//   var admin = document.getElementById("admin_check-" + user_id).checked;
-//   var avatar = getAvatarPath();
-//   var obj = { id: parseInt(user_id), user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin };
-
-//   var tx = db.transaction(DB_STORE_NAME, "readwrite");
-//   var store = tx.objectStore(DB_STORE_NAME);
-
-//   //Updates data in our ObjectStore
-//   req = store.put(obj);
-
-//   req.onsuccess = function (e) {
-//     console.log("Data successfully updated");
-
-//     //Operations to do after updating data
-//     readData();
-//     // clearFormInputs();
-//   };
-
-//   req.onerror = function (e) {
-//     console.error("editUser: Error updating data", this.error);
-//   };
-
-//   tx.oncomplete = function () {
-//     console.log("editUser: tx completed");
-//     db.close();
-//     opened = false;
-//   };
-// }
 
 function getAvatarPath() {
 
-  var avatar = document.getElementsByName('avatar');
+  const avatar = document.getElementsByName('avatar');
+  let avatarPath = "img/logo_headings.png";
 
   for (i = 0; i < avatar.length; i++) {
 
+    
     if (avatar[i].checked) {
 
-      return "img/avatar" + (i + 1) + ".png";
+      avatarPath = "img/avatar" + (i + 1) + ".png";
 
-    } else {
-
-      return "img/logo_headings.png";
-    }
+    } 
 
   }
 
+  return avatarPath;
 
 }
 
@@ -465,42 +170,10 @@ function uncheckAvatar() {
   for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
 }
 
-function setUser(db) {
 
-  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
-  var store = tx.objectStore(DB_STORE_LOGIN);
-  var req = store.openCursor();
-
-  req.onsuccess = function (e) {
-
-    var cursor = this.result;
-
-    if (cursor) {
-
-      if (cursor.value.admin == false) {
-
-        document.getElementById("img-profile").setAttribute("src", cursor.value.avatar);
-        console.log(cursor.value.avatar);
-
-      }
-
-    }
-
-  }
-}
-
-function verify_user() {
-  openCreateDb(function (db) {
-    setUser(db);
-  });
-}
-
-// window.addEventListener('load', () => {
-//   readData();
-//   verify_user();
-
-
-// });
+window.addEventListener('load', () => {
+  // verify_user();
+});
 
 document.getElementById("user_collapse_data").addEventListener("click", function () {
 

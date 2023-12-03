@@ -11537,6 +11537,8 @@ footer {
 
 .input_reg {
   border: none;
+  padding: 5px;
+  max-width: 150px;
 }
 
 .input_reg:disabled {
