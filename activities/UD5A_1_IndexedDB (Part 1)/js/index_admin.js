@@ -13,6 +13,7 @@ function readUsers(db) {
 
   var registered = document.getElementById('registered_user_table');
 
+  // Table header
   registered.innerHTML = '<div class="container registered-users-cab m-auto mt-4">' +
     '<div class="row align-items-center">' +
     '<div class="col">' +
@@ -56,6 +57,7 @@ function readUsers(db) {
 
     var cursor = this.result;
 
+    // Table body
     if (cursor) {
 
       registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
@@ -94,12 +96,12 @@ function readUsers(db) {
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
         '</div>';
 
-      //  Check if is an admin 
-      if (cursor.value.admin == true) {
-        document.getElementById("admin_check-" + cursor.value.id).checked = true;
-      }
-
-      cursor.continue();
+        
+        cursor.continue();
+        //  Check if is an admin 
+        if (cursor.value.admin == true) {
+          document.getElementById("admin_check-" + cursor.value.id).checked = true;
+        }
 
 
     }
@@ -274,28 +276,10 @@ function deleteUser(user_id) {
 }
 
 
-function getAvatarPath() {
-
-  var avatar = document.getElementsByName('avatar');
-
-  console.log();
-
-  for (i = 0; i < avatar.length; i++) {
-
-    if (avatar[i].checked) {
-
-      return "img/avatar" + (i + 1) + ".png";
-
-    }
-
-  }
-
-
-}
 
 // verify the user's identity when loading the page
 window.addEventListener('load', () => {
-  verify_user('admin');
+  verifyUser('admin');
 
 
 });

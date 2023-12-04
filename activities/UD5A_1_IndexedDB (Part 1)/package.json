@@ -1,5 +1,6 @@
+
 {
-  "dependencies": {
+    "dependencies": {
     "bootstrap": "^5.3.2",
     "crypto-js": "^4.2.0"
   }

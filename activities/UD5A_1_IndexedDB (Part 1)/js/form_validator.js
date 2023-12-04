@@ -5,7 +5,6 @@ const password = document.getElementById('password');
 
 //FUNCTIONS
 
-
 // Messages
 function errorMessage(input, message) {
     const assessed = input.parentElement;

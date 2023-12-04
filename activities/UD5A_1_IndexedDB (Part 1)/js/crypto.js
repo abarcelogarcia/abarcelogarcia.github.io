@@ -1,6 +1,7 @@
 // Importamos Crypto.js
 import CryptoJS from 'crypto-js';
 
+
 // Función para cifrar la contraseña
 function encryptPassword(password) {
     // Generamos una clave secreta aleatoria

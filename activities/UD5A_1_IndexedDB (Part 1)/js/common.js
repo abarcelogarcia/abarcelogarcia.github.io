@@ -24,20 +24,14 @@ function openCreateDb(onDbCompleted) {
         console.log("openCreateDb: Databased opened " + db);
         opened = true;
 
-
-
         //The function passed by parameter is called after creating/opening database
         onDbCompleted(db);
 
     };
 
-    // Very important event fired when
-    // 1. ObjectStore first time creation
-    // 2. Version change
     req.onupgradeneeded = function () {
 
-        //Value of previous db instance is lost. We get it back using the event
-        db = req.result; //Or this.result
+        db = req.result;
 
         console.log("openCreateDb: upgrade needed " + db);
         var store = db.createObjectStore(DB_STORE_NAME, { keyPath: "id", autoIncrement: true });
@@ -74,24 +68,19 @@ function openCreateDb(onDbCompleted) {
 //     -- Is admin: Reads data and displays users
 // -------------------------------------------
 
-function verify_user(admin) {
+function verifyUser(admin) {
     openCreateDb(function (db) {
 
         if (admin) {
-
-
             setUserAdmin(db);
-
         } else {
-
-
             setUser(db);
-
         }
 
     });
 }
 
+// checks if the admin is logged in and acts accordingly
 function setUserAdmin(db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
@@ -102,40 +91,31 @@ function setUserAdmin(db) {
 
         var cursor = this.result;
 
-        if (!cursor) {
+
+        if (!cursor) { // No data --> No login. Redirect to homepage
 
             window.location.href = "index.html";
             return;
 
-        } else {
+        } else { // Get login data. 
 
-
+            // If it is admin, set avatar and show users data. 
             if (cursor.value.admin == true) {
 
                 document.getElementById("img-profile").src = cursor.value.avatar;
                 readData();
                 return;
 
-            } else {
+            // If it is not admin, redirect to homepage. 
+            } else { 
 
                 window.location.href = "index.html";
-                //   document.getElementById("img-profile").src = cursor.value.avatar;
-                //   document.getElementById("img-profile").hidden = false;
-                //   document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-                //   document.getElementById("btn_login").removeAttribute("data-bs-target");
-                //   document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-                //   document.getElementById("btn_login").textContent = "Logout";
-
-
             }
-
         }
-
-        return;
-
     }
 }
 
+// checks if the user (not admin) is logged in and acts accordingly
 function setUser(db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
@@ -146,19 +126,20 @@ function setUser(db) {
 
         var cursor = this.result;
 
-        if (!cursor) {
+        if (!cursor) { // If there is not login data, return (we are in home page)
 
-            // window.location.href = "index.html";
             return;
 
-        } else {
+        } else { // Get data
 
 
+            // If it is admin, go to admin page
             if (cursor.value.admin == true) {
 
                 window.location.href = "index_admin.html";
                 return;
 
+                // If it is user (not admin), setup the avatar and logout button.
             } else {
 
                 document.getElementById("img-profile").src = cursor.value.avatar;
@@ -167,14 +148,8 @@ function setUser(db) {
                 document.getElementById("btn_login").removeAttribute("data-bs-target");
                 document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
                 document.getElementById("btn_login").textContent = "Logout";
-
-
             }
-
         }
-
-        return;
-
     }
 }
 
@@ -212,4 +187,29 @@ function setLogout() {
 
 
 
+}
+
+function getAvatarPath() {
+
+    const avatar = document.getElementsByName('avatar');
+    let avatarPath = "img/logo_headings.png";
+  
+    for (i = 0; i < avatar.length; i++) {
+  
+  
+      if (avatar[i].checked) {
+  
+        avatarPath = "img/avatar" + (i + 1) + ".png";
+  
+      }
+  
+    }
+  
+    return avatarPath;
+  
+}
+  
+function uncheckAvatar() {
+    var avatar = document.getElementsByName("avatar");
+    for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
 }
