@@ -53,15 +53,16 @@ function addUser(db) {
   //After transaction is completed we close de database
   tx.oncomplete = function () {
     console.log("addUser: transaction completed");
-    db.close();
-    opened = false;
+    // db.close();
+    // opened = false;
+
   };
 }
 
 function login(db) {
 
-  var user = document.getElementById("user");
-  var password = document.getElementById("password");
+  const user = document.getElementById("user");
+  const password = encryptPassword(document.getElementById("password"));
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -75,18 +76,19 @@ function login(db) {
 
       if ((user.value == cursor.value.user) && (password.value == cursor.value.password)) {
 
-    
+
+        // Store the login into db in login storage
         setLogin(cursor.value.user, cursor.value.admin, cursor.value.avatar);
 
-        if(cursor.value.admin==true){
+        if (cursor.value.admin == true) {
 
-          alert('Welcome admin ' + user.value);
+          console.log("Admin logged in");
           window.location.href = "index_admin.html";
-          
-          
-        }else{
-          
-          alert('Welcome user ' + user.value);
+
+
+        } else {
+
+          console.log("User logged in");
           window.location.href = "index.html";
 
         }
@@ -95,17 +97,27 @@ function login(db) {
 
       } else if ((user.value == cursor.value.user) && (password.value != cursor.value.password)) {
 
-        alert('Incorrect password!');
-        // window.location.href = "index.html";
-        return;
-        
-      } 
+        errorMessage(document.getElementById('password'), 'incorrect password. Caps lock active?')
+        tx.oncomplete = function () {
+          db.close();
+          opened = false;
+          return;
 
+        }
+
+      }
       cursor.continue();
-    }
 
-    
+    }
   }
+  errorMessage(document.getElementById('user'), 'User not registered');
+  tx.oncomplete = function () {
+    db.close();
+    opened = false;
+
+
+  };
+
 
 }
 
@@ -130,12 +142,12 @@ function setLogin(user, admin, avatar) {
 
   };
   req.onerror = function (e) {
-    console.error("addUser: error creating data", this.error);
+    console.error("Insert Login: error creating data", this.error);
   };
 
   //After transaction is completed we close de database
   tx.oncomplete = function () {
-    console.log("addUser: transaction completed");
+    console.log("Insert Login: transaction completed");
     db.close();
     opened = false;
   };
@@ -152,12 +164,12 @@ function getAvatarPath() {
 
   for (i = 0; i < avatar.length; i++) {
 
-    
+
     if (avatar[i].checked) {
 
       avatarPath = "img/avatar" + (i + 1) + ".png";
 
-    } 
+    }
 
   }
 
@@ -194,4 +206,4 @@ document.getElementById("user_collapse_data").addEventListener("click", function
 
 
 
-})
+});

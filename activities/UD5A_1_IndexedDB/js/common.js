@@ -76,23 +76,23 @@ function openCreateDb(onDbCompleted) {
 
 function verify_user(admin) {
     openCreateDb(function (db) {
-        
-        if(admin){
+
+        if (admin) {
 
 
             setUserAdmin(db);
-            
-        }else{
-            
-            
+
+        } else {
+
+
             setUser(db);
 
         }
-        
+
     });
 }
 
-function setUserAdmin(db){
+function setUserAdmin(db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
     var store = tx.objectStore(DB_STORE_LOGIN);
@@ -102,41 +102,41 @@ function setUserAdmin(db){
 
         var cursor = this.result;
 
-        if(!cursor){
+        if (!cursor) {
 
             window.location.href = "index.html";
             return;
-            
-        }else{
-            
-            
-            if(cursor.value.admin == true){
-                
+
+        } else {
+
+
+            if (cursor.value.admin == true) {
+
                 document.getElementById("img-profile").src = cursor.value.avatar;
                 readData();
                 return;
-                
-            }else{
-                
-                window.location.href = "index.html";
-            //   document.getElementById("img-profile").src = cursor.value.avatar;
-            //   document.getElementById("img-profile").hidden = false;
-            //   document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-            //   document.getElementById("btn_login").removeAttribute("data-bs-target");
-            //   document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-            //   document.getElementById("btn_login").textContent = "Logout";
 
-              
+            } else {
+
+                window.location.href = "index.html";
+                //   document.getElementById("img-profile").src = cursor.value.avatar;
+                //   document.getElementById("img-profile").hidden = false;
+                //   document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+                //   document.getElementById("btn_login").removeAttribute("data-bs-target");
+                //   document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+                //   document.getElementById("btn_login").textContent = "Logout";
+
+
             }
-            
+
         }
 
         return;
-    
-      }
+
+    }
 }
 
-function setUser(db){
+function setUser(db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
     var store = tx.objectStore(DB_STORE_LOGIN);
@@ -146,36 +146,36 @@ function setUser(db){
 
         var cursor = this.result;
 
-        if(!cursor){
+        if (!cursor) {
 
             // window.location.href = "index.html";
             return;
-            
-        }else{
-            
-            
-            if(cursor.value.admin == true){
-                
-                window.location.href = "index_admin.html";
-              return;
-              
-            }else{
-              
-              document.getElementById("img-profile").src = cursor.value.avatar;
-              document.getElementById("img-profile").hidden = false;
-              document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-              document.getElementById("btn_login").removeAttribute("data-bs-target");
-              document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-              document.getElementById("btn_login").textContent = "Logout";
 
-              
+        } else {
+
+
+            if (cursor.value.admin == true) {
+
+                window.location.href = "index_admin.html";
+                return;
+
+            } else {
+
+                document.getElementById("img-profile").src = cursor.value.avatar;
+                document.getElementById("img-profile").hidden = false;
+                document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+                document.getElementById("btn_login").removeAttribute("data-bs-target");
+                document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+                document.getElementById("btn_login").textContent = "Logout";
+
+
             }
-            
+
         }
 
         return;
-    
-      }
+
+    }
 }
 
 
@@ -184,30 +184,30 @@ function setUser(db){
 
 function setLogout() {
 
-  openCreateDb(function (db) {
-    var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
-    var store = tx.objectStore(DB_STORE_LOGIN);
+    openCreateDb(function (db) {
+        var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
+        var store = tx.objectStore(DB_STORE_LOGIN);
 
-    //Delete data in our ObjectStore
-    var req = store.clear();
+        //Delete data in our ObjectStore
+        var req = store.clear();
 
-    req.onsuccess = function (e) {
+        req.onsuccess = function (e) {
 
-      console.log("Delete Login: Session_id successfully removed");
-      window.location.href = "index.html";
+            console.log("Delete Login: Session_id successfully removed");
+            window.location.href = "index.html";
 
-    };
+        };
 
-    req.onerror = function (e) {
-      console.error("Delete Login: error deleting Session_id");
-    };
+        req.onerror = function (e) {
+            console.error("Delete Login: error deleting Session_id");
+        };
 
-    tx.oncomplete = function () {
-      console.log("Delete Login: tx complete");
-      db.close();
-      opened = false;
-    };
-  });
+        tx.oncomplete = function () {
+            console.log("Delete Login: tx complete");
+            db.close();
+            opened = false;
+        };
+    });
 
 
 
