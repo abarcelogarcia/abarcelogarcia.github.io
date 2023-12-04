@@ -87,7 +87,7 @@ function login(db) {
         }else{
           
           alert('Welcome user ' + user.value);
-          // window.location.href = "index.html";
+          window.location.href = "index.html";
 
         }
 
@@ -172,7 +172,7 @@ function uncheckAvatar() {
 
 
 window.addEventListener('load', () => {
-  // verify_user();
+  verify_user('');
 });
 
 document.getElementById("user_collapse_data").addEventListener("click", function () {

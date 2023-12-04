@@ -74,10 +74,66 @@ function openCreateDb(onDbCompleted) {
 //     -- Is admin: Reads data and displays users
 // -------------------------------------------
 
-function verify_user() {
+function verify_user(admin) {
     openCreateDb(function (db) {
-        setUser(db);
+        
+        if(admin){
+
+
+            setUserAdmin(db);
+            
+        }else{
+            
+            
+            setUser(db);
+
+        }
+        
     });
+}
+
+function setUserAdmin(db){
+
+    var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+    var store = tx.objectStore(DB_STORE_LOGIN);
+    var req = store.openCursor();
+
+    req.onsuccess = function (e) {
+
+        var cursor = this.result;
+
+        if(!cursor){
+
+            window.location.href = "index.html";
+            return;
+            
+        }else{
+            
+            
+            if(cursor.value.admin == true){
+                
+                document.getElementById("img-profile").src = cursor.value.avatar;
+                readData();
+                return;
+                
+            }else{
+                
+                window.location.href = "index.html";
+            //   document.getElementById("img-profile").src = cursor.value.avatar;
+            //   document.getElementById("img-profile").hidden = false;
+            //   document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+            //   document.getElementById("btn_login").removeAttribute("data-bs-target");
+            //   document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+            //   document.getElementById("btn_login").textContent = "Logout";
+
+              
+            }
+            
+        }
+
+        return;
+    
+      }
 }
 
 function setUser(db){
@@ -95,13 +151,12 @@ function setUser(db){
             // window.location.href = "index.html";
             return;
             
-          }else{
+        }else{
             
             
             if(cursor.value.admin == true){
-              
-              document.getElementById("img-profile").src = cursor.value.avatar;
-              readData();
+                
+                window.location.href = "index_admin.html";
               return;
               
             }else{

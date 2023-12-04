@@ -293,7 +293,7 @@ function getAvatarPath() {
 
   // verify the user's identity when loading the page
   window.addEventListener('load', () => {
-    verify_user();
+    verify_user('admin');
   
   
   });
