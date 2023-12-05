@@ -59,8 +59,10 @@ function addUser(db) {
 
 function login(db) {
 
-  const user = document.getElementById("user");
-  const password = document.getElementById("password");
+  let user = document.getElementById("user");
+  let password = CryptoJS.SHA256(document.getElementById("password").value);
+
+  console.log(password.toString());
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
