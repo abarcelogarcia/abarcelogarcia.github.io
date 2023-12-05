@@ -60,9 +60,9 @@ function addUser(db) {
 function login(db) {
 
   let user = document.getElementById("user");
-  let password = CryptoJS.SHA256(document.getElementById("password").value);
+  // let password = CryptoJS.SHA256(document.getElementById("password").value);
+  let password = document.getElementById("password");
 
-  console.log(password.toString());
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -94,7 +94,6 @@ function login(db) {
 
         }
 
-        return;
 
       } else if ((user.value == cursor.value.user) && (password.value != cursor.value.password)) {
 
@@ -102,7 +101,6 @@ function login(db) {
         tx.oncomplete = function () {
           db.close();
           opened = false;
-          return;
 
         }
 
