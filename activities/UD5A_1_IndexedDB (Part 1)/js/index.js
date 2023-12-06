@@ -18,14 +18,18 @@ function sendData(action) {
 // Write the new user register into the db
 function addUser(db) {
   var user = document.getElementById("user");
-  var password = document.getElementById("password");
+  var password = encryptPassword(document.getElementById("password").value);
+
+  console.log(password);
+
+  
   var name = document.getElementById("name");
   var surname = document.getElementById("surname");
   var address = document.getElementById("address");
   var age = document.getElementById("age");
   var avatar = getAvatarPath();
   var admin = document.getElementById("admin_check");
-  var obj = { user: user.value, password: password.value, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
+  var obj = { user: user.value, password: password, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
 
 
   // Start a new transaction.
@@ -60,21 +64,21 @@ function addUser(db) {
 function login(db) {
 
   let user = document.getElementById("user");
-  // let password = CryptoJS.SHA256(document.getElementById("password").value);
   let password = document.getElementById("password");
-
-
+  
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
-
+  
   req.onsuccess = function (e) {
-
+    
     var cursor = this.result;
-
+    
     if (cursor) {
+      
+      const storedPassword = decryptPassword(cursor.value.password.ciphertext, cursor.value.password.key);
 
-      if ((user.value == cursor.value.user) && (password.value == cursor.value.password)) {
+      if ((user.value == cursor.value.user) && (password.value == storedPassword)) {
 
 
         // Store the login into db in login storage
@@ -95,7 +99,7 @@ function login(db) {
         }
 
 
-      } else if ((user.value == cursor.value.user) && (password.value != cursor.value.password)) {
+      } else if ((user.value == cursor.value.user) && (password.value != storedPassword)) {
 
         errorMessage(document.getElementById('password'), 'incorrect password. Caps lock active?')
         tx.oncomplete = function () {
@@ -155,10 +159,7 @@ function setLogin(user, admin, avatar) {
 
 }
 
-
-
-
-
+// LISTENNERS
 window.addEventListener('load', () => {
   verifyUser('');
 });

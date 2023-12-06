@@ -1,41 +1,28 @@
-// Importamos Crypto.js
-import CryptoJS from 'crypto-js';
+// PASSWORD ENCRYPT
 
-
-// Función para cifrar la contraseña
+// Encrypt password
 function encryptPassword(password) {
-    // Generamos una clave secreta aleatoria
-    const key = CryptoJS.lib.WordArray.random(16);
+  
+    // 10-digit random secret key
+    const key = Math.random().toString(36).substring(2, 12);
 
-    // Ciframos la contraseña con la clave secreta
+  
+    // Encrypt the password with the secret key
     const ciphertext = CryptoJS.AES.encrypt(password, key);
-
-    // Devolvemos la clave secreta y el cifrado en formato string
+  
+    // We return the secret key and the cipher
     return {
-        key: key.toString(),
-        ciphertext: ciphertext.toString()
+      key: key.toString(),
+      ciphertext: ciphertext.toString()
     };
-}
-
-// Función para descifrar la contraseña
-function decryptPassword(encryptedPassword, key) {
-    // Convertimos la clave secreta a formato WordArray
-    const keyWordArray = CryptoJS.enc.Utf8.parse(key);
-
-    // Desciframos la contraseña con la clave secreta
-    const bytes = CryptoJS.AES.decrypt(encryptedPassword, keyWordArray);
-
-    // Devolvemos la contraseña descifrada en formato string
-    return bytes.toString(CryptoJS.enc.Utf8);
-}
-
-// Ejemplo de uso
-const password = 'contraseña123';
-const encryptedPassword = encryptPassword(password);
-
-console.log('Contraseña cifrada:', encryptedPassword.ciphertext);
-console.log('Clave secreta:', encryptedPassword.key);
-
-const decryptedPassword = decryptPassword(encryptedPassword.ciphertext, encryptedPassword.key);
-
-console.log('Contraseña descifrada:', decryptedPassword);
+  }
+  
+  // Decrypt password
+  function decryptPassword(encryptedPassword, key) {
+  
+    // Decrypt the password with the secret key
+    const decrypted = CryptoJS.AES.decrypt(encryptedPassword, key);
+  
+    // return the decrypted password how string
+    return decrypted.toString(CryptoJS.enc.Utf8);
+  }

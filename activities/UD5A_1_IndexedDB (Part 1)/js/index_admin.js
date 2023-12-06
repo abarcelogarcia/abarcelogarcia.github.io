@@ -12,42 +12,8 @@ function readData() {
 function readUsers(db) {
 
   var registered = document.getElementById('registered_user_table');
-
-  // // Table header
-  // registered.innerHTML = '<div class="container registered-users-cab m-auto mt-4">' +
-  //   '<div class="row align-items-center">' +
-  //   '<div class="col">' +
-  //   'ID' +
-  //   '</div>' +
-  //   '<div class="col">' +
-  //   'AD' +
-  //   '</div>' +
-  //   '<div class="col-2">' +
-  //   'User' +
-  //   '</div>' +
-  //   '<div class="col-1">' +
-  //   'Name' +
-  //   '</div>' +
-  //   '<div class="col-2">' +
-  //   'Surname' +
-  //   '</div>' +
-  //   '<div class="col-2">' +
-  //   'Address' +
-  //   '</div>' +
-  //   '<div class="col-1 text-end">' +
-  //   'Age' +
-  //   '</div>' +
-  //   '<div class="col-1 text-center">' +
-  //   '' +
-  //   '</div>' +
-  //   '<div class="col-1 text-center">' +
-  //   '' +
-  //   '</div>' +
-  //   '<div class="col-1 text-center">' +
-  //   '' +
-  //   '</div>' +
-  //   '</div>' +
-  //   '</div>';
+  
+  registered.innerHTML = "";
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
