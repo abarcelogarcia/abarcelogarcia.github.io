@@ -8,14 +8,14 @@ const password = document.getElementById('password');
 // Messages
 function errorMessage(input, message) {
     const assessed = input.parentElement;
-    assessed.className = 'mb-3 assessed error';
+    assessed.className = 'form-control assessed error';
     const small = assessed.querySelector('small');
     small.innerText = 'Error: ' + message;
 }
 
 function correctMessage(input) {
     const assessed = input.parentElement;
-    assessed.className = 'mb-3 assessed correct';
+    assessed.className = 'form-control assessed correct';
 }
 
 // Validators
@@ -71,3 +71,5 @@ function validateForm(action) {
 
 
 }
+
+

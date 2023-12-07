@@ -249,9 +249,51 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Reset password -->
+  <div class="modal fade" id="resetPass_modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="resetPassLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img src="img/LogoBloggIn_login.png" alt="login_logo" />
+          <h1 class="modal-title fs-1 w-100 p-1" id="staticBackdropLabel">
+            Reset Password
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <h6 class="mb-4">New Password</h6>
+
+          <div class="mb-3 assessed">
+            <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Type de new password" required />
+            <small>Error message</small>
+          </div>
+
+          <div class="mb-3 assessed">
+            <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Type de new password again"
+              required />
+            <small>Error message</small>
+          </div>
+
+          
+        </div>
+        <div class="modal-footer">
+          <div class="text-end">
+            <button type="button" class="btn btn-warning" id="validateFormPass" onclick="validateFormPass()">Select</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  </div>
+
+
   <script src="./js/index_admin.js"></script>
   <script src="./js/common.js"></script>
+  <script src="./js/form_password_validator.js"></script>
 
   <!-- CRYPTO -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

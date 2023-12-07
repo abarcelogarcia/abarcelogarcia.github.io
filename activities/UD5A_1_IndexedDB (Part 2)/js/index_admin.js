@@ -42,7 +42,7 @@ function readUsers(db) {
         '<div class="col-1">' +
         '<input class="input_reg" type="text" id="name-' + cursor.value.id + '"  name="name" aria-describedby="name" value="' + cursor.value.name + '" disabled/>' +
         '</div>' +
-        '<div class="col-2">' +
+        '<div class="col-1">' +
         '<input class="input_reg" type="text" id="surname-' + cursor.value.id + '"  name="surname" aria-describedby="surname" value="' + cursor.value.surname + '" disabled/>' +
         '</div>' +
         '<div class="col-2">' +
@@ -59,6 +59,9 @@ function readUsers(db) {
         '</div>' +
         '<div class="col-1 text-center">' +
         '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
+        '</div>' +
+        '<div class="col-1 text-center">' +
+        '<input type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="reset-pass-' + cursor.value.id + '" value="Password" >' +
         '</div>' +
         '</div>' +
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
@@ -162,6 +165,7 @@ function sendData(user_id) {
   });
 }
 
+
 function updateUser(db, user_id) {
   var user = document.getElementById("user-" + user_id);
   var password = encryptPassword(document.getElementById("password-" + user_id).value);
@@ -251,6 +255,17 @@ function deleteUser(user_id) {
 
 
 }
+
+// RESET PASSWORD
+
+function resetPassword(user_id) {
+
+  openCreateDb(function (db) {
+
+
+  });
+}
+
 
 
 // BACKUPS MANAGEMENT
