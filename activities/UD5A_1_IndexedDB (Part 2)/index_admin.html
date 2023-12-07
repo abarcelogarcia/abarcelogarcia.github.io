@@ -79,12 +79,22 @@
 
     <section id="Registered-users">
       <div class="heading mb-2 fs-1">
-        <div class="row align-items-center bg-primary">
+        <div class="row align-items-center bg-primary p-2">
           <div class="col">
             <div class="ms-2">Registered Users</div>
           </div>
           <div class="col-auto">
-            <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" />
+            
+            <div class="dropdown">
+              <button class="btn btn-outline-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Backups
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" type="button" onclick="readBK()">Backup</a></li>
+                <li><a class="dropdown-item" type="button" onclick="sendBK()">Restore</a></li>
+              </ul>
+            </div>
+            <!-- <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" /> -->
           </div>
         </div>
       </div>

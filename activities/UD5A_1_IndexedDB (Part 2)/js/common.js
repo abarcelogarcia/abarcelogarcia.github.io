@@ -5,6 +5,7 @@ const DB_STORE_LOGIN = 'login';
 const DB_VERSION = 1;
 let db;
 let opened = false;
+let backup;
 
 // DB MANAGEMENT
 // -------------------------------------------
@@ -52,11 +53,26 @@ function openCreateDb(onDbCompleted) {
         console.log("openCreateDb: Index created on age");
         store.createIndex('avatar', 'avatar', { unique: false });
         console.log("openCreateDb: Index created on avatar");
+
+
+        //   ADD temp user on start
+        var obj = {
+            user: "a@a.com",
+            password: {
+                ciphertext: "U2FsdGVkX1+4/35NcId09d1F+br5rs/PCQOp8UHK9Do=",
+                key: "0ebddfocyq"
+            },
+            admin: true
+        };
+
+        try {
+            req = store.add(obj);
+        } catch (e) {
+            console.log("Catch");
+        }
+
     };
 
-    req.onerror = function (e) {
-        console.error("openCreateDb: error opening or creating DB:", e.target.errorCode);
-    };
 }
 
 // ACCES MANAGEMENT FOR LOGGED-IN USERS
@@ -106,8 +122,8 @@ function setUserAdmin(db) {
                 readData();
                 return;
 
-            // If it is not admin, redirect to homepage. 
-            } else { 
+                // If it is not admin, redirect to homepage. 
+            } else {
 
                 window.location.href = "index.html";
             }
@@ -193,22 +209,22 @@ function getAvatarPath() {
 
     const avatar = document.getElementsByName('avatar');
     let avatarPath = "img/logo_headings.png";
-  
+
     for (i = 0; i < avatar.length; i++) {
-  
-  
-      if (avatar[i].checked) {
-  
-        avatarPath = "img/avatar" + (i + 1) + ".png";
-  
-      }
-  
+
+
+        if (avatar[i].checked) {
+
+            avatarPath = "img/avatar" + (i + 1) + ".png";
+
+        }
+
     }
-  
+
     return avatarPath;
-  
+
 }
-  
+
 function uncheckAvatar() {
     var avatar = document.getElementsByName("avatar");
     for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
@@ -219,27 +235,27 @@ function uncheckAvatar() {
 
 // Encrypt password
 function encryptPassword(password) {
-  
+
     // 10-digit random secret key
     const key = Math.random().toString(36).substring(2, 12);
 
-  
+
     // Encrypt the password with the secret key
     const ciphertext = CryptoJS.AES.encrypt(password, key);
-  
+
     // We return the secret key and the cipher
     return {
-      key: key.toString(),
-      ciphertext: ciphertext.toString()
+        key: key.toString(),
+        ciphertext: ciphertext.toString()
     };
-  }
-  
-  // Decrypt password
-  function decryptPassword(encryptedPassword, key) {
-  
+}
+
+// Decrypt password
+function decryptPassword(encryptedPassword, key) {
+
     // Decrypt the password with the secret key
     const decrypted = CryptoJS.AES.decrypt(encryptedPassword, key);
-  
+
     // return the decrypted password how string
     return decrypted.toString(CryptoJS.enc.Utf8);
-  }
+}

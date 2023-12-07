@@ -10,22 +10,22 @@ function readData() {
 }
 
 function readUsers(db) {
-
+  
   var registered = document.getElementById('registered_user_table');
   
   registered.innerHTML = "";
-
+  
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
-
+  
   req.onsuccess = function (e) {
-
+    
     var cursor = this.result;
-
+    
     // Table body
     if (cursor) {
-
+      
       registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
         '<div class="row align-items-center">' +
         '<div class="col" id="' + cursor.value.id + '">' +
@@ -243,6 +243,112 @@ function deleteUser(user_id) {
 
 }
 
+
+// BACKUPS MANAGEMENT
+// -------------------------------------------
+
+// BACKUP
+
+function readBK() {
+  openCreateDb(function (db) {
+      UsersBK(db);
+  });
+}
+
+function UsersBK(db) {
+
+
+  var tx = db.transaction(DB_STORE_NAME, "readonly");
+  var store = tx.objectStore(DB_STORE_NAME);
+  var req = store.getAll();
+
+  req.onsuccess = function (e) {
+      backup = this.result;
+
+      saveBackup({ filename: "UsersBK.json" });
+
+      if (backup) {
+          usersBackup = JSON.stringify(backup);
+          console.log(usersBackup);
+      }
+  }
+
+  req.onerror = function (e) {
+    console.error("BACKUPS: error reading data:", e.target.errorCode);
+  };
+
+  tx.oncomplete = function () {
+    console.log("BACKUPS: tx completed");
+    db.close();
+    opened = false;
+  };
+}
+
+function saveBackup(args) {
+
+  var data, filename, link;
+
+  var csv = 'data:text/json;charset=utf-8,' + JSON.stringify(backup);
+
+  filename = args.filename || 'export.csv';
+
+  data = encodeURI(csv);
+
+  link = document.createElement('a');
+  link.setAttribute('href', data);
+  link.setAttribute('download', filename);
+  link.click();
+}
+
+
+// RESTORE
+function sendBK() {
+
+  openCreateDb(function (db) {
+      usersRestore()
+  });
+}
+
+function usersRestore() {
+
+  fetch('backups/UsersBK.json')
+      .then((response) => response.json())
+      .then((usersBK) => {
+
+          var tx = db.transaction(DB_STORE_NAME, "readwrite");
+          var store = tx.objectStore(DB_STORE_NAME);
+
+          store.clear();
+
+          try {
+
+              for (i = 0; i < usersBK.length; i++) {
+                  req = store.put(usersBK[i]);
+                  console.log("ImportUser: User data insertion successfully done. Name: " + usersBK[i].name);
+              }
+
+          } catch (e) {
+              console.log("Catch");
+          }
+
+
+          req.onsuccess = function (e) {
+              console.log("imported all data successfully");
+          };
+
+          req.onerror = function (e) {
+              console.error("Import users: error creating data", this.error);
+          };
+
+          tx.oncomplete = function () {
+              console.log("Import users: transaction completed");
+              db.close();
+              opened = false;
+              setLogout();
+
+          };
+      });
+}
 
 
 // verify the user's identity when loading the page
