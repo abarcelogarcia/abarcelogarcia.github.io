@@ -20,9 +20,7 @@ function addUser(db) {
   var user = document.getElementById("user");
   var password = encryptPassword(document.getElementById("password").value);
 
-  console.log(password);
 
-  
   var name = document.getElementById("name");
   var surname = document.getElementById("surname");
   var address = document.getElementById("address");
@@ -65,17 +63,17 @@ function login(db) {
 
   let user = document.getElementById("user");
   let password = document.getElementById("password");
-  
+
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
-  
+
   req.onsuccess = function (e) {
-    
+
     var cursor = this.result;
-    
+
     if (cursor) {
-      
+
       const storedPassword = decryptPassword(cursor.value.password.ciphertext, cursor.value.password.key);
 
       if ((user.value == cursor.value.user) && (password.value == storedPassword)) {
@@ -175,13 +173,13 @@ document.getElementById("user_collapse_data").addEventListener("click", function
     saveButton.textContent = 'Save & submit';
     saveButton.setAttribute('action', 'add_user');
     loginTitle.innerHTML = 'Register';
-    
+
   } else {
-    
+
     saveButton.textContent = 'Submit';
     saveButton.setAttribute('action', 'login');
     loginTitle.innerHTML = 'Login';
-    
+
 
 
   }
