@@ -208,6 +208,7 @@ function setLogout() {
 function getAvatarPath() {
 
     const avatar = document.getElementsByName('avatar');
+    
     let avatarPath = "img/logo_headings.png";
 
     for (i = 0; i < avatar.length; i++) {
