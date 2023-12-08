@@ -160,6 +160,8 @@ function setUser(db) {
 
                 document.getElementById("img-profile").src = cursor.value.avatar;
                 document.getElementById("img-profile").hidden = false;
+                document.getElementById("img-profile").setAttribute("data-bs-toggle", "modal");
+                document.getElementById("img-profile").setAttribute("data-bs-target", "#profile");
                 document.getElementById("btn_login").removeAttribute("data-bs-toggle");
                 document.getElementById("btn_login").removeAttribute("data-bs-target");
                 document.getElementById("btn_login").setAttribute("onclick", "setLogout()");

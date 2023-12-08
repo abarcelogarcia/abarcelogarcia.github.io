@@ -596,6 +596,98 @@
     </div>
   </div>
 
+  <!-- Modal profile -->
+  <div class="modal fade" id="profile" data-bs-keyboard="false" tabindex="-1" aria-labelledby="profileLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img src="img/LogoBloggIn_login.png" alt="login_logo" />
+          <h1 class="modal-title fs-1 w-100 p-1" id="login_title">
+            Edit Profile
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/forms/register.html" method="POST" class="grad" id="user_profile_form">
+          <div class="modal-body">
+            <div class="mb-3 assessed">
+              <input type="email" class="form-control" id="user_profile" name="user_profile" placeholder="email" required />
+              <small>Error message</small>
+            </div>
+
+            <div class="mb-3 assessed">
+              <input type="password" class="form-control" id="password_profile" name="password_profile" placeholder="Password"
+                required />
+              <small>Error message</small>
+            </div>
+
+
+
+           
+
+              <div class="mb-3">
+                <input type="text" class="form-control" id="name__profile" name="name_profile" aria-describedby="name"
+                  placeholder="Name" />
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="surname__profile" name="surname_profile" aria-describedby="surname"
+                  placeholder="Surname" />
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="address_profile" name="address_profile" aria-describedby="address"
+                  placeholder="Address" />
+              </div>
+              <div class="mb-3 assessed">
+                <input type="number" class="form-control" id="age_profile" name="age_profile" aria-describedby="age" min="18"
+                  placeholder="Age" />
+                <small>Error message</small>
+              </div>
+             
+              <div class="mb-3">
+                <h6>Choose your avatar</h6>
+
+                <!-- input type radio for control :checked state in css file -->
+                <input type="radio" id="avatar1_profile" name="avatar_profile" value="1" path="img/avatar1.png" />
+                <input type="radio" id="avatar2_profile" name="avatar_profile" value="2" path="img/avatar2.png" />
+                <input type="radio" id="avatar3_profile" name="avatar_profile" value="3" path="img/avatar3.png" />
+                <input type="radio" id="avatar4_profile" name="avatar_profile" value="4" path="img/avatar4.png" />
+                <input type="reset" name="reset_profile" id="reset_profile" hidden />
+                <!--Reset button -->
+
+                <!-- label linked to their inputs -->
+
+                <label for="avatar1">
+                  <img src="img/avatar1.png" alt="avatar 1" name="avatar" id="avatar-img1" />
+                </label>
+                <label for="avatar2">
+                  <img src="img/avatar2.png" alt="avatar 2" name="avatar" id="avatar-img2" />
+                </label>
+                <label for="avatar3">
+                  <img src="img/avatar3.png" alt="avatar 3" name="avatar" id="avatar-img3" />
+                </label>
+                <label for="avatar4">
+                  <img src="img/avatar4.png" alt="avatar 4" name="avatar" id="avatar-img4" />
+                </label>
+                <div class="text-start mt-2 ms-2">
+                  <button type="button" class="btn btn-warning" id="reset-btn_profile" onclick="uncheckAvatar()">
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <div class="text-end">
+              <button type="button" class="btn btn-warning" action="login" user_id="0" id="add_user_profile"
+                onclick="validateForm(this.getAttribute('action'))">Submit</button>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
   
   <script src="./js/index.js"></script>
