@@ -12,6 +12,7 @@ function readData() {
 function readUsers(db) {
   
   var registered = document.getElementById('registered_user_table');
+  var btnResetPass = document.getElementById("validatePass-btn");
   
   registered.innerHTML = "";
   
@@ -61,7 +62,7 @@ function readUsers(db) {
         '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<input type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="reset-pass-' + cursor.value.id + '" value="Password" >' +
+        '<input type="button" class="btn btn-info" id="reset-pass-' + cursor.value.id + '" value="Password" onclick("validateFormPass()")>' +
         '</div>' +
         '</div>' +
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
@@ -78,6 +79,7 @@ function readUsers(db) {
         }
         
        
+        
         
         
         cursor.continue();
@@ -258,9 +260,37 @@ function deleteUser(user_id) {
 
 // RESET PASSWORD
 
-function resetPassword(user_id) {
+function resetPassword(user_id, password) {
 
   openCreateDb(function (db) {
+
+    var tx = db.transaction(DB_STORE_NAME, "readwrite");
+      var store = tx.objectStore(DB_STORE_NAME);
+      var newPassword = encryptPassword(password);
+
+  var obj = { id: parseInt(user_id), password: newPassword};
+
+
+      //Delete data in our ObjectStore
+      var req = store.put(obj);
+
+      req.onsuccess = function (e) {
+
+        console.log("Reset Password: Password successfully reseted: ");
+
+        //Operation to do after deleting a record
+        readData();
+      };
+
+      req.onerror = function (e) {
+        console.error("Reset Password: error reseting password:", e.target.errorCode);
+      };
+
+      tx.oncomplete = function () {
+        console.log("Reset Password: tx completed");
+        db.close();
+        opened = false;
+      };
 
 
   });
