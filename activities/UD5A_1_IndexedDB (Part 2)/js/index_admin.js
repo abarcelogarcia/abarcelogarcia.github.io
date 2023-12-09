@@ -56,13 +56,13 @@ function readUsers(db) {
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<button class="btn btn-warning" value="edit" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" >Edit</button>' +
+        '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" name="grid-btn" onclick="deleteUser(' + cursor.value.id + ')" >' +
+        '<button class="btn btn-danger" id="del-reg-' + cursor.value.id + '" name="grid-btn" onclick="deleteUser(' + cursor.value.id + ')" ><i class="bi bi-trash3"></i> Del</button>' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<input type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="reset-pass-' + cursor.value.id + '" value="Password" name="grid-btn" onclick="setUser_id(' + cursor.value.id + ')">' +
+        '<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="reset-pass-' + cursor.value.id + '" name="grid-btn" onclick="setUser_id(' + cursor.value.id + ')" ><i class="bi bi-recycle"></i> Pass</button>' +
         '</div>' +
         '</div>' +
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
