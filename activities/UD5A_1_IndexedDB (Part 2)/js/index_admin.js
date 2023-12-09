@@ -56,13 +56,13 @@ function readUsers(db) {
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<input type="button" class="btn btn-warning" value="Edit"  id="edit-reg-' + cursor.value.id + '" action="edit-user" onclick="selectUserToEdit(' + cursor.value.id + ')">' +
+        '<button class="btn btn-warning" value="edit" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" >Edit</button>' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" onclick="deleteUser(' + cursor.value.id + ')" >' +
+        '<input type="button" class="btn btn-danger" id="del-reg-' + cursor.value.id + '" value="Delete" name="grid-btn" onclick="deleteUser(' + cursor.value.id + ')" >' +
         '</div>' +
         '<div class="col-1 text-center">' +
-        '<input type="button" class="btn btn-info" id="reset-pass-' + cursor.value.id + '" value="Password" onclick("validateFormPass()")>' +
+        '<input type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="reset-pass-' + cursor.value.id + '" value="Password" name="grid-btn" onclick="setUser_id(' + cursor.value.id + ')">' +
         '</div>' +
         '</div>' +
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
@@ -71,7 +71,7 @@ function readUsers(db) {
         //  Check if is an admin 
         if (cursor.value.admin == true) {
           document.getElementById("admin_check-" + cursor.value.id).checked = true;
-          console.log("Si");
+          console.log("admin_check-" + cursor.value.id);
         }else{
           
           console.log("NO");
@@ -93,7 +93,7 @@ function readUsers(db) {
 
 // Grid Update users data
 
-function selectUserToEdit(user_id) {
+function selectUserToEdit(user_id, password) {
 
   openCreateDb(function (db) {
     console.log(db);
@@ -108,7 +108,16 @@ function selectUserToEdit(user_id) {
       var record = e.target.result;
 
       //Operations to do after reading a user
-      updateFormInputsToEdit(record);
+      if(password){
+
+        resetPassword(user_id, password, record);
+
+      }else{
+
+        updateFormInputsToEdit(record);
+
+
+      }
     };
 
     req.onerror = function (e) {
@@ -126,6 +135,7 @@ function selectUserToEdit(user_id) {
 
 function updateFormInputsToEdit(record) {
 
+ 
   document.getElementById("user-" + record.id).disabled = false;
   document.getElementById("user-" + record.id).value = record.user;
   document.getElementById("password-" + record.id).value = decryptPassword(record.password.ciphertext, record.password.key);
@@ -142,7 +152,7 @@ function updateFormInputsToEdit(record) {
   document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
   document.getElementById("del-reg-" + record.id).value = "Cancel";
   document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
-  document.getElementById("edit-reg-" + record.id).value = "Save";
+  document.getElementById("edit-reg-" + record.id).textContent = "Save";
   document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData(" + record.id + ")");
   
   // Modal select button to save avatar
@@ -260,7 +270,7 @@ function deleteUser(user_id) {
 
 // RESET PASSWORD
 
-function resetPassword(user_id, password) {
+function resetPassword(user_id, password, record) {
 
   openCreateDb(function (db) {
 
@@ -268,7 +278,10 @@ function resetPassword(user_id, password) {
       var store = tx.objectStore(DB_STORE_NAME);
       var newPassword = encryptPassword(password);
 
-  var obj = { id: parseInt(user_id), password: newPassword};
+      console.log("U: "+user_id);
+      console.log("P: "+password);
+
+  var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin};
 
 
       //Delete data in our ObjectStore
@@ -294,6 +307,14 @@ function resetPassword(user_id, password) {
 
 
   });
+}
+
+// set user_id on reset password form button
+function setUser_id(user_id) {
+
+  document.getElementById("validatePass-btn").setAttribute("user_id", user_id);
+
+  
 }
 
 

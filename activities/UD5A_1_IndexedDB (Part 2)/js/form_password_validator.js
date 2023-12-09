@@ -38,16 +38,15 @@ function isValidPassword(password) {
 
 
 // Form Validatior
-function validateFormPass() {
-    const myModal = new bootstrap.Modal('#resetPass_modal');
-
-    myModal.show();
-
+function validateFormPass(user_id) {
+   
     let isPassOK = false;
     let areEquals = false;
 
     console.log(pass1.value);
     console.log(pass2.value);
+    console.log("user_id: "+user_id);
+
 
     document.getElementById("validatePass-btn").name="prueba";
 
@@ -79,8 +78,7 @@ function validateFormPass() {
 
         // Two fields are ok. Continue to send data to reset the password
         if (isPassOK && areEquals) {
-            resetPassword(user_id, pass1.value);
-    console.log(user_id);
+            selectUserToEdit(user_id, pass1.value);
 
         }
     }
