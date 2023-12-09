@@ -84,19 +84,22 @@ function openCreateDb(onDbCompleted) {
 //     -- Is admin: Reads data and displays users
 // -------------------------------------------
 
-function verifyUser(admin) {
+function verifyUser(userRol) {
     openCreateDb(function (db) {
 
-        if (admin) {
+
+        if (userRol == 'admin') {
             setUserAdmin(db);
-        } else {
+        } else if (userRol == 'user') {
             setUser(db);
+        } else if (userRol == 'profile') {
+            setProfile(db);
         }
 
     });
 }
 
-// checks if the admin is logged in and acts accordingly
+// checks the role user and acts accordingly
 function setUserAdmin(db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
@@ -111,7 +114,6 @@ function setUserAdmin(db) {
         if (!cursor) { // No data --> No login. Redirect to homepage
 
             window.location.href = "index.html";
-            return;
 
         } else { // Get login data. 
 
@@ -120,7 +122,6 @@ function setUserAdmin(db) {
 
                 document.getElementById("img-profile").src = cursor.value.avatar;
                 readData();
-                return;
 
                 // If it is not admin, redirect to homepage. 
             } else {
@@ -129,11 +130,19 @@ function setUserAdmin(db) {
             }
         }
     }
+
+    req.onerror = function (e) {
+        console.error("Set User: error can not verify the user", this.error);
+    };
+
+    tx.oncomplete = function () {
+        console.log("Set User: transaction completed");
+        db.close();
+        opened = false;
+    };
 }
-
-// checks if the user (not admin) is logged in and acts accordingly
 function setUser(db) {
-
+    
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
     var store = tx.objectStore(DB_STORE_LOGIN);
     var req = store.openCursor();
@@ -144,33 +153,84 @@ function setUser(db) {
 
         if (!cursor) { // If there is not login data, return (we are in home page)
 
-            return;
+            console.log("Acces login: unauthorised access");
+       
 
         } else { // Get data
-
 
             // If it is admin, go to admin page
             if (cursor.value.admin == true) {
 
                 window.location.href = "index_admin.html";
-                return;
+       
 
                 // If it is user (not admin), setup the avatar and logout button.
             } else {
 
                 document.getElementById("img-profile").src = cursor.value.avatar;
                 document.getElementById("img-profile").hidden = false;
-                document.getElementById("img-profile").setAttribute("data-bs-toggle", "modal");
-                document.getElementById("img-profile").setAttribute("data-bs-target", "#profile");
+                document.getElementById("link_profile").setAttribute("href", "index_profile.html");
                 document.getElementById("btn_login").removeAttribute("data-bs-toggle");
                 document.getElementById("btn_login").removeAttribute("data-bs-target");
                 document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
                 document.getElementById("btn_login").textContent = "Logout";
             }
         }
-    }
-}
 
+
+    }
+    req.onerror = function (e) {
+        console.error("Set User error: can not verify the user", this.error);
+    };
+
+    tx.oncomplete = function () {
+        console.log("Set User: transaction completed");
+        db.close();
+        opened = false;
+    };
+
+}
+function setProfile(db) {
+
+    var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+    var store = tx.objectStore(DB_STORE_LOGIN);
+    var req = store.openCursor();
+
+    req.onsuccess = function (e) {
+
+        var cursor = this.result;
+
+
+        if (!cursor) { // No data --> No login. Redirect to homepage
+
+            window.location.href = "index.html";
+            
+        } else { // Get login data. 
+            
+            // If it is admin, set avatar and show users data. 
+            if (cursor.value.admin == true) {
+                
+                window.location.href = "index_admin.html";
+
+                // If it is not admin, redirect to homepage. 
+            } else {
+
+                selectProfileToEdit(cursor.value.id);
+
+            }
+        }
+    }
+
+    req.onerror = function (e) {
+        console.error("Set User: error can not verify the user", this.error);
+      };
+    
+      tx.oncomplete = function () {
+        console.log("Set User: transaction completed");
+        db.close();
+        opened = false;
+      };
+}
 
 // LOGOUT
 // -------------------------------------------
@@ -210,7 +270,7 @@ function setLogout() {
 function getAvatarPath() {
 
     const avatar = document.getElementsByName('avatar');
-    
+
     let avatarPath = "img/logo_headings.png";
 
     for (i = 0; i < avatar.length; i++) {

@@ -11537,7 +11537,7 @@ footer {
 
 .input_reg {
   border: none;
-  padding: 5px;
+  padding: 10px;
   max-width: 150px;
 }
 
@@ -11560,6 +11560,10 @@ footer {
 .assessed.error small, .assessed.error .small {
   color: #CC0000;
   visibility: visible;
+}
+
+.blur {
+  filter: blur(50px);
 }
 
 /*# sourceMappingURL=bootstrap_custom.css.map */

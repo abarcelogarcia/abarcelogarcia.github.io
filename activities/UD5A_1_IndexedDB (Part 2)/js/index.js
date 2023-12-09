@@ -159,7 +159,7 @@ function setLogin(user, admin, avatar) {
 
 // LISTENNERS
 window.addEventListener('load', () => {
-  verifyUser('');
+  verifyUser('user');
 });
 
 // Set the ACTION attribute depending on whether to log in or register. Click on collapse button to swap.
