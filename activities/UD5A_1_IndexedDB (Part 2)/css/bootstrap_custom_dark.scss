@@ -197,6 +197,8 @@ footer {
 }
 
 
+
+
 // Validation Form Style
 .assessed.correct input {
   border-color: $verde-corp;
@@ -215,11 +217,7 @@ footer {
   visibility: visible;
 }
 
-.blur{
 
-  filter: blur(50px);
-
-}
 div.disabled
 {
   pointer-events: none;
@@ -232,7 +230,10 @@ div.disabled
 .profile-label{
 
   font-weight: bold;
+  color: white;
 }
+
+
 
 .modal-content{
 

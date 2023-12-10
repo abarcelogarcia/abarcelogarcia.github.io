@@ -9,17 +9,17 @@ const avatarContainer = document.getElementById("avatar_continer");
 const editProfileBtn = document.getElementById("edit-profile-btn");
 const delProfileBtn = document.getElementById("del-profile-btn");
 const validatePassBtn = document.getElementById("validatePass_profile");
+const imgProfile = document.getElementById("img-profile");
+const themeSelector = document.getElementById("theme_selector");
 
 function selectProfileToEdit(user_id, password) {
 
   openCreateDb(function (db) {
-    console.log(db);
-    console.log("Id user: " + user_id);
 
     var tx = db.transaction(DB_STORE_NAME, "readonly");
     var store = tx.objectStore(DB_STORE_NAME);
 
-    var req = store.get(parseInt(user_id));
+    var req = store.get(user_id);
 
     req.onsuccess = function (e) {
       var record = e.target.result;
@@ -59,6 +59,7 @@ function updateFormInputsToEditProfile(record) {
   surname.value = record.surname;
   address.value = record.address;
   age.value = record.age;
+  imgProfile.src = record.avatar;
   editProfileBtn.setAttribute("onclick", "editProfile(" + record.id + ")");
   validatePassBtn.setAttribute("onclick", "validateFormPass(" + record.id + ")");
 
@@ -75,6 +76,16 @@ function updateFormInputsToEditProfile(record) {
     }
   }
 
+  if (record.theme == 1) {
+
+    themeSelector.value = 1;
+
+
+  } else {
+
+    themeSelector.value = 0;
+  }
+
 }
 
 function editProfile(user_id) {
@@ -83,6 +94,7 @@ function editProfile(user_id) {
   surname.disabled = false;
   address.disabled = false;
   age.disabled = false;
+  themeSelector.disabled = false;
   avatarContainer.classList.remove("disabled");
   editProfileBtn.textContent = "Save";
   editProfileBtn.setAttribute("onclick", "sendData(" + user_id + ", 'update')");
@@ -92,11 +104,11 @@ function sendData(user_id, action) {
 
   openCreateDb(function (db) {
 
-    if(action == 'update'){
+    if (action == 'update') {
 
       updateUser(db, user_id);
 
-    }else if(action == 'delete'){
+    } else if (action == 'delete') {
 
 
       deleteProfile(db, user_id)
@@ -108,12 +120,13 @@ function sendData(user_id, action) {
 
 function updateUser(db, user_id) {
 
+
   const avatar = getAvatarPath();
 
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
 
-  var obj = { id: parseInt(user_id), user: user, password: password, name: userName.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: false };
+  var obj = { id: parseInt(user_id), user: user, password: password, name: userName.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: false, theme: themeSelector.value };
 
 
   //Updates data in our ObjectStore
@@ -123,6 +136,9 @@ function updateUser(db, user_id) {
     console.log("Data successfully updated");
 
     // Reload page for set default elements values
+    
+    updateUserLogin(user_id);
+
     location.reload();
 
   };
@@ -133,9 +149,52 @@ function updateUser(db, user_id) {
 
   tx.oncomplete = function () {
     console.log("Edit Profile: tx completed");
-    db.close();
-    opened = false;
+    
+    
   };
+
+}
+
+function updateUserLogin(){
+  
+  const avatar = getAvatarPath();
+  console.log(themeSelector.value);
+
+  
+  openCreateDb(function (db) {
+
+        var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
+        var store = tx.objectStore(DB_STORE_LOGIN);
+
+        store.clear();
+    
+        var obj = { id: parseInt(user_id), user: user, avatar: avatar, admin: false, theme: themeSelector.value };
+        //Updates data in our ObjectStore
+        req = store.add(obj);
+    
+        req.onsuccess = function (e) {
+          console.log("User Login: successfully updated");
+    
+          location.reload();
+    
+        };
+    
+        req.onerror = function (e) {
+          console.error("User Login:: Error updating data", this.error);
+        };
+    
+        tx.oncomplete = function () {
+          console.log("User Login:: tx completed");
+          db.close();
+          opened = false;
+        };
+    
+    
+    
+    
+      });
+    
+
 
 }
 
@@ -145,41 +204,40 @@ function resetPassword(user_id, password, record) {
   openCreateDb(function (db) {
 
     var tx = db.transaction(DB_STORE_NAME, "readwrite");
-      var store = tx.objectStore(DB_STORE_NAME);
-      var newPassword = encryptPassword(password);
+    var store = tx.objectStore(DB_STORE_NAME);
+    var newPassword = encryptPassword(password);
 
-      console.log("U: "+user_id);
-      console.log("P: "+password);
+    console.log("U: " + user_id);
+    console.log("P: " + password);
 
-  var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin};
+    var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin };
 
 
-      //Delete data in our ObjectStore
-      var req = store.put(obj);
+    //Delete data in our ObjectStore
+    var req = store.put(obj);
 
-      req.onsuccess = function (e) {
+    req.onsuccess = function (e) {
 
-        console.log("Reset Password: Password correctly reset");
+      console.log("Reset Password: Password correctly reset");
 
-        //Operation to do after deleting a record
-      };
+      //Operation to do after deleting a record
+    };
 
-      req.onerror = function (e) {
-        console.error("Reset Password: error resetting password", e.target.errorCode);
-      };
+    req.onerror = function (e) {
+      console.error("Reset Password: error resetting password", e.target.errorCode);
+    };
 
-      tx.oncomplete = function () {
-        console.log("Reset Password: tx completed");
-        db.close();
-        opened = false;
-      };
+    tx.oncomplete = function () {
+      console.log("Reset Password: tx completed");
+      db.close();
+      opened = false;
+    };
 
 
   });
 }
 
-
-function deleteProfile(db, user_id){
+function deleteProfile(db, user_id) {
 
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -197,7 +255,7 @@ function deleteProfile(db, user_id){
     setLogout();
 
     // Reload page for set default elements values
-    window.location.href="index.html";
+    window.location.href = "index.html";
 
   };
 
@@ -216,12 +274,12 @@ function deleteProfile(db, user_id){
 
 
 }
+
+
 // LISTENNERS
 window.addEventListener('load', () => {
   verifyUser('profile');
 });
-
-
 
 // Bootstrap Alert
 
@@ -241,7 +299,7 @@ const appendAlert = (message, type) => {
 
 const alertTrigger = document.getElementById('liveAlertBtn')
 if (alertTrigger) {
-   let action = "delete";
+  let action = "delete";
   alertTrigger.addEventListener('click', () => {
     appendAlert('You are going to <b>delete </b>your profile. Please note that this process is <b>IRREVERSIBLE</b>. Are you sure about it? <br><br> <button type="button" class="btn btn-danger" id="del-confrim-button" onclick="sendData(' + user_id + ', \'delete\')">Yes, I am sure.</button>', 'danger')
   })

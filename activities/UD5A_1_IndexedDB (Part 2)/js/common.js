@@ -213,7 +213,6 @@ function setProfile(db) {
 
         var cursor = this.result;
 
-
         if (!cursor) { // No data --> No login. Redirect to homepage
 
             window.location.href = "index.html";
@@ -234,7 +233,7 @@ function setProfile(db) {
                 // If it is not admin, redirect to homepage. 
             } else {
 
-                selectProfileToEdit(cursor.value.user_id);
+                selectProfileToEdit(cursor.value.id);
 
             }
         }

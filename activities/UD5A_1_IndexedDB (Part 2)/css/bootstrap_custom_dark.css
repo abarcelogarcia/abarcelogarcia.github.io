@@ -11571,11 +11571,8 @@ footer {
   visibility: visible;
 }
 
-.blur {
-  filter: blur(50px);
-}
-
-div.disabled {
+div.disabled,
+input.disabled {
   pointer-events: none;
   /* for "disabled" effect */
   opacity: 0.5;
@@ -11584,6 +11581,7 @@ div.disabled {
 
 .profile-label {
   font-weight: bold;
+  color: white;
 }
 
 .modal-content {

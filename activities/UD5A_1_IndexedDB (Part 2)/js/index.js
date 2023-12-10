@@ -116,9 +116,9 @@ function login(db) {
 
 }
 
-function setLogin(user_id, user, admin, avatar) {
+function setLogin(user_id, user, admin, avatar, theme) {
 
-  var obj = { user_id: user_id, user: user, admin: admin, avatar: avatar };
+  var obj = { id: user_id, user: user, admin: admin, avatar: avatar, theme: theme };
 
   console.log(obj);
 

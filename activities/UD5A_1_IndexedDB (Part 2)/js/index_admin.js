@@ -1,3 +1,8 @@
+// ELEMENTS
+// const imgProfile = document.getElementById("img-profile");
+const regUsersTable = document.getElementById("registered_user_table");
+
+
 // USERS DATA MANAGEMENT
 // -------------------------------------------
 
@@ -10,24 +15,25 @@ function readData() {
 }
 
 function readUsers(db) {
-  
+
   var registered = document.getElementById('registered_user_table');
-  
+
   registered.innerHTML = "";
-  
+
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
-  
+
   req.onsuccess = function (e) {
-    
+
     var cursor = this.result;
-    
+
+
     // Table body
     if (cursor) {
 
 
-      
+
       registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
         '<div class="row align-items-center">' +
         '<div class="col" id="' + cursor.value.id + '">' +
@@ -45,7 +51,7 @@ function readUsers(db) {
         '<div class="col-1">' +
         '<input class="input_reg" type="text" id="surname-' + cursor.value.id + '"  name="surname" aria-describedby="surname" value="' + cursor.value.surname + '" disabled/>' +
         '</div>' +
-        '<div class="col-2">' +
+        '<div class="col-1">' +
         '<input class="input_reg " type="text" id="address-' + cursor.value.id + '"  name="address" aria-describedby="address" value="' + cursor.value.address + '" disabled/>' +
         '</div>' +
         '<div class="col-1 ">' +
@@ -66,28 +72,40 @@ function readUsers(db) {
         '</div>' +
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
         '</div>';
- 
-        //  Check if is an admin 
-        if (cursor.value.admin == true) {
-          document.getElementById("admin_check-" + cursor.value.id).checked = true;
-          console.log("admin_check-" + cursor.value.id);
-        }else{
-          
-          console.log("NO");
 
-        }
         
-       
-        
-        
-        
-        cursor.continue();
+        //  Check if is an admin 
+        if (cursor.value.admin) {
+          document.getElementById("admin_check-" + cursor.value.id).checked = true;
+          console.log(document.getElementById("admin_check-" + cursor.value.id));
       }
+      cursor.continue();
+    }
 
 
   }
 
+  req.onerror = function (e) {
+    console.error("Read Users: error reading data:", e.target.errorCode);
+  };
 
+  tx.oncomplete = function () {
+    console.log("Read Users: tx completed");
+    db.close();
+    opened = false;
+  };
+
+
+}
+
+function sendData(user_id) {
+
+  openCreateDb(function (db) {
+
+    console.log("update user values");
+    updateUser(db, user_id);
+
+  });
 }
 
 // Grid Update users data
@@ -107,11 +125,11 @@ function selectUserToEdit(user_id, password) {
       var record = e.target.result;
 
       //Operations to do after reading a user
-      if(password){
+      if (password) {
 
         resetPassword(user_id, password, record);
 
-      }else{
+      } else {
 
         updateFormInputsToEdit(record);
 
@@ -134,7 +152,7 @@ function selectUserToEdit(user_id, password) {
 
 function updateFormInputsToEdit(record) {
 
- 
+
   document.getElementById("user-" + record.id).disabled = false;
   document.getElementById("user-" + record.id).value = record.user;
   document.getElementById("password-" + record.id).value = decryptPassword(record.password.ciphertext, record.password.key);
@@ -149,15 +167,32 @@ function updateFormInputsToEdit(record) {
   document.getElementById("admin_check-" + record.id).disabled = false;
   document.getElementById("avatar-" + record.id).setAttribute("data-bs-toggle", "modal");
   document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
-  document.getElementById("del-reg-" + record.id).value = "Cancel";
+  document.getElementById("del-reg-" + record.id).textContent = "Cancel";
   document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
   document.getElementById("edit-reg-" + record.id).textContent = "Save";
   document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData(" + record.id + ")");
-  
+
+
+  // Disable all other buttons 
+  let buttonsAll = document.getElementsByName("grid-btn");
+
+  for (let i = 0; i < buttonsAll.length; i++) {
+
+
+    if ((buttonsAll[i].textContent != 'Save') && (buttonsAll[i].textContent != 'Cancel')) {
+
+      buttonsAll[i].disabled = true;
+
+    }
+
+  }
+
+
+
   // Modal select button to save avatar
-  document.getElementById("save_avatar").addEventListener('click', function(){
-    
-    
+  document.getElementById("save_avatar").addEventListener('click', function () {
+
+
     document.getElementById("avatar-" + record.id).src = getAvatarPath();
 
 
@@ -165,17 +200,6 @@ function updateFormInputsToEdit(record) {
   });
 
 }
-
-function sendData(user_id) {
-
-  openCreateDb(function (db) {
-
-    console.log("update user values");
-    updateUser(db, user_id);
-
-  });
-}
-
 
 function updateUser(db, user_id) {
   var user = document.getElementById("user-" + user_id);
@@ -274,35 +298,35 @@ function resetPassword(user_id, password, record) {
   openCreateDb(function (db) {
 
     var tx = db.transaction(DB_STORE_NAME, "readwrite");
-      var store = tx.objectStore(DB_STORE_NAME);
-      var newPassword = encryptPassword(password);
+    var store = tx.objectStore(DB_STORE_NAME);
+    var newPassword = encryptPassword(password);
 
-      console.log("U: "+user_id);
-      console.log("P: "+password);
+    console.log("U: " + user_id);
+    console.log("P: " + password);
 
-  var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin};
+    var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin };
 
 
-      //Delete data in our ObjectStore
-      var req = store.put(obj);
+    //Delete data in our ObjectStore
+    var req = store.put(obj);
 
-      req.onsuccess = function (e) {
+    req.onsuccess = function (e) {
 
-        console.log("Reset Password: Password successfully reseted: ");
+      console.log("Reset Password: Password successfully reseted: ");
 
-        //Operation to do after deleting a record
-        readData();
-      };
+      //Operation to do after deleting a record
+      readData();
+    };
 
-      req.onerror = function (e) {
-        console.error("Reset Password: error reseting password:", e.target.errorCode);
-      };
+    req.onerror = function (e) {
+      console.error("Reset Password: error reseting password:", e.target.errorCode);
+    };
 
-      tx.oncomplete = function () {
-        console.log("Reset Password: tx completed");
-        db.close();
-        opened = false;
-      };
+    tx.oncomplete = function () {
+      console.log("Reset Password: tx completed");
+      db.close();
+      opened = false;
+    };
 
 
   });
@@ -312,10 +336,10 @@ function resetPassword(user_id, password, record) {
 function setUser_id(user_id) {
 
   document.getElementById("savePass-btn").setAttribute("user_id", user_id);
-  document.getElementById("generatePass-btn").setAttribute("onclick", "generatePassword(8, "+user_id+")");
+  document.getElementById("generatePass-btn").setAttribute("onclick", "generatePassword(8, " + user_id + ")");
 
 
-  
+
 }
 
 
@@ -327,7 +351,7 @@ function setUser_id(user_id) {
 
 function readBK() {
   openCreateDb(function (db) {
-      UsersBK(db);
+    UsersBK(db);
   });
 }
 
@@ -339,14 +363,14 @@ function UsersBK(db) {
   var req = store.getAll();
 
   req.onsuccess = function (e) {
-      backup = this.result;
+    backup = this.result;
 
-      saveBackup({ filename: "UsersBK.json" });
+    saveBackup({ filename: "UsersBK.json" });
 
-      if (backup) {
-          usersBackup = JSON.stringify(backup);
-          console.log(usersBackup);
-      }
+    if (backup) {
+      usersBackup = JSON.stringify(backup);
+      console.log(usersBackup);
+    }
   }
 
   req.onerror = function (e) {
@@ -381,49 +405,49 @@ function saveBackup(args) {
 function sendBK() {
 
   openCreateDb(function (db) {
-      usersRestore()
+    usersRestore()
   });
 }
 
 function usersRestore() {
 
   fetch('backups/UsersBK.json')
-      .then((response) => response.json())
-      .then((usersBK) => {
+    .then((response) => response.json())
+    .then((usersBK) => {
 
-          var tx = db.transaction(DB_STORE_NAME, "readwrite");
-          var store = tx.objectStore(DB_STORE_NAME);
+      var tx = db.transaction(DB_STORE_NAME, "readwrite");
+      var store = tx.objectStore(DB_STORE_NAME);
 
-          store.clear();
+      store.clear();
 
-          try {
+      try {
 
-              for (i = 0; i < usersBK.length; i++) {
-                  req = store.put(usersBK[i]);
-                  console.log("ImportUser: User data insertion successfully done. Name: " + usersBK[i].name);
-              }
+        for (i = 0; i < usersBK.length; i++) {
+          req = store.put(usersBK[i]);
+          console.log("ImportUser: User data insertion successfully done. Name: " + usersBK[i].name);
+        }
 
-          } catch (e) {
-              console.log("Catch");
-          }
+      } catch (e) {
+        console.log("Catch");
+      }
 
 
-          req.onsuccess = function (e) {
-              console.log("imported all data successfully");
-          };
+      req.onsuccess = function (e) {
+        console.log("imported all data successfully");
+      };
 
-          req.onerror = function (e) {
-              console.error("Import users: error creating data", this.error);
-          };
+      req.onerror = function (e) {
+        console.error("Import users: error creating data", this.error);
+      };
 
-          tx.oncomplete = function () {
-              console.log("Import users: transaction completed");
-              db.close();
-              opened = false;
-              setLogout();
+      tx.oncomplete = function () {
+        console.log("Import users: transaction completed");
+        db.close();
+        opened = false;
+        setLogout();
 
-          };
-      });
+      };
+    });
 }
 
 

@@ -12,7 +12,7 @@
 </head>
 <!-- <link rel="stylesheet" href="/abarcelogarcia.github.io/bootstrap-5.3.2-dist/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="css/estils.css" /> -->
-<link rel="stylesheet" href="css/bootstrap_custom.css" />
+<link rel="stylesheet" href="css/bootstrap_custom.css" id="theme" />
 </head>
 
 <body class="bg-page">
@@ -42,38 +42,13 @@
         <div class="col-auto">
           <img src="img/button_search.png" alt="logo" />
 
-          <!-- Button trigger modal -->
-          <!-- <img src="img/button_login.png" role="button" alt="logo" data-bs-toggle="modal" data-bs-target="#login" /> -->
           <img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" />
 
           <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left"></i> Logout</button>
         </div>
       </div>
 
-      <!-- TOPICS BAR -->
-      <!-- Hide topics bar in mobile resolution -->
-      <div class="container-fluid text-center d-none d-sm-block">
-        <div class="row">
-          <div class="col mb-2">
-            <a class="topic" href="#sports">Topic</a>
-          </div>
-          <div class="col">
-            <a class="topic" href="#health">Topic</a>
-          </div>
-          <div class="col">
-            <a class="topic" href="#sport2">Topic</a>
-          </div>
-          <div class="col">
-            <a class="topic" href="#health2">Topic</a>
-          </div>
-          <div class="col">
-            <a class="topic" href="#">Topic</a>
-          </div>
-          <div class="col">
-            <a class="topic" href="#">Topic</a>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </header>
 
@@ -150,7 +125,14 @@
             </button>
           </div>
         </div>
-        
+
+        <div class="mb-3">
+          <label for="age" class="profile-label">Web Style theme</label>
+          <select class="form-select" aria-label="Default select example" id="theme_selector" disabled>
+            <option value="0" >Light</option>
+            <option value="1" >Dark</option>
+          </select>
+        </div>
       </div>
     </section>
   </main>
