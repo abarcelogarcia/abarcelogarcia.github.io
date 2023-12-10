@@ -215,7 +215,7 @@ function setProfile(db) {
                 // If it is not admin, redirect to homepage. 
             } else {
 
-                selectProfileToEdit(cursor.value.id);
+                selectProfileToEdit(cursor.value.user_id);
 
             }
         }

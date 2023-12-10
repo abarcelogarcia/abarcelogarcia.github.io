@@ -56,7 +56,7 @@ function updateFormInputsToEditProfile(record) {
   
         }else{
   
-          updateFormInputsToEdit(record);
+          updateFormInputsToEditProfile(record);
   
   
         }
@@ -73,6 +73,30 @@ function updateFormInputsToEditProfile(record) {
       };
   
     });
+  }
+
+  function updateFormInputsToEditProfile(record){
+
+    document.getElementById("name").value = record.name;
+    document.getElementById("surname").value = record.surname;
+    document.getElementById("address").value = record.address;
+    document.getElementById("age").value = record.age;
+
+    let paths = document.querySelectorAll('input[path]');
+
+    for (let i = 0; i < paths.length; i++) {
+      
+      if(paths[i].getAttribute("path")==record.avatar){
+
+        paths[i].checked = true;
+
+      }
+    }
+
+    paths[1].disabled = true;
+
+    console.log(paths[0].getAttribute("path"));
+
   }
 // LISTENNERS
 window.addEventListener('load', () => {

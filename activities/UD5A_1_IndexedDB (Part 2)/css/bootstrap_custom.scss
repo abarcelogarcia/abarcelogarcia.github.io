@@ -213,3 +213,16 @@ footer {
   filter: blur(50px);
 
 }
+div.disabled
+{
+  pointer-events: none;
+    
+  /* for "disabled" effect */
+  opacity: 0.5;
+  background: #e9ecef;
+}
+
+.profile-label{
+
+  font-weight: bold;
+}

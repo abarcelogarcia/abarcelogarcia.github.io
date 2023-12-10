@@ -80,7 +80,7 @@ function login(db) {
 
 
         // Store the login into db in login storage
-        setLogin(cursor.value.user, cursor.value.admin, cursor.value.avatar);
+        setLogin(cursor.value.id, cursor.value.user, cursor.value.admin, cursor.value.avatar);
 
         // redirects depending on role
         if (cursor.value.admin == true) {
@@ -122,9 +122,9 @@ function login(db) {
 
 }
 
-function setLogin(user, admin, avatar) {
+function setLogin(user_id, user, admin, avatar) {
 
-  var obj = { logged: 1, user: user, admin: admin, avatar: avatar };
+  var obj = { user_id: user_id, user: user, admin: admin, avatar: avatar };
 
   console.log(obj);
 
