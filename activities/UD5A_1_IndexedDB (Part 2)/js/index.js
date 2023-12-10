@@ -27,7 +27,7 @@ function addUser(db) {
   var age = document.getElementById("age");
   var avatar = getAvatarPath();
   var admin = document.getElementById("admin_check");
-  var obj = { user: user.value, password: password, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked };
+  var obj = { user: user.value, password: password, name: name.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: admin.checked, theme: 0 };
 
 
   // Start a new transaction.
@@ -80,7 +80,7 @@ function login(db) {
 
 
         // Store the login into db in login storage
-        setLogin(cursor.value.id, cursor.value.user, cursor.value.admin, cursor.value.avatar);
+        setLogin(cursor.value.id, cursor.value.user, cursor.value.admin, cursor.value.avatar, cursor.value.theme);
 
         // redirects depending on role
         if (cursor.value.admin == true) {

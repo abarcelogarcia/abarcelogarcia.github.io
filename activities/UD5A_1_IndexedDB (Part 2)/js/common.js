@@ -53,6 +53,8 @@ function openCreateDb(onDbCompleted) {
         console.log("openCreateDb: Index created on age");
         store.createIndex('avatar', 'avatar', { unique: false });
         console.log("openCreateDb: Index created on avatar");
+        store.createIndex('theme', 'theme', { unique: false });
+        console.log("openCreateDb: Index created on theme");
 
 
         //   ADD temp user on start
@@ -116,7 +118,13 @@ function setUserAdmin(db) {
 
             window.location.href = "index.html";
 
-        } else { // Get login data. 
+        } else { // Get login data.
+
+            if(cursor.value.theme == 1){
+
+                document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+
+            }
 
             // If it is admin, set avatar and show users data. 
             if (cursor.value.admin == true) {
@@ -158,6 +166,10 @@ function setUser(db) {
        
 
         } else { // Get data
+
+            if(cursor.value.theme == 1){
+                document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+            }
 
             // If it is admin, go to admin page
             if (cursor.value.admin == true) {
@@ -207,6 +219,12 @@ function setProfile(db) {
             window.location.href = "index.html";
             
         } else { // Get login data. 
+
+            if(cursor.value.theme == 1){
+
+                document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+
+            }
             
             // If it is admin, set avatar and show users data. 
             if (cursor.value.admin == true) {

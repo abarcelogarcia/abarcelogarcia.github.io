@@ -12,7 +12,6 @@ function readData() {
 function readUsers(db) {
   
   var registered = document.getElementById('registered_user_table');
-  var btnResetPass = document.getElementById("validatePass-btn");
   
   registered.innerHTML = "";
   
