@@ -312,7 +312,9 @@ function resetPassword(user_id, password, record) {
 // set user_id on reset password form button
 function setUser_id(user_id) {
 
-  document.getElementById("validatePass-btn").setAttribute("user_id", user_id);
+  document.getElementById("savePass-btn").setAttribute("user_id", user_id);
+  document.getElementById("generatePass-btn").setAttribute("onclick", "generatePassword(8, "+user_id+")");
+
 
   
 }

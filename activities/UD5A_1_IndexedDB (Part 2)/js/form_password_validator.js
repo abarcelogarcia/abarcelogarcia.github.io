@@ -37,7 +37,7 @@ function isValidPassword(password) {
 
 
 
-// Form Validatior
+// Form Validator
 function validateFormPass(user_id) {
    
     let isPassOK = false;
@@ -78,12 +78,50 @@ function validateFormPass(user_id) {
 
         // Two fields are ok. Continue to send data to reset the password
         if (isPassOK && areEquals) {
-            selectUserToEdit(user_id, pass1.value);
+            selectProfileToEdit(user_id, pass1.value);
 
         }
     }
 
 
 }
+let iterations = 0;
+
+function generatePassword(length, user_id) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*.,";
+    const passPattern = /^(?=.*\d)(?=.*[!@#$%^&*.,])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    let newPassword = "";
+    
+    while (!passPattern.test(newPassword)) {
+
+        newPassword="";
+        
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            newPassword += charset.charAt(randomIndex);
+        }
+
+        iterations++;
+    }
+
+    // prepare buttons to execute changing password
+
+
+    document.getElementById("newPass").value = newPassword;
+    document.getElementById("savePass-btn").disabled = false;
+    document.getElementById("savePass-btn").setAttribute("onclick", "selectUserToEdit(" + user_id + ", '" + newPassword + "')");
+    
+
+  }
+
+
+  function saveGeneredPass(params) {
+    
+  }
+
+  
+//   const GenPasswordCreated = generatePassword(8);
+//   console.log(GenPasswordCreated);
+//   console.log(iternaciones);
 
 

@@ -111,13 +111,7 @@ function login(db) {
 
     }
   }
-  // errorMessage(document.getElementById('user'), 'User not registered');
-  // tx.oncomplete = function () {
-  //   db.close();
-  //   opened = false;
 
-
-  // };
 
 
 }

@@ -91,9 +91,11 @@
         </div>
       <div class="p-4" id="profile_body">
         
+        <div id="liveAlertPlaceholder"></div>
         <div class="text-end mb-3">
-          <button type="button" class="btn btn-info" id="validatePass-btn" ><i class="bi bi-recycle"></i> Password</button>
-          <button type="button" class="btn btn-warning" id="validatePass-btn" onclick=""><i class="bi bi-pencil-square"></i> Edit</button>
+          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="validatePass-btn" ><i class="bi bi-recycle"></i> Password</button>
+          <button type="button" class="btn btn-warning" id="edit-profile-btn"><i class="bi bi-pencil-square"></i> Edit</button>
+          <button type="button" class="btn btn-danger" id="liveAlertBtn"><i class="bi bi-trash3"></i> Delete</button>
         </div>
 
         <div class="mb-3">
@@ -121,7 +123,7 @@
         </div>
         
         <p class="profile-label">Choose your avatar</p>
-        <div class="mb-3 disabled p-3" >
+        <div class="mb-3 disabled p-3" id="avatar_continer" >
           <!-- input type radio for control :checked state in css file -->
           <input type="radio" id="avatar1" name="avatar" value="1" path="img/avatar1.png" />
           <input type="radio" id="avatar2" name="avatar" value="2" path="img/avatar2.png" />
@@ -230,7 +232,7 @@
         </div>
         <div class="modal-footer">
           <div class="text-end">
-            <button type="button" class="btn btn-warning" id="validatePass-btn" onclick="validateFormPass(this.getAttribute('user_id'))">Select</button>
+            <button type="button" class="btn btn-warning" id="validatePass_profile" data-bs-dismiss="modal">Select</button>
 
           </div>
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <meta charset="utf-8" />
@@ -12,7 +12,7 @@
 </head>
 <!-- <link rel="stylesheet" href="/abarcelogarcia.github.io/bootstrap-5.3.2-dist/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="css/estils.css" /> -->
-<link rel="stylesheet" href="css/bootstrap_custom.css" />
+<link rel="stylesheet" href="css/bootstrap_custom_dark.css" />
 </head>
 
 <body class="bg-page">
@@ -269,24 +269,17 @@
         </div>
         <div class="modal-body">
 
-          <h6 class="mb-4">New Password</h6>
 
           <div class="mb-3 assessed">
-            <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Type de new password" required />
-            <small>Error message</small>
+            <input type="text" class="form-control" id="newPass" name="newPass" placeholder="New password" readonly/>
           </div>
 
-          <div class="mb-3 assessed">
-            <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Type de new password again"
-              required />
-            <small>Error message</small>
-          </div>
-
-          
+                    
         </div>
         <div class="modal-footer">
           <div class="text-end">
-            <button type="button" class="btn btn-warning" id="validatePass-btn" onclick="validateFormPass(this.getAttribute('user_id'))">Select</button>
+            <button type="button" class="btn btn-warning" id="generatePass-btn" >Generate</button>
+            <button type="button" class="btn btn-info" id="savePass-btn" disabled>Save</button>
 
           </div>
         </div>

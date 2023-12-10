@@ -75,6 +75,7 @@ function openCreateDb(onDbCompleted) {
 
 }
 
+
 // ACCES MANAGEMENT FOR LOGGED-IN USERS
 
 // Checks if the user is logged in
