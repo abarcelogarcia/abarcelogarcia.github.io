@@ -1,9 +1,13 @@
 // ELEMENTS
 // const imgProfile = document.getElementById("img-profile");
 const regUsersTable = document.getElementById("registered_user_table");
-let liveAlert = document.getElementById("liveAlertPlaceholder");
+let liveAlertDelete = document.getElementById("liveAlertDelete");
+let liveAlertEdit = document.getElementById("liveAlertEdit");
 let confirmDelBtn = document.getElementById("confirmDel");
 let cancelDelBtn = document.getElementById("cancelDel");
+let confirmEditBtn = document.getElementById("confirmEdit");
+let cancelEditBtn = document.getElementById("cancelEdit");
+let nameFigcaption = document.getElementById("user_name_figcaption");
 
 // checks the login in the db and acts accordingly
 function setUserAdmin(db) {
@@ -33,6 +37,7 @@ function setUserAdmin(db) {
       if (cursor.value.admin == true) {
 
         document.getElementById("img-profile").src = cursor.value.avatar;
+        nameFigcaption.innerText = cursor.value.name;
         readData();
 
         // If it is not admin, redirect to homepage. 
@@ -65,7 +70,6 @@ function readData() {
     readUsers(db);
   });
 }
-
 // Read and build the table with the users
 function readUsers(db) {
 
@@ -113,7 +117,7 @@ function readUsers(db) {
         '<div class="col-1 text-center">' +
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
-        '<div class="col-1 text-center">' +
+        '<div class="col-1 text-center" id="edit-' + cursor.value.id + '">' +
         '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
         '</div>' +
         '<div class="col-1 text-center" id="del-' + cursor.value.id + '">' +
@@ -223,7 +227,7 @@ function updateFormInputsToEdit(record) {
   document.getElementById("del-reg-" + record.id).textContent = "Cancel";
   document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
   document.getElementById("edit-reg-" + record.id).textContent = "Save";
-  document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData(" + record.id + ")");
+  document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "confirmEdit(" + record.id + ")");
 
   // Disable all other buttons 
   let buttonsAll = document.getElementsByName("grid-btn");
@@ -302,14 +306,14 @@ function cancelar(user_id) {
 function confirmDel(user_id) {
 
   // Show alert
-  liveAlert.hidden = false;
+  liveAlertDelete.hidden = false;
 
   confirmDelBtn.setAttribute("onclick", "deleteUser(" + user_id + ")");
 
   let alertBox = document.createElement("div");
   alertBox.id = "alertBox";
   document.getElementById("del-" + user_id + "").parentElement.appendChild(alertBox);
-  document.getElementById("alertBox").appendChild(liveAlert);
+  document.getElementById("alertBox").appendChild(liveAlertDelete);
 
   // Disable all buttons 
   let buttonsAll = document.getElementsByName("grid-btn");
@@ -333,6 +337,44 @@ function confirmDel(user_id) {
   })
 }
 
+// Confirmation user save editing
+function confirmEdit(user_id) {
+
+  // Show alert
+  liveAlertEdit.hidden = false;
+
+  confirmEditBtn.setAttribute("onclick", "sendData(" + user_id + ")");
+
+  let alertBox = document.createElement("div");
+  alertBox.id = "alertBox";
+  document.getElementById("edit-" + user_id + "").parentElement.appendChild(alertBox);
+  document.getElementById("alertBox").appendChild(liveAlertEdit);
+
+  // Disable all buttons 
+  let buttonsAll = document.getElementsByName("grid-btn");
+  for (let i = 0; i < buttonsAll.length; i++) {
+    buttonsAll[i].disabled = true;
+  }
+
+
+  // Cancel button -> Delete Alert
+  cancelEditBtn.addEventListener("click", function () {
+
+    alertBox.remove();
+
+    // Enable all buttons 
+    let buttonsAll = document.getElementsByName("grid-btn");
+    for (let i = 0; i < buttonsAll.length; i++) {
+      buttonsAll[i].disabled = false;
+    }
+
+    // Cancel user edition row
+    cancelar(user_id);
+
+
+  })
+}
+
 // Delete user
 function deleteUser(user_id) {
 
@@ -350,7 +392,7 @@ function deleteUser(user_id) {
 
       //Operation to do after deleting a record
       readData();
-      document.getElementById("liveAlertPlaceholder").hidden = true;
+      document.getElementById("liveAlertDelete").hidden = true;
     };
 
     req.onerror = function (e) {
@@ -366,6 +408,8 @@ function deleteUser(user_id) {
 
 
 }
+
+
 
 // RESET PASSWORD
 // -------------------------------------------

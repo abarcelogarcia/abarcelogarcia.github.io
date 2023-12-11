@@ -1,3 +1,6 @@
+let nameFigcaption = document.getElementById("user_name_figcaption");
+
+
 // checks the login in the db and acts accordingly
 function setUser(db) {
 
@@ -26,11 +29,13 @@ function setUser(db) {
 
         document.getElementById("img-profile").src = cursor.value.avatar;
         document.getElementById("img-profile").hidden = false;
-        document.getElementById("link_profile").setAttribute("href", "index_profile.html");
+        // document.getElementById("link_profile").setAttribute("href", "index_profile.html");
         document.getElementById("btn_login").removeAttribute("data-bs-toggle");
         document.getElementById("btn_login").removeAttribute("data-bs-target");
         document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
         document.getElementById("btn_login").textContent = "Logout";
+        nameFigcaption.innerText = cursor.value.name;
+
       }
 
     }
@@ -131,7 +136,7 @@ function login(db) {
 
 
         // Store the login into db in login storage
-        setLogin(cursor.value.id, cursor.value.user, cursor.value.admin, cursor.value.avatar, cursor.value.theme);
+        setLogin(cursor.value.id, cursor.value.user, cursor.value.name, cursor.value.admin, cursor.value.avatar, cursor.value.theme);
 
         // redirects depending on role
         if (cursor.value.admin == true) {
@@ -167,9 +172,9 @@ function login(db) {
 
 }
 
-function setLogin(user_id, user, admin, avatar, theme) {
+function setLogin(user_id, user, name, admin, avatar, theme) {
 
-  var obj = { id: user_id, user: user, admin: admin, avatar: avatar, theme: theme };
+  var obj = { id: user_id, user: user, name: name, admin: admin, avatar: avatar, theme: theme };
 
   console.log(obj);
 

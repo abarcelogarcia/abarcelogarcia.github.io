@@ -39,16 +39,28 @@
           </a>
         </div>
 
-        <div class="col-auto">
-          <img src="img/button_search.png" alt="logo" id="logo_search" />
+        <div class="col d-flex justify-content-end">
+          <div class="row align-items-center">
+            <div class="col">
+              <img src="img/button_search.png" alt="logo" id="logo_search" />
+            </div>
+            <div class="col">
+              <figure class="mt-3">
+                <a href="index_profile.html">
+                  <img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" />
+                </a>
+                <figcaption class="text-center" id="user_name_figcaption"></figcaption>
+              </figure>
+            </div>
+              <div class="col-auto">
+                <!-- Button trigger modal -->
+      
+                <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left"></i> Logout</button>
 
-          <!-- Button trigger modal -->
-          <!-- <img src="img/button_login.png" role="button" alt="logo" data-bs-toggle="modal" data-bs-target="#login" /> -->
-          <a href="index_profile.html">
-            <img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" />
-          </a>
+              </div>
 
-          <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left"></i> Logout</button>
+          </div>
+
         </div>
       </div>
 
@@ -76,23 +88,11 @@
                 <li><a class="dropdown-item" type="button" onclick="sendBK()">Restore</a></li>
               </ul>
             </div>
-            <!-- <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" /> -->
           </div>
         </div>
       </div>
 
       <div id="registered_user_table_cab">
-        <div id="liveAlertPlaceholder" class="p-3 bg-danger-subtle m-3" hidden>
-          <p>You are going to <b>delete </b>selected profile. Please note that this process is <b>IRREVERSIBLE</b>. Are
-            you
-            sure about it?</p>
-          <button type="button" class="btn btn-danger" id="confirmDel">Yes, I'm sure.</button>
-          <button type="button" class="btn btn-info" id="cancelDel">Cancel</button>
-
-
-        </div>
-
-
         <div class="container registered-users-cab m-auto mt-4">
           <div class="row align-items-center">
             <div class="col">
@@ -279,6 +279,26 @@
       </div>
     </div>
   </div>
+  </div>
+
+  <!-- Alert boxes -->
+  
+  <!-- Alert box DELETE -->
+  <div id="liveAlertDelete" class="p-3 bg-danger-subtle m-3 rounded" hidden>
+    <p>You are going to <b>delete </b>selected profile. Please note that this process is <b>IRREVERSIBLE</b>. Are
+      you
+      sure about it?</p>
+      <button type="button" class="btn btn-danger" id="confirmDel">Yes, I'm sure.</button>
+      <button type="button" class="btn btn-info" id="cancelDel">Cancel</button>
+    </div>
+    
+    <!-- Alert box EDIT -->
+    <div id="liveAlertEdit" class="p-3 bg-warning-subtle m-3 rounded" hidden>
+    <p>You are going to <b>save </b>selected profile. Please note that this process is <b>IRREVERSIBLE</b>. Are
+      you
+      sure about it?</p>
+    <button type="button" class="btn btn-warning" id="confirmEdit">Yes, I'm sure.</button>
+    <button type="button" class="btn btn-info" id="cancelEdit">Cancel</button>
   </div>
 
 

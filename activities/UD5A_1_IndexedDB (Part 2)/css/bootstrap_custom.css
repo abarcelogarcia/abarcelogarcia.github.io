@@ -11562,10 +11562,6 @@ footer {
   visibility: visible;
 }
 
-.blur {
-  filter: blur(50px);
-}
-
 div.disabled {
   pointer-events: none;
   /* for "disabled" effect */

@@ -12,6 +12,8 @@ const validatePassBtn = document.getElementById("validatePass_profile");
 const imgProfile = document.getElementById("img-profile");
 const themeSelector = document.getElementById("theme_selector");
 const adminCheck = document.getElementById("admin_check");
+let nameFigcaption = document.getElementById("user_name_figcaption");
+
 
 function setProfile(db) {
 
@@ -41,16 +43,18 @@ function setProfile(db) {
       if (cursor.value.admin == true) {
 
         // window.location.href = "index_admin.html";
-        selectProfileToEdit(cursor.value.id);
         document.getElementById("img-profile").src = "img/avatars.png";
         document.getElementById("img-profile").parentElement.href = "index_admin.html";
 
-        // If it is not admin, redirect to homepage. 
-      } else {
+        nameFigcaption.innerText = 'Users';
 
-        selectProfileToEdit(cursor.value.id);
+      }else{
+
+        nameFigcaption.innerText = cursor.value.name;
 
       }
+
+      selectProfileToEdit(cursor.value.id);
     }
   }
 
@@ -192,10 +196,10 @@ function updateUser(db, user_id) {
     console.log("Data successfully updated");
 
     // Reload page for set default elements values
-
     updateUserLogin(user_id);
 
-    location.reload();
+
+    // location.reload();
 
   };
 
@@ -207,6 +211,7 @@ function updateUser(db, user_id) {
     console.log("Edit Profile: tx completed");
 
 
+
   };
 
 }
@@ -214,17 +219,15 @@ function updateUser(db, user_id) {
 function updateUserLogin() {
 
   const avatar = getAvatarPath();
-  console.log(themeSelector.value);
 
 
-  openCreateDb(function (db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
     var store = tx.objectStore(DB_STORE_LOGIN);
 
     store.clear();
 
-    var obj = { id: parseInt(user_id), user: user, avatar: avatar, admin: adminCheck.checked, theme: themeSelector.value };
+    var obj = { id: parseInt(user_id), user: user, name: userName.value, avatar: avatar, admin: adminCheck.checked, theme: themeSelector.value };
     //Updates data in our ObjectStore
     req = store.add(obj);
 
@@ -248,7 +251,6 @@ function updateUserLogin() {
 
 
 
-  });
 
 
 

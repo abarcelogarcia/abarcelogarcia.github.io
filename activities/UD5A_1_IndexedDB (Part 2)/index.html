@@ -39,16 +39,26 @@
           </a>
         </div>
 
-        <div class="col-auto">
-          <img src="img/button_search.png" alt="logo" id="logo_search" />
-
-          <!-- Button trigger modal -->
-          <!-- <img src="img/button_login.png" role="button" alt="logo" data-bs-toggle="modal" data-bs-target="#login" /> -->
-          <a href="#" id="link_profile"><img src="img/logo_headings.png" alt="img-profile" id="img-profile"
-              style="max-width: 50px;" hidden /></a>
-
-          <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
-              class="bi bi-box-arrow-in-right"></i> Login</button>
+        <div class="col d-flex justify-content-end">
+          <div class="row align-items-center">
+            <div class="col">
+              <img src="img/button_search.png" alt="logo" id="logo_search" />
+            </div>
+            <div class="col">
+              <figure class="mt-3">
+                <a href="index_profile.html">
+                  <img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" hidden/>
+                </a>
+                <figcaption class="text-center" id="user_name_figcaption" ></figcaption>
+              </figure>
+            </div>
+              <div class="col-auto">
+                <!-- Button trigger modal -->
+      
+                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
+                  class="bi bi-box-arrow-in-right"></i> Login</button>
+              </div>
+          </div>
         </div>
       </div>
 
