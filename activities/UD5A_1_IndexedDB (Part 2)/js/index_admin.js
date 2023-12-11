@@ -1,6 +1,10 @@
 // ELEMENTS
 // const imgProfile = document.getElementById("img-profile");
 const regUsersTable = document.getElementById("registered_user_table");
+let liveAlert = document.getElementById("liveAlertPlaceholder");
+let confirmDelBtn = document.getElementById("confirmDel");
+let cancelDelBtn = document.getElementById("cancelDel");
+
 
 
 // USERS DATA MANAGEMENT
@@ -14,6 +18,7 @@ function readData() {
   });
 }
 
+// Read and build the table with the users
 function readUsers(db) {
 
   var registered = document.getElementById('registered_user_table');
@@ -63,8 +68,8 @@ function readUsers(db) {
         '<div class="col-1 text-center">' +
         '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
         '</div>' +
-        '<div class="col-1 text-center">' +
-        '<button class="btn btn-danger" id="del-reg-' + cursor.value.id + '" name="grid-btn" onclick="deleteUser(' + cursor.value.id + ')" ><i class="bi bi-trash3"></i> Del</button>' +
+        '<div class="col-1 text-center" id="del-' + cursor.value.id + '">' +
+        '<button class="btn btn-danger" id="del-reg-' + cursor.value.id + '" name="grid-btn" onclick="confirmDel(' + cursor.value.id + ')" ><i class="bi bi-trash3"></i> Del</button>' +
         '</div>' +
         '<div class="col-1 text-center">' +
         '<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#resetPass_modal" id="reset-pass-' + cursor.value.id + '" name="grid-btn" onclick="setUser_id(' + cursor.value.id + ')" ><i class="bi bi-recycle"></i> Pass</button>' +
@@ -73,11 +78,11 @@ function readUsers(db) {
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
         '</div>';
 
-        
-        //  Check if is an admin 
-        if (cursor.value.admin) {
-          document.getElementById("admin_check-" + cursor.value.id).checked = true;
-          console.log(document.getElementById("admin_check-" + cursor.value.id));
+
+      //  Check if is an admin 
+      if (cursor.value.admin) {
+        document.getElementById("admin_check-" + cursor.value.id).checked = true;
+        console.log(document.getElementById("admin_check-" + cursor.value.id));
       }
       cursor.continue();
     }
@@ -98,6 +103,7 @@ function readUsers(db) {
 
 }
 
+// Sends the user data to update the database.
 function sendData(user_id) {
 
   openCreateDb(function (db) {
@@ -108,8 +114,8 @@ function sendData(user_id) {
   });
 }
 
-// Grid Update users data
-
+// Select the user from the database and if there is a password parameter, 
+// execute the method to change it and if there is not, fill in the user fields.
 function selectUserToEdit(user_id, password) {
 
   openCreateDb(function (db) {
@@ -150,8 +156,8 @@ function selectUserToEdit(user_id, password) {
   });
 }
 
+// Enable and fill in all users fields
 function updateFormInputsToEdit(record) {
-
 
   document.getElementById("user-" + record.id).disabled = false;
   document.getElementById("user-" + record.id).value = record.user;
@@ -172,35 +178,24 @@ function updateFormInputsToEdit(record) {
   document.getElementById("edit-reg-" + record.id).textContent = "Save";
   document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "sendData(" + record.id + ")");
 
-
   // Disable all other buttons 
   let buttonsAll = document.getElementsByName("grid-btn");
-
   for (let i = 0; i < buttonsAll.length; i++) {
-
-
     if ((buttonsAll[i].textContent != 'Save') && (buttonsAll[i].textContent != 'Cancel')) {
-
       buttonsAll[i].disabled = true;
-
     }
-
   }
 
 
 
   // Modal select button to save avatar
   document.getElementById("save_avatar").addEventListener('click', function () {
-
-
     document.getElementById("avatar-" + record.id).src = getAvatarPath();
-
-
-
   });
 
 }
 
+// Update a user's data in the database.
 function updateUser(db, user_id) {
   var user = document.getElementById("user-" + user_id);
   var password = encryptPassword(document.getElementById("password-" + user_id).value);
@@ -237,6 +232,7 @@ function updateUser(db, user_id) {
   };
 }
 
+// Reverses the editing of user data
 function cancelar(user_id) {
 
 
@@ -254,45 +250,79 @@ function cancelar(user_id) {
 
 }
 
+// Confirmation user delete
+function confirmDel(user_id) {
+
+  // Show alert
+  liveAlert.hidden = false;
+
+  confirmDelBtn.setAttribute("onclick", "deleteUser(" + user_id + ")");
+
+  let alertBox = document.createElement("div");
+  alertBox.id = "alertBox";
+  document.getElementById("del-" + user_id + "").parentElement.appendChild(alertBox);
+  document.getElementById("alertBox").appendChild(liveAlert);
+
+  // Disable all buttons 
+  let buttonsAll = document.getElementsByName("grid-btn");
+  for (let i = 0; i < buttonsAll.length; i++) {
+    buttonsAll[i].disabled = true;
+  }
+
+
+  // Cancel button -> Delete Alert
+  cancelDelBtn.addEventListener("click", function () {
+
+    alertBox.remove();
+
+    // Enable all buttons 
+    let buttonsAll = document.getElementsByName("grid-btn");
+    for (let i = 0; i < buttonsAll.length; i++) {
+      buttonsAll[i].disabled = false;
+    }
+
+
+  })
+}
 
 // Delete user
-
 function deleteUser(user_id) {
 
-  if (confirm("Are you sure you want to delete the user?") == true) {
-    openCreateDb(function (db) {
-      console.log(user_id);
-      var tx = db.transaction(DB_STORE_NAME, "readwrite");
-      var store = tx.objectStore(DB_STORE_NAME);
+  openCreateDb(function (db) {
+    console.log(user_id);
+    var tx = db.transaction(DB_STORE_NAME, "readwrite");
+    var store = tx.objectStore(DB_STORE_NAME);
 
-      //Delete data in our ObjectStore
-      var req = store.delete(parseInt(user_id));
+    //Delete data in our ObjectStore
+    var req = store.delete(parseInt(user_id));
 
-      req.onsuccess = function (e) {
+    req.onsuccess = function (e) {
 
-        console.log("deleteUser: Data successfully removed: " + user_id);
+      console.log("deleteUser: Data successfully removed: " + user_id);
 
-        //Operation to do after deleting a record
-        readData();
-      };
+      //Operation to do after deleting a record
+      readData();
+      document.getElementById("liveAlertPlaceholder").hidden = true;
+    };
 
-      req.onerror = function (e) {
-        console.error("deleteUser: error removing data:", e.target.errorCode);
-      };
+    req.onerror = function (e) {
+      console.error("deleteUser: error removing data:", e.target.errorCode);
+    };
 
-      tx.oncomplete = function () {
-        console.log("deleteUser: tx completed");
-        db.close();
-        opened = false;
-      };
-    });
-  }
+    tx.oncomplete = function () {
+      console.log("deleteUser: tx completed");
+      db.close();
+      opened = false;
+    };
+  });
 
 
 }
 
 // RESET PASSWORD
+// -------------------------------------------
 
+// Encrypt and save the new password in the database.
 function resetPassword(user_id, password, record) {
 
   openCreateDb(function (db) {
@@ -301,13 +331,8 @@ function resetPassword(user_id, password, record) {
     var store = tx.objectStore(DB_STORE_NAME);
     var newPassword = encryptPassword(password);
 
-    console.log("U: " + user_id);
-    console.log("P: " + password);
-
     var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin };
 
-
-    //Delete data in our ObjectStore
     var req = store.put(obj);
 
     req.onsuccess = function (e) {
@@ -337,8 +362,6 @@ function setUser_id(user_id) {
 
   document.getElementById("savePass-btn").setAttribute("user_id", user_id);
   document.getElementById("generatePass-btn").setAttribute("onclick", "generatePassword(8, " + user_id + ")");
-
-
 
 }
 
@@ -457,4 +480,5 @@ window.addEventListener('load', () => {
 
 
 });
+
 
