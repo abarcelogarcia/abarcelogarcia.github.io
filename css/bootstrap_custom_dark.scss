@@ -16,18 +16,19 @@
 
 /* COLORS */
 
-$blanco-corp: #f3f5f7;
-$azul-corp: #001B2E;
+$blanco-corp: black;
+$azul-corp: #f3f5f7;
 $rojo-corp: #CC0000;
 $amarillo-corp: #FF9900;
-$verde-corp: #294C60;
-$gris-corp: #ADB6C4;
+$verde-corp: #ADB6C4;
+$gris-corp: #4a4a4b;
+
 
 $theme-colors: (
   "primary": $azul-corp,
   "danger": $rojo-corp,
   "warning": $amarillo-corp,
-  "info": $verde-corp
+  "info": #294C60
 );
 
 /* FONTS */
@@ -115,13 +116,16 @@ $carousel-transition-duration: .3s; //.6s
 
 .card-title {
 
-  background-color: $gris-corp;
+  background-color: $azul-corp;
+  padding: 4px;
+
 
 }
 
 .card-text {
 
   text-align: justify;
+  color: $azul-corp;
 
 }
 
@@ -166,28 +170,33 @@ footer {
   background-color: $gris-corp;
   font-weight: bold;
   padding: 10px;
-  
+  color: white;
+
 }
 
-.registered-users {
-  
-  // background-color: $gris-corp;
-  
+.registered_user_table {
+
+  color: white;
+
 }
 
-.input_reg{
-  
+.input_reg {
+
   // background-color: $blanco-corp;
   border: none;
   padding: 10px;
-  max-width: 150px;
+  max-width: 100px;
 
 }
 
 .input_reg:disabled {
 
   border: none;
+  background-color: black;
+  color: $verde-corp;
 }
+
+
 
 
 // Validation Form Style
@@ -204,21 +213,34 @@ footer {
 }
 
 .assessed.error small {
-  color: $rojo-corp;
+  color: white;
   visibility: visible;
 }
 
 
-div.disabled
-{
+div.disabled {
   pointer-events: none;
-    
+
   /* for "disabled" effect */
   opacity: 0.5;
   background: #e9ecef;
 }
 
-.profile-label{
+.profile-label {
 
   font-weight: bold;
+  color: white;
 }
+
+
+
+// .modal-content {
+
+//   background-color: white;
+// }
+
+// .modal-title{
+
+//   color: white;
+
+// }
