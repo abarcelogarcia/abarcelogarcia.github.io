@@ -11,6 +11,59 @@ const delProfileBtn = document.getElementById("del-profile-btn");
 const validatePassBtn = document.getElementById("validatePass_profile");
 const imgProfile = document.getElementById("img-profile");
 const themeSelector = document.getElementById("theme_selector");
+const adminCheck = document.getElementById("admin_check");
+
+function setProfile(db) {
+
+  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+  var store = tx.objectStore(DB_STORE_LOGIN);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+
+    var cursor = this.result;
+
+    if (!cursor) { // No data --> No login. Redirect to homepage
+
+      window.location.href = "index.html";
+
+    } else { // Get login data. 
+
+      if (cursor.value.theme == 1) {
+
+
+        setDarkTheme();
+
+
+      }
+
+      // If it is admin, set avatar and show users data. 
+      if (cursor.value.admin == true) {
+
+        // window.location.href = "index_admin.html";
+        selectProfileToEdit(cursor.value.id);
+        document.getElementById("img-profile").src = "img/avatars.png";
+        document.getElementById("img-profile").parentElement.href = "index_admin.html";
+
+        // If it is not admin, redirect to homepage. 
+      } else {
+
+        selectProfileToEdit(cursor.value.id);
+
+      }
+    }
+  }
+
+  req.onerror = function (e) {
+    console.error("Set User: error can not verify the user", this.error);
+  };
+
+  tx.oncomplete = function () {
+    console.log("Set User: transaction completed");
+    db.close();
+    opened = false;
+  };
+}
 
 function selectProfileToEdit(user_id, password) {
 
@@ -59,10 +112,13 @@ function updateFormInputsToEditProfile(record) {
   surname.value = record.surname;
   address.value = record.address;
   age.value = record.age;
-  imgProfile.src = record.avatar;
-  editProfileBtn.setAttribute("onclick", "editProfile(" + record.id + ")");
   validatePassBtn.setAttribute("onclick", "validateFormPass(" + record.id + ")");
+  editProfileBtn.setAttribute("onclick", "editProfile(" + record.id + ")");
+  adminCheck.checked = record.admin;
 
+  if (!record.admin) {
+    imgProfile.src = record.avatar;
+  }
 
 
   let imgPaths = document.querySelectorAll('input[path]');
@@ -126,7 +182,7 @@ function updateUser(db, user_id) {
   var tx = db.transaction(DB_STORE_NAME, "readwrite");
   var store = tx.objectStore(DB_STORE_NAME);
 
-  var obj = { id: parseInt(user_id), user: user, password: password, name: userName.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: false, theme: themeSelector.value };
+  var obj = { id: parseInt(user_id), user: user, password: password, name: userName.value, surname: surname.value, address: address.value, age: age.value, avatar: avatar, admin: adminCheck.checked, theme: themeSelector.value };
 
 
   //Updates data in our ObjectStore
@@ -136,7 +192,7 @@ function updateUser(db, user_id) {
     console.log("Data successfully updated");
 
     // Reload page for set default elements values
-    
+
     updateUserLogin(user_id);
 
     location.reload();
@@ -149,51 +205,51 @@ function updateUser(db, user_id) {
 
   tx.oncomplete = function () {
     console.log("Edit Profile: tx completed");
-    
-    
+
+
   };
 
 }
 
-function updateUserLogin(){
-  
+function updateUserLogin() {
+
   const avatar = getAvatarPath();
   console.log(themeSelector.value);
 
-  
+
   openCreateDb(function (db) {
 
-        var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
-        var store = tx.objectStore(DB_STORE_LOGIN);
+    var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
+    var store = tx.objectStore(DB_STORE_LOGIN);
 
-        store.clear();
-    
-        var obj = { id: parseInt(user_id), user: user, avatar: avatar, admin: false, theme: themeSelector.value };
-        //Updates data in our ObjectStore
-        req = store.add(obj);
-    
-        req.onsuccess = function (e) {
-          console.log("User Login: successfully updated");
-    
-          location.reload();
-    
-        };
-    
-        req.onerror = function (e) {
-          console.error("User Login:: Error updating data", this.error);
-        };
-    
-        tx.oncomplete = function () {
-          console.log("User Login:: tx completed");
-          db.close();
-          opened = false;
-        };
-    
-    
-    
-    
-      });
-    
+    store.clear();
+
+    var obj = { id: parseInt(user_id), user: user, avatar: avatar, admin: adminCheck.checked, theme: themeSelector.value };
+    //Updates data in our ObjectStore
+    req = store.add(obj);
+
+    req.onsuccess = function (e) {
+      console.log("User Login: successfully updated");
+
+      location.reload();
+
+    };
+
+    req.onerror = function (e) {
+      console.error("User Login:: Error updating data", this.error);
+    };
+
+    tx.oncomplete = function () {
+      console.log("User Login:: tx completed");
+      db.close();
+      opened = false;
+    };
+
+
+
+
+  });
+
 
 
 }
@@ -207,9 +263,6 @@ function resetPassword(user_id, password, record) {
     var store = tx.objectStore(DB_STORE_NAME);
     var newPassword = encryptPassword(password);
 
-    console.log("U: " + user_id);
-    console.log("P: " + password);
-
     var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin };
 
 
@@ -221,6 +274,7 @@ function resetPassword(user_id, password, record) {
       console.log("Reset Password: Password correctly reset");
 
       //Operation to do after deleting a record
+      location.reload();
     };
 
     req.onerror = function (e) {
@@ -274,6 +328,10 @@ function deleteProfile(db, user_id) {
 
 
 }
+
+
+
+
 
 
 // LISTENNERS

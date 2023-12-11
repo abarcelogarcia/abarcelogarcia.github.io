@@ -26,12 +26,12 @@ function correctMessage(input) {
 
 function isValidPassword(password) {
 
-    // (?=.* [0 - 9]) --> Contains a number
-    // (?=.*[!@#$%^&*.,[\](){}-_/¡?¿]) --> Contains a simbol
+    // (?=.* [0-9]) --> Contains a number
+    // (?=.*[!@#$%^&*.,-_/¡?¿()[\]{}\\]) --> Contains a simbol
     // (?=.*[a-z]) --> Contains a lowercase
     // (?=.*[A-Z]) --> Contains a uppercase
 
-    const passPattern = /^(?=.*\d)(?=.*[!@#$%^&*.,-_/¡?¿()[\]{}\\])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    const passPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.,-_/¡?¿()[\]{}\\])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return passPattern.test(password);
 }
 
@@ -89,7 +89,7 @@ function validateFormPass(user_id) {
 function generatePassword(length, user_id) {
 
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*.,[](){}-_/¡?¿";
-    const passPattern = /^(?=.*\d)(?=.*[!@#$%^&*.,-_/¡?¿()[\]{}\\])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    const passPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.,-_/¡?¿()[\]{}\\])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     let newPassword = "";
     let iterations = 0;
 
@@ -114,15 +114,5 @@ function generatePassword(length, user_id) {
     document.getElementById("iterations").innerHTML = "<b>" + iterations + "</b> iterations were required";
 
 }
-
-
-function saveGeneredPass(params) {
-
-}
-
-
-//   const GenPasswordCreated = generatePassword(8);
-//   console.log(GenPasswordCreated);
-//   console.log(iternaciones);
 
 

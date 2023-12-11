@@ -1,3 +1,54 @@
+// checks the login in the db and acts accordingly
+function setUser(db) {
+
+  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+  var store = tx.objectStore(DB_STORE_LOGIN);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+
+    var cursor = this.result;
+
+    if (cursor) { // If there is not login data, return (we are in home page)
+
+      if (cursor.value.theme == 1) {
+        document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+      }
+
+      // If it is admin, go to admin page
+      if (cursor.value.admin == true) {
+
+        window.location.href = "index_admin.html";
+
+
+        // If it is user (not admin), setup the avatar and logout button.
+      } else {
+
+        document.getElementById("img-profile").src = cursor.value.avatar;
+        document.getElementById("img-profile").hidden = false;
+        document.getElementById("link_profile").setAttribute("href", "index_profile.html");
+        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+        document.getElementById("btn_login").removeAttribute("data-bs-target");
+        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+        document.getElementById("btn_login").textContent = "Logout";
+      }
+
+    }
+
+
+  }
+  req.onerror = function (e) {
+    console.error("Set User error: can not verify the user", this.error);
+  };
+
+  tx.oncomplete = function () {
+    console.log("Set User: transaction completed");
+    db.close();
+    opened = false;
+  };
+
+}
+
 function sendData(action) {
 
   openCreateDb(function (db) {

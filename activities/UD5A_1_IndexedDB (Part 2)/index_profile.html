@@ -28,21 +28,23 @@
             <img src="img/button_hamburguer.png" alt="menu_topics" class="d-sm-none" />
           </a>
           <a href="index.html">
-            <img src="img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" />
+            <img src="img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" id="logo_mobile" />
           </a>
         </div>
 
         <!-- Desktop -->
         <div class="col p-2 d-none d-sm-block">
           <a href="index.html">
-            <img src="img/LogoBloggIn.png" alt="logo" class="d-none d-sm-block" />
+            <img src="img/LogoBloggIn.png" alt="logo" class="d-none d-sm-block" id="logo" />
           </a>
         </div>
 
         <div class="col-auto">
-          <img src="img/button_search.png" alt="logo" />
+          <img src="img/button_search.png" alt="logo" id="logo_search" />
 
-          <img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" />
+          <a href="#">
+            <img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" />
+          </a>
 
           <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left"></i> Logout</button>
         </div>
@@ -95,6 +97,11 @@
           <input type="number" class="form-control" id="age" name="age" aria-describedby="age" min="18" disabled />
         </div>
 
+        <div class="mb-3" hidden>
+          <label for="admin" class="profile-label">admin</label>
+          <input type="checkbox" class="form-control" id="admin_check" name="admin_check" aria-describedby="admin" />
+        </div>
+
         <p class="profile-label">Choose your avatar</p>
         <div class="mb-3 disabled p-3" id="avatar_continer">
           <!-- input type radio for control :checked state in css file -->
@@ -140,12 +147,12 @@
     <div class="container-fluid navbar-bg" id="navbar_footer">
       <div class="row row-cols-1 row-cols-sm-2 align-items-center">
         <div class="col text-center text-sm-start my-2">
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
         </div>
         <div class="col text-center text-sm-end">
           Bloggin, S.L.
@@ -213,8 +220,7 @@
         </div>
         <div class="modal-footer">
           <div class="text-end">
-            <button type="button" class="btn btn-warning" id="validatePass_profile"
-              data-bs-dismiss="modal">Select</button>
+            <button type="button" class="btn btn-warning" id="validatePass_profile">Select</button>
 
           </div>
         </div>

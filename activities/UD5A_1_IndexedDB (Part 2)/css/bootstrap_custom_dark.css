@@ -11567,12 +11567,11 @@ footer {
 }
 
 .assessed.error small, .assessed.error .small {
-  color: #CC0000;
+  color: white;
   visibility: visible;
 }
 
-div.disabled,
-input.disabled {
+div.disabled {
   pointer-events: none;
   /* for "disabled" effect */
   opacity: 0.5;
@@ -11581,14 +11580,6 @@ input.disabled {
 
 .profile-label {
   font-weight: bold;
-  color: white;
-}
-
-.modal-content {
-  background-color: #4a4a4b;
-}
-
-.modal-title {
   color: white;
 }
 

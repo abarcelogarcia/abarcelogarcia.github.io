@@ -171,17 +171,17 @@ footer {
   font-weight: bold;
   padding: 10px;
   color: white;
-  
+
 }
 
 .registered_user_table {
-  
+
   color: white;
-  
+
 }
 
-.input_reg{
-  
+.input_reg {
+
   // background-color: $blanco-corp;
   border: none;
   padding: 10px;
@@ -213,21 +213,20 @@ footer {
 }
 
 .assessed.error small {
-  color: $rojo-corp;
+  color: white;
   visibility: visible;
 }
 
 
-div.disabled
-{
+div.disabled {
   pointer-events: none;
-    
+
   /* for "disabled" effect */
   opacity: 0.5;
   background: #e9ecef;
 }
 
-.profile-label{
+.profile-label {
 
   font-weight: bold;
   color: white;
@@ -235,13 +234,13 @@ div.disabled
 
 
 
-.modal-content{
+// .modal-content {
 
-  background-color: $gris-corp;
-}
+//   background-color: white;
+// }
 
-.modal-title{
+// .modal-title{
 
-  color: white;
+//   color: white;
 
-}
+// }

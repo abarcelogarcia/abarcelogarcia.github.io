@@ -103,152 +103,9 @@ function verifyUser(userRol) {
 }
 
 // checks the role user and acts accordingly
-function setUserAdmin(db) {
-
-    var tx = db.transaction(DB_STORE_LOGIN, "readonly");
-    var store = tx.objectStore(DB_STORE_LOGIN);
-    var req = store.openCursor();
-
-    req.onsuccess = function (e) {
-
-        var cursor = this.result;
 
 
-        if (!cursor) { // No data --> No login. Redirect to homepage
 
-            window.location.href = "index.html";
-
-        } else { // Get login data.
-
-            if(cursor.value.theme == 1){
-
-                document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
-
-            }
-
-            // If it is admin, set avatar and show users data. 
-            if (cursor.value.admin == true) {
-
-                document.getElementById("img-profile").src = cursor.value.avatar;
-                readData();
-
-                // If it is not admin, redirect to homepage. 
-            } else {
-
-                window.location.href = "index.html";
-            }
-        }
-    }
-
-    req.onerror = function (e) {
-        console.error("Set User: error can not verify the user", this.error);
-    };
-
-    tx.oncomplete = function () {
-        console.log("Set User: transaction completed");
-        db.close();
-        opened = false;
-    };
-}
-function setUser(db) {
-    
-    var tx = db.transaction(DB_STORE_LOGIN, "readonly");
-    var store = tx.objectStore(DB_STORE_LOGIN);
-    var req = store.openCursor();
-
-    req.onsuccess = function (e) {
-
-        var cursor = this.result;
-
-        if (!cursor) { // If there is not login data, return (we are in home page)
-
-            console.log("Acces login: unauthorised access");
-       
-
-        } else { // Get data
-
-            if(cursor.value.theme == 1){
-                document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
-            }
-
-            // If it is admin, go to admin page
-            if (cursor.value.admin == true) {
-
-                window.location.href = "index_admin.html";
-       
-
-                // If it is user (not admin), setup the avatar and logout button.
-            } else {
-
-                document.getElementById("img-profile").src = cursor.value.avatar;
-                document.getElementById("img-profile").hidden = false;
-                document.getElementById("link_profile").setAttribute("href", "index_profile.html");
-                document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-                document.getElementById("btn_login").removeAttribute("data-bs-target");
-                document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-                document.getElementById("btn_login").textContent = "Logout";
-            }
-        }
-
-
-    }
-    req.onerror = function (e) {
-        console.error("Set User error: can not verify the user", this.error);
-    };
-
-    tx.oncomplete = function () {
-        console.log("Set User: transaction completed");
-        db.close();
-        opened = false;
-    };
-
-}
-function setProfile(db) {
-
-    var tx = db.transaction(DB_STORE_LOGIN, "readonly");
-    var store = tx.objectStore(DB_STORE_LOGIN);
-    var req = store.openCursor();
-
-    req.onsuccess = function (e) {
-
-        var cursor = this.result;
-
-        if (!cursor) { // No data --> No login. Redirect to homepage
-
-            window.location.href = "index.html";
-            
-        } else { // Get login data. 
-
-            if(cursor.value.theme == 1){
-
-                document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
-
-            }
-            
-            // If it is admin, set avatar and show users data. 
-            if (cursor.value.admin == true) {
-                
-                window.location.href = "index_admin.html";
-
-                // If it is not admin, redirect to homepage. 
-            } else {
-
-                selectProfileToEdit(cursor.value.id);
-
-            }
-        }
-    }
-
-    req.onerror = function (e) {
-        console.error("Set User: error can not verify the user", this.error);
-      };
-    
-      tx.oncomplete = function () {
-        console.log("Set User: transaction completed");
-        db.close();
-        opened = false;
-      };
-}
 
 // LOGOUT
 // -------------------------------------------
@@ -340,3 +197,32 @@ function decryptPassword(encryptedPassword, key) {
     // return the decrypted password how string
     return decrypted.toString(CryptoJS.enc.Utf8);
 }
+
+function setDarkTheme() {
+
+
+    document.body.setAttribute("data-bs-theme", "dark");
+    const styleSheet = document.getElementById("theme");
+    const logoM = document.getElementById("logo_mobile");
+    const logo = document.getElementById("logo");
+    const logoSearch = document.getElementById("logo_search");
+    const socialBtn = document.getElementsByName("social_btn");
+
+    styleSheet.href = "css/bootstrap_custom_dark.css";
+    logoM.src = "img/LogoBloggIn_m_dark.png";
+    logo.src = "img/LogoBloggIn_dark.png";
+    logoSearch.src = "img/button_search_dark.png";
+
+    for (let i = 0; i < socialBtn.length; i++) {
+
+        socialBtn[i].src = "img/socialbutton_dark.png";
+
+    }
+
+
+
+
+
+
+
+};

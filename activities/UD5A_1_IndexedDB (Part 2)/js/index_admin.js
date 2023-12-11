@@ -5,6 +5,54 @@ let liveAlert = document.getElementById("liveAlertPlaceholder");
 let confirmDelBtn = document.getElementById("confirmDel");
 let cancelDelBtn = document.getElementById("cancelDel");
 
+// checks the login in the db and acts accordingly
+function setUserAdmin(db) {
+
+  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+  var store = tx.objectStore(DB_STORE_LOGIN);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+
+    var cursor = this.result;
+
+
+    if (!cursor) { // No data --> No login. Redirect to homepage
+
+      window.location.href = "index.html";
+
+    } else { // Get login data.
+
+      if (cursor.value.theme == 1) {
+
+        setDarkTheme();
+
+      }
+
+      // If it is admin, set avatar and show users data. 
+      if (cursor.value.admin == true) {
+
+        document.getElementById("img-profile").src = cursor.value.avatar;
+        readData();
+
+        // If it is not admin, redirect to homepage. 
+      } else {
+
+        window.location.href = "index.html";
+      }
+    }
+  }
+
+  req.onerror = function (e) {
+    console.error("Set User: error can not verify the user", this.error);
+  };
+
+  tx.oncomplete = function () {
+    console.log("Set User: transaction completed");
+    db.close();
+    opened = false;
+  };
+}
 
 
 // USERS DATA MANAGEMENT
@@ -82,7 +130,6 @@ function readUsers(db) {
       //  Check if is an admin 
       if (cursor.value.admin) {
         document.getElementById("admin_check-" + cursor.value.id).checked = true;
-        console.log(document.getElementById("admin_check-" + cursor.value.id));
       }
       cursor.continue();
     }
@@ -191,6 +238,7 @@ function updateFormInputsToEdit(record) {
   // Modal select button to save avatar
   document.getElementById("save_avatar").addEventListener('click', function () {
     document.getElementById("avatar-" + record.id).src = getAvatarPath();
+
   });
 
 }

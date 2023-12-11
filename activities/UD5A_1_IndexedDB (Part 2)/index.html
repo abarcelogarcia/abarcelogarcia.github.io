@@ -7,12 +7,12 @@
   <title>BloggIN</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
 <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" /> -->
 <!-- <link rel="stylesheet" href="/abarcelogarcia.github.io/bootstrap-5.3.2-dist/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="css/estils.css" /> -->
-<link rel="stylesheet" href="css/bootstrap_custom.css" id="theme"/>
+<link rel="stylesheet" href="css/bootstrap_custom.css" id="theme" />
 </head>
 
 <body class="bg-page">
@@ -28,25 +28,27 @@
             <img src="img/button_hamburguer.png" alt="menu_topics" class="d-sm-none" />
           </a>
           <a href="index.html">
-            <img src="img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" />
+            <img src="img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" id="logo_mobile" />
           </a>
         </div>
 
         <!-- Desktop -->
         <div class="col p-2 d-none d-sm-block">
           <a href="index.html">
-            <img src="img/LogoBloggIn.png" alt="logo" class="d-none d-sm-block" />
+            <img src="img/LogoBloggIn.png" alt="logo" class="d-none d-sm-block" id="logo" />
           </a>
         </div>
 
         <div class="col-auto">
-          <img src="img/button_search.png" alt="logo" />
+          <img src="img/button_search.png" alt="logo" id="logo_search" />
 
           <!-- Button trigger modal -->
           <!-- <img src="img/button_login.png" role="button" alt="logo" data-bs-toggle="modal" data-bs-target="#login" /> -->
-          <a href="#" id="link_profile"><img src="img/logo_headings.png" alt="img-profile" id="img-profile" style="max-width: 50px;" hidden /></a>
+          <a href="#" id="link_profile"><img src="img/logo_headings.png" alt="img-profile" id="img-profile"
+              style="max-width: 50px;" hidden /></a>
 
-          <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+          <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
+              class="bi bi-box-arrow-in-right"></i> Login</button>
         </div>
       </div>
 
@@ -96,7 +98,7 @@
             <div class="row g-2">
               <div class="col-md-4 text-center mt-2">
                 <a href="views/post.html"><img src="img/blogg_img_12215.png" class="img-fluid rounded-start"
-                    alt="img post" /></a>
+                    alt="img post" id="img_post_week" /></a>
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -452,12 +454,12 @@
     <div class="container-fluid navbar-bg" id="navbar_footer">
       <div class="row row-cols-1 row-cols-sm-2 align-items-center">
         <div class="col text-center text-sm-start my-2">
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
-          <img src="img/socialbutton.png" alt="" srcset="" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
         </div>
         <div class="col text-center text-sm-end">
           Bloggin, S.L.
@@ -612,69 +614,70 @@
         <form action="/forms/register.html" method="POST" class="grad" id="user_profile_form">
           <div class="modal-body">
             <div class="mb-3 assessed">
-              <input type="email" class="form-control" id="user_profile" name="user_profile" placeholder="email" required />
-              <small>Error message</small>
-            </div>
-
-            <div class="mb-3 assessed">
-              <input type="password" class="form-control" id="password_profile" name="password_profile" placeholder="Password"
+              <input type="email" class="form-control" id="user_profile" name="user_profile" placeholder="email"
                 required />
               <small>Error message</small>
             </div>
 
+            <div class="mb-3 assessed">
+              <input type="password" class="form-control" id="password_profile" name="password_profile"
+                placeholder="Password" required />
+              <small>Error message</small>
+            </div>
 
 
-           
 
-              <div class="mb-3">
-                <input type="text" class="form-control" id="name__profile" name="name_profile" aria-describedby="name"
-                  placeholder="Name" />
+
+
+            <div class="mb-3">
+              <input type="text" class="form-control" id="name__profile" name="name_profile" aria-describedby="name"
+                placeholder="Name" />
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="surname__profile" name="surname_profile"
+                aria-describedby="surname" placeholder="Surname" />
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="address_profile" name="address_profile"
+                aria-describedby="address" placeholder="Address" />
+            </div>
+            <div class="mb-3 assessed">
+              <input type="number" class="form-control" id="age_profile" name="age_profile" aria-describedby="age"
+                min="18" placeholder="Age" />
+              <small>Error message</small>
+            </div>
+
+            <div class="mb-3">
+              <h6>Choose your avatar</h6>
+
+              <!-- input type radio for control :checked state in css file -->
+              <input type="radio" id="avatar1_profile" name="avatar_profile" value="1" path="img/avatar1.png" />
+              <input type="radio" id="avatar2_profile" name="avatar_profile" value="2" path="img/avatar2.png" />
+              <input type="radio" id="avatar3_profile" name="avatar_profile" value="3" path="img/avatar3.png" />
+              <input type="radio" id="avatar4_profile" name="avatar_profile" value="4" path="img/avatar4.png" />
+              <input type="reset" name="reset_profile" id="reset_profile" hidden />
+              <!--Reset button -->
+
+              <!-- label linked to their inputs -->
+
+              <label for="avatar1">
+                <img src="img/avatar1.png" alt="avatar 1" name="avatar" id="avatar-img1" />
+              </label>
+              <label for="avatar2">
+                <img src="img/avatar2.png" alt="avatar 2" name="avatar" id="avatar-img2" />
+              </label>
+              <label for="avatar3">
+                <img src="img/avatar3.png" alt="avatar 3" name="avatar" id="avatar-img3" />
+              </label>
+              <label for="avatar4">
+                <img src="img/avatar4.png" alt="avatar 4" name="avatar" id="avatar-img4" />
+              </label>
+              <div class="text-start mt-2 ms-2">
+                <button type="button" class="btn btn-warning" id="reset-btn_profile" onclick="uncheckAvatar()">
+                  Reset
+                </button>
               </div>
-              <div class="mb-3">
-                <input type="text" class="form-control" id="surname__profile" name="surname_profile" aria-describedby="surname"
-                  placeholder="Surname" />
-              </div>
-              <div class="mb-3">
-                <input type="text" class="form-control" id="address_profile" name="address_profile" aria-describedby="address"
-                  placeholder="Address" />
-              </div>
-              <div class="mb-3 assessed">
-                <input type="number" class="form-control" id="age_profile" name="age_profile" aria-describedby="age" min="18"
-                  placeholder="Age" />
-                <small>Error message</small>
-              </div>
-             
-              <div class="mb-3">
-                <h6>Choose your avatar</h6>
-
-                <!-- input type radio for control :checked state in css file -->
-                <input type="radio" id="avatar1_profile" name="avatar_profile" value="1" path="img/avatar1.png" />
-                <input type="radio" id="avatar2_profile" name="avatar_profile" value="2" path="img/avatar2.png" />
-                <input type="radio" id="avatar3_profile" name="avatar_profile" value="3" path="img/avatar3.png" />
-                <input type="radio" id="avatar4_profile" name="avatar_profile" value="4" path="img/avatar4.png" />
-                <input type="reset" name="reset_profile" id="reset_profile" hidden />
-                <!--Reset button -->
-
-                <!-- label linked to their inputs -->
-
-                <label for="avatar1">
-                  <img src="img/avatar1.png" alt="avatar 1" name="avatar" id="avatar-img1" />
-                </label>
-                <label for="avatar2">
-                  <img src="img/avatar2.png" alt="avatar 2" name="avatar" id="avatar-img2" />
-                </label>
-                <label for="avatar3">
-                  <img src="img/avatar3.png" alt="avatar 3" name="avatar" id="avatar-img3" />
-                </label>
-                <label for="avatar4">
-                  <img src="img/avatar4.png" alt="avatar 4" name="avatar" id="avatar-img4" />
-                </label>
-                <div class="text-start mt-2 ms-2">
-                  <button type="button" class="btn btn-warning" id="reset-btn_profile" onclick="uncheckAvatar()">
-                    Reset
-                  </button>
-                </div>
-              </div>
+            </div>
 
           </div>
           <div class="modal-footer">
@@ -690,15 +693,17 @@
   </div>
 
 
-  
+
   <script src="./js/index.js"></script>
   <script src="./js/form_validator.js"></script>
   <script src="./js/common.js"></script>
 
   <!-- CRYPTOJS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+    integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="./js/crypto.js"></script>
-  
+
   <!-- BOOTSTRAP -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
