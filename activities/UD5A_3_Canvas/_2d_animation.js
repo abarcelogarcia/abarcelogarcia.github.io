@@ -8,6 +8,12 @@ let logo = document.getElementById("logo");
 canvas = document.getElementById('2d-animation-canvas');
 context = canvas.getContext('2d');
 
+// VARIABLES
+var logoX = 60;
+var logoY = 60;
+var directionX = 3;
+var directionY = 3;
+
 
 // Draw logo
 
@@ -15,18 +21,11 @@ function drawLogo(x, y) {
   context.drawImage(logo, x, y);
 }
 
+
 function clearCanvas() {
   canvas.width = canvas.width;
 }
 
-var logoX = 60;
-var logoY = 60;
-var directionX = 10;
-var directionY = 10;
-var logo2X = 500;
-var logo2Y = 200;
-var direction2X = 10;
-var direction2Y = 10;
 
 function direcctionChange() {
 
@@ -37,15 +36,25 @@ function direcctionChange() {
 
 function changeValuesXY() {
 
+  let newDirectionX = (parseInt(inputX.value));
+  let newDirectionY = (parseInt(inputY.value));
 
-  console.log(directionX);
-  console.log(directionY);
 
-  directionX = parseInt(inputX.value);
-  directionY = parseInt(inputY.value);
+  if ((directionX < 0) && (newDirectionX > 0) || (directionX > 0) && (newDirectionX < 0)) {
 
-  console.log(directionX);
-  console.log(directionY);
+    newDirectionX *= -1;
+
+  }
+
+  if ((directionY < 0) && (newDirectionY > 0) || (directionY > 0) && (newDirectionY < 0)) {
+
+    newDirectionY *= -1;
+
+  }
+
+  directionX = newDirectionX;
+  directionY = newDirectionY;
+
 }
 
 
@@ -55,52 +64,26 @@ function startGame() {
   stopStart.textContent = "Stop";
 
   drawLogo(logoX, logoY);
-  drawLogo(logo2X, logo2Y);
 
 
   start = setInterval(function () {
 
     if (logoX > 575 || logoX < 0) {
       directionX *= -1;
-      // sound.play();
+      sound.play();
     }
 
     if (logoY < 0 || logoY > 475) {
       directionY *= -1;
-      // sound.play();
-    }
-    if (logo2X > 575 || logo2X < 0) {
-      direction2X *= -1;
-      // sound.play();
+      sound.play();
     }
 
-    if (logo2Y < 0 || logo2Y > 475) {
-      direction2Y *= -1;
-      // sound.play();
-    }
-    
-    if(Math.abs(logoX) == Math.abs(logo2X) && Math.abs(logoY)==Math.abs(logo2Y)){
-      
-      directionY *= -1;
-      directionX *= -1;
-      direction2Y *= -1;
-      direction2X *= -1;
-
-    }
-    // if(logoY == logo2Y){
-      
-    //   direction2Y *= -1;
-
-    // }
 
     logoX += directionX;
     logoY += directionY;
-    logo2X += direction2X;
-    logo2Y += direction2Y;
     clearCanvas();
 
     drawLogo(logoX, logoY);
-    drawLogo(logo2X, logo2Y);
 
   }, 35);
 
