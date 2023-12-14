@@ -24,6 +24,7 @@ var logoY = 60;
 var directionX = 5;
 var directionY = 5;
 
+
 function direcctionChange() {
 
   directionX *= -1;
@@ -33,8 +34,16 @@ function direcctionChange() {
 
 function changeValuesXY() {
 
+
+
+  console.log(directionX);
+  console.log(directionY);
+
   directionX = parseInt(inputX.value);
   directionY = parseInt(inputY.value);
+
+  console.log(directionX);
+  console.log(directionY);
 }
 
 
@@ -50,7 +59,6 @@ function startGame() {
 
     if (logoX > 575 || logoX < 0) {
       directionX *= -1;
-      context.rotate(50);
       sound.play();
     }
 
@@ -58,6 +66,7 @@ function startGame() {
       directionY *= -1;
       sound.play();
     }
+
 
     logoX += directionX;
     logoY += directionY;

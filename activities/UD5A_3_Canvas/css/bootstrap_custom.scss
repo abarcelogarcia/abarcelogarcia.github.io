@@ -1,0 +1,229 @@
+@font-face {
+
+  font-family: 'Bahnschrift';
+  src: url(../fonts/BAHNSCHRIFT.TTF);
+  font-display: auto;
+
+
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+@import url("avatar_effect.css");
+
+
+// Variables
+
+/* COLORS */
+
+$blanco-corp: #f3f5f7;
+$azul-corp: #001B2E;
+$rojo-corp: #CC0000;
+$amarillo-corp: #FF9900;
+$verde-corp: #294C60;
+$gris-corp: #ADB6C4;
+
+$theme-colors: (
+  "primary": $azul-corp,
+  "danger": $rojo-corp,
+  "warning": $amarillo-corp,
+  "info": $verde-corp
+);
+
+/* FONTS */
+$titulo: 'Bahnschrift';
+$texto: 'Roboto';
+
+$display-font-sizes: (
+  //Default
+  1: 4rem,
+  //5rem
+  2: 3.5rem,
+  //4.5rem
+  3: 3rem,
+  //4rem
+  4: 2.5rem,
+  //3.5rem
+  5: 2rem,
+  //3rem
+  6: 1.5rem //2.5rem
+);
+
+// DISPLAY FONT (h1 class="display-x")
+$display-font-family: 'Bahnschrift';
+$display-font-style: null;
+$display-font-weight: 400;
+
+// FONT SIZE (class="fs-x")
+$font-sizes: (
+  //default
+  1: 28px,
+  //$h1-font-size
+  2: 22px,
+  //$h2-font-size
+  3: 14px //$h3-font-size
+);
+
+
+// BUTTONS
+$btn-border-radius: 0px;
+
+// INPUT FORMS
+$input-border-radius: 0px;
+
+
+// MODAL
+// SIZE               //Default
+$modal-sm: 400px; //300px
+$modal-md: 600px; //500px
+$modal-lg: 900px; //800px
+$modal-xl: 1240px; //1140px
+// TRANSITION
+$modal-transition: transform 1s ease-out;
+
+
+
+// CAROUSEL                             //Default
+$carousel-control-color: $azul-corp; //$white
+$carousel-transition-duration: .3s; //.6s
+
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+*{
+
+  margin: 0 auto;
+}
+
+.navbar-bg {
+  background-color: $gris-corp;
+  color: $azul-corp;
+}
+
+.bg-page {
+
+  background-color: $blanco-corp;
+}
+
+.heading {
+  font-family: $titulo;
+  color: $blanco-corp;
+}
+
+.topic,
+.topic a {
+
+  color: $azul-corp;
+  text-decoration-line: none;
+  font-family: $titulo;
+}
+
+.card-title {
+
+  background-color: $gris-corp;
+
+}
+
+.card-text {
+
+  text-align: justify;
+
+}
+
+/* Hamburguer menu */
+.offcanvas-body {
+
+  font-size: xx-large;
+
+}
+
+.offcanvas {
+
+  background-color: $blanco-corp;
+  font-size: xx-large;
+
+}
+
+ul {
+
+  list-style-type: none;
+  text-decoration-line: none;
+}
+
+.offcanvas-title {
+
+  font-size: xx-large;
+
+}
+
+
+
+
+
+footer {
+
+  font-family: $texto;
+  font-size: 10px;
+}
+
+.registered-users-cab {
+
+  background-color: $gris-corp;
+  font-weight: bold;
+  padding: 10px;
+  
+}
+
+.registered-users {
+  
+  // background-color: $gris-corp;
+  
+}
+
+.input_reg{
+  
+  // background-color: $blanco-corp;
+  border: none;
+  padding: 10px;
+  max-width: 150px;
+
+}
+
+.input_reg:disabled {
+
+  border: none;
+}
+
+
+// Validation Form Style
+.assessed.correct input {
+  border-color: $verde-corp;
+}
+
+.assessed.error input {
+  border-color: $rojo-corp;
+}
+
+.assessed small {
+  visibility: hidden;
+}
+
+.assessed.error small {
+  color: $rojo-corp;
+  visibility: visible;
+}
+
+
+div.disabled
+{
+  pointer-events: none;
+    
+  /* for "disabled" effect */
+  opacity: 0.5;
+  background: #e9ecef;
+}
+
+.profile-label{
+
+  font-weight: bold;
+}

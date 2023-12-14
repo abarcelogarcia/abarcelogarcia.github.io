@@ -1,0 +1,191 @@
+:root {
+
+    /* COLORS */
+
+    --blanco-corp: #f3f5f7;
+    --azul-corp: #001B2E;
+    --rojo-corp: #CC0000;
+    --amarillo-corp: #FF9900;
+    --verde-corp: #294C60;
+    --gris-corp: #ADB6C4;
+
+    /* FONTS */
+    --titulo: 'Bahnschrift';
+    --texto: 'Roboto';
+}
+
+@keyframes vibrate {
+    0% {
+        transform: rotateZ(-5deg);
+    }
+
+    50% {
+        transform: rotateZ(0deg) scale(.9);
+    }
+
+    100% {
+        transform: rotateZ(5deg);
+    }
+}
+
+
+
+/* Assign default fonts to the modal*/
+.modal {
+    font-family: var(--texto);
+}
+
+.modal-header {
+    font-family: var(--titulo);
+    text-shadow: 2px 0px 0px hsla(0, 0%, 48%, 0.5);
+
+}
+
+/* Apply background with transparency */
+.modal-body {
+
+    background-color: rgba(0, 27, 46, 0.2);
+}
+
+/* Hide radio selector  */
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+
+/* Create avatar transparency */
+[name*="avatar"] {
+    opacity: 0.25;
+    filter: grayscale(100%);
+}
+
+/* Delete transparency, grayscale and vibrate animation on mouse hover */
+[name*="avatar"]:hover {
+    opacity: 1;
+    transition-duration: 1s;
+    filter: grayscale(0%);
+    animation: vibrate 0.1s 2;
+}
+
+/* Hide the reset button while there is no avatar selected */
+#reset-btn {
+    opacity: 0;
+}
+
+#reset-btn:hover {
+    background-color: var(--rojo-corp);
+    color: var(--blanco-corp);
+    transition-duration: 0.5s;
+}
+
+
+/* HIDE UNSELECTED AVATARS */
+
+/* AVATAR 1 SELECTED */
+
+/* Remove transparency in avatar 1 */
+input[value="1"]:checked~label>#avatar-img1 {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Hide other avatars */
+input[value="1"]:checked~label>:not(#avatar-img1) {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+/* Show reset button */
+input[value="1"]:checked~div>#reset-btn {
+    opacity: 1;
+
+}
+
+/* AVATAR 2 SELECTED */
+
+/* Remove transparency in avatar 2 */
+input[value="2"]:checked~label>#avatar-img2 {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Hide other avatars */
+input[value="2"]:checked~label>:not(#avatar-img2) {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+/* Show reset button */
+input[value="2"]:checked~div>#reset-btn {
+    opacity: 1;
+    transform: translate(80px);
+
+}
+
+/* AVATAR 3 SELECTED */
+
+/* Remove transparency in avatar 3 */
+input[value="3"]:checked~label>#avatar-img3 {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Hide other avatars */
+input[value="3"]:checked~label>:not(#avatar-img3) {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+/* Show reset button */
+input[value="3"]:checked~div>#reset-btn {
+    opacity: 1;
+    transform: translate(165px);
+
+}
+
+/* AVATAR 4 SELECTED */
+
+/* Remove transparency in avatar 3 */
+input[value="4"]:checked~label>#avatar-img4 {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Hide other avatars */
+input[value="4"]:checked~label>:not(#avatar-img4) {
+    opacity: 0;
+    transition-duration: 1s;
+
+}
+
+/* Show reset button */
+input[value="4"]:checked~div>#reset-btn {
+    opacity: 1;
+    transform: translate(250px);
+
+}
+
+/* Reset (show) hidden images after checked one of them */
+input[name="reset"]:checked~label>img {
+    display: block;
+}
+
+
+/* UD4 ACTIVITY 2 */
+
+form *>input:not([type="checkbox"]):focus {
+
+    background-image: linear-gradient(to right, var(--blanco-corp), var(--blanco-corp), var(--blanco-corp), rgba(0, 27, 46, 0.2));
+
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=number]:focus {
+
+    box-shadow: 5px 5px rgba(0, 27, 46, 0.2);
+    border-color: var(--gris-corp);
+}
