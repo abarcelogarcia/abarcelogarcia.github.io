@@ -15,18 +15,28 @@ function drawLogo(x, y) {
   context.drawImage(logo, x, y);
 }
 
+function drawWall(x, y) {
+
+  ctx.fillRect(20, 20, 10, 10);
+
+
+}
+
 function clearCanvas() {
   canvas.width = canvas.width;
 }
 
 var logoX = 60;
-var logoY = 0;
+var logoY = 200;
 var directionX = 1;
 var directionY = 0;
 var logo2X = 500;
 var logo2Y = 0;
 var direction2X = 1;
 var direction2Y = 0;
+var cuboX = 300;
+var cuboY = 250;
+
 
 function direcctionChange() {
 
@@ -41,13 +51,13 @@ function changeValuesXY() {
   let newDirectionY = (parseInt(inputY.value));
 
 
-  if ((directionX < 0) && (newDirectionX > 0) || (directionX > 0) && (newDirectionX < 0)) {
+  if ((directionX < 0) && (newDirectionX > 0) && (directionX < 0) && (newDirectionX < 0)) {
 
     newDirectionX *= -1;
 
   }
 
-  if ((directionY < 0) && (newDirectionY > 0) || (directionY > 0) && (newDirectionY < 0)) {
+  if ((directionY < 0) && (newDirectionY > 0) && (directionY < 0) && (newDirectionY < 0)) {
 
     newDirectionY *= -1;
 
@@ -64,32 +74,36 @@ function startGame() {
   stopStart.textContent = "Stop";
 
   drawLogo(logoX, logoY);
-  drawLogo(logo2X, logo2Y);
+  // drawLogo(logo2X, logo2Y);
+
+  context.fillRect(cuboX, cuboY, 10, 10);
+
+
 
 
   start = setInterval(function () {
 
-    if (logoX > 575 || logoX < 0) {
+    if (logoX + 25 >= canvas.width || logoX < 0) {
       directionX *= -1;
       // sound.play();
     }
 
-    if (logoY < 0 || logoY > 475) {
+    if (logoY < 0 || logoY + 25 >= canvas.height) {
       directionY *= -1;
       // sound.play();
     }
-    if (logo2X > 575 || logo2X < 0) {
-      direction2X *= -1;
-      // sound.play();
-    }
+    // if (logo2X > 575 || logo2X < 0) {
+    //   direction2X *= -1;
+    //   // sound.play();
+    // }
 
-    if (logo2Y < 0 || logo2Y > 475) {
-      direction2Y *= -1;
-      // sound.play();
-    }
-    
-    if((logoX)+50 == (logo2X)-50 || (logoY)+50==(logo2Y)-50){
-      
+    // if (logo2Y < 0 || logo2Y > 475) {
+    //   direction2Y *= -1;
+    //   // sound.play();
+    // }
+
+    if (logo2X == logoX && logo2Y == logoY) {
+
       directionY *= -1;
       directionX *= -1;
       direction2Y *= -1;
@@ -97,10 +111,17 @@ function startGame() {
 
     }
     // if(logoY == logo2Y){
-      
+
     //   direction2Y *= -1;
 
     // }
+
+    if (logoX == cuboX && logoY == cuboY) {
+
+      directionX *= -1
+      directionY *= -1
+
+    }
 
     logoX += directionX;
     logoY += directionY;
@@ -109,7 +130,9 @@ function startGame() {
     clearCanvas();
 
     drawLogo(logoX, logoY);
-    drawLogo(logo2X, logo2Y);
+    // drawLogo(logo2X, logo2Y);
+    context.fillRect(cuboX, cuboY, 10, 10);
+
 
   }, 35);
 
