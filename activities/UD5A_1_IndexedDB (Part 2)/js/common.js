@@ -58,20 +58,20 @@ function openCreateDb(onDbCompleted) {
 
 
         //   ADD temp user on start
-        var obj = {
-            user: "a@a.com",
-            password: {
-                ciphertext: "U2FsdGVkX1+4/35NcId09d1F+br5rs/PCQOp8UHK9Do=",
-                key: "0ebddfocyq"
-            },
-            admin: true
-        };
+        // var obj = {
+        //     user: "a@a.com",
+        //     password: {
+        //         ciphertext: "U2FsdGVkX1+4/35NcId09d1F+br5rs/PCQOp8UHK9Do=",
+        //         key: "0ebddfocyq"
+        //     },
+        //     admin: true
+        // };
 
-        try {
-            req = store.add(obj);
-        } catch (e) {
-            console.log("Catch");
-        }
+        // try {
+        //     req = store.add(obj);
+        // } catch (e) {
+        //     console.log("Catch");
+        // }
 
     };
 
