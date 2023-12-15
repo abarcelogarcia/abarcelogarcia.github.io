@@ -11,8 +11,8 @@ context = canvas.getContext('2d');
 // VARIABLES
 var logoX = 60;
 var logoY = 60;
-var directionX = 3;
-var directionY = 3;
+var directionX = 1;
+var directionY = 1;
 
 
 // Draw logo
