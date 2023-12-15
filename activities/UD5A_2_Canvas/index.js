@@ -1,14 +1,14 @@
 // DATA
 
 var sales = [{
-  product: "Basketballs",
-  units: 170
+  product: "Tennis",
+  units: 30
 }, {
-  product: "Baseballs",
-  units: 150
+  product: "Badminton",
+  units: 350
 }, {
-  product: "Footballs",
-  units: 300
+  product: "Squash",
+  units: 100
 }];
 
 
@@ -28,13 +28,9 @@ var ctx = loadCanvasContext('canvas_graphic');
 
 ctx.font = "20px Arial bold";
 ctx.fillText("Units", 20, 240);
-ctx.font = "20px Arial bold";
 ctx.fillText(sales[0].product, 95, 420);
-ctx.font = "20px Arial bold";
 ctx.fillText(sales[1].product, 195, 420);
-ctx.font = "20px Arial bold";
 ctx.fillText(sales[2].product, 295, 420);
-ctx.font = "20px Arial bold";
 ctx.fillText("Product", 235, 450);
 
 
@@ -45,7 +41,7 @@ ctx.beginPath();
 // 0.0 coordinate of the graph
 ctx.moveTo(80, 400);
 
-// vertical line
+// print vertical line (Units)
 ctx.lineTo(80, 1);
 
 //   arrowhead
@@ -53,8 +49,10 @@ ctx.lineTo(75, 5);
 ctx.moveTo(80, 1);
 ctx.lineTo(85, 5);
 
-//   horizontal line
+// 0.0 coordinate of the graph
 ctx.moveTo(80, 400);
+
+// horizontal line (Product)
 ctx.lineTo(479, 400);
 
 //  arrowhead
@@ -73,8 +71,10 @@ grd.addColorStop(1, "white");
 // Fill with gradient
 ctx.fillStyle = grd;
 ctx.fillRect(100, 399, 70, -(sales[0].units));
-// BAR GRAPHIC 2
 
+
+
+// BAR GRAPHIC 2
 // Create gradient
 var grd = ctx.createLinearGradient(200, 399, 270, 399);
 grd.addColorStop(0, "blue");
