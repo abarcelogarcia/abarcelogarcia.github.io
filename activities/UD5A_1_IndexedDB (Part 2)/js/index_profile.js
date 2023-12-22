@@ -263,7 +263,7 @@ function resetPassword(user_id, password, record) {
 
     var tx = db.transaction(DB_STORE_NAME, "readwrite");
     var store = tx.objectStore(DB_STORE_NAME);
-    var newPassword = encryptPassword(password);
+    var newPassword = CryptoJS.MD5(password).toString(CryptoJS.enc.Base64);
 
     var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin };
 

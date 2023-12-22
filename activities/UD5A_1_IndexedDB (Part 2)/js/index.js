@@ -74,7 +74,7 @@ function sendData(action) {
 // Write the new user register into the db
 function addUser(db) {
   var user = document.getElementById("user");
-  var password = encryptPassword(document.getElementById("password").value);
+  var password = CryptoJS.MD5(document.getElementById("password").value).toString(CryptoJS.enc.Base64);
 
 
   var name = document.getElementById("name");
@@ -108,6 +108,7 @@ function addUser(db) {
   };
   req.onerror = function (e) {
     console.error("addUser: error creating data", this.error);
+    
   };
 
   tx.oncomplete = function () {
@@ -118,7 +119,9 @@ function addUser(db) {
 function login(db) {
 
   let user = document.getElementById("user");
-  let password = document.getElementById("password");
+  let password = CryptoJS.MD5(document.getElementById("password").value).toString(CryptoJS.enc.Base64);
+  console.log(password);
+
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -130,9 +133,7 @@ function login(db) {
 
     if (cursor) {
 
-      const storedPassword = decryptPassword(cursor.value.password.ciphertext, cursor.value.password.key);
-
-      if ((user.value == cursor.value.user) && (password.value == storedPassword)) {
+      if ((user.value == cursor.value.user) && (password == cursor.value.password)) {
 
 
         // Store the login into db in login storage
@@ -153,7 +154,7 @@ function login(db) {
         }
 
 
-      } else if ((user.value == cursor.value.user) && (password.value != storedPassword)) {
+      } else if ((user.value == cursor.value.user) && (password != cursor.value.password)) {
 
         errorMessage(document.getElementById('password'), 'incorrect password. Caps lock active?')
         tx.oncomplete = function () {

@@ -43,11 +43,15 @@ function validateForm(action) {
     let isUserOK = false;
     let isPasswordOK = false;
 
+    console.log(user.value);
+
     // Validate email
     if (user.value === '') {
         errorMessage(user, 'field requiered');
     } else if (!isValidEmail(user.value)) {
         errorMessage(user, 'invalid email address. Please, use a valid format for exemple "name@domain.com"');
+    } else if (readDataIfExist(user.value)) {
+        errorMessage(user, 'the user'+ user.value +' already exists');
     } else {
         correctMessage(user);
         isUserOK = true
@@ -71,5 +75,74 @@ function validateForm(action) {
 
 
 }
+
+
+// Read data to search a user if exists
+function readDataIfExist(user) {
+    openCreateDb(function (db) {
+
+
+
+        if(isUserExist(db, user)=='exist'){
+            
+
+            console.log('EmmaRet:' + user);
+
+            return true;
+
+        }else{
+            return false;
+
+        }
+
+      
+    });
+  }
+  
+function isUserExist(db, user) {
+  
+    var tx = db.transaction(DB_STORE_NAME, "readonly");
+    var store = tx.objectStore(DB_STORE_NAME);
+    
+    var myIndex = store.index("user");
+    var req = myIndex.get(user);
+
+
+    
+    
+    req.onsuccess = function (e) {
+        
+        var cursor = this.result;
+        
+        if (cursor) {
+            
+            console.log("TRUE");
+            return 'exist';
+            
+        }else{
+            
+            console.log("FALSE");
+            return false;
+
+        }
+        
+  
+      };
+  
+  
+    
+  
+    req.onerror = function (e) {
+      console.error("Read Users: error reading data:", e.target.errorCode);
+    };
+  
+    tx.oncomplete = function () {
+      console.log("Read Users: tx completed");
+      db.close();
+      opened = false;
+    };
+  
+  
+  }
 
 
