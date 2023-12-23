@@ -2,7 +2,6 @@
 const user = document.getElementById('user');
 const password = document.getElementById('password');
 
-
 //FUNCTIONS
 
 // Messages
@@ -37,21 +36,21 @@ function isValidPassword(password) {
 
 
 
+
 // Form Validatior
 function validateForm(action) {
 
+    // Call if the user exists
+    readDataIfExist(user.value);
+
     let isUserOK = false;
     let isPasswordOK = false;
-
-    console.log(user.value);
 
     // Validate email
     if (user.value === '') {
         errorMessage(user, 'field requiered');
     } else if (!isValidEmail(user.value)) {
         errorMessage(user, 'invalid email address. Please, use a valid format for exemple "name@domain.com"');
-    } else if (readDataIfExist(user.value)) {
-        errorMessage(user, 'the user'+ user.value +' already exists');
     } else {
         correctMessage(user);
         isUserOK = true
@@ -78,37 +77,20 @@ function validateForm(action) {
 
 
 // Read data to search a user if exists
-function readDataIfExist(user) {
+function readDataIfExist(userName) {
     openCreateDb(function (db) {
-
-
-
-        if(isUserExist(db, user)=='exist'){
-            
-
-            console.log('EmmaRet:' + user);
-
-            return true;
-
-        }else{
-            return false;
-
-        }
-
-      
-    });
-  }
+        console.log("Verify if user already exists");
+        isUserExist(db, userName);
+      });
+    };
   
-function isUserExist(db, user) {
+function isUserExist(db, userName) {
   
     var tx = db.transaction(DB_STORE_NAME, "readonly");
     var store = tx.objectStore(DB_STORE_NAME);
     
     var myIndex = store.index("user");
-    var req = myIndex.get(user);
-
-
-    
+    var req = myIndex.get(userName);
     
     req.onsuccess = function (e) {
         
@@ -116,20 +98,11 @@ function isUserExist(db, user) {
         
         if (cursor) {
             
-            console.log("TRUE");
-            return 'exist';
+        errorMessage(user, 'the user '+ user.value +' already exists');
             
-        }else{
-            
-            console.log("FALSE");
-            return false;
-
-        }
-        
+        }      
   
       };
-  
-  
     
   
     req.onerror = function (e) {
