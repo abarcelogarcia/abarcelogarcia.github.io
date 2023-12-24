@@ -18,16 +18,7 @@ function setUser(db) {
         document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
       }
 
-      // If it is admin, go to admin page
-      if (cursor.value.admin == true) {
-
-        window.location.href = "index_admin.html";
-
-
-        // If it is user (not admin), setup the avatar and logout button.
-      } else {
-
-        document.getElementById("img-profile").src = cursor.value.avatar;
+      document.getElementById("img-profile").src = cursor.value.avatar;
         document.getElementById("img-profile").hidden = false;
         // document.getElementById("link_profile").setAttribute("href", "index_profile.html");
         document.getElementById("btn_login").removeAttribute("data-bs-toggle");
@@ -36,8 +27,7 @@ function setUser(db) {
         document.getElementById("btn_login").textContent = "Logout";
         nameFigcaption.innerText = cursor.value.name;
 
-      }
-
+      
     }
 
 

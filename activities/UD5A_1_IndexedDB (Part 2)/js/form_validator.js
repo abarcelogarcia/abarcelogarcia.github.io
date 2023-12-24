@@ -40,8 +40,13 @@ function isValidPassword(password) {
 // Form Validatior
 function validateForm(action) {
 
-    // Call if the user exists
-    readDataIfExist(user.value);
+    if(action=='add_user'){
+
+        // Call if the user exists
+        readDataIfExist(user.value);
+
+    }
+
 
     let isUserOK = false;
     let isPasswordOK = false;
