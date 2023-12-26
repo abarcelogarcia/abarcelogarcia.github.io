@@ -11562,6 +11562,11 @@ footer {
   visibility: visible;
 }
 
+.assessed.correct small, .assessed.correct .small {
+  color: #294C60;
+  visibility: visible;
+}
+
 div.disabled {
   pointer-events: none;
   /* for "disabled" effect */

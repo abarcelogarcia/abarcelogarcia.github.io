@@ -7,14 +7,16 @@ const password = document.getElementById('password');
 // Messages
 function errorMessage(input, message) {
     const assessed = input.parentElement;
-    assessed.className = 'form-control assessed error';
+    assessed.className = 'assessed error';
     const small = assessed.querySelector('small');
     small.innerText = 'Error: ' + message;
 }
 
 function correctMessage(input) {
     const assessed = input.parentElement;
-    assessed.className = 'form-control assessed correct';
+    assessed.className = 'assessed correct';
+    const small = assessed.querySelector('small');
+    small.innerText = 'Valid';
 }
 
 // Validators
@@ -40,7 +42,7 @@ function isValidPassword(password) {
 // Form Validatior
 function validateForm(action) {
 
-    if(action=='add_user'){
+    if(action == 'add_user'){
 
         // Call if the user exists
         readDataIfExist(user.value);
@@ -81,7 +83,7 @@ function validateForm(action) {
 }
 
 
-// Read data to search a user if exists
+// Read data to search if user exists
 function readDataIfExist(userName) {
     openCreateDb(function (db) {
         console.log("Verify if user already exists");
@@ -101,6 +103,7 @@ function isUserExist(db, userName) {
         
         var cursor = this.result;
         
+        // If cursor exists, there is a registered user account.
         if (cursor) {
             
         errorMessage(user, 'the user '+ user.value +' already exists');
