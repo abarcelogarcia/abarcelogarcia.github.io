@@ -21,25 +21,22 @@ function setUserAdmin(db) {
 
     var cursor = this.result;
 
-
     if (!cursor || !cursor.value.admin) { // No data --> No login or Not admin --> Redirect to homepage
 
       window.location.href = "index.html";
 
-    } else { 
+    } else {
 
       // Is admin. Set avatar & theme and show users data. 
 
-        if (cursor.value.theme == 1) {
+      if (cursor.value.theme == 1) {
+        setDarkTheme();
+      }
 
-          setDarkTheme();
-  
-        }
-
-        document.getElementById("img-profile").src = cursor.value.avatar;
-        nameFigcaption.innerText = cursor.value.name;
-        logedUserId = cursor.value.id;
-        readData();
+      document.getElementById("img-profile").src = cursor.value.avatar;
+      nameFigcaption.innerText = cursor.value.name;
+      logedUserId = cursor.value.id;
+      readData();
 
 
     }
@@ -94,7 +91,7 @@ function readUsers(db) {
         cursor.value.id +
         '</div>' +
         '<div class="col">' +
-        '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" '+ isChecked(cursor.value.admin) +' disabled />' +
+        '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" ' + isChecked(cursor.value.admin) + ' disabled />' +
         '</div>' +
         '<div class="col-2">' +
         '<input class="input_reg" type="text" id="user-' + cursor.value.id + '"  name="user" aria-describedby="user" value="' + cursor.value.user + '" disabled/>' +
@@ -147,7 +144,7 @@ function readUsers(db) {
 }
 
 //  Check if is an admin and return checked if it is.
-function isChecked(isAdmin) { if(isAdmin){return "checked"}}
+function isChecked(isAdmin) { if (isAdmin) { return "checked" } }
 
 // Sends the user data to update the database.
 function sendData(user_id) {
@@ -386,13 +383,13 @@ function deleteUser(user_id) {
       console.log("deleteUser: Data successfully removed: " + user_id);
 
       //Operation to do after deleting a record
-      if(user_id != logedUserId){
+      if (user_id != logedUserId) {
 
 
         readData();
-        
-      }else{
-        
+
+      } else {
+
         setLogout();
 
       }

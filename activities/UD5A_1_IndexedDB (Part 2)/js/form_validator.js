@@ -96,30 +96,17 @@ function readDataIfExist(userName, action) {
             var cursor = this.result;
 
             if (action == 'add_user') {
-
                 // If cursor exists, there is a registered user account.
                 if (cursor) {
-
                     errorMessage(user, 'the user ' + user.value + ' already exists');
-
                 }
 
             } else {
-
-
                 if (!cursor) {
-
                     errorMessage(user, 'the user ' + user.value + ' not exists');
-
                 }
-
-
             }
-
-
         };
-
-
         req.onerror = function (e) {
             console.error("Read Users: error reading data:", e.target.errorCode);
         };
