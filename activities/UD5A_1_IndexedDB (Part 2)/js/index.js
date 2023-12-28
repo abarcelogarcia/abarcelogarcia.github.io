@@ -12,22 +12,21 @@ function setUser(db) {
 
     var cursor = this.result;
 
-    if (cursor) { // If there is not login data, return (we are in home page)
+    if (cursor) { // If there is not login data, nothing happens (we are in home page)
 
       if (cursor.value.theme == 1) {
         document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
       }
 
       document.getElementById("img-profile").src = cursor.value.avatar;
-        document.getElementById("img-profile").hidden = false;
-        // document.getElementById("link_profile").setAttribute("href", "index_profile.html");
-        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-        document.getElementById("btn_login").removeAttribute("data-bs-target");
-        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-        document.getElementById("btn_login").textContent = "Logout";
-        nameFigcaption.innerText = cursor.value.name;
+      document.getElementById("img-profile").hidden = false;
+      document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+      document.getElementById("btn_login").removeAttribute("data-bs-target");
+      document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+      document.getElementById("btn_login").textContent = "Logout";
+      nameFigcaption.innerText = cursor.value.name;
 
-      
+
     }
 
 
@@ -98,7 +97,7 @@ function addUser(db) {
   };
   req.onerror = function (e) {
     console.error("addUser: error creating data", this.error);
-    
+
   };
 
   tx.oncomplete = function () {
@@ -199,6 +198,8 @@ function setLogin(user_id, user, name, admin, avatar, theme) {
 }
 
 // LISTENNERS
+
+// Check whether the user is logged in or not.
 window.addEventListener('load', () => {
   verifyUser('user');
 });
