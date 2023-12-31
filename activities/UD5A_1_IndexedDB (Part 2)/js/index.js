@@ -112,7 +112,6 @@ function login(db) {
   let password = CryptoJS.MD5(document.getElementById("password").value).toString(CryptoJS.enc.Base64);
   console.log(password);
 
-
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
@@ -125,7 +124,6 @@ function login(db) {
 
       if ((user.value == cursor.value.user) && (password == cursor.value.password)) {
 
-
         // Store the login into db in login storage
         setLogin(cursor.value.id, cursor.value.user, cursor.value.name, cursor.value.admin, cursor.value.avatar, cursor.value.theme);
 
@@ -134,7 +132,6 @@ function login(db) {
 
           console.log("Admin logged in");
           window.location.href = "index_admin.html";
-
 
         } else {
 

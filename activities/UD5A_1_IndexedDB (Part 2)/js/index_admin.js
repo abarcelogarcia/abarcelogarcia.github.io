@@ -86,8 +86,6 @@ function readUsers(db) {
     // Table body
     if (cursor) {
 
-
-
       registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
         '<div class="row align-items-center">' +
         '<div class="col" id="' + cursor.value.id + '">' +
@@ -115,7 +113,7 @@ function readUsers(db) {
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
         '<div class="col-1 text-center" id="edit-' + cursor.value.id + '">' +
-        '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
+        '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="editFields(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
         '</div>' +
         '<div class="col-1 text-center" id="del-' + cursor.value.id + '">' +
         '<button class="btn btn-danger" id="del-reg-' + cursor.value.id + '" name="grid-btn" onclick="confirmDel(' + cursor.value.id + ')" ><i class="bi bi-trash3"></i> Del</button>' +
@@ -174,19 +172,12 @@ function selectUserToEdit(user_id, password) {
     var req = store.get(parseInt(user_id));
 
     req.onsuccess = function (e) {
-      var record = e.target.result;
+    
+    var record = e.target.result;
+      
+    resetPassword(user_id, password, record);
 
-      //Operations to do after reading a user
-      if (password) {
-
-        resetPassword(user_id, password, record);
-
-      } else {
-
-        updateFormInputsToEdit(record);
-
-
-      }
+      
     };
 
     req.onerror = function (e) {
@@ -202,27 +193,21 @@ function selectUserToEdit(user_id, password) {
   });
 }
 
-// Enable and fill in all users fields
-function updateFormInputsToEdit(record) {
+// Enable user fields and another tasks
+function editFields(user_id) {
 
-  document.getElementById("user-" + record.id).disabled = false;
-  document.getElementById("user-" + record.id).value = record.user;
-  document.getElementById("password-" + record.id).value = record.password;
-  document.getElementById("name-" + record.id).disabled = false;
-  document.getElementById("name-" + record.id).value = record.name;
-  document.getElementById("surname-" + record.id).disabled = false;
-  document.getElementById("surname-" + record.id).value = record.surname;
-  document.getElementById("address-" + record.id).disabled = false;
-  document.getElementById("address-" + record.id).value = record.address;
-  document.getElementById("age-" + record.id).disabled = false;
-  document.getElementById("age-" + record.id).value = record.age;
-  document.getElementById("admin_check-" + record.id).disabled = false;
-  document.getElementById("avatar-" + record.id).setAttribute("data-bs-toggle", "modal");
-  document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
-  document.getElementById("del-reg-" + record.id).textContent = "Cancel";
-  document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
-  document.getElementById("edit-reg-" + record.id).textContent = "Save";
-  document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "confirmEdit(" + record.id + ")");
+  document.getElementById("user-" + user_id).disabled = false;
+  document.getElementById("name-" + user_id).disabled = false;
+  document.getElementById("surname-" + user_id).disabled = false;
+  document.getElementById("address-" + user_id).disabled = false;
+  document.getElementById("age-" + user_id).disabled = false;
+  document.getElementById("admin_check-" + user_id).disabled = false;
+  document.getElementById("avatar-" + user_id).setAttribute("data-bs-toggle", "modal");
+  document.getElementById("avatar-" + user_id).setAttribute("data-bs-target", "#avatar_modal");
+  document.getElementById("del-reg-" + user_id).textContent = "Cancel";
+  document.getElementById("del-reg-" + user_id).setAttribute("onclick", "cancelar(" + user_id + ")");
+  document.getElementById("edit-reg-" + user_id).textContent = "Save";
+  document.getElementById("edit-reg-" + user_id).setAttribute("onclick", "confirmEdit(" + user_id + ")");
 
   // Disable all other buttons 
   let buttonsAll = document.getElementsByName("grid-btn");
@@ -233,10 +218,9 @@ function updateFormInputsToEdit(record) {
   }
 
 
-
   // Modal select button to save avatar
   document.getElementById("save_avatar").addEventListener('click', function () {
-    document.getElementById("avatar-" + record.id).src = getAvatarPath();
+    document.getElementById("avatar-" + user_id).src = getAvatarPath();
 
   });
 
