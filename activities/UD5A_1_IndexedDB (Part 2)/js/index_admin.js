@@ -53,7 +53,6 @@ function setUserAdmin(db) {
   };
 }
 
-
 // USERS DATA MANAGEMENT
 // -------------------------------------------
 
@@ -169,12 +168,12 @@ function selectUserToEdit(user_id, password) {
     var req = store.get(parseInt(user_id));
 
     req.onsuccess = function (e) {
-    
-    var record = e.target.result;
-      
-    resetPassword(user_id, password, record);
 
-      
+      var record = e.target.result;
+
+      resetPassword(user_id, password, record);
+
+
     };
 
     req.onerror = function (e) {

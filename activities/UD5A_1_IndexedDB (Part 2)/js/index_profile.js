@@ -48,7 +48,7 @@ function setProfile(db) {
 
       }
 
-      selectProfileToEdit(cursor.value.id);
+      selectProfileData(cursor.value.id);
     }
   }
 
@@ -63,7 +63,7 @@ function setProfile(db) {
   };
 }
 
-function selectProfileToEdit(user_id, password) {
+function selectProfileData(user_id, password) {
 
   openCreateDb(function (db) {
 
@@ -82,7 +82,7 @@ function selectProfileToEdit(user_id, password) {
 
       } else {
 
-        updateFormInputsToEditProfile(record);
+        fillInputsProfile(record);
 
 
       }
@@ -101,7 +101,7 @@ function selectProfileToEdit(user_id, password) {
   });
 }
 
-function updateFormInputsToEditProfile(record) {
+function fillInputsProfile(record) {
 
   user_id = record.id;
   user = record.user;
@@ -327,9 +327,6 @@ function deleteProfile(db, user_id) {
 
 
 
-
-
-
 // LISTENNERS
 window.addEventListener('load', () => {
   verifyUser('profile');
@@ -353,8 +350,10 @@ const appendAlert = (message, type) => {
 
 const alertTrigger = document.getElementById('liveAlertBtn')
 if (alertTrigger) {
-  let action = "delete";
   alertTrigger.addEventListener('click', () => {
-    appendAlert('You are going to <b>delete </b>your profile. Please note that this process is <b>IRREVERSIBLE</b>. Are you sure about it? <br><br> <button type="button" class="btn btn-danger" id="del-confrim-button" onclick="sendData(' + user_id + ', \'delete\')">Yes, I am sure.</button>', 'danger')
+    appendAlert('You are going to <b>delete </b>your profile. ' +
+      'Please note that this process is <b>IRREVERSIBLE</b>. Are you sure about it? ' +
+      '<br><br> <button type="button" class="btn btn-danger" id="del-confrim-button"' +
+      ' onclick="sendData(' + user_id + ', \'delete\')">Yes, I am sure.</button>', 'danger')
   })
 }
