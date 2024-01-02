@@ -8,6 +8,7 @@ let cancelDelBtn = document.getElementById("cancelDel");
 let confirmEditBtn = document.getElementById("confirmEdit");
 let cancelEditBtn = document.getElementById("cancelEdit");
 let nameFigcaption = document.getElementById("user_name_figcaption");
+let logedUserId;
 
 // checks the login in the db and acts accordingly
 function setUserAdmin(db) {
@@ -20,31 +21,24 @@ function setUserAdmin(db) {
 
     var cursor = this.result;
 
-
-    if (!cursor) { // No data --> No login. Redirect to homepage
+    if (!cursor || !cursor.value.admin) { // No data --> No login or Not admin --> Redirect to homepage
 
       window.location.href = "index.html";
 
-    } else { // Get login data.
+    } else {
+
+      // Is admin. Set avatar & theme and show users data. 
 
       if (cursor.value.theme == 1) {
-
         setDarkTheme();
-
       }
 
-      // If it is admin, set avatar and show users data. 
-      if (cursor.value.admin == true) {
+      document.getElementById("img-profile").src = cursor.value.avatar;
+      nameFigcaption.innerText = cursor.value.name;
+      logedUserId = cursor.value.id;
+      readData();
 
-        document.getElementById("img-profile").src = cursor.value.avatar;
-        nameFigcaption.innerText = cursor.value.name;
-        readData();
 
-        // If it is not admin, redirect to homepage. 
-      } else {
-
-        window.location.href = "index.html";
-      }
     }
   }
 
@@ -58,7 +52,6 @@ function setUserAdmin(db) {
     opened = false;
   };
 }
-
 
 // USERS DATA MANAGEMENT
 // -------------------------------------------
@@ -89,15 +82,13 @@ function readUsers(db) {
     // Table body
     if (cursor) {
 
-
-
       registered.innerHTML += '<div class="container registered-users m-auto my-4">' +
         '<div class="row align-items-center">' +
         '<div class="col" id="' + cursor.value.id + '">' +
         cursor.value.id +
         '</div>' +
         '<div class="col">' +
-        '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" disabled />' +
+        '<input  type="checkbox" id="admin_check-' + cursor.value.id + '" ' + isChecked(cursor.value.admin) + ' disabled />' +
         '</div>' +
         '<div class="col-2">' +
         '<input class="input_reg" type="text" id="user-' + cursor.value.id + '"  name="user" aria-describedby="user" value="' + cursor.value.user + '" disabled/>' +
@@ -118,7 +109,7 @@ function readUsers(db) {
         '<img src=' + cursor.value.avatar + ' alt="avatar" style="width: 40px;" id="avatar-' + cursor.value.id + '" disabled />' +
         '</div>' +
         '<div class="col-1 text-center" id="edit-' + cursor.value.id + '">' +
-        '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="selectUserToEdit(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
+        '<button class="btn btn-warning" id="edit-reg-' + cursor.value.id + '" action="edit-user" name="grid-btn" onclick="editFields(' + cursor.value.id + ')" ><i class="bi bi-pencil-square"></i> Edit</button>' +
         '</div>' +
         '<div class="col-1 text-center" id="del-' + cursor.value.id + '">' +
         '<button class="btn btn-danger" id="del-reg-' + cursor.value.id + '" name="grid-btn" onclick="confirmDel(' + cursor.value.id + ')" ><i class="bi bi-trash3"></i> Del</button>' +
@@ -130,11 +121,6 @@ function readUsers(db) {
         '<input  class="input_reg" type="password" id="password-' + cursor.value.id + '" value="' + cursor.value.password + '" hidden>' +
         '</div>';
 
-
-      //  Check if is an admin 
-      if (cursor.value.admin) {
-        document.getElementById("admin_check-" + cursor.value.id).checked = true;
-      }
       cursor.continue();
     }
 
@@ -153,6 +139,9 @@ function readUsers(db) {
 
 
 }
+
+//  Check if is an admin and return checked if it is.
+function isChecked(isAdmin) { if (isAdmin) { return "checked" } }
 
 // Sends the user data to update the database.
 function sendData(user_id) {
@@ -179,19 +168,12 @@ function selectUserToEdit(user_id, password) {
     var req = store.get(parseInt(user_id));
 
     req.onsuccess = function (e) {
+
       var record = e.target.result;
 
-      //Operations to do after reading a user
-      if (password) {
-
-        resetPassword(user_id, password, record);
-
-      } else {
-
-        updateFormInputsToEdit(record);
+      resetPassword(user_id, password, record);
 
 
-      }
     };
 
     req.onerror = function (e) {
@@ -207,27 +189,21 @@ function selectUserToEdit(user_id, password) {
   });
 }
 
-// Enable and fill in all users fields
-function updateFormInputsToEdit(record) {
+// Enable user fields and another tasks
+function editFields(user_id) {
 
-  document.getElementById("user-" + record.id).disabled = false;
-  document.getElementById("user-" + record.id).value = record.user;
-  document.getElementById("password-" + record.id).value = decryptPassword(record.password.ciphertext, record.password.key);
-  document.getElementById("name-" + record.id).disabled = false;
-  document.getElementById("name-" + record.id).value = record.name;
-  document.getElementById("surname-" + record.id).disabled = false;
-  document.getElementById("surname-" + record.id).value = record.surname;
-  document.getElementById("address-" + record.id).disabled = false;
-  document.getElementById("address-" + record.id).value = record.address;
-  document.getElementById("age-" + record.id).disabled = false;
-  document.getElementById("age-" + record.id).value = record.age;
-  document.getElementById("admin_check-" + record.id).disabled = false;
-  document.getElementById("avatar-" + record.id).setAttribute("data-bs-toggle", "modal");
-  document.getElementById("avatar-" + record.id).setAttribute("data-bs-target", "#avatar_modal");
-  document.getElementById("del-reg-" + record.id).textContent = "Cancel";
-  document.getElementById("del-reg-" + record.id).setAttribute("onclick", "cancelar(" + record.id + ")");
-  document.getElementById("edit-reg-" + record.id).textContent = "Save";
-  document.getElementById("edit-reg-" + record.id).setAttribute("onclick", "confirmEdit(" + record.id + ")");
+  document.getElementById("user-" + user_id).disabled = false;
+  document.getElementById("name-" + user_id).disabled = false;
+  document.getElementById("surname-" + user_id).disabled = false;
+  document.getElementById("address-" + user_id).disabled = false;
+  document.getElementById("age-" + user_id).disabled = false;
+  document.getElementById("admin_check-" + user_id).disabled = false;
+  document.getElementById("avatar-" + user_id).setAttribute("data-bs-toggle", "modal");
+  document.getElementById("avatar-" + user_id).setAttribute("data-bs-target", "#avatar_modal");
+  document.getElementById("del-reg-" + user_id).textContent = "Cancel";
+  document.getElementById("del-reg-" + user_id).setAttribute("onclick", "cancelar(" + user_id + ")");
+  document.getElementById("edit-reg-" + user_id).textContent = "Save";
+  document.getElementById("edit-reg-" + user_id).setAttribute("onclick", "confirmEdit(" + user_id + ")");
 
   // Disable all other buttons 
   let buttonsAll = document.getElementsByName("grid-btn");
@@ -238,10 +214,9 @@ function updateFormInputsToEdit(record) {
   }
 
 
-
   // Modal select button to save avatar
   document.getElementById("save_avatar").addEventListener('click', function () {
-    document.getElementById("avatar-" + record.id).src = getAvatarPath();
+    document.getElementById("avatar-" + user_id).src = getAvatarPath();
 
   });
 
@@ -250,7 +225,7 @@ function updateFormInputsToEdit(record) {
 // Update a user's data in the database.
 function updateUser(db, user_id) {
   var user = document.getElementById("user-" + user_id);
-  var password = encryptPassword(document.getElementById("password-" + user_id).value);
+  var password = document.getElementById("password-" + user_id).value;
   var name = document.getElementById("name-" + user_id);
   var surname = document.getElementById("surname-" + user_id);
   var address = document.getElementById("address-" + user_id);
@@ -298,7 +273,7 @@ function cancelar(user_id) {
   document.getElementById("avatar-" + user_id).removeAttribute("data-bs-toggle");
   document.getElementById("avatar-" + user_id).removeAttribute("data-bs-target");
 
-  readData(db);
+  readData();
 
 }
 
@@ -391,7 +366,17 @@ function deleteUser(user_id) {
       console.log("deleteUser: Data successfully removed: " + user_id);
 
       //Operation to do after deleting a record
-      readData();
+      if (user_id != logedUserId) {
+
+
+        readData();
+
+      } else {
+
+        setLogout();
+
+      }
+
       document.getElementById("liveAlertDelete").hidden = true;
     };
 
@@ -421,7 +406,7 @@ function resetPassword(user_id, password, record) {
 
     var tx = db.transaction(DB_STORE_NAME, "readwrite");
     var store = tx.objectStore(DB_STORE_NAME);
-    var newPassword = encryptPassword(password);
+    var newPassword = CryptoJS.MD5(password).toString(CryptoJS.enc.Base64);
 
     var obj = { id: parseInt(user_id), user: record.user, password: newPassword, name: record.name, surname: record.surname, address: record.address, avatar: record.avatar, age: record.age, admin: record.admin };
 

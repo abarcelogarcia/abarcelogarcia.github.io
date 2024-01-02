@@ -41,7 +41,7 @@ function isValidPassword(password) {
 function validateFormPass(user_id) {
 
     let isPassOK = false;
-    let areEquals = false;
+    let areEqual = false;
 
     console.log(pass1.value);
     console.log(pass2.value);
@@ -73,11 +73,11 @@ function validateFormPass(user_id) {
         } else {
             correctMessage(pass1);
             correctMessage(pass2);
-            areEquals = true;
+            areEqual = true;
         }
 
         // Two fields are ok. Continue to send data to reset the password
-        if (isPassOK && areEquals) {
+        if (isPassOK && areEqual) {
             selectProfileToEdit(user_id, pass1.value);
 
         }

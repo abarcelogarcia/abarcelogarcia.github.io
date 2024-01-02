@@ -2,20 +2,21 @@
 const user = document.getElementById('user');
 const password = document.getElementById('password');
 
-
 //FUNCTIONS
 
 // Messages
 function errorMessage(input, message) {
     const assessed = input.parentElement;
-    assessed.className = 'form-control assessed error';
+    assessed.className = 'assessed error';
     const small = assessed.querySelector('small');
     small.innerText = 'Error: ' + message;
 }
 
 function correctMessage(input) {
     const assessed = input.parentElement;
-    assessed.className = 'form-control assessed correct';
+    assessed.className = 'assessed correct';
+    const small = assessed.querySelector('small');
+    small.innerText = 'Valid';
 }
 
 // Validators
@@ -27,7 +28,7 @@ function isValidEmail(email) {
 function isValidPassword(password) {
 
     // (?=.* [0 - 9]) --> Contains a number
-    // (?=.*[!@#$%^&*]) --> Contains a simbol
+    // (?=.*[!@#$%^&*.,]) --> Contains a simbol
     // (?=.*[a-z]) --> Contains a lowercase
     // (?=.*[A-Z]) --> Contains a uppercase
 
@@ -37,8 +38,12 @@ function isValidPassword(password) {
 
 
 
+
 // Form Validatior
 function validateForm(action) {
+
+    // checks if the user exists and acts depending the action
+    readDataIfExist(user.value, action);
 
     let isUserOK = false;
     let isPasswordOK = false;
@@ -71,5 +76,48 @@ function validateForm(action) {
 
 
 }
+
+
+// Read data to search if user exists
+function readDataIfExist(userName, action) {
+
+    openCreateDb(function (db) {
+
+        console.log("Verify if user exists");
+
+        var tx = db.transaction(DB_STORE_NAME, "readonly");
+        var store = tx.objectStore(DB_STORE_NAME);
+
+        var myIndex = store.index("user");
+        var req = myIndex.get(userName);
+
+        req.onsuccess = function (e) {
+
+            var cursor = this.result;
+
+            if (action == 'add_user') {
+                // If cursor exists, there is a registered user account.
+                if (cursor) {
+                    errorMessage(user, 'the user ' + user.value + ' already exists');
+                }
+
+            } else {
+                if (!cursor) {
+                    errorMessage(user, 'the user ' + user.value + ' not exists');
+                }
+            }
+        };
+        req.onerror = function (e) {
+            console.error("Read Users: error reading data:", e.target.errorCode);
+        };
+
+        tx.oncomplete = function () {
+            console.log("Read Users: tx completed");
+            db.close();
+            opened = false;
+        };
+    });
+};
+
 
 

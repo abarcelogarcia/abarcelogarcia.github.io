@@ -12,31 +12,20 @@ function setUser(db) {
 
     var cursor = this.result;
 
-    if (cursor) { // If there is not login data, return (we are in home page)
+    if (cursor) { // If there is not login data, nothing happens (we are in home page)
 
       if (cursor.value.theme == 1) {
         document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
       }
 
-      // If it is admin, go to admin page
-      if (cursor.value.admin == true) {
+      document.getElementById("img-profile").src = cursor.value.avatar;
+      document.getElementById("img-profile").hidden = false;
+      document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+      document.getElementById("btn_login").removeAttribute("data-bs-target");
+      document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+      document.getElementById("btn_login").textContent = "Logout";
+      nameFigcaption.innerText = cursor.value.name;
 
-        window.location.href = "index_admin.html";
-
-
-        // If it is user (not admin), setup the avatar and logout button.
-      } else {
-
-        document.getElementById("img-profile").src = cursor.value.avatar;
-        document.getElementById("img-profile").hidden = false;
-        // document.getElementById("link_profile").setAttribute("href", "index_profile.html");
-        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-        document.getElementById("btn_login").removeAttribute("data-bs-target");
-        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-        document.getElementById("btn_login").textContent = "Logout";
-        nameFigcaption.innerText = cursor.value.name;
-
-      }
 
     }
 
@@ -74,7 +63,7 @@ function sendData(action) {
 // Write the new user register into the db
 function addUser(db) {
   var user = document.getElementById("user");
-  var password = encryptPassword(document.getElementById("password").value);
+  var password = CryptoJS.MD5(document.getElementById("password").value).toString(CryptoJS.enc.Base64);
 
 
   var name = document.getElementById("name");
@@ -108,6 +97,7 @@ function addUser(db) {
   };
   req.onerror = function (e) {
     console.error("addUser: error creating data", this.error);
+
   };
 
   tx.oncomplete = function () {
@@ -118,7 +108,8 @@ function addUser(db) {
 function login(db) {
 
   let user = document.getElementById("user");
-  let password = document.getElementById("password");
+  let password = CryptoJS.MD5(document.getElementById("password").value).toString(CryptoJS.enc.Base64);
+  console.log(password);
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -130,10 +121,7 @@ function login(db) {
 
     if (cursor) {
 
-      const storedPassword = decryptPassword(cursor.value.password.ciphertext, cursor.value.password.key);
-
-      if ((user.value == cursor.value.user) && (password.value == storedPassword)) {
-
+      if ((user.value == cursor.value.user) && (password == cursor.value.password)) {
 
         // Store the login into db in login storage
         setLogin(cursor.value.id, cursor.value.user, cursor.value.name, cursor.value.admin, cursor.value.avatar, cursor.value.theme);
@@ -144,7 +132,6 @@ function login(db) {
           console.log("Admin logged in");
           window.location.href = "index_admin.html";
 
-
         } else {
 
           console.log("User logged in");
@@ -153,7 +140,7 @@ function login(db) {
         }
 
 
-      } else if ((user.value == cursor.value.user) && (password.value != storedPassword)) {
+      } else if ((user.value == cursor.value.user) && (password != cursor.value.password)) {
 
         errorMessage(document.getElementById('password'), 'incorrect password. Caps lock active?')
         tx.oncomplete = function () {
@@ -208,6 +195,8 @@ function setLogin(user_id, user, name, admin, avatar, theme) {
 }
 
 // LISTENNERS
+
+// Check whether the user is logged in or not.
 window.addEventListener('load', () => {
   verifyUser('user');
 });

@@ -1,10 +1,7 @@
 [
     {
         "user": "toni@toni.com",
-        "password": {
-            "key": "ak05147nu9",
-            "ciphertext": "U2FsdGVkX1+6ztMwbVrYz+LDVtWD3skyL/fR2pd6d1M="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Toni",
         "surname": "Barceló",
         "address": "Son Ganxo",
@@ -16,10 +13,7 @@
     },
     {
         "user": "emma@emma.com",
-        "password": {
-            "key": "4kcizcq122",
-            "ciphertext": "U2FsdGVkX18q2iLNOGqp9IATllclzgsnz8At8EDT4hk="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Emma",
         "surname": "Moll",
         "address": "Son Vitamina",
@@ -31,10 +25,7 @@
     },
     {
         "user": "irene@iesjoanramis.org",
-        "password": {
-            "key": "tpsot45733",
-            "ciphertext": "U2FsdGVkX18TEHLucgdEUsRh2+Qk0lLX029cMS1oqWg="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Irene",
         "surname": "Vinent",
         "address": "Alaior",
@@ -46,10 +37,7 @@
     },
     {
         "user": "laia@laia.com",
-        "password": {
-            "key": "mf80gbozna",
-            "ciphertext": "U2FsdGVkX19gkMz0+pV5lEk24CXhVJRftUcRxLvJct0="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Laia",
         "surname": "Barcelo",
         "address": "Maó",
@@ -61,10 +49,7 @@
     },
     {
         "user": "maria@petrus.com",
-        "password": {
-            "key": "icvdc5a7fs",
-            "ciphertext": "U2FsdGVkX1/5coDMWTACcdcVFNgT7uAlObHFtUIQtZY="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Maria",
         "surname": "Petrus",
         "address": "Formentera",
@@ -76,10 +61,7 @@
     },
     {
         "user": "pedro@pedrito.com",
-        "password": {
-            "key": "ukqeaqguwx",
-            "ciphertext": "U2FsdGVkX18/qKencw7dKS+fPhoXyZyytElDz5Deo60="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "pedro",
         "surname": "Monteagudo",
         "address": "Sant Lluis",
@@ -91,10 +73,7 @@
     },
     {
         "user": "anaya@lujan.com",
-        "password": {
-            "key": "tzmrjacecd",
-            "ciphertext": "U2FsdGVkX1+sQlCXxeXoCUDNUZLCAW6n71tZewWVJ6I="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Andrea",
         "surname": "Pérez",
         "address": "Sant Climent",
@@ -106,10 +85,7 @@
     },
     {
         "user": "manuel@manu.com",
-        "password": {
-            "key": "zmg621r0d4",
-            "ciphertext": "U2FsdGVkX18yONZvyWAJ7VYhV0xB84w4JcFWQIiOzOk="
-        },
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
         "name": "Manolo",
         "surname": "Moreno",
         "address": "Sevilla",
