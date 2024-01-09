@@ -60,23 +60,15 @@ function openCreateDb(onDbCompleted) {
         //   ADD temp user on start
         var obj = {
             user: "a@a.com",
-            password: {
-                ciphertext: "U2FsdGVkX1+4/35NcId09d1F+br5rs/PCQOp8UHK9Do=",
-                key: "0ebddfocyq"
-            },
+            password: "CIwFTeZMcKcphP3ApQzGAQ==",
             admin: true
         };
 
-        try {
-            req = store.add(obj);
-        } catch (e) {
-            console.log("Catch");
-        }
+        req = store.add(obj);
 
     };
 
 }
-
 
 // ACCES MANAGEMENT FOR LOGGED-IN USERS
 
@@ -87,6 +79,7 @@ function openCreateDb(onDbCompleted) {
 //     -- Is admin: Reads data and displays users
 // -------------------------------------------
 
+// checks the role user and acts accordingly
 function verifyUser(userRol) {
     openCreateDb(function (db) {
 
@@ -101,11 +94,6 @@ function verifyUser(userRol) {
 
     });
 }
-
-// checks the role user and acts accordingly
-
-
-
 
 // LOGOUT
 // -------------------------------------------
@@ -166,36 +154,6 @@ function getAvatarPath() {
 function uncheckAvatar() {
     var avatar = document.getElementsByName("avatar");
     for (var i = 0; i < avatar.length; i++) { avatar[i].checked = false; }
-}
-
-
-// PASSWORD ENCRYPT
-
-// Encrypt password
-function encryptPassword(password) {
-
-    // 10-digit random secret key
-    const key = Math.random().toString(36).substring(2, 12);
-
-
-    // Encrypt the password with the secret key
-    const ciphertext = CryptoJS.AES.encrypt(password, key);
-
-    // We return the secret key and the cipher
-    return {
-        key: key.toString(),
-        ciphertext: ciphertext.toString()
-    };
-}
-
-// Decrypt password
-function decryptPassword(encryptedPassword, key) {
-
-    // Decrypt the password with the secret key
-    const decrypted = CryptoJS.AES.decrypt(encryptedPassword, key);
-
-    // return the decrypted password how string
-    return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
 function setDarkTheme() {

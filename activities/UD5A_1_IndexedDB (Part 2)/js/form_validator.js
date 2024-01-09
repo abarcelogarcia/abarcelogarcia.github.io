@@ -28,7 +28,7 @@ function isValidEmail(email) {
 function isValidPassword(password) {
 
     // (?=.* [0 - 9]) --> Contains a number
-    // (?=.*[!@#$%^&*]) --> Contains a simbol
+    // (?=.*[!@#$%^&*.,]) --> Contains a simbol
     // (?=.*[a-z]) --> Contains a lowercase
     // (?=.*[A-Z]) --> Contains a uppercase
 
@@ -42,13 +42,8 @@ function isValidPassword(password) {
 // Form Validatior
 function validateForm(action) {
 
-    if(action == 'add_user'){
-
-        // Call if the user exists
-        readDataIfExist(user.value);
-
-    }
-
+    // checks if the user exists and acts depending the action
+    readDataIfExist(user.value, action);
 
     let isUserOK = false;
     let isPasswordOK = false;
@@ -84,46 +79,45 @@ function validateForm(action) {
 
 
 // Read data to search if user exists
-function readDataIfExist(userName) {
+function readDataIfExist(userName, action) {
+
     openCreateDb(function (db) {
-        console.log("Verify if user already exists");
-        isUserExist(db, userName);
-      });
-    };
-  
-function isUserExist(db, userName) {
-  
-    var tx = db.transaction(DB_STORE_NAME, "readonly");
-    var store = tx.objectStore(DB_STORE_NAME);
-    
-    var myIndex = store.index("user");
-    var req = myIndex.get(userName);
-    
-    req.onsuccess = function (e) {
-        
-        var cursor = this.result;
-        
-        // If cursor exists, there is a registered user account.
-        if (cursor) {
-            
-        errorMessage(user, 'the user '+ user.value +' already exists');
-            
-        }      
-  
-      };
-    
-  
-    req.onerror = function (e) {
-      console.error("Read Users: error reading data:", e.target.errorCode);
-    };
-  
-    tx.oncomplete = function () {
-      console.log("Read Users: tx completed");
-      db.close();
-      opened = false;
-    };
-  
-  
-  }
+
+        console.log("Verify if user exists");
+
+        var tx = db.transaction(DB_STORE_NAME, "readonly");
+        var store = tx.objectStore(DB_STORE_NAME);
+
+        var myIndex = store.index("user");
+        var req = myIndex.get(userName);
+
+        req.onsuccess = function (e) {
+
+            var cursor = this.result;
+
+            if (action == 'add_user') {
+                // If cursor exists, there is a registered user account.
+                if (cursor) {
+                    errorMessage(user, 'the user ' + user.value + ' already exists');
+                }
+
+            } else {
+                if (!cursor) {
+                    errorMessage(user, 'the user ' + user.value + ' not exists');
+                }
+            }
+        };
+        req.onerror = function (e) {
+            console.error("Read Users: error reading data:", e.target.errorCode);
+        };
+
+        tx.oncomplete = function () {
+            console.log("Read Users: tx completed");
+            db.close();
+            opened = false;
+        };
+    });
+};
+
 
 

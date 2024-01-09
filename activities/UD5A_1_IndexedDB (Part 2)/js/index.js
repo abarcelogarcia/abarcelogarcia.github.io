@@ -12,22 +12,21 @@ function setUser(db) {
 
     var cursor = this.result;
 
-    if (cursor) { // If there is not login data, return (we are in home page)
+    if (cursor) { // If there is not login data, nothing happens (we are in home page)
 
       if (cursor.value.theme == 1) {
         document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
       }
 
       document.getElementById("img-profile").src = cursor.value.avatar;
-        document.getElementById("img-profile").hidden = false;
-        // document.getElementById("link_profile").setAttribute("href", "index_profile.html");
-        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-        document.getElementById("btn_login").removeAttribute("data-bs-target");
-        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-        document.getElementById("btn_login").textContent = "Logout";
-        nameFigcaption.innerText = cursor.value.name;
+      document.getElementById("img-profile").hidden = false;
+      document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+      document.getElementById("btn_login").removeAttribute("data-bs-target");
+      document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+      document.getElementById("btn_login").textContent = "Logout";
+      nameFigcaption.innerText = cursor.value.name;
 
-      
+
     }
 
 
@@ -98,7 +97,7 @@ function addUser(db) {
   };
   req.onerror = function (e) {
     console.error("addUser: error creating data", this.error);
-    
+
   };
 
   tx.oncomplete = function () {
@@ -112,7 +111,6 @@ function login(db) {
   let password = CryptoJS.MD5(document.getElementById("password").value).toString(CryptoJS.enc.Base64);
   console.log(password);
 
-
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
   var req = store.openCursor();
@@ -125,7 +123,6 @@ function login(db) {
 
       if ((user.value == cursor.value.user) && (password == cursor.value.password)) {
 
-
         // Store the login into db in login storage
         setLogin(cursor.value.id, cursor.value.user, cursor.value.name, cursor.value.admin, cursor.value.avatar, cursor.value.theme);
 
@@ -134,7 +131,6 @@ function login(db) {
 
           console.log("Admin logged in");
           window.location.href = "index_admin.html";
-
 
         } else {
 
@@ -199,6 +195,8 @@ function setLogin(user_id, user, name, admin, avatar, theme) {
 }
 
 // LISTENNERS
+
+// Check whether the user is logged in or not.
 window.addEventListener('load', () => {
   verifyUser('user');
 });

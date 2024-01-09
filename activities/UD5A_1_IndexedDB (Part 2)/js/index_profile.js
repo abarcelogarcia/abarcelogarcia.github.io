@@ -32,29 +32,23 @@ function setProfile(db) {
     } else { // Get login data. 
 
       if (cursor.value.theme == 1) {
-
-
         setDarkTheme();
-
-
       }
 
-      // If it is admin, set avatar and show users data. 
+      // If it is admin, set the avatar that directs registered users
       if (cursor.value.admin == true) {
 
-        // window.location.href = "index_admin.html";
         document.getElementById("img-profile").src = "img/avatars.png";
         document.getElementById("img-profile").parentElement.href = "index_admin.html";
-
         nameFigcaption.innerText = 'Users';
 
-      }else{
+      } else {
 
         nameFigcaption.innerText = cursor.value.name;
 
       }
 
-      selectProfileToEdit(cursor.value.id);
+      selectProfileData(cursor.value.id);
     }
   }
 
@@ -69,7 +63,7 @@ function setProfile(db) {
   };
 }
 
-function selectProfileToEdit(user_id, password) {
+function selectProfileData(user_id, password) {
 
   openCreateDb(function (db) {
 
@@ -88,7 +82,7 @@ function selectProfileToEdit(user_id, password) {
 
       } else {
 
-        updateFormInputsToEditProfile(record);
+        fillInputsProfile(record);
 
 
       }
@@ -107,7 +101,7 @@ function selectProfileToEdit(user_id, password) {
   });
 }
 
-function updateFormInputsToEditProfile(record) {
+function fillInputsProfile(record) {
 
   user_id = record.id;
   user = record.user;
@@ -222,31 +216,31 @@ function updateUserLogin() {
 
 
 
-    var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
-    var store = tx.objectStore(DB_STORE_LOGIN);
+  var tx = db.transaction(DB_STORE_LOGIN, "readwrite");
+  var store = tx.objectStore(DB_STORE_LOGIN);
 
-    store.clear();
+  store.clear();
 
-    var obj = { id: parseInt(user_id), user: user, name: userName.value, avatar: avatar, admin: adminCheck.checked, theme: themeSelector.value };
-    //Updates data in our ObjectStore
-    req = store.add(obj);
+  var obj = { id: parseInt(user_id), user: user, name: userName.value, avatar: avatar, admin: adminCheck.checked, theme: themeSelector.value };
+  //Updates data in our ObjectStore
+  req = store.add(obj);
 
-    req.onsuccess = function (e) {
-      console.log("User Login: successfully updated");
+  req.onsuccess = function (e) {
+    console.log("User Login: successfully updated");
 
-      location.reload();
+    location.reload();
 
-    };
+  };
 
-    req.onerror = function (e) {
-      console.error("User Login:: Error updating data", this.error);
-    };
+  req.onerror = function (e) {
+    console.error("User Login:: Error updating data", this.error);
+  };
 
-    tx.oncomplete = function () {
-      console.log("User Login:: tx completed");
-      db.close();
-      opened = false;
-    };
+  tx.oncomplete = function () {
+    console.log("User Login:: tx completed");
+    db.close();
+    opened = false;
+  };
 
 
 
@@ -333,9 +327,6 @@ function deleteProfile(db, user_id) {
 
 
 
-
-
-
 // LISTENNERS
 window.addEventListener('load', () => {
   verifyUser('profile');
@@ -359,8 +350,10 @@ const appendAlert = (message, type) => {
 
 const alertTrigger = document.getElementById('liveAlertBtn')
 if (alertTrigger) {
-  let action = "delete";
   alertTrigger.addEventListener('click', () => {
-    appendAlert('You are going to <b>delete </b>your profile. Please note that this process is <b>IRREVERSIBLE</b>. Are you sure about it? <br><br> <button type="button" class="btn btn-danger" id="del-confrim-button" onclick="sendData(' + user_id + ', \'delete\')">Yes, I am sure.</button>', 'danger')
+    appendAlert('You are going to <b>delete </b>your profile. ' +
+      'Please note that this process is <b>IRREVERSIBLE</b>. Are you sure about it? ' +
+      '<br><br> <button type="button" class="btn btn-danger" id="del-confrim-button"' +
+      ' onclick="sendData(' + user_id + ', \'delete\')">Yes, I am sure.</button>', 'danger')
   })
 }
