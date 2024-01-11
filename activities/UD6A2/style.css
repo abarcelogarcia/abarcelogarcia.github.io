@@ -1,14 +1,23 @@
 .card{
 
-height: 250px;
-width: 250px;
+min-height: 250px;
+min-width: 250px;
+max-height: 250px;
+max-width: 250px;
 border-color: red;
+margin: 2px 2px;
 
 }
 
 p{
-
+/* margin-top: 45px; */
     font-size: 90px;
+    display: none;
  
-  text-align: center;
+
 }
+/* 
+div{
+
+  display: flex;
+} */
