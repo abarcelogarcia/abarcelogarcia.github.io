@@ -1,15 +1,32 @@
-.card {
+:root {
 
-  min-height: 250px;
-  min-width: 250px;
-  max-height: 250px;
-  max-width: 250px;
-  border-color: red;
-  margin: 2px 2px;
+  /* COLORS */
 
+  --blanco-corp: #f3f5f7;
+  --azul-corp: #001B2E;
+  --rojo-corp: #CC0000;
+  --amarillo-corp: #FF9900;
+  --verde-corp: #294C60;
+  --gris-corp: #ADB6C4;
+
+  /* FONTS */
+  --titulo: 'Bahnschrift';
+  --texto: 'Roboto';
 }
 
-p {
+
+.card {
+
+  min-height: 200px;
+  min-width: 200px;
+  max-height: 200px;
+  max-width: 200px;
+  border-color: var(--verde-corp);
+  margin: 2px 2px;
+  
+}
+
+p, .alert {
   /* margin-top: 45px; */
   font-size: 90px;
   display: none;
@@ -20,13 +37,16 @@ p {
 img {
 
   display: none;
+  max-width: 200px;
+  max-height: 200px;
 
 }
 
 #message {
 
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
+  height: 50px;
 
 
 }

@@ -2,11 +2,12 @@
 
 let cantidad
 let arrayCards = [];
-let fails = 1;
+let fails = 0;
 
 
 makeCards();
 addCards(cantidad);
+
 
 // Función que crea array con los números que se ponen en juego
 function makeCards() {
@@ -38,11 +39,12 @@ function addCards(cantidad) {
     for (let i = 0; i < cantidad; i++) {
 
         $('#cards').append(
-            '<div class="col card h-100 d-flex align-items-center justify-content-center"><p>' + setNumber() + '</p></div>'
-            // '<div class="col card h-100 d-flex align-items-center justify-content-center"><img src="./img/' + setNumber() + '.png" alt="img_' + setNumber() + '"></div>'
-        )
+            // '<div class="col card h-100 d-flex align-items-center justify-content-center"><p>' + setNumber() + '</p></div>'
+            '<div class="col card h-100 d-flex align-items-center justify-content-center"><img src="./img/' + setNumber() + '.png"></div>'
+            )
+            console.log(setNumber());
+        }
     }
-}
 
 
 
@@ -67,7 +69,7 @@ $('.card').on(
                 $(".rotated").parent()
                     .addClass("ok")
                     .css("pointer-events", "none")
-                    .css("color", "red");
+                    .css("color", "#CC0000");
                 $(".rotated").toggleClass("rotated");
 
             } else {
@@ -75,6 +77,7 @@ $('.card').on(
                 $('#message').text('you have failed, try again.')
 
                 $(".card").parent().css("pointer-events", "none");
+
 
 
                 setTimeout(function () {
@@ -91,9 +94,12 @@ $('.card').on(
 
                     $(".card").parent().css("pointer-events", "auto");
 
+
                 }, 1000)
 
                 fails++;
+
+                $('#fails').text(fails)
 
 
 
@@ -105,7 +111,7 @@ $('.card').on(
             if ($('.ok').length == cantidad) {
 
 
-                $('#message').html('Congratulations! <br> You have finished the panel after ' + fails + ' attempts!')
+                $('#message').html('Congratulations! You have finished the panel after ' + fails + ' attempts!')
 
 
             }
