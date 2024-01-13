@@ -34,7 +34,7 @@ p, .alert {
 
 }
 
-img {
+img[num] {
 
   display: none;
   max-width: 200px;
@@ -49,4 +49,9 @@ img {
   height: 50px;
 
 
+}
+
+.navbar-bg {
+  background-color: var(--gris-corp);
+  color: var(--azul-corp);
 }
