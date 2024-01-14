@@ -15,86 +15,61 @@
 <body>
 
 
-  <div class="container-fluid">
-    <div class="container-fluid text-end mb-2 ">
-      <!-- <div class="row bg-info text-center">
-        <div class="col"><h1 class="display-2 p-2">Memory</h1></div>
-      </div> -->
-      <nav class="navbar navbar-bg mb-2">
-        <div class="container">
+    <div class="container-fluid">
+      <nav class="navbar navbar-bg p-4">
           <img src="img/LogoBloggIn_login.png" alt="logo" id="logo">
-          <button class="btn btn-warning me-2" id="restart">Restart</button>
+          <!-- <button class="btn btn-warning me-2" id="restart">Restart</button> -->
           
-          <div class=" text-center">
+          <div class="text-center">
             <div class="display-6">Level</div>
             <div class="row">
-
               <div class="col">
                 <input type="radio" class="btn-check" name="level_radio" id="option1" autocomplete="off" value="1" checked>
                 <label class="btn" for="option1">Easy</label>
-
               </div>
               <div class="col">
-
                 <input type="radio" class="btn-check" name="level_radio" id="option2" autocomplete="off" value="2" >
                 <label class="btn" for="option2">Normal</label>
               </div>
               <div class="col">
                 <input type="radio" class="btn-check" name="level_radio" id="option3" autocomplete="off" value="3" >
                 <label class="btn" for="option3">Hard</label>
-
               </div>
-
-              
-              
-              
             </div>
-            
           </div>
-          <div class="text-center">
 
+          <div class="text-center">
             <div class="display-6">FAILS</div>
             <div class="row">
               <div class="col">
-                <label for="failsP1">
-                  Player 1
-                </label>
+                <label for="failsP1">Player 1</label>
                 <h1 id="failsP1">0</h1>
-
               </div>
               <div class="col">
-                
-                
-                <label for="failsP2">
-                  Player 2
-                </label>
+                <label for="failsP2">Player 2</label>
                 <h1 id="failsP2">0</h1>
-
               </div>
-              
             </div>
           </div>
-            <!-- <Button class="btn btn-info" id="direcction" onclick="direcctionChange()"><i class="bi bi-arrow-left-right"></i></Button> -->
-            
-          </div>
-        </nav>
-
-      <div class="row align-items-center justify-content-center">
-        <div class="col-1">
-        </div>
-        <div class="col">
-          <div class="message my-5 " id="message">
-          </div>
-        </div>
+      </nav>
         
+        <div class="col">
+          <h1 class="display-6 text-center p-2" id="player">
+          </h1>
+        </div>
+        <div class="row p-4">
+          <div class="col">
+            <div class="message" id="message">
+            </div>
+          </div>
+          
+        </div>
       </div>
-    </div>
 
     <div class="row align-items-center justify-content-center" id="cards">
      
     </div>
 
-    </div>
   </div>
 
   

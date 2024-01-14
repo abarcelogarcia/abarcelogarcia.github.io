@@ -23,6 +23,9 @@
   max-width: 200px;
   border-color: var(--verde-corp);
   margin: 2px 2px;
+  background-image: url(img/LogoBloggIn_login.png);
+  background-repeat: no-repeat;
+  background-position: center;
   
 }
 
@@ -47,6 +50,9 @@ img[num] {
   text-align: center;
   font-size: 30px;
   height: 50px;
+  /* background-color: rgb(248, 174, 174);
+  background-color: rgb(176, 248, 176); */
+
 
 
 }
@@ -55,3 +61,40 @@ img[num] {
   background-color: var(--gris-corp);
   color: var(--azul-corp);
 }
+
+#player{
+
+  background-color: var(--azul-corp);
+  color: var(--blanco-corp);
+}
+
+/* ANIMATIONS */
+
+@keyframes vibrate {
+  0% {
+      transform: rotateY(-5deg);
+  }
+
+  50% {
+      transform: rotateZ(0deg) scale(1.5);
+  }
+
+  100% {
+      transform: rotateZ(5deg);
+  }
+}
+
+@keyframes flip {
+  
+  50% {
+      transform: rotateY(90deg);
+  }
+
+  100% {
+      transform: rotateY(0deg);
+  }
+}
+
+
+
+
