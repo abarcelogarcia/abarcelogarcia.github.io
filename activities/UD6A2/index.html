@@ -15,66 +15,86 @@
 <body>
 
 
-    <div class="container-fluid">
-      <nav class="navbar navbar-bg p-4">
-          <img src="img/LogoBloggIn_login.png" alt="logo" id="logo">
-          <!-- <button class="btn btn-warning me-2" id="restart">Restart</button> -->
-          
-          <div class="text-center">
-            <div class="display-6">Level</div>
-            <div class="row">
-              <div class="col">
-                <input type="radio" class="btn-check" name="level_radio" id="option1" autocomplete="off" value="1" checked>
-                <label class="btn" for="option1">Easy</label>
-              </div>
-              <div class="col">
-                <input type="radio" class="btn-check" name="level_radio" id="option2" autocomplete="off" value="2" >
-                <label class="btn" for="option2">Normal</label>
-              </div>
-              <div class="col">
-                <input type="radio" class="btn-check" name="level_radio" id="option3" autocomplete="off" value="3" >
-                <label class="btn" for="option3">Hard</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <div class="display-6">FAILS</div>
-            <div class="row">
-              <div class="col">
-                <label for="failsP1">Player 1</label>
-                <h1 id="failsP1">0</h1>
-              </div>
-              <div class="col">
-                <label for="failsP2">Player 2</label>
-                <h1 id="failsP2">0</h1>
-              </div>
-            </div>
-          </div>
-      </nav>
-        
+  <div class="container-fluid">
+    <nav class="navbar navbar-bg p-4">
+      <img src="img/LogoBloggIn_login.png" alt="logo" id="logo">
+      <!-- <button class="btn btn-warning me-2" id="restart">Restart</button> -->
+      <div class="text-start">
+        <div class="display-6  mb-1">Game</div>
         <div class="col">
-          <h1 class="display-6 text-center p-2" id="player">
-          </h1>
+          <input type="radio" class="btn-check" name="game_radio" id="option4" autocomplete="off" value="1" checked>
+          <label class="btn" for="option4"><b>Strategy: </b>Wins who finishes the panel</label>
         </div>
-        <div class="row p-4">
-          <div class="col">
-            <div class="message" id="message">
-            </div>
-          </div>
-          
+        <div class="col">
+          <input type="radio" class="btn-check" name="game_radio" id="option5" autocomplete="off" value="2">
+          <label class="btn" for="option5"><b>Battle: </b> Wins who gets the most hits</label>
+        </div>
+        <div class="col">
+          <input type="radio" class="btn-check" name="game_radio" id="option6" autocomplete="off" value="3">
+          <label class="btn" for="option6"><b>Alone: </b> Minium number of fails</label>
         </div>
       </div>
 
-    <div class="row align-items-center justify-content-center" id="cards">
-     
+      <div class="text-center">
+        <div class="display-6">Level</div>
+        <div class="row">
+          <div class="col">
+            <input type="radio" class="btn-check" name="level_radio" id="option1" autocomplete="off" value="1" checked>
+            <label class="btn" for="option1">Easy</label>
+          </div>
+          <div class="col">
+            <input type="radio" class="btn-check" name="level_radio" id="option2" autocomplete="off" value="2">
+            <label class="btn" for="option2">Normal</label>
+          </div>
+          <div class="col">
+            <input type="radio" class="btn-check" name="level_radio" id="option3" autocomplete="off" value="3">
+            <label class="btn" for="option3">Hard</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center" id="hitsPanel">
+        <div class="display-6">Hits!</div>
+        <div class="row">
+          <div class="col">
+            <label for="hitsP1">Player 1</label>
+            <h1 id="hitsP1">0</h1>
+          </div>
+          <div class="col">
+            <label for="hitsP2">Player 2</label>
+            <h1 id="hitsP2">0</h1>
+          </div>
+        </div>
+      </div>
+      <div class="text-center" id="failsPanel">
+        <div class="display-6">Fails!</div>
+        <h1 class="text-center" id="fails">0</h1>
+      </div>
+  </div>
+  </nav>
+
+  <div class="col">
+    <h1 class="display-6 text-center p-2" id="player">
+    </h1>
+  </div>
+  <div class="row p-4">
+    <div class="col">
+      <div class="message" id="message">
+      </div>
     </div>
 
   </div>
+  </div>
 
-  
+  <div class="row align-items-center justify-content-center" id="cards">
 
-  
+  </div>
+
+  </div>
+
+
+
+
 
 
 
