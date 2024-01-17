@@ -3,6 +3,8 @@
 let quantity;
 let arrayCards = [];
 let hitsP1, level, hitsP2, turn, game, fails;
+let minCards = 1;
+let maxCards = 20;
 
 // Description
 // -----------------------------------
@@ -32,6 +34,7 @@ function makeCards() {
     turn = 'Player 1';
     $('#hitsP1').text(hitsP1);
     $('#hitsP2').text(hitsP2);
+    $('#fails').text(fails);
     $('#player').text(turn);
     $('#message')
         .text('')
@@ -40,8 +43,8 @@ function makeCards() {
     // Show or not hits & fails panel
     showPanels(game);
 
-    let arrayQty = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
-    quantity = arrayQty[Math.floor(Math.random() * arrayQty.length)];
+    // Get an even number
+    quantity = Math.floor((Math.random() * (maxCards/2)) + minCards)*2;
 
     // We fill the array with the same number twice to make the pairs.
     for (let i = 1; i <= quantity / 2; i++) {
@@ -65,16 +68,27 @@ function addCards(quantity, level, game) {
 
     for (let i = 0; i < quantity; i++) {
 
-        number = setNumber(); // Extracted from array
+        number = setNumber(); // Extracted from arrayCards
         num = level + '_' + number; // For num attribute and/or image path
 
         // Card selection according to level
         if (level == 1) {
-            card = '<div class="col card h-100 d-flex align-items-center justify-content-center"><p num=' + num + '>' + number + '</p></div>';
+            card = 
+            '<div class="col card h-100 d-flex align-items-center justify-content-center">'+
+                '<p num=' + num + '>' + number + '</p>'+
+            '</div>';
+
         } else if (level == 2) {
-            card = '<div class="col card h-100 d-flex align-items-center justify-content-center flip-card-front"><img src="./img/' + num + '.png" num=' + num + '></div>';
+            card = 
+            '<div class="col card h-100 d-flex align-items-center justify-content-center flip-card-front">'+
+                '<img src="./img/' + num + '.png" num=' + num + '>'+
+            '</div>';
+        
         } else if (level == 3) {
-            card = '<div class="col card h-100 d-flex align-items-center justify-content-center flip-card-front"><img src="./img/' + num + '.png" num=' + num + '></div>';
+            card = 
+            '<div class="col card h-100 d-flex align-items-center justify-content-center flip-card-front">'+
+                '<img src="./img/' + num + '.png" num=' + num + '>'+
+            '</div>';
         };
 
         $('#cards').append(card);// Add cart to hmtl
@@ -87,13 +101,12 @@ function addCards(quantity, level, game) {
 
             // Animation imitating the flipping of the card.
             $(this).css({
-                "animation": "flip 0.5s 1",
-                // "animation": "vibrate 0.3s 1",
+                "animation": "vibrate 0.3s 1",
                 "background-image": "none"
             });
 
             // Displays the value and sets it as rotated by means of a class ("rotated")
-            $(this.children)
+             $(this.children)
                 .show()
                 .addClass("rotated");
 
@@ -138,14 +151,25 @@ function addCards(quantity, level, game) {
                         .css("background-color", "rgb(248, 174, 174)")
                     $(".card").parent().css("pointer-events", "none");// No permite cliclar sobre ninguna carta
 
+                    $('#panel').css("animation", "vibratePanelError 0.1s 1");
 
+                    
+                    
                     // Delay the process so that the values are clearly visible.
                     setTimeout(function () {
 
+                        $(".rotated:first").parent().css("animation", "unflip 0.75s 1")
+                        $(".rotated:last").parent().css("animation", "unflip 0.75s 1")
+
+                        setTimeout(function(){
+
+
                         // Value is hidden again and toggle to unturned
                         $(".rotated:first")
-                            .hide()
-                            .toggleClass("rotated");
+                        .hide()
+                        .toggleClass("rotated");
+                        
+                        
 
                         $(".rotated:last")
                             .hide()
@@ -158,14 +182,20 @@ function addCards(quantity, level, game) {
                         // Resets card values
                         $(".card").parent().css("pointer-events", "auto");// Click on the cards again
 
+
                         // Displays logo and resets animation
                         $('.card:not(.ok)').css({
-                            "background-image": "url(img/LogoBloggIn_login.png)",
-                            "animation": "none"
+                            "background-image": "url(img/LogoBloggIn_bgcards.png)",
+                            // "animation": "none"
                         })
                         $('#hitsP1').css("animation", "none")
                         $('#hitsP2').css("animation", "none")
                         $('#fails').css("animation", "none")
+                    $('#panel').css("animation", "none");
+
+
+                        }, 100)
+
 
 
                     }, 1000)
@@ -202,12 +232,7 @@ function addCards(quantity, level, game) {
             }
         }
     )
-
-
 }
-
-
-
 
 // TOOLS
 
@@ -248,7 +273,7 @@ function setWinner() {
                 .css("background-color", "rgb(176, 248, 176)")
         }, 1000);
 
-    } else if (game == 2) {
+    } else if (game == 1) {
 
         winner = turn;
 
