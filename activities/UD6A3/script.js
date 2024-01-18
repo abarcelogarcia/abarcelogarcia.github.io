@@ -11,18 +11,39 @@ jQuery.fn.countCharacters = function(){
     $(this).each(function(){
 
         text = $(this);
-        console.log(text.text().length);
-        counter = text.text().length;
-        text.data("counter", counter);
-        data = '<p>'+ counter + ' characters</p>';
+        // console.log(text.text().length);
+        
+        text.data("counter", text.val().length);
+
+        data = '<p>'+ text.data("counter") + ' characters</p>';
         newParagraph = $(data);
         text.after(newParagraph);
+
+        console.log(text.data());
         
         
         
         text.on("keyup", function(e){
         
             e.preventDefault();
+
+            $(this).data("counter", $(this).val().length);
+
+            console.log($(this).data("counter"))
+
+            $(this).text($(this).val().length);
+
+            
+            
+
+
+
+
+
+
+            
+            
+            
 
 
             
