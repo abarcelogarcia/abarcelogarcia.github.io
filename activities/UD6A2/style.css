@@ -14,6 +14,14 @@
   --texto: 'Roboto';
 }
 
+#panel{
+
+  background-color: var(--azul-corp);
+  padding: 50px;
+
+
+}
+
 
 .card {
 
@@ -23,14 +31,13 @@
   max-width: 200px;
   border-color: var(--verde-corp);
   margin: 2px 2px;
-  background-image: url(img/LogoBloggIn_login.png);
+  background-image: url(img/LogoBloggIn_bgcards.png);
   background-repeat: no-repeat;
   background-position: center;
   
 }
 
-p, .alert {
-  /* margin-top: 45px; */
+p {
   font-size: 90px;
   display: none;
 
@@ -50,10 +57,6 @@ img[num] {
   text-align: center;
   font-size: 30px;
   height: 50px;
-  /* background-color: rgb(248, 174, 174);
-  background-color: rgb(176, 248, 176); */
-
-
 
 }
 
@@ -92,6 +95,33 @@ img[num] {
 
   100% {
       transform: rotateY(0deg);
+  }
+}
+
+@keyframes unflip {
+  
+  50% {
+      transform: rotateY(-90deg);
+  }
+
+  100% {
+      transform: rotateY(0deg);
+  }
+
+
+}
+
+@keyframes vibratePanelError {
+  0% {
+      transform: rotateZ(-1deg);
+  }
+
+  50% {
+      transform: rotateZ(0deg);
+  }
+
+  100% {
+      transform: rotateZ(1deg);
   }
 }
 
