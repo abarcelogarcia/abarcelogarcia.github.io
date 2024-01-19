@@ -1,62 +1,35 @@
 
-$(document).ready(function(){
+$(document).ready(function () {
     $("textarea").countCharacters();
-    });
+});
 
 
-jQuery.fn.countCharacters = function(){
+jQuery.fn.countCharacters = function () {
 
-    // let text = $(this).text();
 
-    $(this).each(function(){
+    $(this).each(function () {
 
-        text = $(this);
-        // console.log(text.text().length);
-        
-        text.data("counter", text.val().length);
 
-        data = '<p>'+ text.data("counter") + ' characters</p>';
-        newParagraph = $(data);
-        text.after(newParagraph);
+        // Adds to data() of the element with a key "counter". Its value is the total number of characters
+        $(this).data("counter", $(this).val().length);
 
-        console.log(text.data());
-        
-        
-        
-        text.on("keyup", function(e){
-        
+        // Add the element after the texarea
+        $(this).after('<p>' + $(this).data("counter") + ' characters</p>');
+
+
+
+        $(this).on("keyup", function (e) {
+
             e.preventDefault();
 
+            // Updates the element's data(counter)
             $(this).data("counter", $(this).val().length);
 
-            console.log($(this).data("counter"))
+            // Update the next element (<p>) with the new data(counter)
+            $(this).next().html('<p>' + $(this).data("counter") + ' characters</p>')
 
-            $(this).text($(this).val().length);
-
-            
-            
-
-
-
-
-
-
-            
-            
-            
-
-
-            
-
-
-            
         })
 
-
-
-
-
-
     })
-return this;
+    return this;
 }
