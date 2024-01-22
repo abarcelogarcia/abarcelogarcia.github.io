@@ -1,17 +1,23 @@
-#postIt{
+#postIt {
 
-    width: 250px; height: 200px; padding: 0.5em;
+    width: 250px;
+    height: 200px;
+    padding: 0.5em;
+    display: none;
 
 
 }
 
-#nav{
+#nav {
 
     min-height: 300px;
-    max-width: 200px;
+    max-width: 300px;
 }
 
-.titleTasks{
+.tasksContainers {
 
+
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 
 }
