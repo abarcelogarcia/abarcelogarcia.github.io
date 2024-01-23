@@ -1,6 +1,16 @@
+/* VARIABLES */
+
+
+.root {
+
+
+    --fondoPostIt: #OD6EFD;
+
+}
+
 #postIt {
 
-    width: 250px;
+    /* width: 50px; */
     height: 200px;
     padding: 0.5em;
     display: none;
@@ -10,14 +20,45 @@
 
 #nav {
 
-    min-height: 300px;
-    max-width: 300px;
+    /* min-height: 300px;
+    max-width: 300px; */
 }
 
-.tasksContainers {
+input,
+textarea {
+    all: unset;
+
+}
+
+.postItTitle {
 
 
-    font-size: 50px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
 
+
+}
+
+::placeholder {
+
+    color: white;
+    font-style: oblique;
+}
+
+textarea::-webkit-scrollbar {
+    width: 14px;
+    /* width of the entire scrollbar */
+}
+
+textarea::-webkit-scrollbar-track {
+    background: var(--fondoPostIt);
+    /* color of the tracking area */
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: var(--fondoPostIt);
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid white;
+    /* creates padding around scroll thumb */
 }

@@ -6,49 +6,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jQuery UI Draggable - Default functionality</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="style.css">
 
- 
+
 
 </head>
 
 <body>
 
   <div class="container-fluid bg-light">
-    <div class="row bg-dark text-center text-white">
+    <div class="row bg-dark text-center text-white mb-3">
       <h1 class="display-3">TASKS</h1>
 
     </div>
     <div class="row">
-      <div class="col " id="nav">
+      <div class="col-1 " id="nav">
 
 
 
-        <button class="btn btn-outline-dark mb-2" style="font-size: large;" id="newPostIt">+</button>
-        <div class="container" id="postItCreator">
+        <button class="btn btn-outline-dark mb-2" id="newPostIt"><i class="bi bi-sticky"></i>
+          New</button>
 
+
+      </div>
+      <div class="col bg-danger" id="toDo">
+        <div class="row">
+          <div class="col display-6">
+            <p>To Do</p>
+
+          </div>
+          <div class="col text-end display-6">
+            <p>0</p>
+
+          </div>
+
+          <div class="row">
+
+            <div id="postItCreator">
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <div class="col bg-warning" id="doing">
+
+        <div class="row display-6">
+          <div class="col">
+            <p>Doing</p>
+
+          </div>
+          <div class="col text-end">
+            <p>4</p>
+
+          </div>
 
         </div>
-       
       </div>
-      <div class="col bg-danger d-flex justify-content-around tasksContainers" id="toDo">
-        <p>Todo</p>
-        <p>4</p>
+      <div class="col bg-success" id="done">
+        <div class="row display-6">
 
+          <div class="col">
+            <p>Done</p>
 
+          </div>
+          <div class="col text-end">
 
-      </div>
-      <div class="col d-flex justify-content-around tasksContainers" id="doing">
+          </div>
 
-        <p>Doing</p>
-        <p>4</p>
-      </div>
-      <div class="col d-flex justify-content-around tasksContainers" id="done">
-        <p>Done</p>
-        <p>4</p>
+          <p>4</p>
+        </div>
       </div>
     </div>
 
@@ -59,8 +93,9 @@
 
   </div>
 
-  
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 
