@@ -78,7 +78,7 @@ function validateFormPass(user_id) {
 
         // Two fields are ok. Continue to send data to reset the password
         if (isPassOK && areEqual) {
-            selectProfileToEdit(user_id, pass1.value);
+            selectProfileData(user_id, pass1.value);
 
         }
     }
