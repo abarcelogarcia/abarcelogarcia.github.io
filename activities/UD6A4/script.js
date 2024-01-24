@@ -31,6 +31,32 @@ jQuery.fn.addPostIt = function (id) {
     newPostIt = $(data);
     $('#postItCreator').append(newPostIt.draggable());
 
+
+    // Delete PostIt
+    $('.bi-x-square-fill').on("click", function (e) {
+
+      let postIt = $(this).parentsUntil("#postItCreator");
+
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Delete the task": function () {
+            postIt.remove();
+            $(this).dialog("close");
+          },
+          Cancel: function () {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
+
+
+
+
   })
 
 
@@ -64,7 +90,7 @@ function toDay() {
 
 }
 
-$('.bi-x-square-fill').on("click", function (e) { $(this).parentsUntil(".card").remove() })
+
 $('.bi-arrow-down-square-fill').on("click", function (e) {
 
   console.log($('#b999').hide());
