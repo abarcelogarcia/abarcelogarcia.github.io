@@ -10,9 +10,7 @@
 
 #postIt {
 
-    /* width: 50px; */
-    height: 200px;
-    padding: 0.5em;
+
     display: none;
 
 
@@ -63,7 +61,7 @@ textarea::-webkit-scrollbar-thumb {
     /* creates padding around scroll thumb */
 }
 
-.tasksContainer{
+.tasksContainer {
 
 
     min-height: 1000px;

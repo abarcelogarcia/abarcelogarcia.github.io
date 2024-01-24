@@ -6,11 +6,22 @@ jQuery.fn.addPostIt = function (id) {
     e.preventDefault();
     postIt = $(this);
     id = postIt.data("id");
-    data = '<div class="card text-bg-primary mb-3 ui-widget-content postIt" id="' + id + '">' +
-      '<div class="card-header">' + toDay() + '</div>' +
-      '<div class="card-body">' +
+    data = '<div class="card text-bg-primary mb-3 ui-widget-content postIt" id="' + id + '" style="max-width: 18rem; max-height: 10rem;">' +
+      '<div class="card-header">' +
+      '<div class="row">' +
+      '<div class="col">' +
+      toDay() +
+      '</div>' +
+      '<div class="col text-end">' +
+      '<i class="bi bi-arrow-down-square-fill"></i>' +
+      '<i class="bi bi-x-square-fill"></i>' +
+      '<!-- <div class="card-body">XXX</div> -->' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<div class="card-body" id="b' + id + '">' +
       '<input type=text class="postItTitle" placeholder="Task Title">' +
-      '<textarea type=text rows="4" cols="40" placeholder="Task details">' +
+      '<textarea type=text rows="2" cols="40" placeholder="Task details" style="max-width: 16rem;">' +
       '' +
       '</textarea>' +
       '</div>' +
@@ -18,7 +29,7 @@ jQuery.fn.addPostIt = function (id) {
     id++;
     postIt.data("id", id);
     newPostIt = $(data);
-    $('#postItCreator').prepend(newPostIt.draggable());
+    $('#postItCreator').append(newPostIt.draggable());
 
   })
 
@@ -52,4 +63,12 @@ function toDay() {
 
 
 }
+
+$('.bi-x-square-fill').on("click", function (e) { $(this).parentsUntil(".card").remove() })
+$('.bi-arrow-down-square-fill').on("click", function (e) {
+
+  console.log($('#b999').hide());
+
+  $(this).next(".card-body").hide();
+})
 
