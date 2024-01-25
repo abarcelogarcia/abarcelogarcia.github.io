@@ -1,9 +1,16 @@
 
+let postIt_id = 1;
+  
 
-  $('#newPostIt').on("click", function (e, id) {
+
+
+
+
+$('#newPostIt').on("click", function (e) {
     e.preventDefault();
+    
     data = 
-    '<div class="card text-bg-primary mb-3 ui-widget-content postIt" id="postIt_' + id + '" style="max-width: 18rem; max-height: 10rem;">' +
+    '<div class="card text-bg-primary mb-3 ui-widget-content postIt" id="postIt_' + postIt_id + '" style="max-width: 18rem; max-height: 10rem;">' +
       '<div class="card-header">' +
         '<div class="row">' +
           '<div class="col">' +
@@ -15,7 +22,7 @@
           '</div>' +
         '</div>' +
       '</div>' +
-      '<div class="card-body" id="body_PostIt">' +
+      '<div class="card-body">' +
         '<input type=text class="postItTitle" placeholder="Task Title">' +
         '<textarea type=text rows="2" cols="40" placeholder="Task details" style="max-width: 16rem;">' +
         '</textarea>' +
@@ -24,15 +31,26 @@
     
     
     
-    newPostIt = $(data).data("id", id, "drop", "1");
-    id++;
+    newPostIt = $(data);
+
+    newPostIt.data("id", postIt_id);
+
+    // console.log(newPostIt.data("id"));
+
       
     $('#postItCreator').append(newPostIt.draggable());
 
     // Hide body PostIt
-    $('.bi-arrow-down-square-fill').on("click", function (e) {
+    // $('.card-header').on("click", function (e) {
+    $('.bi-arrow-down-square-fill').on("click", {id: postIt_id},function (e) {
 
-      console.log($(this).childrenUntil("#body_PostIt"));
+      // console.log($(this).next('.card-body').toggle("slide", { direction: "up" }, 500));
+      // console.log($(this).parentsUntil('.card').next('.card-body').toggle(500));
+      // console.log($(this).parentsUntil('.card').data("id"));
+
+      console.log($('postIt_' + e.data.id));
+      console.log(e.data.id);
+
 
       
 
@@ -65,6 +83,7 @@
     });
 
 
+    postIt_id++;
 
 
   })
