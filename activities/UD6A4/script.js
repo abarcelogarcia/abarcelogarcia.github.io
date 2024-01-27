@@ -9,51 +9,57 @@ let postIt_id = 1;
 $('#newPostIt').on("click", function (e) {
     e.preventDefault();
     
+    // Elemento postIt
     data = 
-    '<div class="card text-bg-primary mb-3 ui-widget-content postIt" id="postIt_' + postIt_id + '" style="max-width: 18rem; max-height: 10rem;">' +
+    '<div class="card text-bg-primary mb-3 ui-widget-content postIt" id="postIt_' + postIt_id + '" style="max-width: 18rem; max-height: 15rem;">' +
+      
       '<div class="card-header">' +
-        '<div class="row">' +
-          '<div class="col">' +
-            toDay() +
+        '<div class="row align-items-center">' +
+          '<div class="col-4">' +
+            '<input type=text class="postItTitle" placeholder="Task Title" style="max-width: 12rem">' +
           '</div>' +
           '<div class="col text-end">' +
-            '<i class="bi bi-arrow-down-square-fill"></i>' +
+            '<i class="bi bi-arrow-down-square-fill me-1" id="postItMin_' + postIt_id + '"></i>' +
             '<i class="bi bi-x-square-fill"></i>' +
           '</div>' +
         '</div>' +
       '</div>' +
-      '<div class="card-body">' +
-        '<input type=text class="postItTitle" placeholder="Task Title">' +
-        '<textarea type=text rows="2" cols="40" placeholder="Task details" style="max-width: 16rem;">' +
+        
+      '<div class="card-body" id="postItBody_' + postIt_id + '">' +
+        '<textarea type=text rows="4" cols="40" placeholder="Task details" style="max-width: 16rem;">' +
         '</textarea>' +
       '</div>' +
+      
+      '<div class="card-footer text-end" style="font-size: 12px;">' +
+      toDay() +
+      '</div>' +
+
     '</div>';
     
     
-    
+    // Element created
     newPostIt = $(data);
 
+    // Add data to element
     newPostIt.data("id", postIt_id);
+    newPostIt.data("isDropped", 1);
 
-    // console.log(newPostIt.data("id"));
+    // Update To Do counter
+    let total = $('#toDo').data("total");
+    total++;
+    
+    $('#toDo')
+      .data("total", total)
+      .find( ".total" )
+      .html( total );
 
-      
-    $('#postItCreator').append(newPostIt.draggable());
+    // Add the new element to
+    $('#postItCreator').append(newPostIt.draggable({ snap: true, opacity: 0.7}));
 
     // Hide body PostIt
-    // $('.card-header').on("click", function (e) {
-    $('.bi-arrow-down-square-fill').on("click", {id: postIt_id},function (e) {
-
-      // console.log($(this).next('.card-body').toggle("slide", { direction: "up" }, 500));
-      // console.log($(this).parentsUntil('.card').next('.card-body').toggle(500));
-      // console.log($(this).parentsUntil('.card').data("id"));
-
-      console.log($('postIt_' + e.data.id));
-      console.log(e.data.id);
-
-
+    $('#postItMin_' + postIt_id + '').on("click", {id: newPostIt.data("id")},function (e) {
+      $('#postItBody_' + e.data.id).toggle(500);
       
-
     })
 
 
@@ -80,7 +86,12 @@ $('#newPostIt').on("click", function (e) {
           }
         }
       });
+    
+    
+    
     });
+
+   
 
 
     postIt_id++;
@@ -91,14 +102,8 @@ $('#newPostIt').on("click", function (e) {
 
 
 
-$(function () {
 
-  // $('#newPostIt').addPostIt(1);
-
-
-});
-
-
+// Función para obtener la fecha de hoy
 function toDay() {
 
   var d = new Date();
@@ -118,5 +123,54 @@ function toDay() {
 
 }
 
+$( ".tasksContainer" ).droppable({
+  
+
+  
+  drop: function( event, ui ) {
+
+    // Get the dropped element
+    let droppedPostIt = ui.draggable;
+    
+    // Condition (isDropped) to avoid updating the counter if it is the same container
+    if(droppedPostIt.data("isDropped") == 0){
+      
+      // Update Counter
+      let total = $(this).data("total");
+      total++;
+      $(this)
+      .data("total", total)
+      .find( ".total" )
+      .html( $(this).data("total") )
+      .css("animation", "vibrate 0.3s 2");
+      
+      // Update PostIt dropped status
+      $(droppedPostIt).data("isDropped", 1);
+    }
+  },
+  
+  out: function(event, ui){
+    
+    // Get dropped element
+    let droppedPostIt = ui.draggable;
+    
+    // Condition (isDropped) to avoid updating the counter if it is the same container
+    if($(droppedPostIt).data("isDropped") == 1){
+
+      // Update counter
+      let total = $(this).data("total");
+      total--;
+      $(this)
+        .data("total", total)
+        .find( ".total" )
+        .html( $(this).data("total"));
+
+      // Update PostIt dropped status
+      $(droppedPostIt).data("isDropped", 0);
+      
+    }
+      
+  } 
+});
 
 

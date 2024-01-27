@@ -67,3 +67,30 @@ textarea::-webkit-scrollbar-thumb {
     min-height: 1000px;
 
 }
+
+/* ANIMATIONS */
+
+@keyframes vibrate {
+    0% {
+        transform: rotateY(-5deg);
+    }
+  
+    50% {
+        transform: rotateZ(0deg);
+    }
+  
+    100% {
+        transform: rotateZ(5deg);
+    }
+  }
+
+  @keyframes flip {
+  
+    50% {
+        transform: rotateY(90deg);
+    }
+  
+    100% {
+        transform: rotateY(0deg);
+    }
+  }

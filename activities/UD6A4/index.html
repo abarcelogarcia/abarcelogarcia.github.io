@@ -31,46 +31,22 @@
 
     </div>
     <div class="row">
-      <div class="col bg-danger " id="toDo">
+      <div class="col  bg-danger tasksContainer" id="toDo" data-total="0">
         <div class="row">
           <div class="col display-6">
             <p>To Do</p>
 
           </div>
           <div class="col text-end display-6">
-            <p>0</p>
+            <p class="total">0</p>
 
           </div>
 
-          <div class="row tasksContainer">
+          <div class="row">
 
-            <!-- <div class="card text-bg-primary mb-3 ui-widget-content" id="999"
-              style="max-width: 18rem; max-height: 10rem;">
-              <div class="card-header">
+         
 
-                <div class="row">
-
-                  <div class="col">
-                    24/01/2024
-                  </div>
-                  <div class="col text-end">
-                    <i class="bi bi-arrow-down-square-fill"></i>
-                    <i class="bi bi-x-square-fill"></i>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="card-body" id="b999">
-                <input type=text class="postItTitle" placeholder="Task Title">
-                <textarea type=text rows="4" cols="40" placeholder="Task details"
-                  style="max-width: 16rem; max-height: 8rem;">
-
-              </textarea>
-              </div>
-            </div> -->
-
-            <div id="postItCreator">
+            <div id="postItCreator" class="bg-opacity-100">
 
 
             </div>
@@ -81,7 +57,7 @@
 
 
       </div>
-      <div class="col bg-warning " id="doing">
+      <div class="col  bg-warning tasksContainer" id="doing" data-total="0" >
 
         <div class="row display-6">
           <div class="col">
@@ -89,18 +65,18 @@
 
           </div>
           <div class="col text-end">
-            <p>4</p>
+            <p class="total">0</p>
 
           </div>
 
         </div>
-        <div class="row tasksContainer">
+        <div class="row ">
 
           
 
         </div>
       </div>
-      <div class="col bg-success tasksContainer" id="doing">
+      <div class="col bg-success border border-success tasksContainer" id="doing" data-total="0">
 
         <div class="row display-6">
           <div class="col">
@@ -108,12 +84,12 @@
 
           </div>
           <div class="col text-end">
-            <p>4</p>
+            <p class="total">0</p>
 
           </div>
 
         </div>
-        <div class="row tasksContainer">
+        <div class="row ">
 
         </div>
       </div>
@@ -126,10 +102,12 @@
 
   </div>
 
-  <div id="dialog-confirm" title="Empty the recycle bin?">
+  <div id="dialog-confirm" title="Empty the recycle bin?" hidden>
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be
       permanently deleted and cannot be recovered. Are you sure?</p>
   </div>
+
+  
 
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
