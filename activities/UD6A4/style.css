@@ -2,10 +2,10 @@
 
 
 .root {
-
-
     --fondoPostIt: #OD6EFD;
-
+    --rojo-corp: #CC0000;
+    --amarillo-corp: #FF9900;
+    --verde-corp: #294C60;
 }
 
 #postIt {
@@ -67,6 +67,64 @@ textarea::-webkit-scrollbar-thumb {
     min-height: 1000px;
 
 }
+
+.ui-dialog-titlebar {
+
+    background-color:#CC0000;
+    color: white;
+
+
+}
+
+.ui-dialog {
+
+    
+}
+
+.ui-dialog-titlebar-close{
+
+background-color: white;
+
+}
+
+#dialog-confirm{
+    
+    display: none;
+
+    }
+
+
+    .ui-dialog .ui-dialog-buttonpane{
+    
+    background-color:#CC0000;
+    
+    }
+
+.bi{
+
+    cursor: pointer;
+
+}
+#doing{
+
+    background-color: #ff9900b2;
+
+}
+
+ul, li{
+
+    list-style-type: none;
+}
+
+.card{
+
+    border-width: 3px;
+    border-radius: 0%;
+
+}
+
+
+
 
 /* ANIMATIONS */
 

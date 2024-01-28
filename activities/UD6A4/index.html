@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -26,11 +27,20 @@
       </div>
       <div class="col text-white text-end me-3">
 
-        <h1 class="display-1">TASKS</h1>
-      </div>
+        <h1 class="display-1">
+          
+          
+          TASKS 
+          
+          <span id="totalTasks">#0</span>
+          
+          
+        
+          </h1>
+        </div>
 
     </div>
-    <div class="row">
+    <div class="row" id="">
       <div class="col  bg-danger tasksContainer" id="toDo" data-total="0">
         <div class="row">
           <div class="col display-6">
@@ -42,14 +52,13 @@
 
           </div>
 
-          <div class="row">
+          <div class="row justify-content-center">
+            <ul id="toDoContainer" class="tasksList">
+
+            </ul>
 
          
 
-            <div id="postItCreator" class="bg-opacity-100">
-
-
-            </div>
           </div>
         </div>
 
@@ -57,7 +66,7 @@
 
 
       </div>
-      <div class="col  bg-warning tasksContainer" id="doing" data-total="0" >
+      <div class="col tasksContainer" id="doing" data-total="0" >
 
         <div class="row display-6">
           <div class="col">
@@ -70,13 +79,16 @@
           </div>
 
         </div>
-        <div class="row ">
+        <div class="row justify-content-center" >
+          <ul id="doingContainer" class="tasksList">
+
+          </ul>
 
           
 
         </div>
       </div>
-      <div class="col bg-success border border-success tasksContainer" id="doing" data-total="0">
+      <div class="col bg-success border border-success tasksContainer" id="done" data-total="0">
 
         <div class="row display-6">
           <div class="col">
@@ -89,8 +101,12 @@
           </div>
 
         </div>
-        <div class="row ">
+        <div class="row justify-content-center" >
 
+          <ul id="doneContainer" class="tasksList">
+
+
+          </ul>
         </div>
       </div>
     </div>
@@ -102,8 +118,8 @@
 
   </div>
 
-  <div id="dialog-confirm" title="Empty the recycle bin?" hidden>
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be
+  <div id="dialog-confirm" title="Remove this post-it?">
+    <p><i class="bi bi-exclamation-diamond-fill" style="float:left; margin:12px 12px 20px 0; color: #CC0000;"></i></span>These items will be
       permanently deleted and cannot be recovered. Are you sure?</p>
   </div>
 
