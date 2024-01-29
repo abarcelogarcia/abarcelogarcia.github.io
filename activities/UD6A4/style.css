@@ -1,126 +1,105 @@
-/* VARIABLES */
-
-
-.root {
-    --fondoPostIt: #OD6EFD;
-    --rojo-corp: #CC0000;
-    --amarillo-corp: #FF9900;
-    --verde-corp: #294C60;
+/* Tasks Lists height */
+.tasksContainer {
+    min-height: 1000px;
 }
 
-#postIt {
 
-
-    display: none;
-
-
-}
-
-#nav {
-
-    /* min-height: 300px;
-    max-width: 300px; */
-}
-
+/* Delete inputs format */
 input,
 textarea {
     all: unset;
+}
+
+.postIt {
+
+    background-color: transparent;
 
 }
 
+/* Title Post-It format */
 .postItTitle {
-
-
     font-size: 20px;
-
-
 }
 
-::placeholder {
-
+/* Inputs placeholders */
+.postItTitle::placeholder {
     color: white;
     font-style: oblique;
 }
 
+textarea::placeholder {
+    color: black;
+    font-style: oblique;
+}
+
+/* Post-It details scrollbar */
+/* ------------------------------------------ */
 textarea::-webkit-scrollbar {
     width: 14px;
     /* width of the entire scrollbar */
 }
 
-textarea::-webkit-scrollbar-track {
-    background: var(--fondoPostIt);
-    /* color of the tracking area */
-}
-
 textarea::-webkit-scrollbar-thumb {
-    background-color: var(--fondoPostIt);
-    /* color of the scroll thumb */
-    border-radius: 20px;
+    border-radius: 0px;
     /* roundness of the scroll thumb */
-    border: 3px solid white;
+    border: 1px solid white;
     /* creates padding around scroll thumb */
 }
 
-.tasksContainer {
+/* ------------------------------------------ */
 
 
-    min-height: 1000px;
-
-}
-
+/* Delete task dialog */
+/* ------------------------------------------ */
 .ui-dialog-titlebar {
-
-    background-color:#CC0000;
+    background-color: #CC0000;
     color: white;
-
-
 }
 
-.ui-dialog {
-
-    
+.ui-dialog-titlebar-close {
+    background-color: white;
 }
 
-.ui-dialog-titlebar-close{
-
-background-color: white;
-
-}
-
-#dialog-confirm{
-    
+#dialog-confirm {
     display: none;
+}
 
-    }
+.ui-dialog .ui-dialog-buttonpane {
+    background-color: #CC0000;
+}
+
+/* ------------------------------------------ */
 
 
-    .ui-dialog .ui-dialog-buttonpane{
-    
-    background-color:#CC0000;
-    
-    }
 
-.bi{
-
+/* Mouse pointer max & min Post-Its */
+.bi {
     cursor: pointer;
-
 }
-#doing{
 
+/* Tasks list background  */
+#doing {
     background-color: #ff9900b2;
-
 }
 
-ul, li{
+#toDo {
+    background-color: #cc0000b0;
+}
 
+#done {
+    background-color: rgba(0, 128, 0, 0.548);
+}
+
+/* Delete default format lists */
+ul,
+li {
     list-style-type: none;
 }
 
-.card{
-
+/* Post-Its style */
+.card {
     border-width: 3px;
     border-radius: 0%;
-
 }
 
 
@@ -132,23 +111,23 @@ ul, li{
     0% {
         transform: rotateY(-5deg);
     }
-  
+
     50% {
         transform: rotateZ(0deg);
     }
-  
+
     100% {
         transform: rotateZ(5deg);
     }
-  }
+}
 
-  @keyframes flip {
-  
+@keyframes flip {
+
     50% {
         transform: rotateY(90deg);
     }
-  
+
     100% {
         transform: rotateY(0deg);
     }
-  }
+}
