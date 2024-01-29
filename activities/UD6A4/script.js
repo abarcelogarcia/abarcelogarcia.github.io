@@ -13,10 +13,10 @@ $('#newPostIt').on("click", function (e) {
     '<div class="card-header border-light">' +
     '<div class="row align-items-center">' +
     '<div class="col-4">' +
-    '<input type=text class="postItTitle" placeholder="Task Title" style="max-width: 12rem; color: white;">' +
+    '<input type=text class="postItTitle" placeholder="Task Title" style="max-width: 12rem; color: white;" maxlength="18">' +
     '</div>' +
     '<div class="col text-end">' +
-    '<i class="bi bi-arrow-up-square-fill me-1" id="postItMin_' + postIt_id + '"></i>' +
+    '<i class="bi bi-arrow-down-square-fill me-1" id="postItMin_' + postIt_id + '"></i>' +
     '<i class="bi bi-x-square-fill" id="postItDel_' + postIt_id + '"></i>' +
     '</div>' +
     '</div>' +
@@ -24,7 +24,7 @@ $('#newPostIt').on("click", function (e) {
     '</div>' +
 
     '<div class="card-body bg-light" id="postItBody_' + postIt_id + '">' +
-    '<textarea type=text rows="4" cols="40" placeholder="Task details" style="max-width: 16rem; color:black">' +
+    '<textarea type=text rows="4" cols="38" placeholder="Task details" style="max-width: 16rem; color:black">' +
     '</textarea>' +
     '</div>' +
 
@@ -57,6 +57,8 @@ $('#newPostIt').on("click", function (e) {
   // Add the new element to
   $('#toDoContainer').append(newPostIt.draggable({
 
+    containment: "#mainContainer",
+    scroll: false,
     opacity: 0.7,
     snap: ".tasksList",
     snapMode: "inner"
@@ -64,6 +66,7 @@ $('#newPostIt').on("click", function (e) {
   }));
 
 
+  // Update total Counter
   $('#totalTasks').text("#" + $(".card").length);
 
 
@@ -72,7 +75,7 @@ $('#newPostIt').on("click", function (e) {
   $('#postItMin_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
 
     $('#postItBody_' + e.data.id).toggle(500);
-    $(this).toggleClass(['bi-arrow-up-square-fill', 'bi-arrow-down-square-fill']);
+    $(this).toggleClass(['bi-arrow-up-square-fill', 'bi-arrow-down-square-fill']);// Toggle icon
 
   })
 
@@ -103,7 +106,10 @@ $('#newPostIt').on("click", function (e) {
             .html($(ubication).data("total"));
 
           // Remove Post-it
-          postIt.remove();
+          postIt
+          .effect("blind")
+          .remove();
+          
           $('#totalTasks').text("#" + $(".card").length);
 
           $(this).dialog("close");
@@ -143,7 +149,7 @@ $(".tasksContainer").droppable({
         .data("total", total)
         .find(".total")
         .html($(this).data("total"))
-        .css("animation", "vibrate 0.3s 2");
+        .effect( "bounce", "slow" );
 
 
 
@@ -158,14 +164,11 @@ $(".tasksContainer").droppable({
       if (droppedPostIt.data("ubication") == "done") {
 
         $('#postItBody_' + droppedPostIt.data("id")).hide(500);
-        $('#postItMin_' + droppedPostIt.data("id")).toggleClass(['bi-arrow-up-square-fill', 'bi-arrow-down-square-fill']);
+        $('#postItMin_' + droppedPostIt.data("id")).removeClass('bi-arrow-down-square-fill');
+        $('#postItMin_' + droppedPostIt.data("id")).addClass('bi-arrow-up-square-fill');
 
-      } else {
-
-        $('#postItBody_' + droppedPostIt.data("id")).show(500);
-        $('#postItMin_' + droppedPostIt.data("id")).toggleClass(['bi-arrow-up-square-fill', 'bi-arrow-down-square-fill']);
-
-      }
+      } 
+      
 
     }
   },

@@ -42,7 +42,7 @@ textarea::-webkit-scrollbar {
 textarea::-webkit-scrollbar-thumb {
     border-radius: 0px;
     /* roundness of the scroll thumb */
-    border: 1px solid white;
+    border: 1px solid black;
     /* creates padding around scroll thumb */
 }
 
@@ -79,7 +79,7 @@ textarea::-webkit-scrollbar-thumb {
 
 /* Tasks list background  */
 #doing {
-    background-color: #ff9900b2;
+    background-color: #ff9900e1;
 }
 
 #toDo {
@@ -102,32 +102,8 @@ li {
     border-radius: 0%;
 }
 
+.btn{
 
+    border-radius: 0px;
 
-
-/* ANIMATIONS */
-
-@keyframes vibrate {
-    0% {
-        transform: rotateY(-5deg);
-    }
-
-    50% {
-        transform: rotateZ(0deg);
-    }
-
-    100% {
-        transform: rotateZ(5deg);
-    }
-}
-
-@keyframes flip {
-
-    50% {
-        transform: rotateY(90deg);
-    }
-
-    100% {
-        transform: rotateY(0deg);
-    }
 }
