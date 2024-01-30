@@ -1,6 +1,6 @@
 /* Tasks Lists height */
 .tasksContainer {
-    min-height: 1000px;
+    min-height: 500px;
 }
 
 
@@ -52,8 +52,9 @@ textarea::-webkit-scrollbar-thumb {
 /* Delete task dialog */
 /* ------------------------------------------ */
 .ui-dialog-titlebar {
-    background-color: #CC0000;
+    background-color: #cc0000b0;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
 .ui-dialog-titlebar-close {
@@ -65,7 +66,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background-color: #CC0000;
+    background-color: #cc0000b0;
 }
 
 /* ------------------------------------------ */
@@ -102,7 +103,7 @@ li {
     border-radius: 0%;
 }
 
-.btn{
+.btn {
 
     border-radius: 0px;
 

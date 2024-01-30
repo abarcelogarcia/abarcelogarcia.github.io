@@ -1,19 +1,20 @@
 
+// Global variable to control the post-it ID's
 let postIt_id = 1;
 
 
 $('#newPostIt').on("click", function (e) {
   e.preventDefault();
 
-  // Elemento postIt
+  // PostIt element
   data =
     '<li id="postIt_' + postIt_id + '">' +
-    '<div class="card  text-light mb-3 ui-widget-content postIt position-relative" style="max-width: 18rem; max-height: 15rem;">' +
+    '<div class="card  text-light mb-3 ui-widget-content postIt position-relative" style="max-width: 50rem; max-height: 20rem;">' +
 
     '<div class="card-header border-light">' +
     '<div class="row align-items-center">' +
     '<div class="col-4">' +
-    '<input type=text class="postItTitle" placeholder="Task Title" style="max-width: 12rem; color: white;" maxlength="18">' +
+    '<input type=text class="postItTitle" placeholder="Task Title" style="max-width: 45rem; color: white;" maxlength="18">' +
     '</div>' +
     '<div class="col text-end">' +
     '<i class="bi bi-arrow-down-square-fill me-1" id="postItMin_' + postIt_id + '"></i>' +
@@ -24,12 +25,20 @@ $('#newPostIt').on("click", function (e) {
     '</div>' +
 
     '<div class="card-body bg-light" id="postItBody_' + postIt_id + '">' +
-    '<textarea type=text rows="4" cols="38" placeholder="Task details" style="max-width: 16rem; color:black">' +
+    '<textarea type=text rows="4" cols="50" placeholder="Task details" style="max-width: 45rem; color:black">' +
     '</textarea>' +
     '</div>' +
 
-    '<div class="card-footer text-end border-light " style="font-size: 12px;">' +
+    '<div class="card-footer">' +
+    '<div class="row align-items-center">' +
+    '<div class="col-4">' +
+    '<i class="bi bi-arrow-left-square me-1" id="postItLeft_' + postIt_id + '"></i>' +
+    '<i class="bi bi-arrow-right-square me-1" id="postItRight_' + postIt_id + '"></i>' +
+    '</div>' +
+    '<div class="col text-end" style="font-size: 12px;">' +
     today() +
+    '</div>' +
+
     '</div>' +
 
     '</div>' +
@@ -69,8 +78,6 @@ $('#newPostIt').on("click", function (e) {
   // Update total Counter
   $('#totalTasks').text("#" + $(".card").length);
 
-
-
   // Hide/show body PostIt
   $('#postItMin_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
 
@@ -79,12 +86,82 @@ $('#newPostIt').on("click", function (e) {
 
   })
 
+  // Hide/show body PostIt
+  $('#postItRight_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
+
+    let postIt = $('#postIt_' + e.data.id);
+
+    let ubication = postIt.data("ubication");
+
+    // console.log(postIt);
+
+    if (ubication == 'toDo') {
+
+      postIt
+        .data("isDropped", 1)
+        .data("ubication", "doing")
+        .css({ "top": 0, "left": 0 })
+        .appendTo('#doingContainer');
+
+      // Update Counters
+      // TO DO
+      let totalToDo = $('#toDo').data("total");
+      totalToDo--;
+      $('#toDo')
+        .data("total", totalToDo)
+        .find(".total")
+        .html($('#toDo').data("total"))
+        .effect("bounce", "slow");
+
+      // DOING
+      let totalDoing = $('#doing').data("total");
+      totalDoing++;
+      $('#doing')
+        .data("total", totalDoing)
+        .find(".total")
+        .html($('#doing').data("total"))
+        .effect("bounce", "slow");
+
+    } else if (ubication == 'doing') {
+
+
+      // Update Counters
+      // DOING
+      let totalDoing = $('#doing').data("total");
+      totalDoing--;
+      $('#doing')
+        .data("total", totalDoing)
+        .find(".total")
+        .html($('#doing').data("total"))
+        .effect("bounce", "slow");
+
+      // DONE
+      let totalDone = $('#done').data("total");
+      totalDone++;
+      $('#done')
+        .data("total", totalDone)
+        .find(".total")
+        .html($('#done').data("total"))
+        .effect("bounce", "slow");
+
+
+      postIt
+        .data("isDropped", 1)
+        .data("ubication", "done")
+        .css({ "top": 0, "left": 0 })
+        .appendTo('#doneContainer');
+
+    }
+
+
+  })
+
 
   // Delete PostIt
   $('#postItDel_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
 
-    let postIt = $('#postIt_' + e.data.id);
 
+    let postIt = $('#postIt_' + e.data.id);
 
     $("#dialog-confirm").dialog({
       resizable: false,
@@ -96,8 +173,7 @@ $('#newPostIt').on("click", function (e) {
 
           let ubication = '#' + postIt.data("ubication");
 
-
-          // Update counter
+          // Update container counter
           let total = $(ubication).data("total");
           total--;
           $(ubication)
@@ -105,14 +181,18 @@ $('#newPostIt').on("click", function (e) {
             .find(".total")
             .html($(ubication).data("total"));
 
+          // Update Total counter
+          // console.log($(".card").length);
+          $('#totalTasks').text("#" + ($(".card").length - 1));
+
           // Remove Post-it
           postIt
-          .effect("blind")
-          .remove();
-          
-          $('#totalTasks').text("#" + $(".card").length);
+            .effect("explode", "", 500)
+            .remove();
 
           $(this).dialog("close");
+
+
         },
 
         Cancel: function () {
@@ -129,6 +209,7 @@ $('#newPostIt').on("click", function (e) {
   postIt_id++;
 
 })
+
 
 
 
@@ -149,7 +230,7 @@ $(".tasksContainer").droppable({
         .data("total", total)
         .find(".total")
         .html($(this).data("total"))
-        .effect( "bounce", "slow" );
+        .effect("bounce", "slow");
 
 
 
@@ -160,6 +241,8 @@ $(".tasksContainer").droppable({
         .css({ "top": 0, "left": 0 })
         .appendTo('#' + droppedPostIt.data("ubication") + 'Container');
 
+
+
       // Auto-close if the tasks is done
       if (droppedPostIt.data("ubication") == "done") {
 
@@ -167,8 +250,8 @@ $(".tasksContainer").droppable({
         $('#postItMin_' + droppedPostIt.data("id")).removeClass('bi-arrow-down-square-fill');
         $('#postItMin_' + droppedPostIt.data("id")).addClass('bi-arrow-up-square-fill');
 
-      } 
-      
+      }
+
 
     }
   },
@@ -187,7 +270,8 @@ $(".tasksContainer").droppable({
       $(this)
         .data("total", total)
         .find(".total")
-        .html($(this).data("total"));
+        .html($(this).data("total"))
+        .effect("bounce", "slow");
 
       // Update PostIt dropped status
       $(droppedPostIt).data("isDropped", 0);
@@ -202,12 +286,10 @@ $(".tasksContainer").droppable({
 
 // TOOLS
 
-
-// Función para obtener la fecha de hoy
+// function returning the current date in a specified format (dd/mm/yyyy)
 function today() {
 
   var d = new Date();
-
   var month = d.getMonth() + 1;
   var day = d.getDate();
 

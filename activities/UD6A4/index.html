@@ -19,6 +19,7 @@
 <body>
 
   <div class="container-fluid bg-light">
+
     <div class="row bg-dark align-items-center">
       <div class="col text-start ms-3">
         <button class="btn btn-outline-light" id="newPostIt">
@@ -33,113 +34,81 @@
           <i class="bi bi-arrow-up-square"></i>
           Max
         </button>
-
       </div>
+
       <div class="col text-white text-end me-3">
-
         <h1 class="display-1">
-
-
           TASKS
-
           <span id="totalTasks">#0</span>
-
-
-
         </h1>
       </div>
 
     </div>
+
     <div class="row" id="mainContainer">
-      <div class="col tasksContainer" id="toDo" data-total="0">
+
+      <!-- TO DO CONTAINER -->
+      <div class="col-lg-4 tasksContainer" id="toDo" data-total="0">
         <div class="row">
           <div class="col display-6">
             <p>To Do</p>
-
           </div>
           <div class="col text-end display-6">
             <p class="total">0</p>
-
           </div>
-
           <div class="row">
-            <ul id="toDoContainer" class="tasksList">
-
-            </ul>
-
-
-
+            <ul id="toDoContainer" class="tasksList"></ul>
           </div>
         </div>
-
-
-
-
       </div>
-      <div class="col tasksContainer" id="doing" data-total="0">
 
-        <div class="row display-6">
-          <div class="col">
+      <!-- DOING CONTAINER -->
+      <div class="col-lg-4 tasksContainer" id="doing" data-total="0">
+        <div class="row">
+          <div class="col  display-6">
             <p>Doing</p>
-
           </div>
-          <div class="col text-end">
+          <div class="col text-end  display-6">
             <p class="total">0</p>
-
           </div>
-
         </div>
-        <div class="row justify-content-center">
-          <ul id="doingContainer" class="tasksList">
-
-          </ul>
-
-
-
+        <div class="row">
+          <ul id="doingContainer" class="tasksList"></ul>
         </div>
       </div>
-      <div class="col tasksContainer" id="done" data-total="0">
 
-        <div class="row display-6">
-          <div class="col">
+
+      <!-- DONE CONTAINER -->
+      <div class="col-lg-4 tasksContainer" id="done" data-total="0">
+        <div class="row">
+          <div class="col  display-6">
             <p>Done</p>
-
           </div>
-          <div class="col text-end">
+          <div class="col text-end  display-6">
             <p class="total">0</p>
-
           </div>
-
         </div>
-        <div class="row justify-content-center">
-
-          <ul id="doneContainer" class="tasksList">
-
-
-          </ul>
+        <div class="row">
+          <ul id="doneContainer" class="tasksList"></ul>
         </div>
       </div>
+
     </div>
-
-
-
-
-
-
   </div>
 
-  <div id="dialog-confirm" title="Remove this post-it?">
-    <p><i class="bi bi-exclamation-diamond-fill"
-        style="float:left; margin:12px 12px 20px 0; color: #CC0000;"></i></span>These items will be
-      permanently deleted and cannot be recovered. Are you sure?</p>
+  <!-- DELETE POST-IT DIALOG -->
+  <div id="dialog-confirm" title="Delete the tasks?">
+    <p>
+      <i class="bi bi-exclamation-diamond-fill" style="float:left; margin:12px 12px 20px 0; color:#cc0000b0"></i>
+      </span>This post-it will be permanently deleted and cannot be recovered. Are you sure?
+    </p>
   </div>
-
-
 
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="jquery.ui.touch-punch.min.js"></script>
 
 
   <script src="script.js"></script>
