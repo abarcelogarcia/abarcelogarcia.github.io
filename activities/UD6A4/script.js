@@ -9,7 +9,7 @@ $('#newPostIt').on("click", function (e) {
 
   // PostIt element
   data =
-    '<li id="postIt_' + postIt_id + '">' +
+    '<li id="postIt_' + postIt_id + '" class="toDo">' +
     '<div class="card  text-light mb-3 ui-widget-content postIt position-relative" style="max-width: 50rem; max-height: 20rem;">' +
 
     '<div class="card-header border-light">' +
@@ -54,15 +54,6 @@ $('#newPostIt').on("click", function (e) {
   newPostIt.data("isDropped", 1);
   newPostIt.data("ubication", "toDo");
 
-  // Update To Do counter
-  let total = $('#toDo').data("total");
-  total++;
-
-  $('#toDo')
-    .data("total", total)
-    .find(".total")
-    .html(total);
-
 
   // Add the new element to
   $('#toDoContainer').append(newPostIt.draggable({
@@ -78,6 +69,11 @@ $('#newPostIt').on("click", function (e) {
 
   // Update total Counter
   $('#totalTasks').text("#" + $(".card").length);
+  
+  // Update To Do Counter
+  $("#totalToDo")
+        .html($(".toDo").length)
+        .effect("bounce", "slow");
 
   // Hide/show body PostIt
   $('#postItMin_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
@@ -101,56 +97,46 @@ $('#newPostIt').on("click", function (e) {
       postIt
         .data("isDropped", 1)
         .data("ubication", "doing")
+        .removeClass("toDo done")
+        .addClass("doing")
         .css({ "top": 0, "left": 0 })
         .appendTo('#doingContainer');
 
       // Update Counters
       // TO DO
-      let totalToDo = $('#toDo').data("total");
-      totalToDo--;
-      $('#toDo')
-        .data("total", totalToDo)
-        .find(".total")
-        .html($('#toDo').data("total"))
+      $("#totalToDo")
+        .html($(".toDo").length)
         .effect("bounce", "slow");
 
       // DOING
-      let totalDoing = $('#doing').data("total");
-      totalDoing++;
-      $('#doing')
-        .data("total", totalDoing)
-        .find(".total")
-        .html($('#doing').data("total"))
+      $("#totalDoing")
+        .html($(".doing").length)
         .effect("bounce", "slow");
 
     } else if (ubication == 'doing') {
 
-
-      // Update Counters
-      // DOING
-      let totalDoing = $('#doing').data("total");
-      totalDoing--;
-      $('#doing')
-        .data("total", totalDoing)
-        .find(".total")
-        .html($('#doing').data("total"))
-        .effect("bounce", "slow");
-
-      // DONE
-      let totalDone = $('#done').data("total");
-      totalDone++;
-      $('#done')
-        .data("total", totalDone)
-        .find(".total")
-        .html($('#done').data("total"))
-        .effect("bounce", "slow");
-
-
       postIt
         .data("isDropped", 1)
         .data("ubication", "done")
+        .removeClass("toDo doing")
+        .addClass("done")
         .css({ "top": 0, "left": 0 })
         .appendTo('#doneContainer');
+
+
+      // Update Counters
+      // DOING
+      $("#totalDoing")
+        .html($(".doing").length)
+        .effect("bounce", "slow");
+
+      // DONE
+      $("#totalDone")
+        .html($(".done").length)
+        .effect("bounce", "slow");
+
+
+      
 
     }
 
@@ -164,33 +150,27 @@ $('#newPostIt').on("click", function (e) {
 
     let ubication = postIt.data("ubication");
 
-    // console.log(postIt);
-
     if (ubication == 'done') {
 
       postIt
         .data("isDropped", 1)
         .data("ubication", "doing")
+        .removeClass("toDo done")
+        .addClass("doing")
         .css({ "top": 0, "left": 0 })
         .appendTo('#doingContainer');
 
-      // Update Counters
+        // Update Counters
       // DONE
-      let totalDone = ($('#done').data("total")-1);
-      $('#done')
-        .data("total", totalDone)
-        .find(".total")
-        .html($('#done').data("total"))
-        .effect("bounce", "slow");
+      $("#totalDone")
+      .html($(".done").length)
+      .effect("bounce", "slow");
 
-      // DOING
-      let totalDoing = $('#doing').data("total");
-      totalDoing++;
-      $('#doing')
-        .data("total", totalDoing)
-        .find(".total")
-        .html($('#doing').data("total"))
-        .effect("bounce", "slow");
+    // DOING
+    $("#totalDoing")
+      .html($(".doing").length)
+      .effect("bounce", "slow");
+
 
     } else if (ubication == 'doing') {
 
@@ -198,28 +178,22 @@ $('#newPostIt').on("click", function (e) {
       postIt
         .data("isDropped", 1)
         .data("ubication", "toDo")
+        .removeClass("doing done")
+        .addClass("toDo")
         .css({ "top": 0, "left": 0 })
         .appendTo('#toDoContainer');
 
 
       // Update Counters
-      // DOING
-      let totalDoing = $('#doing').data("total");
-      totalDoing--;
-      $('#doing')
-        .data("total", totalDoing)
-        .find(".total")
-        .html($('#doing').data("total"))
-        .effect("bounce", "slow");
+       // DOING
+    $("#totalDoing")
+    .html($(".doing").length)
+    .effect("bounce", "slow");
 
-      // To DO
-      let totalToDo = $('#toDo').data("total");
-      totalToDo++;
-      $('#toDo')
-        .data("total", totalToDo)
-        .find(".total")
-        .html($('#toDo').data("total"))
-        .effect("bounce", "slow");
+       // To DO
+    $("#totalToDo")
+    .html($(".toDo").length)
+    .effect("bounce", "slow");
 
 
     }
@@ -284,7 +258,9 @@ $('#newPostIt').on("click", function (e) {
 
 
 
-$(".tasksContainer").droppable({
+$("#toDo").droppable({
+
+  accept: ".doing, .toDo",
 
   drop: function (event, ui) {
 
@@ -294,15 +270,98 @@ $(".tasksContainer").droppable({
     // Condition (isDropped) to avoid updating the counter if it is the same container
     if (droppedPostIt.data("isDropped") == 0) {
 
-      // Update Counter
-      let total = $(this).data("total");
-      total++;
-      $(this)
-        .data("total", total)
-        .find(".total")
-        .html($(this).data("total"))
+      // Update PostIt dropped status & position
+      $(droppedPostIt)
+        .data("isDropped", 1)
+        .css({ "top": 0, "left": 0 })
+        .removeClass("doing done")
+        .addClass("toDo")
+        .appendTo('#toDoContainer');
+
+      // Update Counters
+      $("#totalToDo")
+        .html($(".toDo").length)
         .effect("bounce", "slow");
 
+      $("#totalDoing").html($(".doing").length);
+      $("#totalDone").html($(".done").length);
+
+    }
+  },
+
+  out: function (event, ui) {
+
+    // Get dropped element
+    let droppedPostIt = ui.draggable;
+
+    // Condition (isDropped) to avoid updating the counter if it is the same container
+    if ($(droppedPostIt).data("isDropped") == 1) {
+
+     // Update PostIt dropped status
+      $(droppedPostIt)
+      .data("isDropped", 0);
+
+    }
+
+  }
+});
+
+$("#doing").droppable({
+
+  drop: function (event, ui) {
+    
+    // Get the dropped element
+    let droppedPostIt = ui.draggable;
+
+    // Condition (isDropped) to avoid updating the counter if it is the same container
+    if (droppedPostIt.data("isDropped") == 0) {
+
+      // Update PostIt dropped status & position
+      $(droppedPostIt)
+        .data("isDropped", 1)
+        .data("ubication", $(this).attr("id"))
+        .css({ "top": 0, "left": 0 })
+        .removeClass("toDo done")
+        .addClass("doing")
+        .appendTo('#doingContainer');
+
+        // Update Counters
+        $("#totalToDo").html($(".toDo").length);
+
+        $("#totalDoing")
+        .html($(".doing").length)
+        .effect("bounce", "slow");
+
+        $("#totalDone").html($(".done").length);
+
+    }
+  },
+
+  out: function (event, ui) {
+
+    // Get dropped element
+    let droppedPostIt = ui.draggable;
+
+    // Condition (isDropped) to avoid updating the counter if it is the same container
+    if ($(droppedPostIt).data("isDropped") == 1) {
+
+      // Update PostIt dropped status
+      $(droppedPostIt).data("isDropped", 0);
+    }
+
+  }
+});
+$("#done").droppable({
+
+  accept: ".doing, .done",
+
+  drop: function (event, ui) {
+
+    // Get the dropped element
+    let droppedPostIt = ui.draggable;
+
+    // Condition (isDropped) to avoid updating the counter if it is the same container
+    if (droppedPostIt.data("isDropped") == 0) {
 
 
       // Update PostIt dropped status & position
@@ -310,7 +369,17 @@ $(".tasksContainer").droppable({
         .data("isDropped", 1)
         .data("ubication", $(this).attr("id"))
         .css({ "top": 0, "left": 0 })
-        .appendTo('#' + droppedPostIt.data("ubication") + 'Container');
+        .removeClass("toDo doing")
+        .addClass("done")
+        .appendTo('#doneContainer');
+
+        // Update Counter
+      
+        $("#totalToDo").html($(".toDo").length);
+        $("#totalDoing").html($(".doing").length);
+        $("#totalDone")
+          .html($(".done").length)
+          .effect("bounce", "slow");
 
 
 
@@ -335,24 +404,14 @@ $(".tasksContainer").droppable({
     // Condition (isDropped) to avoid updating the counter if it is the same container
     if ($(droppedPostIt).data("isDropped") == 1) {
 
-      // Update counter
-      let total = $(this).data("total");
-      total--;
-      $(this)
-        .data("total", total)
-        .find(".total")
-        .html($(this).data("total"))
-        .effect("bounce", "slow");
-
-      // Update PostIt dropped status
-      $(droppedPostIt).data("isDropped", 0);
-
+       // Update PostIt dropped status
+      $(droppedPostIt)
+      .data("isDropped", 0);
 
     }
 
   }
 });
-
 
 
 // TOOLS
