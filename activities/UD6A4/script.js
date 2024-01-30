@@ -4,6 +4,7 @@ let postIt_id = 1;
 
 
 $('#newPostIt').on("click", function (e) {
+
   e.preventDefault();
 
   // PostIt element
@@ -16,7 +17,7 @@ $('#newPostIt').on("click", function (e) {
     '<div class="col-4">' +
     '<input type=text class="postItTitle" placeholder="Task Title" style="max-width: 45rem; color: white;" maxlength="18">' +
     '</div>' +
-    '<div class="col text-end">' +
+    '<div class="col text-end" style="font-size: 25px;">' +
     '<i class="bi bi-arrow-down-square-fill me-1" id="postItMin_' + postIt_id + '"></i>' +
     '<i class="bi bi-x-square-fill" id="postItDel_' + postIt_id + '"></i>' +
     '</div>' +
@@ -31,11 +32,11 @@ $('#newPostIt').on("click", function (e) {
 
     '<div class="card-footer">' +
     '<div class="row align-items-center">' +
-    '<div class="col-4">' +
+    '<div class="col-4" style="font-size: 25px;">' +
     '<i class="bi bi-arrow-left-square me-1" id="postItLeft_' + postIt_id + '"></i>' +
     '<i class="bi bi-arrow-right-square me-1" id="postItRight_' + postIt_id + '"></i>' +
     '</div>' +
-    '<div class="col text-end" style="font-size: 12px;">' +
+    '<div class="col text-end">' +
     today() +
     '</div>' +
 
@@ -86,7 +87,7 @@ $('#newPostIt').on("click", function (e) {
 
   })
 
-  // Hide/show body PostIt
+  // Moving post-it with buttons (RIGHT)
   $('#postItRight_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
 
     let postIt = $('#postIt_' + e.data.id);
@@ -150,6 +151,76 @@ $('#newPostIt').on("click", function (e) {
         .data("ubication", "done")
         .css({ "top": 0, "left": 0 })
         .appendTo('#doneContainer');
+
+    }
+
+
+  })
+  
+  // Moving post-it with buttons (LEFT)
+  $('#postItLeft_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
+
+    let postIt = $('#postIt_' + e.data.id);
+
+    let ubication = postIt.data("ubication");
+
+    // console.log(postIt);
+
+    if (ubication == 'done') {
+
+      postIt
+        .data("isDropped", 1)
+        .data("ubication", "doing")
+        .css({ "top": 0, "left": 0 })
+        .appendTo('#doingContainer');
+
+      // Update Counters
+      // DONE
+      let totalDone = ($('#done').data("total")-1);
+      $('#done')
+        .data("total", totalDone)
+        .find(".total")
+        .html($('#done').data("total"))
+        .effect("bounce", "slow");
+
+      // DOING
+      let totalDoing = $('#doing').data("total");
+      totalDoing++;
+      $('#doing')
+        .data("total", totalDoing)
+        .find(".total")
+        .html($('#doing').data("total"))
+        .effect("bounce", "slow");
+
+    } else if (ubication == 'doing') {
+
+
+      postIt
+        .data("isDropped", 1)
+        .data("ubication", "toDo")
+        .css({ "top": 0, "left": 0 })
+        .appendTo('#toDoContainer');
+
+
+      // Update Counters
+      // DOING
+      let totalDoing = $('#doing').data("total");
+      totalDoing--;
+      $('#doing')
+        .data("total", totalDoing)
+        .find(".total")
+        .html($('#doing').data("total"))
+        .effect("bounce", "slow");
+
+      // To DO
+      let totalToDo = $('#toDo').data("total");
+      totalToDo++;
+      $('#toDo')
+        .data("total", totalToDo)
+        .find(".total")
+        .html($('#toDo').data("total"))
+        .effect("bounce", "slow");
+
 
     }
 
