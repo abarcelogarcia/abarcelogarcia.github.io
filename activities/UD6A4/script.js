@@ -71,7 +71,7 @@ $('#newPostIt').on("click", function (e) {
   $('#totalTasks').text("#" + $(".card").length);
   
   // Update To Do Counter
-  $("#totalToDo")
+  $("#total_toDo")
         .html($(".toDo").length)
         .effect("bounce", "slow");
 
@@ -104,12 +104,12 @@ $('#newPostIt').on("click", function (e) {
 
       // Update Counters
       // TO DO
-      $("#totalToDo")
+      $("#total_toDo")
         .html($(".toDo").length)
         .effect("bounce", "slow");
 
       // DOING
-      $("#totalDoing")
+      $("#total_doing")
         .html($(".doing").length)
         .effect("bounce", "slow");
 
@@ -126,12 +126,12 @@ $('#newPostIt').on("click", function (e) {
 
       // Update Counters
       // DOING
-      $("#totalDoing")
+      $("#total_doing")
         .html($(".doing").length)
         .effect("bounce", "slow");
 
       // DONE
-      $("#totalDone")
+      $("#total_done")
         .html($(".done").length)
         .effect("bounce", "slow");
 
@@ -162,12 +162,12 @@ $('#newPostIt').on("click", function (e) {
 
         // Update Counters
       // DONE
-      $("#totalDone")
+      $("#total_done")
       .html($(".done").length)
       .effect("bounce", "slow");
 
     // DOING
-    $("#totalDoing")
+    $("#total_doing")
       .html($(".doing").length)
       .effect("bounce", "slow");
 
@@ -186,12 +186,12 @@ $('#newPostIt').on("click", function (e) {
 
       // Update Counters
        // DOING
-    $("#totalDoing")
+    $("#total_doing")
     .html($(".doing").length)
     .effect("bounce", "slow");
 
        // To DO
-    $("#totalToDo")
+    $("#total_toDo")
     .html($(".toDo").length)
     .effect("bounce", "slow");
 
@@ -216,18 +216,14 @@ $('#newPostIt').on("click", function (e) {
       buttons: {
         "Delete the task": function () {
 
-          let ubication = '#' + postIt.data("ubication");
+          let total = "#total_"+ postIt.data("ubication");
+          let claseTotal = "." + postIt.data("ubication");
 
-          // Update container counter
-          let total = $(ubication).data("total");
-          total--;
-          $(ubication)
-            .data("total", total)
-            .find(".total")
-            .html($(ubication).data("total"));
+          // Update counter from deleted post-it
+          $(total).html(($(claseTotal).length)-1);
+
 
           // Update Total counter
-          // console.log($(".card").length);
           $('#totalTasks').text("#" + ($(".card").length - 1));
 
           // Remove Post-it
@@ -279,12 +275,14 @@ $("#toDo").droppable({
         .appendTo('#toDoContainer');
 
       // Update Counters
-      $("#totalToDo")
+      $("#total_toDo")
         .html($(".toDo").length)
         .effect("bounce", "slow");
 
-      $("#totalDoing").html($(".doing").length);
-      $("#totalDone").html($(".done").length);
+      $("#total_doing").html($(".doing").length);
+      $("#total_done").html($(".done").length);
+
+
 
     }
   },
@@ -326,13 +324,13 @@ $("#doing").droppable({
         .appendTo('#doingContainer');
 
         // Update Counters
-        $("#totalToDo").html($(".toDo").length);
+        $("#total_toDo").html($(".toDo").length);
 
-        $("#totalDoing")
+        $("#total_doing")
         .html($(".doing").length)
         .effect("bounce", "slow");
 
-        $("#totalDone").html($(".done").length);
+        $("#total_done").html($(".done").length);
 
     }
   },
@@ -375,9 +373,9 @@ $("#done").droppable({
 
         // Update Counter
       
-        $("#totalToDo").html($(".toDo").length);
-        $("#totalDoing").html($(".doing").length);
-        $("#totalDone")
+        $("#total_toDo").html($(".toDo").length);
+        $("#total_doing").html($(".doing").length);
+        $("#total_done")
           .html($(".done").length)
           .effect("bounce", "slow");
 
