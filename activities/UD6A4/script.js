@@ -69,11 +69,11 @@ $('#newPostIt').on("click", function (e) {
 
   // Update total Counter
   $('#totalTasks').text("#" + $(".card").length);
-  
+
   // Update To Do Counter
   $("#total_toDo")
-        .html($(".toDo").length)
-        .effect("bounce", "slow");
+    .html($(".toDo").length)
+    .effect("bounce", "slow");
 
   // Hide/show body PostIt
   $('#postItMin_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
@@ -136,13 +136,13 @@ $('#newPostIt').on("click", function (e) {
         .effect("bounce", "slow");
 
 
-      
+
 
     }
 
 
   })
-  
+
   // Moving post-it with buttons (LEFT)
   $('#postItLeft_' + postIt_id).on("click", { id: newPostIt.data("id") }, function (e) {
 
@@ -160,16 +160,16 @@ $('#newPostIt').on("click", function (e) {
         .css({ "top": 0, "left": 0 })
         .appendTo('#doingContainer');
 
-        // Update Counters
+      // Update Counters
       // DONE
       $("#total_done")
-      .html($(".done").length)
-      .effect("bounce", "slow");
+        .html($(".done").length)
+        .effect("bounce", "slow");
 
-    // DOING
-    $("#total_doing")
-      .html($(".doing").length)
-      .effect("bounce", "slow");
+      // DOING
+      $("#total_doing")
+        .html($(".doing").length)
+        .effect("bounce", "slow");
 
 
     } else if (ubication == 'doing') {
@@ -185,15 +185,15 @@ $('#newPostIt').on("click", function (e) {
 
 
       // Update Counters
-       // DOING
-    $("#total_doing")
-    .html($(".doing").length)
-    .effect("bounce", "slow");
+      // DOING
+      $("#total_doing")
+        .html($(".doing").length)
+        .effect("bounce", "slow");
 
-       // To DO
-    $("#total_toDo")
-    .html($(".toDo").length)
-    .effect("bounce", "slow");
+      // To DO
+      $("#total_toDo")
+        .html($(".toDo").length)
+        .effect("bounce", "slow");
 
 
     }
@@ -216,20 +216,20 @@ $('#newPostIt').on("click", function (e) {
       buttons: {
         "Delete the task": function () {
 
-          let total = "#total_"+ postIt.data("ubication");
+          let total = "#total_" + postIt.data("ubication");
           let claseTotal = "." + postIt.data("ubication");
 
           // Update counter from deleted post-it
-          $(total).html(($(claseTotal).length)-1);
+          $(total).html(($(claseTotal).length) - 1);
 
 
           // Update Total counter
           $('#totalTasks').text("#" + ($(".card").length - 1));
 
           // Remove Post-it
-          postIt
-            .effect("explode", "", 500)
-            .remove();
+          postIt.effect("explode", "", 1000)
+
+          setTimeout(function () { postIt.remove() }, 1000)
 
           $(this).dialog("close");
 
@@ -295,9 +295,9 @@ $("#toDo").droppable({
     // Condition (isDropped) to avoid updating the counter if it is the same container
     if ($(droppedPostIt).data("isDropped") == 1) {
 
-     // Update PostIt dropped status
+      // Update PostIt dropped status
       $(droppedPostIt)
-      .data("isDropped", 0);
+        .data("isDropped", 0);
 
     }
 
@@ -307,7 +307,7 @@ $("#toDo").droppable({
 $("#doing").droppable({
 
   drop: function (event, ui) {
-    
+
     // Get the dropped element
     let droppedPostIt = ui.draggable;
 
@@ -323,14 +323,14 @@ $("#doing").droppable({
         .addClass("doing")
         .appendTo('#doingContainer');
 
-        // Update Counters
-        $("#total_toDo").html($(".toDo").length);
+      // Update Counters
+      $("#total_toDo").html($(".toDo").length);
 
-        $("#total_doing")
+      $("#total_doing")
         .html($(".doing").length)
         .effect("bounce", "slow");
 
-        $("#total_done").html($(".done").length);
+      $("#total_done").html($(".done").length);
 
     }
   },
@@ -371,13 +371,13 @@ $("#done").droppable({
         .addClass("done")
         .appendTo('#doneContainer');
 
-        // Update Counter
-      
-        $("#total_toDo").html($(".toDo").length);
-        $("#total_doing").html($(".doing").length);
-        $("#total_done")
-          .html($(".done").length)
-          .effect("bounce", "slow");
+      // Update Counter
+
+      $("#total_toDo").html($(".toDo").length);
+      $("#total_doing").html($(".doing").length);
+      $("#total_done")
+        .html($(".done").length)
+        .effect("bounce", "slow");
 
 
 
@@ -402,9 +402,9 @@ $("#done").droppable({
     // Condition (isDropped) to avoid updating the counter if it is the same container
     if ($(droppedPostIt).data("isDropped") == 1) {
 
-       // Update PostIt dropped status
+      // Update PostIt dropped status
       $(droppedPostIt)
-      .data("isDropped", 0);
+        .data("isDropped", 0);
 
     }
 
