@@ -7,3 +7,29 @@ form label{
   display: inline-block;
   width: 30%;
 }
+
+#results{
+
+  max-width: 800px;
+  max-height: 600px;
+}
+
+.carousel-caption{
+
+background-color: rgba(255, 255, 255, 0.692);
+color: black;
+
+}
+
+.carousel-control-prev{
+
+  color: black;
+  background-color: bisque;
+}
+
+.carousel-indicators button{
+
+  color: black;
+
+
+}

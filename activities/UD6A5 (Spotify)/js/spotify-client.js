@@ -17,8 +17,13 @@ Spotify.prototype.getArtist = function (artist) {
       'Authorization' : 'Bearer ' + access_token
     },
   }).done( function(response){
-    console.log(response);
-    $('#results').html('mkfldsmvlcws')
+
+    let arrayResult= response.artists.items;
+
+    createIndicators(arrayResult);
+
+    
+    // console.log(response.artists.items);
     
   });
 };
@@ -64,3 +69,20 @@ $(function () {
   });
 
 });
+
+
+function createIndicators(array){
+
+  $('.carousel-indicators').html('');
+
+  for (let i = 0; i < array.length; i++) {
+     
+    let indicator = '<button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="'+ i +'" aria-current="true" aria-label="Slide'+ (i+1) +'"></button>'
+    $('.carousel-indicators').append(indicator)
+    
+  }
+  
+  $('.carousel-indicators button:first').addClass("active");
+
+  
+}
