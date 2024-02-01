@@ -64,7 +64,7 @@ $(function () {
 
   $('#bgetArtist').on('click', function () {
     spotify.getArtist($('#artistName').val());
-    // spotify.getArtist('manolo');
+    // spotify.getArtist('carol');
   });
 
   $('#results').on('click', '.artistId', function () {
@@ -98,39 +98,50 @@ function addItem(array) {
 
   for (let i = 0; i < array.length; i++) {
 
-    let artistImg = array[i].images[0].url;
+    let artistImg;
+    let artistGenres;
     let artistId = array[i].id;
 
-    if (artistImg === "undefined") {
+    // If there are not images
+    array[i].images[0] === undefined ? artistImg = "img/logospotijrr.jpg" : artistImg = array[i].images[0].url
+    array[i].genres[0] === undefined ? artistGenres = "" : artistGenres = array[i].genres[0]
 
 
-      artistImg = '';
+    
 
-      console.log('ffffffffffffffffff');
+    // item =
+
+    //   '<div class="carousel-item" id="' + artistId + '">' +
+    //   '<img src="' + artistImg + '" class="d-block w-100" alt="...">' +
+    //   '<div class="carousel-caption d-none d-md-block">' +
+    //   '<h5>' + array[i].name + '</h5>' +
+    //   '<p>' + artistGenres + '</p>' +
+    //   '</div>' +
+    //   '</div>';
 
 
-    } else {
+    item= 
 
-      artistImg = array[i].images[0].url
-
-    }
-
-    console.log(artistImg);
-
-    item =
-
-      '<div class="carousel-item" id="' + artistId + '">' +
-      '<img src="' + artistImg + '" class="d-block w-100" alt="...">' +
-      '<div class="carousel-caption d-none d-md-block">' +
-      '<h5>' + array[i].name + '</h5>' +
-      '<p>' + array[i].genres[0] + '</p>' +
+    '<div class="carousel-item" id="' + artistId + '">' +
+      '<div class="card" >' +
+        '<div class="row g-0 align-items-center" style="min-width:775px; min-height:325px; max-width:775px; ">' +
+          '<div class="col-md-5 text-center">' +
+            '<img src="' + artistImg + '" class="img-fluid rounded-start" alt="artist_img" >' +
+          '</div>' +
+          '<div class="col-md-7">' +
+            '<div class="card-body">' +
+              '<h5 class="card-title">' + array[i].name + '</h5>' +
+              '<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>' +
+              '<p class="card-text text-end"><small class="text-body-secondary">' + artistGenres + '</small></p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
       '</div>' +
-      '</div>';
+    '</div>';
 
 
     $('.carousel-inner').append(item);
 
-    console.log(i);
 
 
 

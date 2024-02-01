@@ -23,7 +23,7 @@ form label {
 .carousel-control-prev {
 
   color: black;
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 
 .carousel-indicators button {
@@ -34,7 +34,7 @@ form label {
 }
 
 .carousel>.carousel-inner>.carousel-item>img {
-  width: 800px;
+  /* width: 1200px; */
   /* Yeap you can change the width and height*/
-  height: 600px;
+  /* height: 300px; */
 }
