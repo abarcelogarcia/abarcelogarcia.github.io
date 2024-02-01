@@ -1,35 +1,40 @@
-
-#results{
+#results {
   margin-top: 2em;
 }
 
-form label{
+form label {
   display: inline-block;
   width: 30%;
 }
 
-#results{
+#results {
 
   max-width: 800px;
   max-height: 600px;
 }
 
-.carousel-caption{
+.carousel-caption {
 
-background-color: rgba(255, 255, 255, 0.692);
-color: black;
+  background-color: rgba(255, 255, 255, 0.692);
+  color: black;
 
 }
 
-.carousel-control-prev{
+.carousel-control-prev {
 
   color: black;
   background-color: bisque;
 }
 
-.carousel-indicators button{
+.carousel-indicators button {
 
   color: black;
 
 
+}
+
+.carousel>.carousel-inner>.carousel-item>img {
+  width: 800px;
+  /* Yeap you can change the width and height*/
+  height: 600px;
 }

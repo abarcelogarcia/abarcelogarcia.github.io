@@ -14,17 +14,20 @@ Spotify.prototype.getArtist = function (artist) {
     type: "GET",
     url: this.apiUrl + 'v1/search?type=artist&q=' + artist,
     headers: {
-      'Authorization' : 'Bearer ' + access_token
+      'Authorization': 'Bearer ' + access_token
     },
-  }).done( function(response){
+  }).done(function (response) {
 
-    let arrayResult= response.artists.items;
+    let arrayResult = response.artists.items;
+
+    console.log(arrayResult);
 
     createIndicators(arrayResult);
 
-    
-    // console.log(response.artists.items);
-    
+    addItem(arrayResult);
+
+
+
   });
 };
 
@@ -35,11 +38,11 @@ Spotify.prototype.getArtistById = function (artistId) {
     type: "GET",
     url: this.apiUrl + 'v1/artists/' + artistId + '/albums',
     headers: {
-      'Authorization' : 'Bearer ' + access_token
+      'Authorization': 'Bearer ' + access_token
     },
-  }).done( function(response){
+  }).done(function (response) {
     console.log(response);
-    
+
   });
 };
 
@@ -49,19 +52,19 @@ $(function () {
     type: "POST",
     url: "https://accounts.spotify.com/api/token",
     beforeSend: function (xhr) {
-      xhr.setRequestHeader ("Authorization", "Basic " + btoa(client_id + ":" + client_secret));
+      xhr.setRequestHeader("Authorization", "Basic " + btoa(client_id + ":" + client_secret));
     },
     dataType: "json",
     data: { grant_type: "client_credentials" }
-  }).done( function(response) {    
-    access_token = response.access_token;    
+  }).done(function (response) {
+    access_token = response.access_token;
   });
 
   var spotify = new Spotify();
 
   $('#bgetArtist').on('click', function () {
-    // spotify.getArtist($('#artistName').val());
-    spotify.getArtist('manolo');
+    spotify.getArtist($('#artistName').val());
+    // spotify.getArtist('manolo');
   });
 
   $('#results').on('click', '.artistId', function () {
@@ -71,18 +74,74 @@ $(function () {
 });
 
 
-function createIndicators(array){
+function createIndicators(array) {
 
   $('.carousel-indicators').html('');
 
   for (let i = 0; i < array.length; i++) {
-     
-    let indicator = '<button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="'+ i +'" aria-current="true" aria-label="Slide'+ (i+1) +'"></button>'
+
+    let indicator = '<button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>'
     $('.carousel-indicators').append(indicator)
-    
+
   }
-  
+
   $('.carousel-indicators button:first').addClass("active");
 
-  
+
+}
+
+function addItem(array) {
+
+  $('.carousel-inner').html('');
+
+  let item;
+
+  for (let i = 0; i < array.length; i++) {
+
+    let artistImg = array[i].images[0].url;
+    let artistId = array[i].id;
+
+    if (artistImg === "undefined") {
+
+
+      artistImg = '';
+
+      console.log('ffffffffffffffffff');
+
+
+    } else {
+
+      artistImg = array[i].images[0].url
+
+    }
+
+    console.log(artistImg);
+
+    item =
+
+      '<div class="carousel-item" id="' + artistId + '">' +
+      '<img src="' + artistImg + '" class="d-block w-100" alt="...">' +
+      '<div class="carousel-caption d-none d-md-block">' +
+      '<h5>' + array[i].name + '</h5>' +
+      '<p>' + array[i].genres[0] + '</p>' +
+      '</div>' +
+      '</div>';
+
+
+    $('.carousel-inner').append(item);
+
+    console.log(i);
+
+
+
+
+  }
+
+
+
+
+  $('.carousel-inner div:first').addClass("active");
+
+
+
 }
