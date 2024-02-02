@@ -8,11 +8,11 @@ function Spotify() {
 }
 
 //Search for information on an artist, adding the possibility of obtaining their albums.
-Spotify.prototype.getArtist = function (artist) {
+Spotify.prototype.getArtist = function (search) {
 
   $.ajax({
     type: "GET",
-    url: this.apiUrl + 'v1/search?type=artist&q=' + artist,
+    url: this.apiUrl + 'v1/search?type=artist&q=' + search,
     headers: {
       'Authorization': 'Bearer ' + access_token
     },
@@ -20,11 +20,33 @@ Spotify.prototype.getArtist = function (artist) {
 
     let arrayResult = response.artists.items;
 
-    console.log(arrayResult);
+    // console.log(arrayResult);
 
     createIndicators(arrayResult);
 
     addItem(arrayResult);
+
+
+  });
+};
+//Search for information on a track, adding the possibility of obtaining their albums.
+Spotify.prototype.getTrack = function (search) {
+
+  $.ajax({
+    type: "GET",
+    url: this.apiUrl + 'v1/search?type=track&q=' + search,
+    headers: {
+      'Authorization': 'Bearer ' + access_token
+    },
+  }).done(function (response) {
+
+    let arrayResult = response.tracks.items;
+
+    console.log(arrayResult);
+
+    // createIndicators(arrayResult);
+
+    // addItem(arrayResult);
 
 
 
@@ -62,9 +84,11 @@ $(function () {
 
   var spotify = new Spotify();
 
-  $('#bgetArtist').on('click', function () {
-    spotify.getArtist($('#artistName').val());
-    // spotify.getArtist('carol');
+  $('#bgetSearch').on('click', function () {
+    spotify.getArtist($('#inputSearch').val());
+    spotify.getTrack($('#inputSearch').val());
+    // spotify.getArtist('macarena');
+    // spotify.getTrack($('macarena'));
   });
 
   $('#results').on('click', '.artistId', function () {
@@ -113,8 +137,8 @@ function addItem(array) {
     item =
 
       '<div class="carousel-item" id="' + artistId + '">' +
-      '<div class="card" >' +
-      '<div class="row g-0 align-items-center" style="min-width:640px; min-height:320px; max-width:640px; "  >' +
+      '<div class="card">' +
+      '<div class="row g-0 align-items-center" style="min-width:320px; min-height:320px; max-width:640px; "  >' +
       '<div class="col-md-5 text-center" >' +
       '<img src="' + artistImg + '" class="d-block w-100" alt="artist_img" >' +
       '</div>' +
