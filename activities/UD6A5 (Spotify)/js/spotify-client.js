@@ -76,16 +76,16 @@ $(function () {
 
 function createIndicators(array) {
 
-  $('.carousel-indicators').html('');
+  $('.external-indicators').html('');
 
   for (let i = 0; i < array.length; i++) {
 
-    let indicator = '<button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>'
-    $('.carousel-indicators').append(indicator)
+    let indicator = '<button type="button" class="btn btn-dark me-2" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>'
+    $('.external-indicators').append(indicator)
 
   }
 
-  $('.carousel-indicators button:first').addClass("active");
+  $('.external-indicators button:first').addClass("active");
 
 
 }
@@ -107,37 +107,27 @@ function addItem(array) {
     array[i].genres[0] === undefined ? artistGenres = "" : artistGenres = array[i].genres[0]
 
 
-    
-
-    // item =
-
-    //   '<div class="carousel-item" id="' + artistId + '">' +
-    //   '<img src="' + artistImg + '" class="d-block w-100" alt="...">' +
-    //   '<div class="carousel-caption d-none d-md-block">' +
-    //   '<h5>' + array[i].name + '</h5>' +
-    //   '<p>' + artistGenres + '</p>' +
-    //   '</div>' +
-    //   '</div>';
 
 
-    item= 
 
-    '<div class="carousel-item" id="' + artistId + '">' +
+    item =
+
+      '<div class="carousel-item" id="' + artistId + '">' +
       '<div class="card" >' +
-        '<div class="row g-0 align-items-center" style="min-width:775px; min-height:325px; max-width:775px; ">' +
-          '<div class="col-md-5 text-center">' +
-            '<img src="' + artistImg + '" class="img-fluid rounded-start" alt="artist_img" >' +
-          '</div>' +
-          '<div class="col-md-7">' +
-            '<div class="card-body">' +
-              '<h5 class="card-title">' + array[i].name + '</h5>' +
-              '<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>' +
-              '<p class="card-text text-end"><small class="text-body-secondary">' + artistGenres + '</small></p>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
+      '<div class="row g-0 align-items-center" style="min-width:640px; min-height:320px; max-width:640px; "  >' +
+      '<div class="col-md-5 text-center" >' +
+      '<img src="' + artistImg + '" class="d-block w-100" alt="artist_img" >' +
       '</div>' +
-    '</div>';
+      '<div class="col-md-7">' +
+      '<div class="card-body">' +
+      '<h5 class="card-title">' + array[i].name + '</h5>' +
+      '<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>' +
+      '<p class="card-text text-end"><small class="text-body-secondary">' + artistGenres + '</small></p>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>';
 
 
     $('.carousel-inner').append(item);
@@ -156,3 +146,13 @@ function addItem(array) {
 
 
 }
+
+
+$('#external-indicators').on('click', 'button', function (event) {
+  event.preventDefault();
+
+  // `this` is the clicked <button> tag
+  // `$.index()` returns the position of `this` relative to its sibling elements
+  var target = $(this).index();
+  $('#carouselSpotiJRR').carousel(target);
+})

@@ -7,12 +7,6 @@ form label {
   width: 30%;
 }
 
-#results {
-
-  max-width: 800px;
-  max-height: 600px;
-}
-
 .carousel-caption {
 
   background-color: rgba(255, 255, 255, 0.692);
@@ -37,4 +31,16 @@ form label {
   /* width: 1200px; */
   /* Yeap you can change the width and height*/
   /* height: 300px; */
+}
+
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+
+
+  background-color: rgba(0, 0, 0, 0.281);
+
+
+
+
 }

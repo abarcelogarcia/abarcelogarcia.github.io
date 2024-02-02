@@ -23,47 +23,31 @@
     </div>
   </nav>
 
-  <div id="results" class="container-fluid">
+  <div id="results_artists" class="container-fluid">
 
-    <h1 class="diplay1">Artists</h1>
+    <h1 class="display-1">Artists</h1>
 
-    <div id="carouselSpotiJRR" class="carousel slide">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
+    <div id="carouselSpotiJRR" class="carousel carousel-dark slide">
+
+      <div class="carousel-inner carousel-inner-card">
         <div class="carousel-item active">
-          <div class="card" >
+          <div class="card">
             <div class="row g-0 align-items-center">
               <div class="col-md-5">
-                <img src="img/manologarcia1.jpg" class="img-fluid rounded-start" alt="..." >
+                <img src="img/manologarcia1.jpg" class="img-fluid rounded-start" alt="...">
               </div>
               <div class="col-md-7">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <h5 class="card-title">Manolo Garcia</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                    additional content. This content is a little bit longer.</p>
                   <p class="card-text text-end"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- <div class="carousel-item">
-          <img src="img/manologarcia2.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="img/manologarcia3.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
-        </div> -->
+
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselSpotiJRR" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -74,6 +58,53 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
+
+    <div class="external-indicators text-center">
+      <button type="button" class="btn btn-dark me-2" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="0"
+        class="active" aria-current="true" aria-label="Slide 1"></button>
+    </div>
+
+
+
+
+  </div>
+
+
+  <div class="container-fluid" id="results_tracks">
+
+    <h1 class="display-1"> Sounds tracks</h1>
+
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="2">Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+
+
 
 
   </div>
