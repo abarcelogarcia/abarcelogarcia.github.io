@@ -107,13 +107,13 @@ function addItemArtist(array) {
     let artistId = array[i].id;
 
     // If there are not images
-    array[i].images[0] === undefined ? artistImg = "img/logospotijrr.jpg" : artistImg = array[i].images[0].url
+    array[i].images[0] === undefined ? artistImg = "img/logospotijrr2.jpg" : artistImg = array[i].images[0].url
 
 
 
     if(array[i].genres[0] === undefined){
 
-      artistGenres = "No Data";
+      artistGenres = "";
 
     }else{
 
@@ -170,7 +170,7 @@ for (let i = 0; i < array.length; i++) {
   '        <th scope="row">'+(i+1)+'</th>'+
   '        <td>'+ array[i].name +'</td>'+
   '        <td>'+array[i].artists[0].name +'</td>'+
-  '        <td>'+array[i].album.name +'</td>'+
+  '        <td><img src="'+array[i].album.images[0].url +'" alt="img_album" style="max-width: 60px; max-height: 60px;">  '+array[i].album.name +'</td>'+
   '        <td class="text-center">'+array[i].popularity +'</td>'+
   '        <td>'+
   '          <audio controls src="'+array[i].preview_url +'"></audio>'+
