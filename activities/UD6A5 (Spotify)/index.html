@@ -32,7 +32,7 @@
       <div class="carousel-inner carousel-inner-card">
         <div class="carousel-item active">
           <div class="card">
-            <div class="row g-0 align-items-center">
+            <div class="row g-0 align-items-center" style="min-width:320px; min-height:320px; ">
               <div class="col-md-5">
                 <img src="img/manologarcia1.jpg" class="img-fluid rounded-start" alt="...">
               </div>
@@ -82,24 +82,18 @@
           <th scope="col">Artist</th>
           <th scope="col">Album</th>
           <th class="text-center" scope="col-1">Popularity</th>
-          <th class="text-center" scope="col">Preview</th>
+          <th class="text-center" scope="col-1">Preview</th>
         </tr>
       </thead>
       <tbody id="body_tracks">
-        <tr>
+        <tr class="align-middle">
           <th scope="row">1</th>
           <td>Pájaros de barro</td>
           <td>Manolo Garcia</td>
           <td>Grandes Éxitos</td>
           <td class="text-center">64</td>
-          <!-- <td class="text-center"><a href="https://p.scdn.co/mp3-preview/dbc01b38bd8af388f9cd92ffb9a2ed75dedfce31?cid=47de24c607294b9ca933f340741bbd03" style="color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16">
-            <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
-            <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
-            <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
-            <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
-          </svg></a></td> -->
           <td>
-            <audio controls="play" src="https://p.scdn.co/mp3-preview/dbc01b38bd8af388f9cd92ffb9a2ed75dedfce31?cid=47de24c607294b9ca933f340741bbd03"></audio>
+            <audio controls src="https://p.scdn.co/mp3-preview/dbc01b38bd8af388f9cd92ffb9a2ed75dedfce31?cid=47de24c607294b9ca933f340741bbd03"></audio>
           </td>
         </tr>
         <tr>
@@ -108,12 +102,8 @@
           <td>Manolo Garcia</td>
           <td>Grandes Éxitos</td>
           <td class="text-center">53</td>
-          <td class="text-center"><a href="https://p.scdn.co/mp3-preview/76e7ce24c0fa212c0db57fdeb8ae9f5d327041c7?cid=47de24c607294b9ca933f340741bbd03" style="color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16">
-            <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
-            <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
-            <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
-            <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
-          </svg></a></td>
+          <td><audio controls src="https://p.scdn.co/mp3-preview/76e7ce24c0fa212c0db57fdeb8ae9f5d327041c7?cid=47de24c607294b9ca933f340741bbd03"></audio></td>
+         
         </tr>
         <tr>
           <th scope="row">3</th>
@@ -121,12 +111,10 @@
           <td>Manolo Garcia</td>
           <td>Grandes Éxitos</td>
           <td class="text-center">51</td>
-          <td class="text-center"><a href="https://p.scdn.co/mp3-preview/0a5594d767395f1d6089da9355ee882266871cf8?cid=47de24c607294b9ca933f340741bbd03" style="color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16">
-            <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
-            <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
-            <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
-            <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
-          </svg></a></td>
+          <td><audio controls src="https://p.scdn.co/mp3-preview/0a5594d767395f1d6089da9355ee882266871cf8?cid=47de24c607294b9ca933f340741bbd03"></audio></td>
+          
+
+          
         </tr>
       </tbody>
     </table>

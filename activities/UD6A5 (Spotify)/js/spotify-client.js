@@ -8,50 +8,32 @@ function Spotify() {
 }
 
 //Search for information on an artist, adding the possibility of obtaining their albums.
-Spotify.prototype.getArtist = function (search) {
+Spotify.prototype.getSearch = function (search) {
+
+  console.log();
 
   $.ajax({
     type: "GET",
-    url: this.apiUrl + 'v1/search?type=artist&q=' + search,
+    url: this.apiUrl + 'v1/search?type=artist,track&q=' + search,
     headers: {
       'Authorization': 'Bearer ' + access_token
     },
   }).done(function (response) {
 
-    let arrayResult = response.artists.items;
+    let arrayArtists = response.artists.items;
+    let arrayTracks = response.tracks.items;
 
-    // console.log(arrayResult);
+    console.log(response);
 
-    createIndicators(arrayResult);
+    createIndicators(arrayArtists);
 
-    addItem(arrayResult);
-
-
-  });
-};
-//Search for information on a track, adding the possibility of obtaining their albums.
-Spotify.prototype.getTrack = function (search) {
-
-  $.ajax({
-    type: "GET",
-    url: this.apiUrl + 'v1/search?type=track&q=' + search,
-    headers: {
-      'Authorization': 'Bearer ' + access_token
-    },
-  }).done(function (response) {
-
-    let arrayResult = response.tracks.items;
-
-    console.log(arrayResult);
-
-    // createIndicators(arrayResult);
-
-    // addItem(arrayResult);
-
+    addItemArtist(arrayArtists);
+    addItemTracks(arrayTracks);
 
 
   });
 };
+
 
 //Search the albums of an artist, given the id of the artist
 Spotify.prototype.getArtistById = function (artistId) {
@@ -85,10 +67,8 @@ $(function () {
   var spotify = new Spotify();
 
   $('#bgetSearch').on('click', function () {
-    spotify.getArtist($('#inputSearch').val());
-    spotify.getTrack($('#inputSearch').val());
-    // spotify.getArtist('macarena');
-    // spotify.getTrack($('macarena'));
+    spotify.getSearch($('#inputSearch').val());
+    // spotify.getSearch('macarena');
   });
 
   $('#results').on('click', '.artistId', function () {
@@ -114,7 +94,7 @@ function createIndicators(array) {
 
 }
 
-function addItem(array) {
+function addItemArtist(array) {
 
   $('.carousel-inner').html('');
 
@@ -123,30 +103,44 @@ function addItem(array) {
   for (let i = 0; i < array.length; i++) {
 
     let artistImg;
-    let artistGenres;
+    let artistGenres = "Generes: ";
     let artistId = array[i].id;
 
     // If there are not images
     array[i].images[0] === undefined ? artistImg = "img/logospotijrr.jpg" : artistImg = array[i].images[0].url
-    array[i].genres[0] === undefined ? artistGenres = "" : artistGenres = array[i].genres[0]
 
 
 
+    if(array[i].genres[0] === undefined){
 
+      artistGenres = "No Data";
+
+    }else{
+
+      for (let j = 0; j < array[i].genres.length; j++) {
+        
+        artistGenres += array[i].genres[j] + ", ";
+        
+        console.log(artistGenres);
+
+      }
+
+
+    }
 
     item =
 
       '<div class="carousel-item" id="' + artistId + '">' +
       '<div class="card">' +
-      '<div class="row g-0 align-items-center" style="min-width:320px; min-height:320px; max-width:640px; "  >' +
+      '<div class="row g-0 align-items-center" style="min-width:320px; min-height:320px; "  >' +
       '<div class="col-md-5 text-center" >' +
-      '<img src="' + artistImg + '" class="d-block w-100" alt="artist_img" >' +
+      '<a href=""><img src="' + artistImg + '" alt="artist_img" style="max-height:320px" class="img-fluid"></a>' +
       '</div>' +
       '<div class="col-md-7">' +
       '<div class="card-body">' +
       '<h5 class="card-title">' + array[i].name + '</h5>' +
-      '<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>' +
-      '<p class="card-text text-end"><small class="text-body-secondary">' + artistGenres + '</small></p>' +
+      '<p class="card-text">Popularity: '+array[i].popularity+'</p>' +
+      '<p class="card-text"><small class="text-body-secondary">' + artistGenres + '</small></p>' +
       '</div>' +
       '</div>' +
       '</div>' +
@@ -156,19 +150,42 @@ function addItem(array) {
 
     $('.carousel-inner').append(item);
 
-
-
-
-
   }
-
-
-
-
   $('.carousel-inner div:first').addClass("active");
+}
+
+function addItemTracks(array) {
+
+  $('#body_tracks').html('');
+  
+  let item;
+  
+for (let i = 0; i < array.length; i++) {
+  
+
+  
+  item=
+  
+  '<tr class="align-middle">'+
+  '        <th scope="row">'+(i+1)+'</th>'+
+  '        <td>'+ array[i].name +'</td>'+
+  '        <td>'+array[i].artists[0].name +'</td>'+
+  '        <td>'+array[i].album.name +'</td>'+
+  '        <td class="text-center">'+array[i].popularity +'</td>'+
+  '        <td>'+
+  '          <audio controls src="'+array[i].preview_url +'"></audio>'+
+  '        </td>'+
+  '      </tr>';
+  
+
+  $('#body_tracks').append(item);
+
+}
 
 
 
+
+  
 }
 
 
