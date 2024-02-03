@@ -2,6 +2,8 @@ var client_id = '47de24c607294b9ca933f340741bbd03';
 var client_secret = 'c33ae6c1874d4eebb0195bf9ef48c64e';
 var access_token = '';
 
+
+
 //We create the Spotify class with the API to make the call to
 function Spotify() {
   this.apiUrl = 'https://api.spotify.com/';
@@ -9,8 +11,6 @@ function Spotify() {
 
 //Search for information on an artist, adding the possibility of obtaining their albums.
 Spotify.prototype.getSearch = function (search) {
-
-  console.log();
 
   $.ajax({
     type: "GET",
@@ -23,7 +23,7 @@ Spotify.prototype.getSearch = function (search) {
     let arrayArtists = response.artists.items;
     let arrayTracks = response.tracks.items;
 
-    // console.log(response);
+    console.log(response);
 
     createIndicators(arrayArtists);
 
@@ -31,13 +31,12 @@ Spotify.prototype.getSearch = function (search) {
 
     addItemTracks(arrayTracks, 'search');
 
-
   });
 };
 
-
 //Search the albums of an artist, given the id of the artist
 Spotify.prototype.getArtistById = function (artistId) {
+
 
   $.ajax({
     type: "GET",
@@ -46,7 +45,6 @@ Spotify.prototype.getArtistById = function (artistId) {
       'Authorization': 'Bearer ' + access_token
     },
   }).done(function (response) {
-    console.log(response.items);
 
     let arrayAlbums = (response.items);
 
@@ -54,10 +52,9 @@ Spotify.prototype.getArtistById = function (artistId) {
 
     addItem(arrayAlbums, 'albums');
 
-    
+    var spotify = new Spotify();
 
-
-  
+    spotify.getAlbumById(arrayAlbums[0].id);
 
   });
 };
@@ -73,53 +70,12 @@ Spotify.prototype.getAlbumById = function (albumId) {
     },
   }).done(function (response) {
 
-    console.log(response);
-
-    // let arrayAlbums = (response);
-
-    // createIndicators(arrayAlbums);
-
-    // addItem(arrayAlbums, 'albums');
-
-
     let arrayTracks = response.tracks.items;
 
     addItemTracks(arrayTracks, 'album');
 
-
-  
-
   });
 };
-
-//This fragment is the first thing that is loaded, when the $(document).ready
-$(function () {
-  $.ajax({
-    type: "POST",
-    url: "https://accounts.spotify.com/api/token",
-    beforeSend: function (xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + btoa(client_id + ":" + client_secret));
-    },
-    dataType: "json",
-    data: { grant_type: "client_credentials" }
-  }).done(function (response) {
-    access_token = response.access_token;
-  });
-
-  var spotify = new Spotify();
-
-  $('#bgetSearch').on('click', function () {
-    // spotify.getSearch($('#inputSearch').val());
-    spotify.getSearch('Karol');
-  });
-
-  $('#results_artists').on('click', '.artistId', function () {
-    spotify.getArtistById($(this).attr("data-id"));
-    spotify.getAlbumById("1f2q2JQ3GFwIrWch2JLC0u");
-  });
-
-});
-
 
 function createIndicators(array) {
 
@@ -127,7 +83,8 @@ function createIndicators(array) {
 
   for (let i = 0; i < array.length; i++) {
 
-    let indicator = '<button type="button" class="btn me-2 btn-indicator" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>'
+    let indicator = '<button type="button" class="btn me-2 btn-indicator" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>';
+    
     $('.external-indicators').append(indicator)
 
   }
@@ -217,7 +174,7 @@ function addItem(array, type) {
       
       item =
       
-      '<div class="carousel-item">' +
+      '<div class="carousel-item" album-id="'+ itemId +'">' +
       '<div class="card">' +
       '<div class="row g-0 align-items-center artistId" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
       '<div class="col-md-5 text-center" >' +
@@ -270,7 +227,6 @@ function addItem(array, type) {
   $('.carousel-inner div:first').addClass("active");
 }
 
-
 function addItemTracks(array, type) {
 
   $('#body_tracks').html('');
@@ -320,7 +276,7 @@ function addItemTracks(array, type) {
 
       let item;
       let trackPreview;
-      let trackNumber = array[i].track_number;
+      // let trackNumber = array[i].track_number;
       let trackName = array[i].name;
       let trackDuration = Number((((array[i].duration_ms)/1000)/60).toFixed(2));
         
@@ -330,7 +286,7 @@ function addItemTracks(array, type) {
       item=
       
       '<tr class="align-middle">'+
-      '        <th scope="row">'+ trackNumber +'</th>'+
+      '        <th scope="row">'+(i+1)+'</th>'+
       '        <td>'+ trackName +'</td>'+
       '        <td>'+ trackDuration +' min.</td>'+
       '        <td>'+
@@ -354,11 +310,91 @@ $('#external-indicators').on('click', 'button', function (e) {
   $('#carouselSpotiJRR').carousel(target);
 })
 
+
+
+// EVENTS
+
+// Carousel control buttons & mousewheel
+// Select tracks album.
+$('#carouselSpotiJRR').on('mousewheel', function(e) {
+  if(e.originalEvent.wheelDelta /120 > 0) {
+      $(this).carousel('next');
+      
+      setTimeout(function(){
+
+        let albumId = $('.carousel-item.active').attr('album-id');
+    
+        console.log(albumId);
+
+        var spotify = new Spotify();
+    
+        spotify.getAlbumById(albumId);
+  
+      }, 700)
+  } 
+  
+});
+
+$('.carousel-control-next, .carousel-control-prev').on('click', function(e){
+
+  e.preventDefault();
+
+  setTimeout(function(){
+
+    let albumId = $('.carousel-item.active').attr('album-id');
+
+    console.log(albumId);
+
+    var spotify = new Spotify();
+
+    spotify.getAlbumById(albumId);
+
+  }, 700)
+
+});
+
+// ONLOAD
+//This fragment is the first thing that is loaded, when the $(document).ready
+$(function () {
+  $.ajax({
+    type: "POST",
+    url: "https://accounts.spotify.com/api/token",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + btoa(client_id + ":" + client_secret));
+    },
+    dataType: "json",
+    data: { grant_type: "client_credentials" }
+  }).done(function (response) {
+    access_token = response.access_token;
+  });
+
+  var spotify = new Spotify();
+
+  $('#bgetSearch').on('click', function () {
+    spotify.getSearch($('#inputSearch').val());
+    // spotify.getSearch('Karol');
+  });
+
+  $('#results_artists').on('click', '.artistId', function () {
+    spotify.getArtistById($(this).attr("data-id"));
+    
+  });
+  
+
+  
+});
+
+
 // TOOLS
 
+// Set capital letter
 function capitalLetter(string){
 
-return string.charAt(0).toUpperCase() + string.slice(1);
-
-
+  return string.charAt(0).toUpperCase() + string.slice(1);
+  
 }
+
+
+
+
+ 
