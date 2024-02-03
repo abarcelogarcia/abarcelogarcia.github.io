@@ -38,7 +38,8 @@ form label {
 .carousel-control-next:hover {
 
 
-  background-color: rgba(0, 0, 0, 0.281);
+  background-color: #ef8d2c70;
+  
 
 
 
@@ -57,5 +58,33 @@ a{
 
 text-decoration: none;
 
+
+}
+
+.artistId{
+
+
+  cursor: pointer;
+
+}
+
+.btn{
+
+  color: #EF8C2C;
+  border-color: #EF8C2C;
+
+}
+
+.btn-indicator{
+
+
+  background-color: #EF8C2C;
+
+}
+
+table{
+
+
+  color: #EF8C2C;
 
 }

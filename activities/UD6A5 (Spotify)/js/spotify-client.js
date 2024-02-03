@@ -14,7 +14,7 @@ Spotify.prototype.getSearch = function (search) {
 
   $.ajax({
     type: "GET",
-    url: this.apiUrl + 'v1/search?type=artist,track&q=' + search,
+    url: this.apiUrl + 'v1/search?type=artist,track&market=ES&q=' + search,
     headers: {
       'Authorization': 'Bearer ' + access_token
     },
@@ -23,12 +23,13 @@ Spotify.prototype.getSearch = function (search) {
     let arrayArtists = response.artists.items;
     let arrayTracks = response.tracks.items;
 
-    console.log(response);
+    // console.log(response);
 
     createIndicators(arrayArtists);
 
-    addItemArtist(arrayArtists);
-    addItemTracks(arrayTracks);
+    addItem(arrayArtists, 'artists');
+
+    addItemTracks(arrayTracks, 'search');
 
 
   });
@@ -40,12 +41,53 @@ Spotify.prototype.getArtistById = function (artistId) {
 
   $.ajax({
     type: "GET",
-    url: this.apiUrl + 'v1/artists/' + artistId + '/albums',
+    url: this.apiUrl + 'v1/artists/' + artistId + '/albums?&market=ES&album_type=album',
     headers: {
       'Authorization': 'Bearer ' + access_token
     },
   }).done(function (response) {
+    console.log(response.items);
+
+    let arrayAlbums = (response.items);
+
+    createIndicators(arrayAlbums);
+
+    addItem(arrayAlbums, 'albums');
+
+    
+
+
+  
+
+  });
+};
+
+//Search tracks of selected album, given the id of the album
+Spotify.prototype.getAlbumById = function (albumId) {
+
+  $.ajax({
+    type: "GET",
+    url: this.apiUrl + 'v1/albums/' + albumId + '?&market=ES',
+    headers: {
+      'Authorization': 'Bearer ' + access_token
+    },
+  }).done(function (response) {
+
     console.log(response);
+
+    // let arrayAlbums = (response);
+
+    // createIndicators(arrayAlbums);
+
+    // addItem(arrayAlbums, 'albums');
+
+
+    let arrayTracks = response.tracks.items;
+
+    addItemTracks(arrayTracks, 'album');
+
+
+  
 
   });
 };
@@ -67,12 +109,13 @@ $(function () {
   var spotify = new Spotify();
 
   $('#bgetSearch').on('click', function () {
-    spotify.getSearch($('#inputSearch').val());
-    // spotify.getSearch('macarena');
+    // spotify.getSearch($('#inputSearch').val());
+    spotify.getSearch('Karol');
   });
 
-  $('#results').on('click', '.artistId', function () {
+  $('#results_artists').on('click', '.artistId', function () {
     spotify.getArtistById($(this).attr("data-id"));
+    spotify.getAlbumById("1f2q2JQ3GFwIrWch2JLC0u");
   });
 
 });
@@ -84,116 +127,238 @@ function createIndicators(array) {
 
   for (let i = 0; i < array.length; i++) {
 
-    let indicator = '<button type="button" class="btn btn-dark me-2" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>'
+    let indicator = '<button type="button" class="btn me-2 btn-indicator" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '"></button>'
     $('.external-indicators').append(indicator)
 
   }
 
-  $('.external-indicators button:first').addClass("active");
+  // $('.external-indicators button:first').addClass("active");
 
 
 }
 
-function addItemArtist(array) {
+function addItem(array, type) {
 
   $('.carousel-inner').html('');
 
   let item;
 
-  for (let i = 0; i < array.length; i++) {
 
-    let artistImg;
-    let artistGenres = "Generes: ";
-    let artistId = array[i].id;
+    for (let i = 0; i < array.length; i++) {
 
-    // If there are not images
-    array[i].images[0] === undefined ? artistImg = "img/logospotijrr2.jpg" : artistImg = array[i].images[0].url
+      if(type=='artists'){
 
+      let itemId = array[i].id; // id
+      let itemName = array[i].name; // Artist Name
+      let itemSub = array[i].popularity; // Popularity
 
+      // Artist image
+      let itemImg;
+      array[i].images[0] === undefined ? itemImg = "img/logo.png" : itemImg = array[i].images[0].url // If there are not images
+      
+      // Artist genres
+      let details = "Genres: ";
 
-    if(array[i].genres[0] === undefined){
-
-      artistGenres = "";
-
-    }else{
-
-      for (let j = 0; j < array[i].genres.length; j++) {
-        
-        artistGenres += array[i].genres[j] + ", ";
-        
-        console.log(artistGenres);
-
+      // Control empty genres Or concat all genres
+      if(array[i].genres[0] === undefined){
+  
+        details = "";
+  
+      }else{
+  
+        for (let j = 0; j < array[i].genres.length; j++) {
+          
+          details += array[i].genres[j] + ", ";
+  
+        }
       }
+      
+      item =
+  
+        '<div class="carousel-item">' +
+        '<div class="card">' +
+        '<div class="row g-0 align-items-center artistId" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
+        '<div class="col-md-5 text-center" >' +
+        '<img src="' + itemImg + '" alt="artist_img" style="max-height:320px" class="img-fluid">' +
+        '</div>' +
+        '<div class="col-md-7">' +
+        '<div class="card-body">' +
+        '<h5 class="card-title">' + itemName + '</h5>' +
+        '<p class="card-text">Popularity: '+itemSub+'</p>' +
+        '<p class="card-text"><small class="text-body-secondary">' + details + '</small></p>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+      
+  
+      
+  
+  
+  
+      
 
+    }else if(type=='albums'){
 
-    }
-
-    item =
-
-      '<div class="carousel-item" id="' + artistId + '">' +
+      
+      
+      let itemId = array[i].id; // id
+      let itemName = array[i].name; // Album Name
+      let itemSub = capitalLetter(array[i].album_type); // Album type
+      let details = array[i].release_date; // release date
+      let albumArtist = array[i].artists[0].name; // Album artist
+      let albumTracks = array[i].total_tracks; // Album tracks
+      
+      // Album image
+      let itemImg;
+      array[i].images[0] === undefined ? itemImg = "img/logo.png" : itemImg = array[i].images[0].url // If there are not images
+      
+      
+      item =
+      
+      '<div class="carousel-item">' +
       '<div class="card">' +
-      '<div class="row g-0 align-items-center" style="min-width:320px; min-height:320px; "  >' +
+      '<div class="row g-0 align-items-center artistId" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
       '<div class="col-md-5 text-center" >' +
-      '<a href=""><img src="' + artistImg + '" alt="artist_img" style="max-height:320px" class="img-fluid"></a>' +
+      '<img src="' + itemImg + '" alt="album_img" style="max-height:320px" class="img-fluid">' +
       '</div>' +
       '<div class="col-md-7">' +
       '<div class="card-body">' +
-      '<h5 class="card-title">' + array[i].name + '</h5>' +
-      '<p class="card-text">Popularity: '+array[i].popularity+'</p>' +
-      '<p class="card-text"><small class="text-body-secondary">' + artistGenres + '</small></p>' +
+      '<h5 class="card-title">' + itemName + '</h5>' +
+      '<p class="card-text">'+ itemSub +'</p>' +
+      '<p class="card-text">Tracks: '+albumTracks +'</p>' +
+      '<p class="card-text text-end"><small class="text-body-secondary">' + details + '</small></p>' +
       '</div>' +
       '</div>' +
       '</div>' +
       '</div>' +
       '</div>';
+      
+      
+      
+      $('#tittle_carousel').html(albumArtist);
 
 
+      
+      
+      
+      
+    }
+
+
+    
+    
+    
+    
+    
     $('.carousel-inner').append(item);
-
+    
   }
+
+
+  
+  
+  
+  
+  
+  
+
+
+
+
   $('.carousel-inner div:first').addClass("active");
 }
 
-function addItemTracks(array) {
+
+function addItemTracks(array, type) {
 
   $('#body_tracks').html('');
+
+  if(type=='search'){
+
+    $('#cap_popularity').show();
+    $('#cap_artist').show();
+
+    let item;
+    let trackPreview;
+    
+    for (let i = 0; i < array.length; i++) {
+      
+      array[i].preview_url==null ? trackPreview = "#" : trackPreview = array[i].preview_url
   
-  let item;
   
-for (let i = 0; i < array.length; i++) {
-  
+        item=
+        
+        '<tr class="align-middle">'+
+        '        <th scope="row">'+(i+1)+'</th>'+
+        '        <td>'+ array[i].name +'</td>'+
+        '        <td>'+array[i].artists[0].name +'</td>'+
+        '        <td><img src="'+array[i].album.images[0].url +'" alt="img_album" style="max-width: 60px; max-height: 60px;">  '+array[i].album.name +'</td>'+
+        '        <td class="text-center">'+array[i].popularity +'</td>'+
+        '        <td>'+
+        '          <audio controls src="'+trackPreview +'" id="audio_'+ array[i].id +'"  ></audio>'+
+        '        </td>'+
+        '      </tr>';
+        
+        
+        
+        $('#body_tracks').append(item);
+    }
+
+
+  }else if(type=='album'){
 
   
-  item=
-  
-  '<tr class="align-middle">'+
-  '        <th scope="row">'+(i+1)+'</th>'+
-  '        <td>'+ array[i].name +'</td>'+
-  '        <td>'+array[i].artists[0].name +'</td>'+
-  '        <td><img src="'+array[i].album.images[0].url +'" alt="img_album" style="max-width: 60px; max-height: 60px;">  '+array[i].album.name +'</td>'+
-  '        <td class="text-center">'+array[i].popularity +'</td>'+
-  '        <td>'+
-  '          <audio controls src="'+array[i].preview_url +'"></audio>'+
-  '        </td>'+
-  '      </tr>';
-  
 
-  $('#body_tracks').append(item);
+    $('#cap_album').html('Duration');
+    $('#cap_popularity').hide();
+    $('#cap_artist').hide();
 
+      
+    for (let i = 0; i < array.length; i++) {
+
+      let item;
+      let trackPreview;
+      let trackNumber = array[i].track_number;
+      let trackName = array[i].name;
+      let trackDuration = Number((((array[i].duration_ms)/1000)/60).toFixed(2));
+        
+      array[i].preview_url==null ? trackPreview = "#" : trackPreview = array[i].preview_url
+    
+    
+      item=
+      
+      '<tr class="align-middle">'+
+      '        <th scope="row">'+ trackNumber +'</th>'+
+      '        <td>'+ trackName +'</td>'+
+      '        <td>'+ trackDuration +' min.</td>'+
+      '        <td>'+
+      '          <audio controls src="'+trackPreview +'" id="audio_'+ array[i].id +'"  ></audio>'+
+      '        </td>'+
+      '      </tr>';
+
+      $('#body_tracks').append(item);
+    
+    }
+  }
 }
 
 
-
-
-  
-}
-
-
-$('#external-indicators').on('click', 'button', function (event) {
-  event.preventDefault();
+$('#external-indicators').on('click', 'button', function (e) {
+  e.preventDefault();
 
   // `this` is the clicked <button> tag
   // `$.index()` returns the position of `this` relative to its sibling elements
   var target = $(this).index();
   $('#carouselSpotiJRR').carousel(target);
 })
+
+// TOOLS
+
+function capitalLetter(string){
+
+return string.charAt(0).toUpperCase() + string.slice(1);
+
+
+}

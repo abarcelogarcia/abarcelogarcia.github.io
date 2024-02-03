@@ -15,7 +15,7 @@
 
   <nav class="navbar bg-body-tertiary">
     <div class="container-fluid bg-dark">
-      <a class="navbar-brand"><img src="img/logospotijrr3.png" alt="logo" style="max-width: 90px;" ></a>
+      <a class="navbar-brand"><img src="img/logospotijrrnav.png" alt="logo" style="max-width: 400px;" ></a>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
         <button class="btn btn-outline-light" type="button" id="bgetSearch">Search</button>
@@ -25,7 +25,7 @@
 
   <div id="results_artists" class="container-fluid">
 
-    <h1 class="display-1">Artists</h1>
+    <h1 class="display-1" id="tittle_carousel">Artists</h1>
 
     <div id="carouselSpotiJRR" class="carousel carousel-dark slide">
 
@@ -60,7 +60,7 @@
     </div>
 
     <div class="external-indicators text-center">
-      <button type="button" class="btn btn-dark me-2" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="0"
+      <button type="button" class="btn me-2 btn-indicator" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="0"
         class="active" aria-current="true" aria-label="Slide 1"></button>
     </div>
 
@@ -77,12 +77,12 @@
     <table class="table table-dark table-striped">
       <thead>
         <tr>
-          <th scope="col-1">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Artist</th>
-          <th scope="col">Album</th>
-          <th class="text-center" scope="col-1">Popularity</th>
-          <th class="text-center" scope="col-1">Preview</th>
+          <th scope="col-1" style="color: #EF8C2C;">#</th>
+          <th scope="col" style="color: #EF8C2C;">Title</th>
+          <th scope="col" style="color: #EF8C2C;" id="cap_artist">Artist</th>
+          <th scope="col" style="color: #EF8C2C;" id="cap_album">Album</th>
+          <th class="text-center" scope="col-1" style="color: #EF8C2C;" id="cap_popularity">Popularity</th>
+          <th scope="col-1" style="color: #EF8C2C;">Preview</th>
         </tr>
       </thead>
       <tbody id="body_tracks">
