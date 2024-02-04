@@ -9,7 +9,7 @@ function Spotify() {
   this.apiUrl = 'https://api.spotify.com/';
 }
 
-//Search for information on an artist, adding the possibility of obtaining their albums.
+//Search for information on an artist & songs.
 Spotify.prototype.getSearch = function (search) {
 
   $.ajax({
@@ -34,10 +34,10 @@ Spotify.prototype.getSearch = function (search) {
   });
 };
 
-//Search the albums of an artist, given the id of the artist
-Spotify.prototype.getArtistById = function (artistId) {
+//Search the albums of an artist, given the id of the artist and/or album
+Spotify.prototype.getArtistById = function (artistId, albumId) {
 
-
+  
   $.ajax({
     type: "GET",
     url: this.apiUrl + 'v1/artists/' + artistId + '/albums?&market=ES&album_type=album',
@@ -45,16 +45,22 @@ Spotify.prototype.getArtistById = function (artistId) {
       'Authorization': 'Bearer ' + access_token
     },
   }).done(function (response) {
-
+    
     let arrayAlbums = (response.items);
 
+    // load carusel indicators depending on the size of the array    
     createIndicators(arrayAlbums);
 
+    // Add item to carousel (artists or albums) 
     addItem(arrayAlbums, 'albums');
 
-    var spotify = new Spotify();
+    console.log(arrayAlbums);
 
-    spotify.getAlbumById(arrayAlbums[0].id);
+    // If no album id is added, the first one in the array is chosen.
+    if(albumId == undefined){albumId = arrayAlbums[0].id};
+
+    var spotify = new Spotify();
+    spotify.getAlbumById(albumId);// add tracks to table tracks
 
   });
 };
@@ -64,7 +70,7 @@ Spotify.prototype.getAlbumById = function (albumId) {
 
   $.ajax({
     type: "GET",
-    url: this.apiUrl + 'v1/albums/' + albumId + '?&market=ES',
+    url: this.apiUrl + 'v1/albums/' + albumId + '?&market=ES&album_type=album',
     headers: {
       'Authorization': 'Bearer ' + access_token
     },
@@ -77,17 +83,14 @@ Spotify.prototype.getAlbumById = function (albumId) {
   });
 };
 
+// Function that adds the carousel indicators
 function createIndicators(array) {
 
   $('.external-indicators').html('');
 
   for (let i = 0; i < array.length; i++) {
     
-        if(i>10){
-    
-          continue;
-    
-        }
+    if(i>10){ continue;} // Limit 10
 
     let indicator = '<button type="button" class="btn m-2 btn-indicator text-truncate" data-bs-toggle="button" data-bs-target="#carouselSpotiJRR" data-bs-slide-to="' + i + '" aria-current="true" aria-label="Slide' + (i + 1) + '">'+array[i].name+'</button>';
     
@@ -100,6 +103,7 @@ function createIndicators(array) {
 
 }
 
+// Function to add items (artists or albums)
 function addItem(array, type) {
 
   $('.carousel-inner').html('');
@@ -155,16 +159,7 @@ function addItem(array, type) {
         '</div>' +
         '</div>';
       
-  
-      
-  
-  
-  
-      
-
     }else if(type=='albums'){
-
-      
       
       let itemId = array[i].id; // id
       let itemName = array[i].name; // Album Name
@@ -201,38 +196,16 @@ function addItem(array, type) {
       
       
       $('#tittle_carousel').html(albumArtist);
-
-
-      
-      
-      
-      
     }
-
-
-    
-    
-    
-    
     
     $('.carousel-inner').append(item);
     
   }
 
-
-  
-  
-  
-  
-  
-  
-
-
-
-
   $('.carousel-inner div:first').addClass("active");
 }
 
+// Function to add songs to the tracks table
 function addItemTracks(array, type) {
 
   $('#body_tracks').html('');
@@ -251,36 +224,40 @@ function addItemTracks(array, type) {
 
       let itemId = array[i].id;
       let artistId = array[i].artists[0].id;
+      let trackTitle = array[i].name;
+      let artistName = array[i].artists[0].name;
+      let albumName = array[i].album.name;
+      let albumId = array[i].album.id;
+      let popularity = array[i].popularity;
 
-  
-  
-        item=
-        
-        '<tr class="align-middle">'+
-        '        <th scope="row">'+(i+1)+'</th>'+
-        '        <td>'+ array[i].name +'</td>'+
-        '        <td class="artistTrack" data-id="'+ artistId +'">'+array[i].artists[0].name +'</td>'+
-        '        <td><img src="'+array[i].album.images[0].url +'" alt="img_album" style="max-width: 60px; max-height: 60px;">  '+array[i].album.name +'</td>'+
-        '        <td class="text-center">'+array[i].popularity +'</td>'+
-        '        <td>'+
-        '          <audio controls src="'+trackPreview +'" id="audio_'+ itemId +'"  ></audio>'+
-        '        </td>'+
-        '      </tr>';
-        
-        
+      item=
+      
+      '<tr class="align-middle">'+
+      ' <th scope="row">'+(i+1)+'</th>'+
+      ' <td>'+ trackTitle +'</td>'+
+      ' <td class="artistTrack" data-artist-id="'+ artistId +'">'+artistName +'</td>'+
+      ' <td class="albumTrack" data-album-id="'+ albumId +'" data-artist-id="'+ artistId +'"><img src="'+array[i].album.images[0].url +'" alt="img_album" style="max-width: 60px; max-height: 60px;">  '+ albumName +'</td>'+
+      ' <td class="text-center">'+ popularity +'</td>'+
+      ' <td>'+
+      '  <audio controls src="'+trackPreview +'" id="audio_'+ itemId +'"  ></audio>'+
+      ' </td>'+
+      '</tr>';
         
         $('#body_tracks').append(item);
-       
-
-       
     }
 
     // Add artist search if click on the artist name
     $('.artistTrack').on('click', function(e){
-
       e.preventDefault();
       var spotify = new Spotify();
-      spotify.getArtistById($(this).attr("data-id"));
+      spotify.getArtistById($(this).attr("data-artist-id"));
+    })
+    
+    // Add album search if click on the album
+    $('.albumTrack').on('click', function(e){
+      e.preventDefault();
+      var spotify = new Spotify();
+      spotify.getArtistById($(this).attr("data-artist-id"), $(this).attr("data-album-id"));
     })
 
 
@@ -298,7 +275,6 @@ function addItemTracks(array, type) {
       let item;
       let itemId = array[i].id;
       let trackPreview;
-      // let trackNumber = array[i].track_number;
       let trackName = array[i].name;
       let trackDuration = Number((((array[i].duration_ms)/1000)/60).toFixed(2));
 
@@ -323,7 +299,7 @@ function addItemTracks(array, type) {
   }
 }
 
-
+// Event to use "external" indicators of the carousel
 $('#external-indicators').on('click', 'button', function (e) {
   e.preventDefault();
 
@@ -334,11 +310,12 @@ $('#external-indicators').on('click', 'button', function (e) {
 })
 
 
-
 // EVENTS
 
 // Carousel control buttons & mousewheel
-// Select tracks album.
+// Load tracks album.
+
+
 $('#carouselSpotiJRR').on('mousewheel', function(e) {
   if(e.originalEvent.wheelDelta /120 > 0) {
       $(this).carousel('next');
@@ -346,13 +323,12 @@ $('#carouselSpotiJRR').on('mousewheel', function(e) {
       setTimeout(function(){
 
         let albumId = $('.carousel-item.active').attr('album-id');
-    
-        console.log(albumId);
-
-        var spotify = new Spotify();
-    
-        spotify.getAlbumById(albumId);
-  
+ 
+        // If carousel items are artists (there isn't albumId), Not load tracks table
+        if(albumId!=undefined){
+          var spotify = new Spotify();
+          spotify.getAlbumById(albumId);
+        }
       }, 700)
   } 
   
@@ -366,12 +342,11 @@ $('.carousel-control-next, .carousel-control-prev').on('click', function(e){
 
     let albumId = $('.carousel-item.active').attr('album-id');
 
-    console.log(albumId);
-
-    var spotify = new Spotify();
-
-    spotify.getAlbumById(albumId);
-
+    // If carousel items are artists (there isn't albumId), Not load tracks table
+    if(albumId!=undefined){
+      var spotify = new Spotify();
+      spotify.getAlbumById(albumId);
+    }
   }, 700)
 
 });
@@ -385,17 +360,16 @@ $('#indicators').on('click', function(e){
 
     let albumId = $('.carousel-item.active').attr('album-id');
 
-    console.log(albumId);
 
-    var spotify = new Spotify();
-
-    spotify.getAlbumById(albumId);
+    // If carousel items are artists (there isn't albumId), Not load tracks table
+    if(albumId!=undefined){
+      var spotify = new Spotify();
+      spotify.getAlbumById(albumId);
+    }
 
   }, 700)
 
 });
-
-
 
 
 

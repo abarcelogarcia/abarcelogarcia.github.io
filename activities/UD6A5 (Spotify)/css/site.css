@@ -1,3 +1,7 @@
+:root{
+  --orange_corp:#EF8C2C;
+}
+
 #results {
   margin-top: 2em;
 }
@@ -15,39 +19,23 @@ form label {
 }
 
 .carousel-control-prev {
-
   color: black;
-  /* background-color: bisque; */
 }
 
 .carousel-indicators button {
-
   color: black;
-
-
-}
-
-.carousel>.carousel-inner>.carousel-item>img {
-  /* width: 1200px; */
-  /* Yeap you can change the width and height*/
-  /* height: 300px; */
 }
 
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
 
-
-  background-color: #ef8d2c70;
-  
-
-
-
+  background-color: var(--orange_corp);
+  opacity: 25%;
 
 }
 
 .card{
-
 
   margin-inline-start: 150px;
   margin-inline-end: 150px;
@@ -55,47 +43,27 @@ form label {
 }
 
 a{
-
-text-decoration: none;
-
-
+  text-decoration: none;
 }
 
-.artistId{
-
-
-  cursor: pointer;
-
-}
-
-/* .btn{
-
-  color: #EF8C2C;
-  border-color: #EF8C2C;
-
-} */
 
 .btn-indicator {
-
-
   background-color: none;
-border-color: #EF8C2C;
-  color:#EF8C2C;
+  border-color: var(--orange_corp);
+  color:var(--orange_corp);
   max-width: 200px;
   font-size: 14px;
 }
 
 
 .btn-indicator:focus{
-border-color: #EF8C2C;
-
-  background-color:#EF8C2C;
+  border-color: var(--orange_corp);
+  background-color:var(--orange_corp);
   color: white;
 }
 .btn-indicator:hover{
-border-color: #EF8C2C;
-
-  background-color:#EF8C2C;
+  border-color:var(--orange_corp);
+  background-color:var(--orange_corp);
   color: white;
 }
 
@@ -106,34 +74,28 @@ border-color: #EF8C2C;
 
 #table-tracks th{
 
-  color:#EF8C2C;
-
-
-
-
+  color:var(--orange_corp);
 
 }
 
 #bgetSearch_index{
 
-
-  border-color: #EF8C2C;
-  color: #EF8C2C;
+  border-color: var(--orange_corp);
+  color: var(--orange_corp);
 
 }
 
 .carousel-dark{
 
   background-color: dark;
-  
-
 
 }
 
-.artistTrack:hover{
-
+.artistTrack:hover, .albumTrack:hover, .artistId{
 
   cursor: pointer;
 
 }
+
+
 
