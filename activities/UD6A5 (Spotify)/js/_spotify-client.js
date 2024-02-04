@@ -138,14 +138,14 @@ function addItem(array, type) {
       
       item =
   
-        '<div class="carousel-item ">' +
+        '<div class="carousel-item">' +
         '<div class="card">' +
-        '<div class="row g-0 align-items-center artistId bg-dark" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
+        '<div class="row g-0 align-items-center artistId" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
         '<div class="col-md-5 text-center" >' +
         '<img src="' + itemImg + '" alt="artist_img" style="max-height:320px" class="img-fluid">' +
         '</div>' +
         '<div class="col-md-7">' +
-        '<div class="card-body text-white text-start">' +
+        '<div class="card-body">' +
         '<h5 class="card-title">' + itemName + '</h5>' +
         '<p class="card-text">Popularity: '+itemSub+'</p>' +
         '<p class="card-text"><small class="text-body-secondary">' + details + '</small></p>' +
@@ -182,12 +182,12 @@ function addItem(array, type) {
       
       '<div class="carousel-item" album-id="'+ itemId +'">' +
       '<div class="card">' +
-      '<div class="row g-0 align-items-center artistId bg-dark" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
+      '<div class="row g-0 align-items-center artistId" style="min-width:320px; min-height:320px;"  data-id="'+ itemId +'">' +
       '<div class="col-md-5 text-center" >' +
       '<img src="' + itemImg + '" alt="album_img" style="max-height:320px" class="img-fluid">' +
       '</div>' +
       '<div class="col-md-7">' +
-      '<div class="card-body text-start text-white">' +
+      '<div class="card-body text-start">' +
       '<h5 class="card-title">' + itemName + '</h5>' +
       '<p class="card-text">'+ itemSub +'</p>' +
       '<p class="card-text">Tracks: '+albumTracks +'</p>' +

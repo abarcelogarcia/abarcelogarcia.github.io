@@ -68,23 +68,65 @@ text-decoration: none;
 
 }
 
-.btn{
+/* .btn{
 
   color: #EF8C2C;
   border-color: #EF8C2C;
 
+} */
+
+.btn-indicator {
+
+
+  background-color: none;
+border-color: #EF8C2C;
+  color:#EF8C2C;
+  max-width: 200px;
+  font-size: 14px;
 }
 
-.btn-indicator{
+
+.btn-indicator:focus{
+border-color: #EF8C2C;
+
+  background-color:#EF8C2C;
+  color: white;
+}
+.btn-indicator:hover{
+border-color: #EF8C2C;
+
+  background-color:#EF8C2C;
+  color: white;
+}
+
+.card{
+
+  border: none;
+}
+
+#table-tracks th{
+
+  color:#EF8C2C;
 
 
-  background-color: #EF8C2C;
+
+
 
 }
 
-table{
+#bgetSearch_index{
 
 
+  border-color: #EF8C2C;
   color: #EF8C2C;
 
 }
+
+.carousel-dark{
+
+  background-color: dark;
+  
+
+
+}
+
