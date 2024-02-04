@@ -247,7 +247,11 @@ function addItemTracks(array, type) {
     
     for (let i = 0; i < array.length; i++) {
       
-      array[i].preview_url==null ? trackPreview = "#" : trackPreview = array[i].preview_url
+      array[i].preview_url==null ? trackPreview = "#" : trackPreview = array[i].preview_url;
+
+      let itemId = array[i].id;
+      let artistId = array[i].artists[0].id;
+
   
   
         item=
@@ -255,18 +259,29 @@ function addItemTracks(array, type) {
         '<tr class="align-middle">'+
         '        <th scope="row">'+(i+1)+'</th>'+
         '        <td>'+ array[i].name +'</td>'+
-        '        <td>'+array[i].artists[0].name +'</td>'+
+        '        <td class="artistTrack" data-id="'+ artistId +'">'+array[i].artists[0].name +'</td>'+
         '        <td><img src="'+array[i].album.images[0].url +'" alt="img_album" style="max-width: 60px; max-height: 60px;">  '+array[i].album.name +'</td>'+
         '        <td class="text-center">'+array[i].popularity +'</td>'+
         '        <td>'+
-        '          <audio controls src="'+trackPreview +'" id="audio_'+ array[i].id +'"  ></audio>'+
+        '          <audio controls src="'+trackPreview +'" id="audio_'+ itemId +'"  ></audio>'+
         '        </td>'+
         '      </tr>';
         
         
         
         $('#body_tracks').append(item);
+       
+
+       
     }
+
+    // Add artist search if click on the artist name
+    $('.artistTrack').on('click', function(e){
+
+      e.preventDefault();
+      var spotify = new Spotify();
+      spotify.getArtistById($(this).attr("data-id"));
+    })
 
 
   }else if(type=='album'){
@@ -281,10 +296,12 @@ function addItemTracks(array, type) {
     for (let i = 0; i < array.length; i++) {
 
       let item;
+      let itemId = array[i].id;
       let trackPreview;
       // let trackNumber = array[i].track_number;
       let trackName = array[i].name;
       let trackDuration = Number((((array[i].duration_ms)/1000)/60).toFixed(2));
+
         
       array[i].preview_url==null ? trackPreview = "#" : trackPreview = array[i].preview_url
     
@@ -296,7 +313,7 @@ function addItemTracks(array, type) {
       '        <td>'+ trackName +'</td>'+
       '        <td>'+ trackDuration +' min.</td>'+
       '        <td class="d-flex justify-content-center" >'+
-      '          <audio controls src="'+trackPreview +'" id="audio_'+ array[i].id +'"  ></audio>'+
+      '          <audio controls src="'+trackPreview +'" id="audio_'+ itemId +'"  ></audio>'+
       '        </td>'+
       '      </tr>';
 
@@ -377,6 +394,10 @@ $('#indicators').on('click', function(e){
   }, 700)
 
 });
+
+
+
+
 
 // ONLOAD
 //This fragment is the first thing that is loaded, when the $(document).ready
