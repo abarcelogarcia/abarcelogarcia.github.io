@@ -23,13 +23,33 @@ Spotify.prototype.getSearch = function (search) {
     let arrayArtists = response.artists.items;
     let arrayTracks = response.tracks.items;
 
-    console.log(response);
+    console.log(arrayArtists);
 
-    createIndicators(arrayArtists);
+    if (arrayArtists != '') {
 
-    addItem(arrayArtists, 'artists');
+      createIndicators(arrayArtists);
 
-    addItemTracks(arrayTracks, 'search');
+      addItem(arrayArtists, 'artists');
+
+      addItemTracks(arrayTracks, 'search');
+
+      $('#tittle_carousel').html('Artists');
+      $('#indicators').show();
+      $('#results_tracks').show();
+      $('#carusel-controls').show();
+
+    } else {
+
+
+      $('#notFound').show();
+
+
+    }
+
+  }).fail(function () {
+
+    $('#notFound').show();
+    // $('#tittle_carousel').html('Sorry, there is no data with: ' + search);
 
   });
 };
@@ -416,11 +436,7 @@ $(function () {
   $('#bgetSearch, #bgetSearch_index').on('click', function () {
     spotify.getSearch($(this).prev().val());
     // spotify.getSearch('Karol');
-    $('#tittle_carousel').html('Artists');
-    $('#indicators').show();
-    $('#results_tracks').show();
 
-    $('#carusel-controls').show();
   });
 
   $('#results_artists').on('click', '.artistId', function () {
@@ -437,6 +453,7 @@ $(function () {
   $('#indicators').hide();
   $('#results_tracks').hide();
   $('#carusel-controls').hide();
+  $('#notFound').hide();
 
 
 
