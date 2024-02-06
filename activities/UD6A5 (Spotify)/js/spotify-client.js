@@ -316,13 +316,13 @@ function addItemTracks(array, type) {
       item =
 
         '<tr class="align-middle">' +
-        '        <th scope="row">' + (i + 1) + '</th>' +
-        '        <td>' + trackName + '</td>' +
-        '        <td>' + trackDuration + ' min.</td>' +
-        '        <td class="d-flex justify-content-center" >' +
-        '          <audio controls src="' + trackPreview + '" id="audio_' + itemId + '"  ></audio>' +
-        '        </td>' +
-        '      </tr>';
+        ' <th scope="row">' + (i + 1) + '</th>' +
+        ' <td>' + trackName + '</td>' +
+        ' <td>' + trackDuration + ' min.</td>' +
+        ' <td class="d-flex justify-content-center" >' +
+        '  <audio controls src="' + trackPreview + '" id="audio_' + itemId + '"  ></audio>' +
+        ' </td>' +
+        '</tr>';
 
       $('#body_tracks').append(item);
 
@@ -369,7 +369,7 @@ $('.carousel-control-next, .carousel-control-prev').on('click', function (e) {
 
   e.preventDefault();
 
-  setTimeout(function () {
+  setTimeout(function () { // Wait until next carousel-item element is assigned with "active" class
 
     let albumId = $('.carousel-item.active').attr('album-id');
 
@@ -383,20 +383,13 @@ $('.carousel-control-next, .carousel-control-prev').on('click', function (e) {
 
 });
 
-
-$(".btn-indicator").focusout(function () {
-
-  // $(this).focus();
-
-  console.log('ffffffffff');
-});
 
 
 $('#indicators').on('click', function (e) {
 
   e.preventDefault();
 
-  setTimeout(function () {
+  setTimeout(function () { // Wait until new carousel-item element is assigned with "active" class
 
     let albumId = $('.carousel-item.active').attr('album-id');
 
@@ -411,7 +404,7 @@ $('#indicators').on('click', function (e) {
 
 });
 
-
+// Get keys.
 $.ajax({
   url: 'keys.json',
   dataType: 'json',
@@ -444,32 +437,22 @@ $(function () {
 
   var spotify = new Spotify();
 
+  // Click on search Navbar button & search index page
   $('#bgetSearch, #bgetSearch_index').on('click', function () {
     spotify.getSearch($(this).prev().val());
-    // spotify.getSearch('Karol');
 
   });
 
+  // Click on artist slide
   $('#results_artists').on('click', '.artistId', function () {
     spotify.getArtistById($(this).attr("data-id"));
 
   });
 
-
-
-
-
-
-
   $('#indicators').hide();
   $('#results_tracks').hide();
   $('#carusel-controls').hide();
   $('#notFound').hide();
-
-
-
-
-
 });
 
 
