@@ -23,16 +23,22 @@ Spotify.prototype.getSearch = function (search) {
     let arrayArtists = response.artists.items;
     let arrayTracks = response.tracks.items;
 
-    console.log(arrayArtists);
-
     if (arrayArtists != '') {
 
+      // Update not found
+      $('#notFound').hide();
+      $('#tittle_carousel')
+      .removeClass('display-6')
+      .addClass('display-1')
+
+
+      // construct data carousel 
       createIndicators(arrayArtists);
-
       addItem(arrayArtists, 'artists');
-
       addItemTracks(arrayTracks, 'search');
 
+
+      // show carousel
       $('#tittle_carousel').html('Artists')
       $('#indicators').show();
       $('#results_tracks').show();
@@ -45,15 +51,16 @@ Spotify.prototype.getSearch = function (search) {
       $('#notFound').show();
 
       $('#tittle_carousel')
-        .toggleClass(['display-6', 'display-3'])
+        .removeClass('display-1')
+        .addClass('display-6')
         .html('Sorry, there is no data with this search');
 
     }
 
   }).fail(function () {
 
+    $('#notFound').text('Error loanding data');
     $('#notFound').show();
-    // $('#tittle_carousel').html('Sorry, there is no data with: ' + search);
 
   });
 };
