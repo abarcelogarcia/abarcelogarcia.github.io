@@ -33,16 +33,20 @@ Spotify.prototype.getSearch = function (search) {
 
       addItemTracks(arrayTracks, 'search');
 
-      $('#tittle_carousel').html('Artists');
+      $('#tittle_carousel').html('Artists')
       $('#indicators').show();
       $('#results_tracks').show();
       $('#carusel-controls').show();
+
 
     } else {
 
 
       $('#notFound').show();
 
+      $('#tittle_carousel')
+        .toggleClass(['display-6', 'display-3'])
+        .html('Sorry, there is no data with this search');
 
     }
 
