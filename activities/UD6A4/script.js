@@ -349,6 +349,7 @@ $("#doing").droppable({
 
   }
 });
+
 $("#done").droppable({
 
   accept: ".doing, .done",
