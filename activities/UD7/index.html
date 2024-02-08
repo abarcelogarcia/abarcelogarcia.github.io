@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 
 <div id="app">{{ otro }}
 
-    <p><span v-html="otro"></span></p>
+    <p v-html="otro"></p>
+    
+    
+    
+    
     <ul>
         <li v-for="item in items">{{item}}</li>
         
@@ -20,25 +24,6 @@
     </ul>
 </div>
 
-<script>
-
-const { createApp } = Vue;
-
-let app = createApp({
-   data() {
-     return {
-       message: 'Hello Vue!',
-       hola: 'jalou',
-       otro: '<span>ddddddddddddd</span>',
-       items: [0,1,2,3,4] 
-     }
-   }
-
-
-
-   
- }).mount('#app')
- 
-</script>
+<script src="js/vue.js"></script>
 </body>
 </html>
