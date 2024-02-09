@@ -88,7 +88,6 @@
   </header>
 
 
-  <img src="fonts/BAHNSCHRIFT.TTF" alt="" srcset="">
 
   <main>
     <!-- Section most current -->
@@ -124,13 +123,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="post in posts">
+            <tr v-for="(post, index) in posts">
               <td>{{post.id}}</td>
               <td>{{post.title}}</td>
               <td>{{post.summary}}</td>
               <td>{{post.content}}</td>
               <td class="col-4 col-md-3 text-end">
-                <button class="btn btn-warning me-2" v-on:click="editPost">Edit</button>
+
+                <span v-if="post.isEditing">
+                  
+                  <button class="btn btn-info me-2" v-on:click="updatePost(post)">Save</button>
+                  
+                </span>
+                <span v-else>
+                  
+                  <button class="btn btn-warning me-2" v-on:click="editPost(post)">Edit</button>
+                </span>
                 <button class="btn btn-danger me-2">Delete</button>
               </td>
 
@@ -182,7 +190,13 @@
           <select v-model="form.autor" class="form-control" name="autor" id="autor"></select>
           <div class="mt-2 text-end">
 
-            <button v-on:click="savePost" type="button" class="btn btn-warning">Save</button>
+            <span v-if="post.isEditing">
+              <button v-on:click="updatePost" type="button" class="btn btn-info me-2 ">Save</button>
+            </span>
+            <span v-else>
+              <button v-on:click="savePost" type="button" class="btn btn-warning me-2 ">Save</button>
+            </span>
+
           </div>
 
 
