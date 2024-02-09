@@ -92,7 +92,7 @@
 
   <main>
     <!-- Section most current -->
-    <section id="most_current">
+    <section id="Posts">
       <div class="heading fs-1">
         <div class="row align-items-center bg-primary">
           <div class="col p-2">
@@ -104,39 +104,40 @@
         </div>
       </div>
     </section>
-  </main>
-  <h1 class="display-1"></h1>
-
-  <div id="app">
-
-    <div v-if="posts.length" class="container-fluid">
-
-      <table class="table table-striped align-middle">
-        <caption>List of posts</caption>
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Summary</th>
-            <th scope="col">Content</th>
-            <th scope="col-1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="post in posts">
-            <td>1</td>
-            <td>{{post.title}}</td>
-            <td>{{post.summary}}</td>
-            <td>{{post.content}}</td>
-            <td class="col-4 col-md-3 text-end">
-              <button class="btn btn-warning me-2">Edit</button>
-              <button class="btn btn-danger me-2">Delete</button>
-            </td>
 
 
 
-          </tr>
-          <!-- <tr>
+    <div id="app">
+
+      <div v-if="posts.length" class="container-fluid p-4">
+        <h1 class="display-4">List</h1>
+
+        <table class="table table-striped align-middle">
+          <caption>List of posts</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Summary</th>
+              <th scope="col">Content</th>
+              <th scope="col-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="post in posts">
+              <td>1</td>
+              <td>{{post.title}}</td>
+              <td>{{post.summary}}</td>
+              <td>{{post.content}}</td>
+              <td class="col-4 col-md-3 text-end">
+                <button class="btn btn-warning me-2">Edit</button>
+                <button class="btn btn-danger me-2">Delete</button>
+              </td>
+
+
+
+            </tr>
+            <!-- <tr>
             <th scope="row">1</th>
             <td>Mark</td>
             <td>Otto</td>
@@ -153,40 +154,49 @@
             <td colspan="2">Larry the Bird</td>
             <td>@twitter</td>
           </tr> -->
-        </tbody>
-      </table>
+          </tbody>
+        </table>
 
 
+
+      </div>
+
+
+
+      <div class="container  bg-dark text-white p-3">
+
+        <h2 class="display-5">Create</h2>
+        <form action="">
+
+          <label for="title">Title</label>
+          <input v-model="form.title" class="form-control" type="text" name="title" id="title">
+          <label for="summary">Summary</label>
+          <input v-model="form.summary" class="form-control" type="text" name="summary" id="summary">
+          <label for="postImage" class="form-label">Image</label>
+          <input class="form-control" type="file" id="postImage">
+          <label for="content">Content</label>
+          <textarea v-model="form.content" class="form-control" id="content" name="content" cols="30"
+            rows="10"></textarea>
+
+          <label for="title">Autor</label>
+          <select v-model="form.autor" class="form-control" name="autor" id="autor"></select>
+          <div class="mt-2 text-end">
+
+            <button v-on:click="savePost" type="button" class="btn btn-warning">Save</button>
+          </div>
+
+
+
+        </form>
+
+        <div>{{form.title}}</div>
+
+      </div>
 
     </div>
 
-    <div class="container">
+  </main>
 
-      <h2 class="display-5">Create post</h2>
-      <form action="">
-
-        <label for="title">Title</label>
-        <input v-model="form.title" class="form-control" type="text" name="title">
-        <label for="summary">Summary</label>
-        <input v-model="form.summary" class="form-control" type="text" name="summary">
-        <label for="content">Content</label>
-        <textarea v-model="form.content" class="form-control" name="content" id="" cols="30" rows="10"></textarea>
-        <label for="title">Autor</label>
-        <select v-model="form.autor" class="form-control" name="autor" id="autor"></select>
-        <div class="mt-2 text-end">
-
-          <button v-on:click="savePost" type="button" class="btn btn-info">Save</button>
-        </div>
-
-
-
-      </form>
-
-      <div>{{form.title}}</div>
-
-    </div>
-
-  </div>
 
   <script src="js/vue.js"></script>
 

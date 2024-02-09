@@ -10,6 +10,7 @@ let app = createApp({
         title: '',
         summary: '',
         content: '',
+        content: '',
         autor: ''
 
 
@@ -46,7 +47,7 @@ let app = createApp({
 
         // autor: this.form.autor
 
-      };
+      }
 
 
 
