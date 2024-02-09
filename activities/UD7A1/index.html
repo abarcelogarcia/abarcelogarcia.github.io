@@ -120,7 +120,7 @@
               <th scope="col">Title</th>
               <th scope="col">Summary</th>
               <th scope="col">Content</th>
-              <th scope="col-1"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -130,7 +130,7 @@
               <td>{{post.summary}}</td>
               <td>{{post.content}}</td>
               <td class="col-4 col-md-3 text-end">
-                <button class="btn btn-warning me-2">Edit</button>
+                <button class="btn btn-warning me-2" v-on:click="editPost">Edit</button>
                 <button class="btn btn-danger me-2">Delete</button>
               </td>
 
@@ -169,9 +169,9 @@
         <form action="">
 
           <label for="title">Title</label>
-          <input v-model="form.title" class="form-control" type="text" name="title" id="title">
+          <input v-model="form.title" class="form-control" type="text" name="title" id="title" maxlength="10">
           <label for="summary">Summary</label>
-          <input v-model="form.summary" class="form-control" type="text" name="summary" id="summary">
+          <input v-model="form.summary" class="form-control" type="text" name="summary" id="summary" maxlength="50">
           <label for="postImage" class="form-label">Image</label>
           <input class="form-control" type="file" id="postImage">
           <label for="content">Content</label>
@@ -201,5 +201,26 @@
   <script src="js/vue.js"></script>
 
 </body>
+  <footer>
+    <div class="container-fluid navbar-bg mt-4" id="navbar_footer">
+      <div class="row row-cols-1 row-cols-sm-2 align-items-center">
+        <div class="col text-center text-sm-start my-2">
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+          <img src="img/socialbutton.png" alt="" srcset="" name="social_btn" />
+        </div>
+        <div class="col text-center text-sm-end">
+          Bloggin, S.L.
+          <br />
+          Ses Moreres 1258, 07701 Maó
+          <br />
+        contacto@bloggin.es
+      </div>
+    </div>
+  </div>
+</footer>
 
 </html>

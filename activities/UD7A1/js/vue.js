@@ -1,10 +1,15 @@
 const { createApp } = Vue;
 
+let id = 1
+
+
 let app = createApp({
   data() {
     return {
 
+
       form: {
+        id:'',
         title: '',
         summary: '',
         content: '',
@@ -13,6 +18,7 @@ let app = createApp({
       },
 
       posts: [{
+        id:1,
         title: 'My frist Post',
         summary: 'This post is simply a test',
         content: "Lorem ipsum dolor sit, amet consectetur adipisicing elit." +
@@ -27,7 +33,7 @@ let app = createApp({
     savePost: function (e) {
 
       let post = {
-
+        id: (this.posts.slice(-1)[0].id)+1,
         title: this.form.title,
         summary: this.form.summary,
         content: this.form.content,
@@ -37,9 +43,18 @@ let app = createApp({
       }
 
       this.posts.push(post);
-      console.log(this.posts);
+      console.log(this.posts.slice(-1));
+      // id++;
+    },
+    editPost: function(e){
+
+      console.log(this.posts.slice(-1)[0].id);
+  
+  
     }
   }
+
+  
 }).mount('#app');
 
 
