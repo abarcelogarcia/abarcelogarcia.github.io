@@ -82,34 +82,53 @@ let app = createApp({
 
     },
 
-    getAuthors: function readData() {
-      
+    getAuthors: function(){
+
       openCreateDb(function (db) {
+        readUsers(db);
+      });
+      
+      
+      function readUsers(db) {
+        
+      
       
         var tx = db.transaction(DB_STORE_NAME, "readonly");
         var store = tx.objectStore(DB_STORE_NAME);
         var req = store.openCursor();
-
+      
         req.onsuccess = function (e) {
+      
           var cursor = this.result;
-          if (cursor) { 
-            this.authors.push({name: cursor.value.name, value:cursor.value.name})
+      
+      
+          // Table body
+          if (cursor) {
+      
+            console.log('sssssssssssss');
+          
+      
             cursor.continue();
           }
+      
+      
         }
-
+      
         req.onerror = function (e) {
-        console.error("Read Users: error reading data:", e.target.errorCode);
-        
+          console.error("Read Users: error reading data:", e.target.errorCode);
         };
-
+      
         tx.oncomplete = function () {
-        console.log("Read Users: tx completed");
-        db.close();
-        opened = false;
-        
+          console.log("Read Users: tx completed");
+          db.close();
+          opened = false;
         };
-      });
+      
+      
+      }
+
+
+
     },
 
     onFileChange(e) {
@@ -148,4 +167,7 @@ function today() {
 
   return output;
 }
+
+
+
 

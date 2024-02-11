@@ -178,7 +178,7 @@
             rows="10"></textarea>
 
           <label for="title">Autor</label>
-          <select v-model="form.author" class="form-control" name="autor" id="autor">
+          <select v-model="form.author" v-on:click="getAuthors" class="form-control" name="autor" id="autor">
 
             <option v-for="author in authors" :value="author.value">
 
