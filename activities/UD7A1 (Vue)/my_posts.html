@@ -131,6 +131,8 @@
               <td class="col-4 col-md-3 text-end">
                 <button class="btn btn-warning me-2" v-on:click="editPost(post, index)" :disabled="isEditing">Edit</button>
                 <button class="btn btn-danger me-2" v-on:click="confirmDel(index)" :disabled="isEditing">Delete</button>
+                <button v-if="post.status==='draft'" class="btn btn-info" @click="togglePublish(post)" :disabled="isEditing">Publish</button>
+                <button v-if="post.status==='published'" class="btn btn-info" @click="togglePublish(post)" :disabled="isEditing">Set to Draft</button>
               </td>
               
 
@@ -179,17 +181,17 @@
         <form action="">
 
           <label for="title">Title</label>
-          <input v-model="form.title" class="form-control" type="text" name="title" id="title" maxlength="10">
+          <input v-model="form.title"  class="form-control" type="text" name="title" id="title" maxlength="10">
           <label for="summary">Summary</label>
-          <input v-model="form.summary" class="form-control" type="text" name="summary" id="summary" maxlength="50">
+          <input v-model="form.summary"  class="form-control" type="text" name="summary" id="summary" maxlength="50">
           <label for="postImage" class="form-label">Image</label>
-          <input v-on:cahnge="onFileChange" class="form-control" type="file" id="postImage">
+          <input v-on:cahnge="onFileChange"  class="form-control" type="file" id="postImage">
           <label for="content">Content</label>
-          <textarea v-model="form.content" class="form-control" id="content" name="content" cols="30"
+          <textarea v-model="form.content"  class="form-control" id="content" name="content" cols="30"
             rows="10"></textarea>
 
           <label for="title">Autor</label>
-          <select v-model="form.author" v-on:click="getAuthors" class="form-control" name="autor" id="autor">
+          <select v-model="form.author"  class="form-control" name="autor" id="autor">
 
             <option v-for="author in authors" :value="author.value">
 
@@ -204,7 +206,7 @@
               <button v-on:click="updatePost" type="button" class="btn btn-info me-2 ">Update</button>
             </div>
             <div v-else>
-              <button v-on:click="savePost" type="button" class="btn btn-info me-2 ">Save</button>
+              <button v-on:click="savePost" type="button" class="btn btn-info me-2 " :disabled="!dataAdded">Save</button>
             </div>
             
             <div v-if="isEditing">

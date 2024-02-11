@@ -22,8 +22,10 @@ let app = createApp({
             "Lorem ipsum dolor sit, amet consectetur adipisicing elit." +
             "Consectetur laborum unde mollitia libero, a perspiciatis numquam. " +
             "Itaque enim dolores maiores harum optio similique a tempora officia, autem sit nam maxime.",
-          date: today(),
+          creationDate: today(),
+          publishDate: '',
           author: "Toni",
+          status: 'draft',
         },
       ],
       // authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
@@ -41,10 +43,14 @@ let app = createApp({
         title: this.form.title,
         summary: this.form.summary,
         content: this.form.content,
-        date: today(),
+        creationDate: today(),
+        creationPub: '',
         image: this.form.image,
-        author: this.form.author
+        author: this.form.author,
+        status: 'draft'
       });
+
+      this.resetForm();
 
       console.log(this.posts);
     },
@@ -57,9 +63,6 @@ let app = createApp({
       this.isEditing = true;
       this.editingIndex = index;
 
-      let hola = readData();
-
-      console.log(today());
     },
 
     updatePost: function () {
@@ -69,12 +72,9 @@ let app = createApp({
         this.posts[this.editingIndex].title = this.form.title;
         this.posts[this.editingIndex].summary = this.form.summary;
         this.posts[this.editingIndex].content = this.form.content;
-        this.posts[this.editingIndex].date = today();
         this.posts[this.editingIndex].author = this.form.author;
         
         this.resetForm(); // reset form values
-       
-
         
       } catch (error) {
 
@@ -107,12 +107,16 @@ let app = createApp({
 
     },
 
-    getAuthors: function(){
+    togglePublish: function(post){
 
-      
-
-
-
+      if(post.status == 'draft'){
+        post.status = 'published'
+        post.publishDate = today(); 
+      }else{
+        post.status = 'draft'
+        post.publishDate = ''; 
+      }
+      // console.log(post);
     },
 
     confirmDel: function(index){
@@ -142,6 +146,11 @@ let app = createApp({
     },
 
   },
+  computed: {
+    dataAdded: function(){
+     return this.form.title && this.form.author;
+    }
+  }
 }).mount("#app");
 
 
@@ -168,9 +177,38 @@ function today() {
 // Display users data
 
 function readData() {
+  let authorsIDB = [];
   openCreateDb(function (db) {
-    readUsers(db);
-  });
+
+
+
+  var tx = db.transaction(DB_STORE_NAME, "readonly");
+  var store = tx.objectStore(DB_STORE_NAME);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+    var cursor = this.result;
+    if (cursor) {
+      authorsIDB.push({text: cursor.value.name, value:cursor.value.name})
+      cursor.continue();
+    }
+  }
+  
+  req.onerror = function (e) {
+    console.error("Read Users: error reading data:", e.target.errorCode);
+  };
+  
+  tx.oncomplete = function () {
+    console.log("Read Users: tx completed");
+    db.close();
+    opened = false;
+  };
+  
+  
+  
+});
+console.log(authorsIDB);
+return authorsIDB;
 }
 
 
