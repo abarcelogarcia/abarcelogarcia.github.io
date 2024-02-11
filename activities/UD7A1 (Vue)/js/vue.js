@@ -26,7 +26,8 @@ let app = createApp({
           author: "Toni",
         },
       ],
-      authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
+      // authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
+      authors: readData(),
       isEditing: false,
       editingIndex:'',
       open: false,
@@ -56,7 +57,9 @@ let app = createApp({
       this.isEditing = true;
       this.editingIndex = index;
 
-      console.log(post.id);
+      let hola = readData();
+
+      console.log(today());
     },
 
     updatePost: function () {
@@ -104,41 +107,9 @@ let app = createApp({
 
     },
 
-    
-
     getAuthors: function(){
 
-      openCreateDb(function (db) {
-        readUsers(db);
-      });
       
-      function readUsers(db) {
-      
-        var tx = db.transaction(DB_STORE_NAME, "readonly");
-        var store = tx.objectStore(DB_STORE_NAME);
-        var req = store.openCursor();
-      
-        req.onsuccess = function (e) {
-      
-          var cursor = this.result;
-          if (cursor) {
-            console.log('sssssssssssss');
-            cursor.continue();
-          }
-        }
-      
-        req.onerror = function (e) {
-          console.error("Read Users: error reading data:", e.target.errorCode);
-        };
-      
-        tx.oncomplete = function () {
-          console.log("Read Users: tx completed");
-          db.close();
-          opened = false;
-        };
-      
-      
-      }
 
 
 
@@ -150,11 +121,6 @@ let app = createApp({
       this.isEditing=true,
       console.log(this);
       this.editingIndex = index;
-
-
-
-      
-
 
     },
 
@@ -178,6 +144,10 @@ let app = createApp({
   },
 }).mount("#app");
 
+
+
+// Extern App functions
+
 function today() {
   var d = new Date();
   var month = d.getMonth() + 1;
@@ -195,6 +165,46 @@ function today() {
   return output;
 }
 
+// Display users data
 
+function readData() {
+  openCreateDb(function (db) {
+    readUsers(db);
+  });
+}
+
+
+// Read and make users Array
+function readUsers(db) {
+
+  let authorsIDB = [];
+
+
+  var tx = db.transaction(DB_STORE_NAME, "readonly");
+  var store = tx.objectStore(DB_STORE_NAME);
+  var req = store.openCursor();
+
+  req.onsuccess = function (e) {
+    var cursor = this.result;
+    if (cursor) {
+      authorsIDB.push(cursor.value.name)
+      cursor.continue();
+    }
+  }
+  
+  req.onerror = function (e) {
+    console.error("Read Users: error reading data:", e.target.errorCode);
+  };
+  
+  tx.oncomplete = function () {
+    console.log("Read Users: tx completed");
+    db.close();
+    opened = false;
+  };
+  
+  
+  console.log(authorsIDB);
+  return authorsIDB;
+}
 
 
