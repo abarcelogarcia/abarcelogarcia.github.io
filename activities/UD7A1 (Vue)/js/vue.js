@@ -29,6 +29,7 @@ let app = createApp({
       authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
       isEditing: false,
       editingIndex:'',
+      open: false,
     };
   },
   methods: {
@@ -52,7 +53,6 @@ let app = createApp({
       this.form.summary = post.summary;
       this.form.content = post.content;
       this.form.aurhor = post.author;
-      this.form.date = today();
       this.isEditing = true;
       this.editingIndex = index;
 
@@ -61,26 +61,50 @@ let app = createApp({
 
     updatePost: function () {
 
-      this.posts[this.editingIndex].title = this.form.title;
-      this.posts[this.editingIndex].summary = this.form.summary;
-      this.posts[this.editingIndex].content = this.form.content;
-      this.posts[this.editingIndex].date = this.form.date;
-      this.posts[this.editingIndex].author = this.form.author;
+      try {
+        
+        this.posts[this.editingIndex].title = this.form.title;
+        this.posts[this.editingIndex].summary = this.form.summary;
+        this.posts[this.editingIndex].content = this.form.content;
+        this.posts[this.editingIndex].date = today();
+        this.posts[this.editingIndex].author = this.form.author;
+        
+        this.resetForm(); // reset form values
+       
+
+        
+      } catch (error) {
+
+        console.log('Error');
+        
+      }
+    },
+    deletePost: function(){
+
+      this.posts.splice(this.editingIndex, 1);
+
       this.isEditing = false;
-      this.editingIndex = '';
-      console.log(this.posts);
-      
-    },
-
-    deletePost: function(index){
-
-      console.log(this.posts[index].title);
-
-
-      this.posts.splice(index, 1);
+      this.open = false;
 
 
     },
+
+    resetForm: function(){
+
+    // reset form values
+    this.form.title = '';
+    this.form.summary = '';
+    this.form.content = '';
+    this.form.aurhor = '';
+    this.isEditing = false;
+    this.editingIndex = '';
+    
+    console.log(this.posts);
+
+
+    },
+
+    
 
     getAuthors: function(){
 
@@ -88,10 +112,7 @@ let app = createApp({
         readUsers(db);
       });
       
-      
       function readUsers(db) {
-        
-      
       
         var tx = db.transaction(DB_STORE_NAME, "readonly");
         var store = tx.objectStore(DB_STORE_NAME);
@@ -100,18 +121,10 @@ let app = createApp({
         req.onsuccess = function (e) {
       
           var cursor = this.result;
-      
-      
-          // Table body
           if (cursor) {
-      
             console.log('sssssssssssss');
-          
-      
             cursor.continue();
           }
-      
-      
         }
       
         req.onerror = function (e) {
@@ -127,6 +140,20 @@ let app = createApp({
       
       }
 
+
+
+    },
+
+    confirmDel: function(index){
+
+      this.open=true,
+      this.isEditing=true,
+      console.log(this);
+      this.editingIndex = index;
+
+
+
+      
 
 
     },

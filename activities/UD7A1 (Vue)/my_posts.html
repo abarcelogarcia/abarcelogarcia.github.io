@@ -124,18 +124,20 @@
           </thead>
           <tbody>
             <tr v-for="(post, index) in posts">
-              <td>{{index}}</td>
+              <td>{{index + 1}}</td>
               <td>{{post.title}}</td>
               <td>{{post.summary}}</td>
               <td>{{post.content}}</td>
               <td class="col-4 col-md-3 text-end">
-                <button class="btn btn-warning me-2" v-on:click="editPost(post, index)">Edit</button>
-                <button class="btn btn-danger me-2" v-on:click="deletePost(index)">Delete</button>
+                <button class="btn btn-warning me-2" v-on:click="editPost(post, index)" :disabled="isEditing">Edit</button>
+                <button class="btn btn-danger me-2" v-on:click="confirmDel(index)" :disabled="isEditing">Delete</button>
               </td>
+              
 
 
 
             </tr>
+            
             <!-- <tr>
             <th scope="row">1</th>
             <td>Mark</td>
@@ -155,6 +157,15 @@
           </tr> -->
           </tbody>
         </table>
+
+
+          <div v-if="open" class="p-3 bg-danger-subtle m-3 rounded">
+            <p>You are going to <b>delete </b>selected post. Please note that this process is <b>IRREVERSIBLE</b>. Are
+              you
+              sure about it?</p>
+              <button type="button" @click="deletePost(index)" class="btn btn-danger" id="confirmDel">Yes, I'm sure.</button>
+              <button @click="open = false, isEditing = false" type="button" class="btn btn-info ms-2" id="cancelDel">Cancel</button>
+          </div>
 
 
 
@@ -186,14 +197,21 @@
 
             </option>
           </select>
-          <div class="mt-2 text-end">
+          <div class=" mt-2 d-grid gap-2 d-md-flex justify-content-md-end">
+            
 
-            <span v-if="isEditing">
+            <div v-if="isEditing">
               <button v-on:click="updatePost" type="button" class="btn btn-info me-2 ">Update</button>
-            </span>
-            <span v-else>
+            </div>
+            <div v-else>
               <button v-on:click="savePost" type="button" class="btn btn-info me-2 ">Save</button>
-            </span>
+            </div>
+            
+            <div v-if="isEditing">
+              
+              <button v-on:click="resetForm" type="button" class="btn btn-danger me-2 ">Cancel</button>
+
+            </div>
 
           </div>
 
@@ -205,9 +223,19 @@
 
       </div>
 
+        <!-- <button @click="open = true">Open Modal</button> -->
+      
+        <!-- <div v-if="open" class="aviso">
+          <p>Hello from the modal!</p>
+          <button @click="open = false">Close</button>
+        </div> -->
+
     </div>
 
   </main>
+
+ 
+  
 
 
   <script src="js/common.js"></script>
