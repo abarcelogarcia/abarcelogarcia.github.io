@@ -23,7 +23,7 @@ let app = createApp({
             "Consectetur laborum unde mollitia libero, a perspiciatis numquam. " +
             "Itaque enim dolores maiores harum optio similique a tempora officia, autem sit nam maxime.",
           creationDate: today(),
-          publishDate: '',
+          publicationDate: '2024-02-22',
           author: "Toni",
           status: 'draft',
         },
@@ -34,6 +34,7 @@ let app = createApp({
       editingIndex: '',
       open: false,
       image: '',
+      
     };
   },
   methods: {
@@ -46,10 +47,10 @@ let app = createApp({
         content: this.form.content,
         image: this.form.image,
         creationDate: today(),
-        creationPub: '',
+        publicationDate: this.form.publicationDate,
         image: this.form.image,
         author: this.form.author,
-        status: 'draft'
+        status: 'draft',
       });
 
       this.resetForm();
@@ -64,6 +65,7 @@ let app = createApp({
       this.form.aurhor = post.author;
       this.isEditing = true;
       this.editingIndex = index;
+      this.form.publicationDate = post.publicationDate;
 
     },
 
@@ -75,6 +77,7 @@ let app = createApp({
         this.posts[this.editingIndex].summary = this.form.summary;
         this.posts[this.editingIndex].content = this.form.content;
         this.posts[this.editingIndex].author = this.form.author;
+        this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
 
         this.resetForm(); // reset form values
 
@@ -103,6 +106,7 @@ let app = createApp({
       this.form.aurhor = '';
       this.isEditing = false;
       this.editingIndex = '';
+      this.form.publicationDate = '';
 
       console.log(this.posts);
 
@@ -113,20 +117,25 @@ let app = createApp({
 
       if (post.status == 'draft') {
         post.status = 'published'
-        post.publishDate = today();
       } else {
         post.status = 'draft'
-        post.publishDate = '';
       }
       // console.log(post);
     },
 
     confirmDel: function (index) {
 
-      this.open = true,
-        this.isEditing = true,
-        console.log(this);
+      this.open = index,
+      this.isEditing = true,
       this.editingIndex = index;
+      console.log(this.open);
+
+      // $('#exampleModal').show();
+
+      // const myModal = new bootstrap.Modal('#exampleModal').show();
+
+
+      // myModal.show();
 
     },
     onFileChange: function (e) {
@@ -154,13 +163,13 @@ function today() {
   var day = d.getDate();
 
   var output =
+  d.getFullYear()+
+  "/" +
+  (month < 10 ? "0" : "") +
+  month +
+  "/" +
     (day < 10 ? "0" : "") +
-    day +
-    "/" +
-    (month < 10 ? "0" : "") +
-    month +
-    "/" +
-    d.getFullYear();
+    day;
 
   return output;
 }

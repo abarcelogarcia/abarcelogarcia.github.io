@@ -9,6 +9,9 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/bootstrap_custom.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
 
 </head>
 
@@ -123,56 +126,45 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(post, index) in posts">
-              <td>{{index + 1}}</td>
-              <td>{{post.title}}</td>
-              <td>{{post.summary}}</td>
-              <td>{{post.content}}</td>
-              <td class="col-4 col-md-3 text-end">
-                <button class="btn btn-warning me-2" v-on:click="editPost(post, index)"
+            <template v-for="(post, index) in posts">
+              <tr >
+                <td>{{index + 1}}</td>
+                <td>{{post.title}}</td>
+                <td>{{post.summary}}</td>
+                <td>{{post.content}}</td>
+                <td class="col-4 col-md-3 text-end">
+                  <button class="btn btn-warning me-2" v-on:click="editPost(post, index)"
                   :disabled="isEditing">Edit</button>
-                <button class="btn btn-danger me-2" v-on:click="confirmDel(index)" :disabled="isEditing">Delete</button>
-                <button v-if="post.status==='draft'" class="btn btn-info" @click="togglePublish(post)"
+                  <button class="btn btn-danger me-2" @click="confirmDel(index)" :disabled="isEditing">Delete</button>
+                  <button v-if="post.status==='draft'" class="btn btn-info" @click="togglePublish(post)"
                   :disabled="isEditing">Publish</button>
-                <button v-if="post.status==='published'" class="btn btn-info" @click="togglePublish(post)"
+                  <button v-if="post.status==='published'" class="btn btn-info" @click="togglePublish(post)"
                   :disabled="isEditing">Set to Draft</button>
-              </td>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <div v-if="editingIndex" class="p-3 bg-danger-subtle rounded">
+                    <p>You are going to <b>delete </b>selected post. Please note that this process is <b>IRREVERSIBLE</b>. Are
+                      you
+                      sure about it?</p>
+                    <button type="button" @click="deletePost(editingIndex)" class="btn btn-danger" id="confirmDel">Yes, I'm
+                      sure.</button>
+                    <button @click="open = false, isEditing = false" type="button" class="btn btn-info ms-2"
+                      id="cancelDel">Cancel</button>
+                  </div>
 
 
+                </td>
 
+              </tr>
+            </template>
 
-            </tr>
-
-            <!-- <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr> -->
           </tbody>
         </table>
 
 
-        <div v-if="open" class="p-3 bg-danger-subtle m-3 rounded">
-          <p>You are going to <b>delete </b>selected post. Please note that this process is <b>IRREVERSIBLE</b>. Are
-            you
-            sure about it?</p>
-          <button type="button" @click="deletePost(index)" class="btn btn-danger" id="confirmDel">Yes, I'm
-            sure.</button>
-          <button @click="open = false, isEditing = false" type="button" class="btn btn-info ms-2"
-            id="cancelDel">Cancel</button>
-        </div>
+        
 
 
 
@@ -205,8 +197,8 @@
 
             </option>
           </select>
-          <label for="datePublish" class="label-control">Date to Publish</label>
-          <input type="date" class="form-control" id="datePublish">
+          <label for="publicationDate" class="label-control">Publication date</label>
+          <input v-model="form.publicationDate" type="date" class="form-control" id="publicationDate">
           <div class=" mt-2 d-grid gap-2 d-md-flex justify-content-md-end">
 
 
@@ -230,7 +222,6 @@
 
         </form>
 
-        <div>{{form.title}}</div>
 
       </div>
 
@@ -244,6 +235,25 @@
     </div>
 
   </main>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
 
 
 
@@ -251,9 +261,15 @@
 
   <script src="js/common.js"></script>
   <script src="js/vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- BOOTSTRAP -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 
 </body>
+ 
 <footer>
   <div class="container-fluid navbar-bg mt-4" id="navbar_footer">
     <div class="row row-cols-1 row-cols-sm-2 align-items-center">
