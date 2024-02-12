@@ -31,8 +31,9 @@ let app = createApp({
       // authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
       authors: readData(),
       isEditing: false,
-      editingIndex:'',
+      editingIndex: '',
       open: false,
+      image: '',
     };
   },
   methods: {
@@ -43,6 +44,7 @@ let app = createApp({
         title: this.form.title,
         summary: this.form.summary,
         content: this.form.content,
+        image: this.form.image,
         creationDate: today(),
         creationPub: '',
         image: this.form.image,
@@ -55,7 +57,7 @@ let app = createApp({
       console.log(this.posts);
     },
     editPost: function (post, index) {
-      
+
       this.form.title = post.title;
       this.form.summary = post.summary;
       this.form.content = post.content;
@@ -68,21 +70,21 @@ let app = createApp({
     updatePost: function () {
 
       try {
-        
+
         this.posts[this.editingIndex].title = this.form.title;
         this.posts[this.editingIndex].summary = this.form.summary;
         this.posts[this.editingIndex].content = this.form.content;
         this.posts[this.editingIndex].author = this.form.author;
-        
+
         this.resetForm(); // reset form values
-        
+
       } catch (error) {
 
         console.log('Error');
-        
+
       }
     },
-    deletePost: function(){
+    deletePost: function () {
 
       this.posts.splice(this.editingIndex, 1);
 
@@ -92,63 +94,52 @@ let app = createApp({
 
     },
 
-    resetForm: function(){
+    resetForm: function () {
 
-    // reset form values
-    this.form.title = '';
-    this.form.summary = '';
-    this.form.content = '';
-    this.form.aurhor = '';
-    this.isEditing = false;
-    this.editingIndex = '';
-    
-    console.log(this.posts);
+      // reset form values
+      this.form.title = '';
+      this.form.summary = '';
+      this.form.content = '';
+      this.form.aurhor = '';
+      this.isEditing = false;
+      this.editingIndex = '';
+
+      console.log(this.posts);
 
 
     },
 
-    togglePublish: function(post){
+    togglePublish: function (post) {
 
-      if(post.status == 'draft'){
+      if (post.status == 'draft') {
         post.status = 'published'
-        post.publishDate = today(); 
-      }else{
+        post.publishDate = today();
+      } else {
         post.status = 'draft'
-        post.publishDate = ''; 
+        post.publishDate = '';
       }
       // console.log(post);
     },
 
-    confirmDel: function(index){
+    confirmDel: function (index) {
 
-      this.open=true,
-      this.isEditing=true,
-      console.log(this);
+      this.open = true,
+        this.isEditing = true,
+        console.log(this);
       this.editingIndex = index;
 
     },
-
-    onFileChange(e) {
+    onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      if (files.length) {
+        this.form.image = "img/" + files[0].name
+      }
     },
 
   },
   computed: {
-    dataAdded: function(){
-     return this.form.title && this.form.author;
+    dataAdded: function () {
+      return this.form.title && this.form.author;
     }
   }
 }).mount("#app");
@@ -182,33 +173,33 @@ function readData() {
 
 
 
-  var tx = db.transaction(DB_STORE_NAME, "readonly");
-  var store = tx.objectStore(DB_STORE_NAME);
-  var req = store.openCursor();
+    var tx = db.transaction(DB_STORE_NAME, "readonly");
+    var store = tx.objectStore(DB_STORE_NAME);
+    var req = store.openCursor();
 
-  req.onsuccess = function (e) {
-    var cursor = this.result;
-    if (cursor) {
-      authorsIDB.push({text: cursor.value.name, value:cursor.value.name})
-      cursor.continue();
+    req.onsuccess = function (e) {
+      var cursor = this.result;
+      if (cursor) {
+        authorsIDB.push({ text: cursor.value.name, value: cursor.value.name })
+        cursor.continue();
+      }
     }
-  }
-  
-  req.onerror = function (e) {
-    console.error("Read Users: error reading data:", e.target.errorCode);
-  };
-  
-  tx.oncomplete = function () {
-    console.log("Read Users: tx completed");
-    db.close();
-    opened = false;
-  };
-  
-  
-  
-});
-console.log(authorsIDB);
-return authorsIDB;
+
+    req.onerror = function (e) {
+      console.error("Read Users: error reading data:", e.target.errorCode);
+    };
+
+    tx.oncomplete = function () {
+      console.log("Read Users: tx completed");
+      db.close();
+      opened = false;
+    };
+
+
+
+  });
+  console.log(authorsIDB);
+  return authorsIDB;
 }
 
 
@@ -229,18 +220,18 @@ function readUsers(db) {
       cursor.continue();
     }
   }
-  
+
   req.onerror = function (e) {
     console.error("Read Users: error reading data:", e.target.errorCode);
   };
-  
+
   tx.oncomplete = function () {
     console.log("Read Users: tx completed");
     db.close();
     opened = false;
   };
-  
-  
+
+
   console.log(authorsIDB);
   return authorsIDB;
 }

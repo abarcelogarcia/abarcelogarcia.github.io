@@ -11578,14 +11578,8 @@ div.disabled {
   font-weight: bold;
 }
 
-/*# sourceMappingURL=bootstrap_custom.css.map */
-
-
-.aviso {
-  position: fixed;
-  z-index: 999;
-  top: 20%;
-  left: 50%;
-  width: 300px;
-  margin-left: -150px;
+.form-control {
+  margin-bottom: 10px;
 }
+
+/*# sourceMappingURL=bootstrap_custom.css.map */

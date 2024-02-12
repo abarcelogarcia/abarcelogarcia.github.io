@@ -166,17 +166,17 @@ footer {
   background-color: $gris-corp;
   font-weight: bold;
   padding: 10px;
-  
+
 }
 
 .registered-users {
-  
+
   // background-color: $gris-corp;
-  
+
 }
 
-.input_reg{
-  
+.input_reg {
+
   // background-color: $blanco-corp;
   border: none;
   padding: 10px;
@@ -214,16 +214,21 @@ footer {
 }
 
 
-div.disabled
-{
+div.disabled {
   pointer-events: none;
-    
+
   /* for "disabled" effect */
   opacity: 0.5;
   background: #e9ecef;
 }
 
-.profile-label{
+.profile-label {
 
   font-weight: bold;
+}
+
+.form-control {
+
+  margin-bottom: 10px;
+
 }
