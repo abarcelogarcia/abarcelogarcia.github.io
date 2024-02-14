@@ -127,8 +127,8 @@
           </thead>
           <tbody>
             <template v-for="(post, index) in posts">
-              <tr >
-                <td>{{index + 1}}</td>
+              <tr>
+                <td>{{index}}</td>
                 <td>{{post.title}}</td>
                 <td>{{post.summary}}</td>
                 <td>{{post.content}}</td>
@@ -144,11 +144,11 @@
               </tr>
               <tr>
                 <td colspan="5">
-                  <div v-if="editingIndex" class="p-3 bg-danger-subtle rounded">
+                  <div v-if="openConfirmation(index)" class="p-3 bg-danger-subtle rounded">
                     <p>You are going to <b>delete </b>selected post. Please note that this process is <b>IRREVERSIBLE</b>. Are
                       you
                       sure about it?</p>
-                    <button type="button" @click="deletePost(editingIndex)" class="btn btn-danger" id="confirmDel">Yes, I'm
+                    <button type="button" @click="deletePost()" class="btn btn-danger" id="confirmDel">Yes, I'm
                       sure.</button>
                     <button @click="open = false, isEditing = false" type="button" class="btn btn-info ms-2"
                       id="cancelDel">Cancel</button>

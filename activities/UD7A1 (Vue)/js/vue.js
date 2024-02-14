@@ -15,7 +15,7 @@ let app = createApp({
 
       posts: [
         {
-          id: 1,
+          id: 0,
           title: "My frist Post",
           summary: "This post is simply a test",
           content:
@@ -31,7 +31,7 @@ let app = createApp({
       // authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
       authors: readData(),
       isEditing: false,
-      editingIndex: '',
+      editingIndex: 0,
       open: false,
       image: '',
       
@@ -55,7 +55,7 @@ let app = createApp({
 
       this.resetForm();
 
-      console.log(this.posts);
+      console.log(this.editingIndex);
     },
     editPost: function (post, index) {
 
@@ -107,6 +107,7 @@ let app = createApp({
       this.isEditing = false;
       this.editingIndex = '';
       this.form.publicationDate = '';
+      this.form.image = '';
 
       console.log(this.posts);
 
@@ -128,7 +129,7 @@ let app = createApp({
       this.open = index,
       this.isEditing = true,
       this.editingIndex = index;
-      console.log(this.open);
+      console.log(editingIndex);
 
       // $('#exampleModal').show();
 
@@ -141,8 +142,16 @@ let app = createApp({
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files;
       if (files.length) {
-        this.form.image = "img/" + files[0].name
+        // this.form.image = "img/" + files[0].name
+        this.form.image = URL.createObjectURL(files[0]);
       }
+      console.log(this.form.image);
+    },
+    openConfirmation: function(index){
+  
+      if(editingIndex==index){return this}
+  
+  
     },
 
   },
