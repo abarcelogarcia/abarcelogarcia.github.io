@@ -26,12 +26,13 @@ let app = createApp({
           publicationDate: '2024-02-22',
           author: "Toni",
           status: 'draft',
+          isConfirming: false,
         },
       ],
       // authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
       authors: readData(),
       isEditing: false,
-      editingIndex: 0,
+      editingIndex: '',
       open: false,
       image: '',
       
@@ -129,7 +130,7 @@ let app = createApp({
       this.open = index,
       this.isEditing = true,
       this.editingIndex = index;
-      console.log(editingIndex);
+      this.posts[index].isConfirming = true;
 
       // $('#exampleModal').show();
 
@@ -149,7 +150,9 @@ let app = createApp({
     },
     openConfirmation: function(index){
   
-      if(editingIndex==index){return this}
+      if(this.editingIndex==index){return true}else{false};
+
+      console.log(index);
   
   
     },
