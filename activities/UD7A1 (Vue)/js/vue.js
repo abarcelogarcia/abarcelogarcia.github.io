@@ -11,6 +11,7 @@ let app = createApp({
         content: "",
         image: '',
         author: "",
+        topic: "",
       },
 
       posts: [
@@ -35,6 +36,7 @@ let app = createApp({
       editingIndex: '',
       open: false,
       image: '',
+      topics: ["Nature", "Sports", "News", "Games", "Society"],
       
     };
   },
@@ -52,11 +54,12 @@ let app = createApp({
         image: this.form.image,
         author: this.form.author,
         status: 'draft',
+        topic: this.form.topic,
       });
 
       this.resetForm();
 
-      console.log(this.editingIndex);
+      console.log(this.post);
     },
     editPost: function (post, index) {
 
@@ -94,8 +97,6 @@ let app = createApp({
 
       this.isEditing = false;
       this.open = false;
-
-
     },
 
     resetForm: function () {
@@ -132,14 +133,8 @@ let app = createApp({
       this.editingIndex = index;
       this.posts[index].isConfirming = true;
 
-      // $('#exampleModal').show();
-
-      // const myModal = new bootstrap.Modal('#exampleModal').show();
-
-
-      // myModal.show();
-
     },
+
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files;
       if (files.length) {
@@ -192,8 +187,6 @@ function readData() {
   let authorsIDB = [];
   openCreateDb(function (db) {
 
-
-
     var tx = db.transaction(DB_STORE_NAME, "readonly");
     var store = tx.objectStore(DB_STORE_NAME);
     var req = store.openCursor();
@@ -216,8 +209,6 @@ function readData() {
       opened = false;
     };
 
-
-
   });
   console.log(authorsIDB);
   return authorsIDB;
@@ -228,7 +219,6 @@ function readData() {
 function readUsers(db) {
 
   let authorsIDB = [];
-
 
   var tx = db.transaction(DB_STORE_NAME, "readonly");
   var store = tx.objectStore(DB_STORE_NAME);
@@ -252,8 +242,6 @@ function readUsers(db) {
     opened = false;
   };
 
-
-  console.log(authorsIDB);
   return authorsIDB;
 }
 
