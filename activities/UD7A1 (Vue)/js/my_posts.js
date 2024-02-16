@@ -27,23 +27,24 @@ let app = createApp({
           author: "Toni",
           status: 'draft',
           isConfirming: false,
+          image: 'img/tech2.png',
         },
       ],
-      // authors: [{text: 'Toni', value: 'Toni'}, {text: 'Pepe', value: 'Pepe'}, {text: 'Maria', value: 'Maria'}, {text: 'Julián', value: 'Julian'}],
       authors: readData(),
       isEditing: false,
       editingIndex: '',
-      open: false,
-      image: '',
       topics: ["Nature", "Sports", "News", "Games", "Society"],
 
     };
   },
   methods: {
+
+
+    // Saves the post capturing the values entered.
     savePost: function (e) {
 
       this.posts.push({
-        id: this.posts.slice(-1)[0].id + 1,
+        id: this.posts.slice(-1)[0].id + 1, // last id
         title: this.form.title,
         summary: this.form.summary,
         content: this.form.content,
@@ -55,10 +56,11 @@ let app = createApp({
         status: 'draft',
       });
 
-      this.resetForm();
+      this.resetForm(); // Clean!
 
-      console.log(this.post);
     },
+
+    // Inserts the values of the selected post into the form inputs
     editPost: function (post, index) {
 
       this.form.title = post.title;
@@ -72,9 +74,8 @@ let app = createApp({
 
     },
 
+    // Update the post data in editing.
     updatePost: function () {
-
-      try {
 
         this.posts[this.editingIndex].title = this.form.title;
         this.posts[this.editingIndex].summary = this.form.summary;
@@ -82,24 +83,29 @@ let app = createApp({
         this.posts[this.editingIndex].author = this.form.author;
         this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
 
-        this.resetForm(); // reset form values
+        this.resetForm(); // reset form values CLEAN!
 
-      } catch (error) {
-
-        console.log('Error');
-
-      }
     },
-    deletePost: function () {
+    // Ask for confirmation to delete a post
+    confirmDel: function (index) {
 
+      this.isEditing = true,
+      this.editingIndex = index;
+      this.posts[index].isConfirming = true;
+
+    },
+
+    // Removes the post from the array without leaving any values in its place
+    deletePost: function () {
       this.posts.splice(this.editingIndex, 1);
       this.isEditing = false;
-      this.open = false;
     },
 
+
+
+    // Clears the values entered in the form inputs.
     resetForm: function () {
 
-      // reset form values
       this.form.title = '';
       this.form.summary = '';
       this.form.content = '';
@@ -108,12 +114,10 @@ let app = createApp({
       this.editingIndex = '';
       this.form.publicationDate = '';
       this.form.image = '';
-
-      console.log(this.posts);
-
-
+      this.$refs.fileinput.value=null;
     },
 
+    // Switch between published and draft
     togglePublish: function (post) {
 
       if (post.status == 'draft') {
@@ -121,28 +125,22 @@ let app = createApp({
       } else {
         post.status = 'draft'
       }
-      // console.log(post);
     },
 
-    confirmDel: function (index) {
+    
 
-      this.open = index,
-        this.isEditing = true,
-        this.editingIndex = index;
-      this.posts[index].isConfirming = true;
-
-    },
-
+    // Capture the image path 
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files;
       if (files.length) {
         // this.form.image = "img/" + files[0].name
         this.form.image = URL.createObjectURL(files[0]);
       }
-      console.log(this.form.image);
     },
 
   },
+
+  // Ensures that title and author fields have values
   computed: {
     dataAdded: function () {
       return this.form.title && this.form.author;
@@ -154,6 +152,7 @@ let app = createApp({
 
 // Extern App functions
 
+// Gets today's date in yyyy/mm/dd format.
 function today() {
   var d = new Date();
   var month = d.getMonth() + 1;
@@ -173,6 +172,7 @@ function today() {
 
 // Display users data
 
+// Gets the users in the indexed dB database for the authors.
 function readData() {
   let authorsIDB = [];
   openCreateDb(function (db) {
@@ -200,11 +200,10 @@ function readData() {
     };
 
   });
-  console.log(authorsIDB);
   return authorsIDB;
 }
 
-
+// Verify that the user is logged in
 function setUser(db) {
 
   var tx = db.transaction(DB_STORE_LOGIN, "readonly");
@@ -215,7 +214,7 @@ function setUser(db) {
 
     var cursor = this.result;
 
-    if (cursor) { // If there is not login data, nothing happens (we are in home page)
+    if (cursor) { 
 
       if (cursor.value.theme == 1) {
         document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
@@ -229,9 +228,8 @@ function setUser(db) {
       document.getElementById("btn_login").textContent = "Logout";
       document.getElementById("user_name_figcaption").innerText = cursor.value.name;
 
-
-
-
+    }else{
+      window.location.href = "index.html"; // If there is not login data, redirect to homepage
     }
 
 

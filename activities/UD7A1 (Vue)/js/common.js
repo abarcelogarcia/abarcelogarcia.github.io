@@ -56,15 +56,10 @@ function openCreateDb(onDbCompleted) {
         store.createIndex('theme', 'theme', { unique: false });
         console.log("openCreateDb: Index created on theme");
 
+        addTempsUsers(store);
 
-        //   ADD temp user on start
-        var obj = {
-            user: "a@a.com",
-            password: "CIwFTeZMcKcphP3ApQzGAQ==",
-            admin: true
-        };
 
-        req = store.add(obj);
+        
 
     };
 
@@ -184,3 +179,68 @@ function setDarkTheme() {
 
 
 };
+
+
+function addTempsUsers(store){
+
+
+    //   ADD temp user on start
+    var obj = {
+        user: "toni@toni.com",
+        password: "CIwFTeZMcKcphP3ApQzGAQ==",
+        name:"Toni",
+        surname: 'Pons',
+        address: 'Joan pons 25',
+        age: 30,
+        avatar: "img/avatar2.png",
+        theme: 0,
+        admin: true
+    };
+
+    req = store.add(obj);
+
+    obj = {
+        user: "irene@iesjoanramis.com",
+        password: "CIwFTeZMcKcphP3ApQzGAQ==",
+        name:"Irene",
+        surname: 'Pons',
+        address: 'Joan pons 25',
+        age: 30,
+        avatar: "img/avatar1.png",
+        theme: 0,
+        admin: true
+    };
+
+    req = store.add(obj);
+
+    obj = {
+        user: "alex@alex.com",
+        password: "CIwFTeZMcKcphP3ApQzGAQ==",
+        name:"Alex",
+        surname: 'Pons',
+        address: 'Joan pons 25',
+        age: 30,
+        avatar: "img/avatar3.png",
+        theme: 0,
+        admin: false
+    };
+
+    req = store.add(obj);
+
+    obj = {
+        user: "pedro@pedro.com",
+        password: "CIwFTeZMcKcphP3ApQzGAQ==",
+        name:"Pedro",
+        surname: 'Pons',
+        address: 'Joan pons 25',
+        age: 30,
+        avatar: "img/avatar2.png",
+        theme: 0,
+        admin: false
+    };
+
+    req = store.add(obj);
+
+
+
+}
