@@ -52,12 +52,14 @@
                 <figcaption class="text-center" id="user_name_figcaption"></figcaption>
               </figure>
             </div>
-              <div class="col-auto">
-                <!-- Button trigger modal -->
-      
-                <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left"></i> Logout</button>
+            <div class="col-auto">
 
-              </div>
+              <a href="my_posts.html" class="btn btn-outline-info" id="btn_my_posts">My Posts</a>
+
+              <!-- Button trigger modal -->
+              <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left"></i> Logout</button>
+
+            </div>
 
           </div>
 
@@ -282,18 +284,18 @@
   </div>
 
   <!-- Alert boxes -->
-  
+
   <!-- Alert box DELETE -->
   <div id="liveAlertDelete" class="p-3 bg-danger-subtle m-3 rounded" hidden>
     <p>You are going to <b>delete </b>selected profile. Please note that this process is <b>IRREVERSIBLE</b>. Are
       you
       sure about it?</p>
-      <button type="button" class="btn btn-danger" id="confirmDel">Yes, I'm sure.</button>
-      <button type="button" class="btn btn-info" id="cancelDel">Cancel</button>
-    </div>
-    
-    <!-- Alert box EDIT -->
-    <div id="liveAlertEdit" class="p-3 bg-warning-subtle m-3 rounded" hidden>
+    <button type="button" class="btn btn-danger" id="confirmDel">Yes, I'm sure.</button>
+    <button type="button" class="btn btn-info" id="cancelDel">Cancel</button>
+  </div>
+
+  <!-- Alert box EDIT -->
+  <div id="liveAlertEdit" class="p-3 bg-warning-subtle m-3 rounded" hidden>
     <p>You are going to <b>save </b>selected profile. Please note that this process is <b>IRREVERSIBLE</b>. Are
       you
       sure about it?</p>

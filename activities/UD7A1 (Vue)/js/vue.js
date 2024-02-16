@@ -11,7 +11,6 @@ let app = createApp({
         content: "",
         image: '',
         author: "",
-        topic: "",
       },
 
       posts: [
@@ -37,7 +36,7 @@ let app = createApp({
       open: false,
       image: '',
       topics: ["Nature", "Sports", "News", "Games", "Society"],
-      
+
     };
   },
   methods: {
@@ -54,7 +53,6 @@ let app = createApp({
         image: this.form.image,
         author: this.form.author,
         status: 'draft',
-        topic: this.form.topic,
       });
 
       this.resetForm();
@@ -70,6 +68,7 @@ let app = createApp({
       this.isEditing = true;
       this.editingIndex = index;
       this.form.publicationDate = post.publicationDate;
+
 
     },
 
@@ -94,7 +93,6 @@ let app = createApp({
     deletePost: function () {
 
       this.posts.splice(this.editingIndex, 1);
-
       this.isEditing = false;
       this.open = false;
     },
@@ -129,8 +127,8 @@ let app = createApp({
     confirmDel: function (index) {
 
       this.open = index,
-      this.isEditing = true,
-      this.editingIndex = index;
+        this.isEditing = true,
+        this.editingIndex = index;
       this.posts[index].isConfirming = true;
 
     },
@@ -142,14 +140,6 @@ let app = createApp({
         this.form.image = URL.createObjectURL(files[0]);
       }
       console.log(this.form.image);
-    },
-    openConfirmation: function(index){
-  
-      if(this.editingIndex==index){return true}else{false};
-
-      console.log(index);
-  
-  
     },
 
   },
@@ -170,11 +160,11 @@ function today() {
   var day = d.getDate();
 
   var output =
-  d.getFullYear()+
-  "/" +
-  (month < 10 ? "0" : "") +
-  month +
-  "/" +
+    d.getFullYear() +
+    "/" +
+    (month < 10 ? "0" : "") +
+    month +
+    "/" +
     (day < 10 ? "0" : "") +
     day;
 
@@ -215,34 +205,54 @@ function readData() {
 }
 
 
-// Read and make users Array
-function readUsers(db) {
+function setUser(db) {
 
-  let authorsIDB = [];
-
-  var tx = db.transaction(DB_STORE_NAME, "readonly");
-  var store = tx.objectStore(DB_STORE_NAME);
+  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+  var store = tx.objectStore(DB_STORE_LOGIN);
   var req = store.openCursor();
 
   req.onsuccess = function (e) {
-    var cursor = this.result;
-    if (cursor) {
-      authorsIDB.push(cursor.value.name)
-      cursor.continue();
-    }
-  }
 
+    var cursor = this.result;
+
+    if (cursor) { // If there is not login data, nothing happens (we are in home page)
+
+      if (cursor.value.theme == 1) {
+        document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+      }
+
+      document.getElementById("img-profile").src = cursor.value.avatar;
+      document.getElementById("img-profile").hidden = false;
+      document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+      document.getElementById("btn_login").removeAttribute("data-bs-target");
+      document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+      document.getElementById("btn_login").textContent = "Logout";
+      document.getElementById("user_name_figcaption").innerText = cursor.value.name;
+
+
+
+
+    }
+
+
+  }
   req.onerror = function (e) {
-    console.error("Read Users: error reading data:", e.target.errorCode);
+    console.error("Set User error: can not verify the user", this.error);
   };
 
   tx.oncomplete = function () {
-    console.log("Read Users: tx completed");
+    console.log("Set User: transaction completed");
     db.close();
     opened = false;
   };
 
-  return authorsIDB;
 }
 
 
+
+// LISTENNERS
+
+// Check whether the user is logged in or not.
+window.addEventListener('load', () => {
+  verifyUser('user');
+});

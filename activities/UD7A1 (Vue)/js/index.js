@@ -26,6 +26,9 @@ function setUser(db) {
       document.getElementById("btn_login").textContent = "Logout";
       nameFigcaption.innerText = cursor.value.name;
 
+      document.getElementById("btn_my_posts").hidden = false;
+
+
 
     }
 

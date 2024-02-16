@@ -54,8 +54,9 @@
               </figure>
             </div>
             <div class="col-auto">
-              <!-- Button trigger modal -->
 
+              <a href="my_posts.html" class="btn btn-outline-info" id="btn_my_posts">My Posts</a>
+              <!-- Button trigger modal -->
               <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
                   class="bi bi-box-arrow-in-right"></i> Login</button>
             </div>
@@ -98,7 +99,7 @@
       <div class="container-fluid heading fs-1">
         <div class="row align-items-center bg-primary">
           <div class="col p-2">
-            <div class="ms-5">Posts</div>
+            <div class="ms-5">My Posts</div>
           </div>
           <div class="col-auto me-3">
             <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" />
@@ -132,11 +133,12 @@
                 <td>{{post.title}}</td>
                 <td>{{post.summary}}</td>
                 <td>{{post.content}}</td>
-                <td class="col-4 col-md-3 text-end" :disabled="isEditing">
-                  <button class="btn btn-warning me-2" @click="editPost(post, index)">Edit</button>
-                  <button class="btn btn-danger me-2" @click="confirmDel(index)">Delete</button>
-                  <button v-if="post.status==='draft'" class="btn btn-info"
-                    @click="togglePublish(post)">Publish</button>
+                <td class="col-4 col-md-3 text-end">
+                  <button class="btn btn-warning me-2" @click="editPost(post, index)"
+                    :disabled="isEditing">Edit</button>
+                  <button class="btn btn-danger me-2" @click="confirmDel(index)" :disabled="isEditing">Delete</button>
+                  <button v-if="post.status==='draft'" class="btn btn-info" @click="togglePublish(post)"
+                    :disabled="isEditing">Publish</button>
                   <button v-if="post.status==='published'" class="btn btn-info" @click="togglePublish(post)"
                     :disabled="isEditing">Set to Draft</button>
                 </td>
@@ -147,7 +149,8 @@
                     <p>You are going to <b>delete </b>selected post. Please note that this process is
                       <b>IRREVERSIBLE</b>. Are
                       you
-                      sure about it?</p>
+                      sure about it?
+                    </p>
                     <button type="button" @click="deletePost()" class="btn btn-danger" id="confirmDel">Yes, I'm
                       sure.</button>
                     <button @click="posts[index].isConfirming = false, isEditing = false" type="button"
@@ -170,27 +173,6 @@
           <input v-model="form.title" class="form-control" type="text" name="title" id="title" maxlength="10">
           <label for="summary">Summary</label>
           <input v-model="form.summary" class="form-control" type="text" name="summary" id="summary">
-          <div class="label-control" id="topics">
-
-            <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
-          <label for="jack">Jack</label>
-
-          <input type="checkbox" id="john" value="John" v-model="checkedNames">
-          <label for="john">John</label>
-
-          <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
-          <label for="mike">Mike</label>
-            Topics
-            <div v-for="(topic, index) in topics" class="form-check">
-              <input class="form-check-input" type="checkbox" v-model="form.topic" :id="CK + index">
-              <label class="form-check-label" :for="CK + index">
-                {{topic}}
-              </label>
-            </div>
-            
-
-          </div>
-          
 
           <label for="postImage" class="form-label">Image</label><br>
           <img v-if="form.image" class="img-thumbnail mb-3" :src="form.image">
