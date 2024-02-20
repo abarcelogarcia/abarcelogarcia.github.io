@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers
+
+    </title>
+    
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <div id="app">
+
+<h3>Enter a number</h3>
+        <input v-model="num" type="text">
+        <button @click="sendNumber">Send</button>
+
+        <div id="error" v-if="error">{{error}}</div>
+        
+        <number v-for="n in numbers" :number="numProps" ></number>
+        
+        <div id="selectedItem" v-if="selectedItem">{{selectedItem}}</div>
+
+    </div>
+
+
+    <script type="module" src="vue.js"></script>
+
+    <style>
+#app{
+
+    text-align: center;
+
+}
+
+
+    </style>
+</body>
+</html>
