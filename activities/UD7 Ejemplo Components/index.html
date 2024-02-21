@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numbers
-
-    </title>
-    
+    <title>Exercici 2</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>  
 </head>
 <body>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
     <div id="app">
+        <h3>Enter an integer</h3>
+        <input v-model="num" type="number">
+        <input type="button" value="SEND" v-on:click="send()">
+        <p v-if="error">
+            <small >{{ error }}</small>
+        </p >
 
-<h3>Enter a number</h3>
-        <input v-model="num" type="text">
-        <button @click="sendNumber">Send</button>
+        <Number v-for="n in numbers" :nombre="n" :key="n" v-on:clicked-number="numberSelected"></Number>
 
-        <div id="error" v-if="error">{{error}}</div>
-        
-        <number v-for="n in numbers" :number="numProps" ></number>
-        
-        <div id="selectedItem" v-if="selectedItem">{{selectedItem}}</div>
-
+        <p v-if="selectedItem">
+            <span>The number pressed is {{ selectedItem}}</span>
+        </p >
     </div>
 
-
-    <script type="module" src="vue.js"></script>
-
-    <style>
-#app{
-
-    text-align: center;
-
-}
-
-
-    </style>
+   
+<script type="module" src="./vue.js"></script>
+<style>
+    body{
+        text-align: center;
+    }
+    
+    small{
+        color: red;
+    }
+</style>
 </body>
 </html>

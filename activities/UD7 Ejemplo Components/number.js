@@ -1,22 +1,15 @@
 export default{
-
-    name: 'number',
-    props: 'numProps',
+    name: "Number",
+    props: ["nombre"],
     methods:{
-
-        clickNumber: function(){
-
-            this.$emit
-
-
+        clickNumber: function(item){
+            console.log(item);
+            this.$emit("clicked-number", item);
         }
-
-
-
     },
-    template: '<div><input type="button" :value="numProps" @click="clickNumber(numProps)"></div>'
-
-
-
-
+    template: `
+        <div> 
+            <input type="button" v-bind:value="nombre" @click="clickNumber(nombre)">
+        </div>
+    `,
 }

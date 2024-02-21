@@ -1,64 +1,40 @@
-import number from "./number.js"
+import Number from "./Number.js";
 
-const { createApp } = Vue;
-
-let app = createApp({
-
-    data(){
-
-        return{
-
-            numbers: [],
-            num: null,
-            error:'',
-            selectedItem: null,
-        }
-
-
-    },
-    components:{
-
-        number
-
-    },
-    methods:{
-
-        sendNumber: function(){
-
-            console.log(~~this.num);
-
-            // Comprobar si lo que entra es número
-            // Elimina decimales y comprueba
-
-            if(~~this.num===this.num){
-
-                // comprobar si existe el núemro en el array
-
-               if(this.numbers.indexOf(this.num)<0){
-
-                this.error = 'Error. El núemro ya existe';
-
-               } 
-
-            }else{
-
-                this.error = 'Error que te cagas';
-
+        const { createApp } = Vue;
+        const app = createApp({
+            data: function(){
+                return{
+                    num: null,
+                    numbers: [],
+                    error: "",
+                    selectedItem: null
+                }
+            },
+            components:{
+                Number
+            },
+            methods: {
+                send: function(){
+                    this.error = "";
+                    this.selectedItem = "";
+                    // console.log('okdix');
+                    //Eliminar decimals i comprovar si és igual al valor entrat
+                    // si s'entra en un string o retorna 0
+                    if(~~this.num === this.num){
+                        //Comprovar si existeix aquest nombre a l'array/llistax
+                        if(this.numbers.indexOf(this.num)<0){
+                            this.numbers.push(this.num);
+                        } else {
+                            this.error = "You can't repeat numbers."
+                        }
+                    } else{
+                        this.error = "You need top enter a correct value.";
+                    }
+                },
+                numberSelected: function(item){
+                    console.log(item);
+                    this.selectedItem = item;
+                }
             }
-
-
-
-
-        },
-        // numberSelected:{
-
-
-
-        // }
-
-
-    },
-   
-
-
-}).mount('#app');
+            
+        }).mount("#app");
