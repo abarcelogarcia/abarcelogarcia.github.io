@@ -43,7 +43,7 @@ let app = createApp({
   components:{
 
     Header,
-    Footer,
+    Footer
 
   },
   methods: {
