@@ -67,12 +67,11 @@
               </tr>
             </thead>
             <tbody>
-              <Post 
-              v-for="post in posts"
+              <tr is="Post" v-for="post in posts"
               :post="post"
               :key="post.id"
               :isEditing="isEditing"
-              ></Post>
+              ></tr>
             </tbody>
           </table>
         </div>

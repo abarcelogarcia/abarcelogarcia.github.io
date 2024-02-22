@@ -28,22 +28,7 @@ export default{
                       Delete
                     </button>
                     
-                  </td>
-                </tr>
-                <td colspan="6">
-                  <div v-if="posts[index].isConfirming" class="p-3 bg-danger-subtle rounded" :id="index">
-                    <p>You are going to <b>delete </b>selected post. Please note that this process is
-                      <b>IRREVERSIBLE</b>. Are
-                      you
-                      sure about it?
-                    </p>
-                    <button type="button" @click="deletePost()" class="btn btn-danger" id="confirmDel">Yes, I'm
-                      sure.</button>
-                    <button @click="posts[index].isConfirming = false, isEditing = false" type="button"
-                      class="btn btn-info ms-2" id="cancelDel">Cancel</button>
-                  </div>
-                </td>
-               
+                
 
     
     
