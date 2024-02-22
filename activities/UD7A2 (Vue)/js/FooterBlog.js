@@ -1,10 +1,10 @@
 export default{
 
-    name: 'Footer',
+    name: 'FooterBlog',
 
     template: 
     
-    `<footer>
+    `
     <div class="container-fluid navbar-bg mt-4" id="navbar_footer">
       <div class="row row-cols-1 row-cols-sm-2 align-items-center">
         <div class="col text-center text-sm-start my-2">
@@ -24,7 +24,7 @@ export default{
         </div>
       </div>
     </div>
-  </footer>`,
+  `,
 
   
 

@@ -1,21 +1,22 @@
 export default{
-    name: 'Header',
+    
+  name: 'HeaderBlog',
 
-    template: `<header class="sticky-top">
-    <div class="container-fluid navbar-bg" id="navbar">
-      <!-- LOGO & LOGIN BAR -->
-      <div class="row align-items-center">
-        <!-- Use display bootstrap class for swap logo depends its resolution -->
-
-        <!-- Mobile -->
-        <div class="col p-2 d-sm-none">
-          <a class="d-sm-none" data-bs-toggle="offcanvas" href="#topics" role="button" aria-controls="menu_topics">
-            <img src="img/button_hamburguer.png" alt="menu_topics" class="d-sm-none" />
-          </a>
-          <a href="index.html">
-            <img src="img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" id="logo_mobile" />
-          </a>
-        </div>
+  template:` 
+  <header class="sticky-top">
+      <div class="container-fluid navbar-bg" id="navbar">
+        <!-- LOGO & LOGIN BAR -->
+        <div class="row align-items-center">
+          <!-- Use display bootstrap class for swap logo depends its resolution -->
+          <!-- Mobile -->
+          <div class="col p-2 d-sm-none">
+            <a class="d-sm-none" data-bs-toggle="offcanvas" href="#topics" role="button" aria-controls="menu_topics">
+              <img src="img/button_hamburguer.png" alt="menu_topics" class="d-sm-none" />
+            </a>
+            <a href="index.html">
+              <img src="img/LogoBloggIn_m.png" alt="logo_m" class="d-sm-none" id="logo_mobile" />
+            </a>
+          </div>
 
         <!-- Desktop -->
         <div class="col p-2 d-none d-sm-block">
@@ -73,7 +74,9 @@ export default{
         </div>
       </div>
     </div>
-  </header>`,
+  </header>
+    
+  `,
 
 
 

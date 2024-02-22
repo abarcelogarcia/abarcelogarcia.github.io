@@ -1,5 +1,6 @@
-import Header from "./Header.js";
-import Footer from "./Footer.js";
+import HeaderBlog from "./HeaderBlog.js";
+import FooterBlog from "./FooterBlog.js";
+import Post from "./Post.js";
 
 const { createApp } = Vue;
 
@@ -42,8 +43,9 @@ let app = createApp({
   },
   components:{
 
-    Header,
-    Footer
+    HeaderBlog,
+    FooterBlog,
+    Post
 
   },
   methods: {
