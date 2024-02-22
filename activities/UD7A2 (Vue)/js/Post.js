@@ -28,7 +28,8 @@ export default{
                       Delete
                     </button>
                     
-                
+                </td>
+                </tr>
 
     
     

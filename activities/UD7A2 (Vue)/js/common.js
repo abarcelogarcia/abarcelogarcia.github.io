@@ -244,3 +244,6 @@ function addTempsUsers(store){
 
 
 }
+
+
+

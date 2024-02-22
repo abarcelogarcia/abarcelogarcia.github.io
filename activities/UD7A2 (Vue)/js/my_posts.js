@@ -263,5 +263,5 @@ function setUser(db) {
 
 // Check whether the user is logged in or not.
 window.addEventListener('load', () => {
-  // verifyUser('user');
+  verifyUser('user');
 });
