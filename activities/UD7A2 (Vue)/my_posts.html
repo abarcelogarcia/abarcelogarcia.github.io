@@ -67,7 +67,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr is="Post" v-for="post in posts"
+              <tr is="vue:Post" 
+              v-for="post in posts"
               :post="post"
               :key="post.id"
               :isEditing="isEditing"
