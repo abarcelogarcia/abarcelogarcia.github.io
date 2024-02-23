@@ -72,6 +72,8 @@
               :post="post"
               :key="post.id"
               :isEditing="isEditing"
+              v-on:delete-post="deletePost(post)"
+              v-on:edit-post="editPost(post)"
               ></tr>
             </tbody>
           </table>

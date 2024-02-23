@@ -72,14 +72,14 @@ let app = createApp({
     },
 
     // Inserts the values of the selected post into the form inputs
-    editPost: function (post, index) {
+    editPost: function (post) {
 
       this.form.title = post.title;
       this.form.summary = post.summary;
       this.form.content = post.content;
       this.form.aurhor = post.author;
       this.isEditing = true;
-      this.editingIndex = index;
+      this.editingIndex = this.posts.indexOf(post);
       this.form.publicationDate = post.publicationDate;
 
 
@@ -98,7 +98,9 @@ let app = createApp({
 
     },
     // Ask for confirmation to delete a post
-    confirmDel: function (index) {
+    confirmDel: function (post) {
+
+      var index = this.posts.indexOf(post);
 
       this.isEditing = true,
       this.editingIndex = index;
@@ -107,7 +109,7 @@ let app = createApp({
     },
 
     // Removes the post from the array without leaving any values in its place
-    deletePost: function () {
+    deletePost: function (post) {
       this.posts.splice(this.editingIndex, 1);
       this.isEditing = false;
     },
