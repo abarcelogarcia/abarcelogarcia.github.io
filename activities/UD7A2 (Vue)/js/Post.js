@@ -4,6 +4,8 @@ export default{
 
     props:['post', 'isEditing'],
 
+    inheritAttrs:false,
+
     template:`
 
                 <tr>
@@ -17,14 +19,14 @@ export default{
                       class="btn btn-warning me-2"
                       
                       @click="$emit('edit-post', post)"
-                      :disabled="isEditing"
+                      :disabled=isEditing
                     >
                       Edit
                     </button>
                     <button
                       class="btn btn-danger me-2"
                      @click="confirmdel"
-                      :disabled="isEditing"
+                      :disabled=isEditing
                     >
                       Delete
                     </button>
@@ -68,7 +70,8 @@ export default{
 
 
 
-    }
+    },
+
 
 
 

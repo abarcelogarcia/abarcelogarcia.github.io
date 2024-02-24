@@ -70,7 +70,6 @@
               <tr is="vue:Post" 
               v-for="post in posts"
               :post="post"
-              :key="post.id"
               :isEditing="isEditing"
               v-on:delete-post="deletePost(post)"
               v-on:edit-post="editPost(post)"
