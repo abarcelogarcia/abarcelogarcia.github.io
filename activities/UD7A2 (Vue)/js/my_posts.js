@@ -67,6 +67,11 @@ let app = createApp({
         status: 'draft',
       });
 
+      // Save post in LocalSorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
+
+
+
       this.resetForm(); // Clean!
 
     },
@@ -93,6 +98,9 @@ let app = createApp({
         this.posts[this.editingIndex].content = this.form.content;
         this.posts[this.editingIndex].author = this.form.author;
         this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
+
+        // Save post in LocalSorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
 
         this.resetForm(); // reset form values CLEAN!
 
@@ -157,6 +165,15 @@ let app = createApp({
   computed: {
     dataAdded: function () {
       return this.form.title && this.form.author;
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('posts')) {
+      try {
+        this.posts = JSON.parse(localStorage.getItem('posts'));
+      } catch(e) {
+        localStorage.removeItem('posts');
+      }
     }
   }
 }).mount("#app");
