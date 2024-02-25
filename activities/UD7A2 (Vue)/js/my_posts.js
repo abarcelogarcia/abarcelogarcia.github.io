@@ -167,7 +167,8 @@ let app = createApp({
       return this.form.title && this.form.author;
     }
   },
-  mounted() {
+  mounted() {// Get localstorage data
+    
     if (localStorage.getItem('posts')) {
       try {
         this.posts = JSON.parse(localStorage.getItem('posts'));
@@ -201,7 +202,6 @@ function today() {
 }
 
 // Display users data
-
 // Gets the users in the indexed dB database for the authors.
 function readData() {
   let authorsIDB = [];
@@ -233,48 +233,58 @@ function readData() {
   return authorsIDB;
 }
 
-// Verify that the user is logged in
-function setUser(db) {
+  // Verify that the user is logged in
+  function setUser() {
 
-  var tx = db.transaction(DB_STORE_LOGIN, "readonly");
-  var store = tx.objectStore(DB_STORE_LOGIN);
-  var req = store.openCursor();
+    openCreateDb(function (db) {
 
-  req.onsuccess = function (e) {
-
-    var cursor = this.result;
-
-    if (cursor) { 
-
-      if (cursor.value.theme == 1) {
-        document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+    var tx = db.transaction(DB_STORE_LOGIN, "readonly");
+    var store = tx.objectStore(DB_STORE_LOGIN);
+    var req = store.openCursor();
+  
+    req.onsuccess = function (e) {
+  
+      var cursor = this.result;
+  
+      if (cursor) { 
+  
+        if (cursor.value.theme == 1) {
+          document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
+        }
+  
+        document.getElementById("img-profile").src = cursor.value.avatar;
+        document.getElementById("img-profile").hidden = false;
+        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
+        document.getElementById("btn_login").removeAttribute("data-bs-target");
+        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
+        document.getElementById("btn_login").textContent = "Logout";
+        document.getElementById("user_name_figcaption").innerText = cursor.value.name;
+  
+      }else{
+        window.location.href = "index.html"; // If there is not login data, redirect to homepage
       }
-
-      document.getElementById("img-profile").src = cursor.value.avatar;
-      document.getElementById("img-profile").hidden = false;
-      document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-      document.getElementById("btn_login").removeAttribute("data-bs-target");
-      document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-      document.getElementById("btn_login").textContent = "Logout";
-      document.getElementById("user_name_figcaption").innerText = cursor.value.name;
-
-    }else{
-      window.location.href = "index.html"; // If there is not login data, redirect to homepage
+  
+  
     }
+    req.onerror = function (e) {
+      console.error("Set User error: can not verify the user", this.error);
+    };
+  
+    tx.oncomplete = function () {
+      console.log("Set User: transaction completed");
+      db.close();
+      opened = false;
+    };
+  
+    });
 
-
+    
+  
+    
+  
   }
-  req.onerror = function (e) {
-    console.error("Set User error: can not verify the user", this.error);
-  };
 
-  tx.oncomplete = function () {
-    console.log("Set User: transaction completed");
-    db.close();
-    opened = false;
-  };
 
-}
 
 
 
@@ -282,5 +292,5 @@ function setUser(db) {
 
 // Check whether the user is logged in or not.
 window.addEventListener('load', () => {
-  // verifyUser('user');
+  setUser();
 });

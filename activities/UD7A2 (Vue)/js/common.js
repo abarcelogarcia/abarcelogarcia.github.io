@@ -78,7 +78,6 @@ function openCreateDb(onDbCompleted) {
 function verifyUser(userRol) {
     openCreateDb(function (db) {
 
-
         if (userRol == 'admin') {
             setUserAdmin(db);
         } else if (userRol == 'user') {
@@ -244,6 +243,16 @@ function addTempsUsers(store){
 
 
 }
+
+
+  
+
+
+
+
+
+
+
 
 
 

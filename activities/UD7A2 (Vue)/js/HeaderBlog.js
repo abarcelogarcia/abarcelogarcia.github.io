@@ -42,7 +42,7 @@ export default{
 
               <a href="my_posts.html" class="btn btn-outline-info" id="btn_my_posts">My Posts</a>
               <!-- Button trigger modal -->
-              <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
+              <button class="btn btn-info ms-1" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
                   class="bi bi-box-arrow-in-right"></i> Login</button>
             </div>
           </div>
