@@ -73,9 +73,15 @@
               :isEditing="isEditing"
               v-on:delete-post="deletePost(post)"
               v-on:edit-post="editPost(post)"
+              v-on:confirm-del="confirmDel"
+              v-on:cancel-del="cancelEditing(post)"
               ></tr>
             </tbody>
           </table>
+        </div>
+        <!-- Empty posts list -->
+        <div v-else class="container-fluid p-4">
+          <h1 class="display-3">There are no posts created</h1>
         </div>
         <div class="container bg-dark text-white p-3">
           <h2 v-if="isEditing" class="display-5">Editing</h2>

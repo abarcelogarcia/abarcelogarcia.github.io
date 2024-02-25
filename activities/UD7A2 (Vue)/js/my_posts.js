@@ -59,18 +59,16 @@ let app = createApp({
         title: this.form.title,
         summary: this.form.summary,
         content: this.form.content,
-        image: this.form.image,
         creationDate: today(),
         publicationDate: this.form.publicationDate,
         image: this.form.image,
+        isConfirming: false,
         author: this.form.author,
         status: 'draft',
       });
 
       // Save post in LocalSorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
-
-
 
       this.resetForm(); // Clean!
 
@@ -110,18 +108,25 @@ let app = createApp({
 
       var index = this.posts.indexOf(post);
 
-      this.isEditing = true,
-      this.editingIndex = index;
-      this.posts[index].isConfirming = true;
+      this.isEditing = true, // Disabled all action buttons
+      this.editingIndex = index; // Set post position in array 
+      this.posts[index].isConfirming = true; // show delete confirmation table row.
+      console.log('ddddd');
+
+        // Save post in LocalSorage
+        localStorage.setItem('posts', JSON.stringify(this.posts));
+
 
     },
 
     // Removes the post from the array without leaving any values in its place
     deletePost: function (post) {
-      this.posts.splice(this.editingIndex, 1);
+      this.posts.splice(this.posts.indexOf(post), 1);
       this.isEditing = false;
-    },
 
+       // Save post in LocalSorage
+       localStorage.setItem('posts', JSON.stringify(this.posts));
+    },
 
 
     // Clears the values entered in the form inputs.
@@ -137,6 +142,16 @@ let app = createApp({
       this.form.image = '';
       this.$refs.fileinput.value=null;
     },
+    cancelEditing: function(post){
+
+      this.posts[this.posts.indexOf(post)].isConfirming = false;
+      this.isEditing = false;
+
+      // Save post in LocalSorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
+      
+
+    },
 
     // Switch between published and draft
     togglePublish: function (post) {
@@ -147,8 +162,6 @@ let app = createApp({
         post.status = 'draft'
       }
     },
-
-    
 
     // Capture the image path 
     onFileChange: function (e) {
@@ -201,7 +214,6 @@ function today() {
   return output;
 }
 
-// Display users data
 // Gets the users in the indexed dB database for the authors.
 function readData() {
   let authorsIDB = [];
@@ -233,8 +245,8 @@ function readData() {
   return authorsIDB;
 }
 
-  // Verify that the user is logged in
-  function setUser() {
+// Verify that the user is logged in
+function setUser() {
 
     openCreateDb(function (db) {
 
