@@ -35,7 +35,7 @@ let app = createApp({
         },
       ],
       authors: readData(),
-      isEditing: false,
+      editing: false,
       editingIndex: '',
       topics: ["Nature", "Sports", "News", "Games", "Society"],
 
@@ -81,7 +81,7 @@ let app = createApp({
       this.form.summary = post.summary;
       this.form.content = post.content;
       this.form.aurhor = post.author;
-      this.isEditing = true;
+      this.editing = true;
       this.editingIndex = this.posts.indexOf(post);
       this.form.publicationDate = post.publicationDate;
 
@@ -95,6 +95,7 @@ let app = createApp({
       this.posts[this.editingIndex].content = this.form.content;
       this.posts[this.editingIndex].author = this.form.author;
       this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
+      this.posts[this.editingIndex].image = this.form.image;
 
       // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
@@ -107,7 +108,7 @@ let app = createApp({
 
       var index = this.posts.indexOf(post);
 
-      this.isEditing = true, // Disabled all action buttons
+      this.editing = true, // Disabled all action buttons
         this.editingIndex = index; // Set post position in array 
       this.posts[index].isConfirming = true; // show delete confirmation table row.
 
@@ -120,7 +121,7 @@ let app = createApp({
     // Removes the post from the array without leaving any values in its place
     deletePost: function (post) {
       this.posts.splice(this.posts.indexOf(post), 1);
-      this.isEditing = false;
+      this.editing = false;
 
       // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
@@ -134,7 +135,7 @@ let app = createApp({
       this.form.summary = '';
       this.form.content = '';
       this.form.aurhor = '';
-      this.isEditing = false;
+      this.editing = false;
       this.editingIndex = '';
       this.form.publicationDate = '';
       this.form.image = '';
@@ -143,7 +144,7 @@ let app = createApp({
     cancelEditing: function (post) {
 
       this.posts[this.posts.indexOf(post)].isConfirming = false;
-      this.isEditing = false;
+      this.editing = false;
 
       // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));

@@ -1,6 +1,6 @@
 export default {
   name: "post",
-  props: ['post', 'isEditing'],
+  props: ['post', 'editing'],
   inheritAttrs: false,
   template: `
         <tr>
@@ -13,13 +13,13 @@ export default {
           <td class="col-4 col-md-3 text-end">
             <button class="btn btn-warning me-2"
             @click="$emit('edit-post', post)"
-            :disabled=isEditing>
+            :disabled=editing>
             Edit
             </button>
             
             <button class="btn btn-danger me-2"
             @click="$emit('confirm-del', post)"
-            :disabled=isEditing>
+            :disabled=editing>
             Delete
           </button>
           </td>
