@@ -55,7 +55,7 @@ let app = createApp({
     savePost: function (e) {
 
       this.posts.push({
-        id: this.posts.slice(-1)[0].id + 1, // last id
+        id: this.posts.length > 0 ? this.posts.slice(-1)[0].id + 1 : 0, // set last id or id=0 if is an empty array
         title: this.form.title,
         summary: this.form.summary,
         content: this.form.content,
@@ -67,7 +67,7 @@ let app = createApp({
         status: 'draft',
       });
 
-      // Save post in LocalSorage
+      // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
 
       this.resetForm(); // Clean!
@@ -85,7 +85,6 @@ let app = createApp({
       this.editingIndex = this.posts.indexOf(post);
       this.form.publicationDate = post.publicationDate;
 
-
     },
 
     // Update the post data in editing.
@@ -97,7 +96,7 @@ let app = createApp({
       this.posts[this.editingIndex].author = this.form.author;
       this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
 
-      // Save post in LocalSorage
+      // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
 
       this.resetForm(); // reset form values CLEAN!
@@ -112,7 +111,7 @@ let app = createApp({
         this.editingIndex = index; // Set post position in array 
       this.posts[index].isConfirming = true; // show delete confirmation table row.
 
-      // Save post in LocalSorage
+      // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
 
 
@@ -123,7 +122,7 @@ let app = createApp({
       this.posts.splice(this.posts.indexOf(post), 1);
       this.isEditing = false;
 
-      // Save post in LocalSorage
+      // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
     },
 
@@ -146,7 +145,7 @@ let app = createApp({
       this.posts[this.posts.indexOf(post)].isConfirming = false;
       this.isEditing = false;
 
-      // Save post in LocalSorage
+      // Save post in LocalStorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
 
 
@@ -166,7 +165,6 @@ let app = createApp({
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files;
       if (files.length) {
-        // this.form.image = "img/" + files[0].name
         this.form.image = URL.createObjectURL(files[0]);
       }
     },
@@ -179,14 +177,20 @@ let app = createApp({
       return this.form.title && this.form.author;
     }
   },
-  mounted() {// Get localstorage data
+  mounted() {
 
     if (localStorage.getItem('posts')) {
       try {
+        // Get localstorage data and update posts array
         this.posts = JSON.parse(localStorage.getItem('posts'));
       } catch (e) {
         localStorage.removeItem('posts');
       }
+    } else {
+
+      // if LocalStorage posts value not exists, save post array in LocalStorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
+
     }
   }
 }).mount("#app");

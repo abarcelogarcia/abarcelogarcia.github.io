@@ -1,8 +1,8 @@
-export default{
-    
+export default {
+
   name: 'HeaderBlog',
 
-  template:` 
+  template: ` 
   <header class="sticky-top">
       <div class="container-fluid navbar-bg" id="navbar">
         <!-- LOGO & LOGIN BAR -->
@@ -77,8 +77,5 @@ export default{
   </header>
     
   `,
-
-
-
 
 }
