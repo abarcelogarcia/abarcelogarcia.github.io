@@ -41,7 +41,7 @@ let app = createApp({
 
     };
   },
-  components:{
+  components: {
 
     HeaderBlog,
     FooterBlog,
@@ -91,16 +91,16 @@ let app = createApp({
     // Update the post data in editing.
     updatePost: function () {
 
-        this.posts[this.editingIndex].title = this.form.title;
-        this.posts[this.editingIndex].summary = this.form.summary;
-        this.posts[this.editingIndex].content = this.form.content;
-        this.posts[this.editingIndex].author = this.form.author;
-        this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
+      this.posts[this.editingIndex].title = this.form.title;
+      this.posts[this.editingIndex].summary = this.form.summary;
+      this.posts[this.editingIndex].content = this.form.content;
+      this.posts[this.editingIndex].author = this.form.author;
+      this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
 
-        // Save post in LocalSorage
+      // Save post in LocalSorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
 
-        this.resetForm(); // reset form values CLEAN!
+      this.resetForm(); // reset form values CLEAN!
 
     },
     // Ask for confirmation to delete a post
@@ -109,12 +109,11 @@ let app = createApp({
       var index = this.posts.indexOf(post);
 
       this.isEditing = true, // Disabled all action buttons
-      this.editingIndex = index; // Set post position in array 
+        this.editingIndex = index; // Set post position in array 
       this.posts[index].isConfirming = true; // show delete confirmation table row.
-      console.log('ddddd');
 
-        // Save post in LocalSorage
-        localStorage.setItem('posts', JSON.stringify(this.posts));
+      // Save post in LocalSorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
 
 
     },
@@ -124,8 +123,8 @@ let app = createApp({
       this.posts.splice(this.posts.indexOf(post), 1);
       this.isEditing = false;
 
-       // Save post in LocalSorage
-       localStorage.setItem('posts', JSON.stringify(this.posts));
+      // Save post in LocalSorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
     },
 
 
@@ -140,16 +139,16 @@ let app = createApp({
       this.editingIndex = '';
       this.form.publicationDate = '';
       this.form.image = '';
-      this.$refs.fileinput.value=null;
+      this.$refs.fileinput.value = null;
     },
-    cancelEditing: function(post){
+    cancelEditing: function (post) {
 
       this.posts[this.posts.indexOf(post)].isConfirming = false;
       this.isEditing = false;
 
       // Save post in LocalSorage
       localStorage.setItem('posts', JSON.stringify(this.posts));
-      
+
 
     },
 
@@ -181,11 +180,11 @@ let app = createApp({
     }
   },
   mounted() {// Get localstorage data
-    
+
     if (localStorage.getItem('posts')) {
       try {
         this.posts = JSON.parse(localStorage.getItem('posts'));
-      } catch(e) {
+      } catch (e) {
         localStorage.removeItem('posts');
       }
     }
@@ -248,22 +247,22 @@ function readData() {
 // Verify that the user is logged in
 function setUser() {
 
-    openCreateDb(function (db) {
+  openCreateDb(function (db) {
 
     var tx = db.transaction(DB_STORE_LOGIN, "readonly");
     var store = tx.objectStore(DB_STORE_LOGIN);
     var req = store.openCursor();
-  
+
     req.onsuccess = function (e) {
-  
+
       var cursor = this.result;
-  
-      if (cursor) { 
-  
+
+      if (cursor) {
+
         if (cursor.value.theme == 1) {
           document.getElementById("theme").href = "css/bootstrap_custom_dark.css";
         }
-  
+
         document.getElementById("img-profile").src = cursor.value.avatar;
         document.getElementById("img-profile").hidden = false;
         document.getElementById("btn_login").removeAttribute("data-bs-toggle");
@@ -271,30 +270,30 @@ function setUser() {
         document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
         document.getElementById("btn_login").textContent = "Logout";
         document.getElementById("user_name_figcaption").innerText = cursor.value.name;
-  
-      }else{
+
+      } else {
         window.location.href = "index.html"; // If there is not login data, redirect to homepage
       }
-  
-  
+
+
     }
     req.onerror = function (e) {
       console.error("Set User error: can not verify the user", this.error);
     };
-  
+
     tx.oncomplete = function () {
       console.log("Set User: transaction completed");
       db.close();
       opened = false;
     };
-  
-    });
 
-    
-  
-    
-  
-  }
+  });
+
+
+
+
+
+}
 
 
 
