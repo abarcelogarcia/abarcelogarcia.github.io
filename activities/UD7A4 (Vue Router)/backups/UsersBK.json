@@ -1,0 +1,98 @@
+[
+    {
+        "user": "toni@toni.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Toni",
+        "surname": "Barceló",
+        "address": "Son Ganxo",
+        "age": "52",
+        "avatar": "img/avatar1.png",
+        "admin": true,
+        "id": 1,
+        "theme": 0
+    },
+    {
+        "user": "emma@emma.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Emma",
+        "surname": "Moll",
+        "address": "Son Vitamina",
+        "age": "52",
+        "avatar": "img/avatar2.png",
+        "admin": false,
+        "id": 2,
+        "theme": 0
+    },
+    {
+        "user": "irene@iesjoanramis.org",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Irene",
+        "surname": "Vinent",
+        "address": "Alaior",
+        "age": "35",
+        "avatar": "img/avatar3.png",
+        "admin": true,
+        "id": 3,
+        "theme": 0
+    },
+    {
+        "user": "laia@laia.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Laia",
+        "surname": "Barcelo",
+        "address": "Maó",
+        "age": "24",
+        "avatar": "img/avatar2.png",
+        "admin": false,
+        "id": 4,
+        "theme": 0
+    },
+    {
+        "user": "maria@petrus.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Maria",
+        "surname": "Petrus",
+        "address": "Formentera",
+        "age": "65",
+        "avatar": "img/avatar2.png",
+        "admin": false,
+        "id": 5,
+        "theme": 0
+    },
+    {
+        "user": "pedro@pedrito.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "pedro",
+        "surname": "Monteagudo",
+        "address": "Sant Lluis",
+        "age": "43",
+        "avatar": "img/avatar4.png",
+        "admin": false,
+        "id": 6,
+        "theme": 0
+    },
+    {
+        "user": "anaya@lujan.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Andrea",
+        "surname": "Pérez",
+        "address": "Sant Climent",
+        "age": "44",
+        "avatar": "img/avatar3.png",
+        "admin": false,
+        "id": 7,
+        "theme": 0
+    },
+    {
+        "user": "manuel@manu.com",
+        "password": "CIwFTeZMcKcphP3ApQzGAQ==",
+        "name": "Manolo",
+        "surname": "Moreno",
+        "address": "Sevilla",
+        "age": "19",
+        "avatar": "img/avatar1.png",
+        "admin": false,
+        "id": 8,
+        "theme": 0
+    }
+]
