@@ -1,3 +1,4 @@
+
 let nameFigcaption = document.getElementById("user_name_figcaption");
 
 
@@ -25,6 +26,9 @@ function setUser(db) {
       document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
       document.getElementById("btn_login").textContent = "Logout";
       nameFigcaption.innerText = cursor.value.name;
+
+      document.getElementById("btn_my_posts").hidden = false;
+
 
 
     }

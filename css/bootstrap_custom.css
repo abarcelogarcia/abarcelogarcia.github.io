@@ -11578,4 +11578,16 @@ div.disabled {
   font-weight: bold;
 }
 
+.form-control {
+  margin-bottom: 10px;
+}
+
+.active {
+  display: table-cell;
+}
+
+.noActive {
+  display: none;
+}
+
 /*# sourceMappingURL=bootstrap_custom.css.map */

@@ -1,44 +1,9 @@
 export default {
-
-  name: "TablePosts",
-  props: ['posts', 'editing', 'authors'],
-  emits:['deletePost', 'editPost', 'confirmDel', 'cancelDel', 'savePost'],
+  name: "post",
+  props: ['post', 'editing'],
+  inheritAttrs: false,
   template: `
-
-  
-  <!-- Empty posts list -->
-    <div class="container-fluid p-4">
-      <div class="row align-items-center">
-        <div class="col p-2">
-          <h1 v-if="posts.length" class="display-4">List</h1>
-          <h1 v-else class="display-3">There are no posts created</h1>
-        </div>
-        <div class="col-auto me-3 text-end">
-          <button class="btn btn-success" @click="newPost">New Post</button>
-        </div>
-      </div>
-    </div>
-
-  
-    
-
-    <table class="table table-striped align-middle">
-        <caption>
-          List of posts
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Summary</th>
-            <th scope="col">Image</th>
-            <th scope="col">Content</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-
-        <tr v-for="post in posts">
+        <tr>
           <td>{{post.id + 1}}</td>
           <td>{{post.title}}</td>
           <td>{{post.summary}}</td>
@@ -51,6 +16,7 @@ export default {
             :disabled=editing>
             Edit
             </button>
+            
             <button class="btn btn-danger me-2"
             @click="$emit('confirm-del', post)"
             :disabled=editing>
@@ -58,8 +24,8 @@ export default {
           </button>
           </td>
 
-        </tr>
-        <tr v-for="post in posts">
+          </tr>
+        <tr>
             <td colspan="6"  :confirmid=post.id :class="post.isConfirming ? 'active' : 'noActive'">
                 <div class="p-3 bg-danger-subtle rounded">
                     <p>
@@ -73,33 +39,6 @@ export default {
                 </div>
             </td>
         </tr>
-
-
-          
-        </tbody>
-      </table>
     
-
-
-
-
-    
-    
-    `,
-
-    methods:{
-
-      newPost: function(){
-        this.$router.push({name:'CreatePost'});
-      }
-
-
-
-    }
-
-
-
-
-
-
+    `
 }

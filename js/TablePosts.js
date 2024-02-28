@@ -1,22 +1,17 @@
 export default {
 
   name: "TablePosts",
-  props: ['posts', 'editing', 'authors'],
+  props: ['posts', 'editing', 'form', 'authors'],
   emits:['deletePost', 'editPost', 'confirmDel', 'cancelDel', 'savePost'],
   template: `
 
-  
-  <!-- Empty posts list -->
+    <!-- Empty posts list -->
     <div class="container-fluid p-4">
-      <div class="row align-items-center">
-        <div class="col p-2">
-          <h1 v-if="posts.length" class="display-4">List</h1>
-          <h1 v-else class="display-3">There are no posts created</h1>
-        </div>
-        <div class="col-auto me-3 text-end">
-          <button class="btn btn-success" @click="newPost">New Post</button>
-        </div>
-      </div>
+    <div v-if="posts.length" > 
+    <h1 class="display-4">List<button class="btn" @click="newPost">New Post</button></h1>
+    
+    </div>
+    <h1 v-else class="display-3">There are no posts created</h1>
     </div>
 
   
@@ -90,7 +85,10 @@ export default {
     methods:{
 
       newPost: function(){
+
+
         this.$router.push({name:'CreatePost'});
+
       }
 
 
