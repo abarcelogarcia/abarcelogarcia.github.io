@@ -39,8 +39,7 @@
 
 
 
-    <router-view :posts :editing :form :authors @delete-post="deletePost(post)" @edit-post="editPost(post)"
-      @confirm-del="confirmDel" @cancel-del="cancelEditing(post)" @save-post="savePost"></router-view>
+    <router-view :posts :editing :authors @save-on-local-storage="saveOnLocalStorage(posts)" @not-editing="editing=true"></router-view>
 
 
     <footer-Blog></footer-Blog>

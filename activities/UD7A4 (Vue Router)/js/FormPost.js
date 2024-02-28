@@ -1,11 +1,28 @@
 export default {
 
-    name: "FormPost",
+  data() {
+    return {
 
-    props: ['posts', 'form', 'editing', 'authors'],
+      form: {
+        id: "",
+        title: "",
+        summary: "",
+        content: "",
+        image: '',
+        author: "",
+      }
+    };
+  },
 
-    template:
-        `
+
+
+  name: "FormPost",
+
+  props: ['posts', 'editing', 'authors'],
+  emits: ['saveOnLocalStorage','notEditing'],
+
+  template:
+    `
     <div class="container bg-dark text-white mt-3 p-3">
         <h2 v-if="editing" class="display-5">Editing</h2>
         <h2 v-else class="display-5">Create</h2>
@@ -41,7 +58,7 @@ export default {
             </button>
           </div>
           <div v-else>
-            <button @click="$emit('save-post')" type="button" class="btn btn-info me-2" :disabled="!dataAdded">
+            <button @click="savePost" type="button" class="btn btn-info me-2" :disabled="!dataAdded">
               Save
             </button>
           </div>
@@ -51,22 +68,139 @@ export default {
 
     
     `,
-    methods: {
+  methods: {
 
-        // Capture the image path 
-        onFileChange: function (e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (files.length) {
-                this.form.image = URL.createObjectURL(files[0]);
-            }
-        },
+    // Capture the image path 
+    onFileChange: function (e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (files.length) {
+        this.form.image = URL.createObjectURL(files[0]);
+      }
+    },
+
+    // Saves the post capturing the values entered.
+    savePost: function (e) {
+
+
+      this.posts.push({
+        id: this.posts.length > 0 ? this.posts.slice(-1)[0].id + 1 : 0, // set last id or id=0 if is an empty array
+        title: this.form.title,
+        summary: this.form.summary,
+        content: this.form.content,
+        creationDate: this.getToday(),
+        publicationDate: this.form.publicationDate,
+        image: this.form.image,
+        isConfirming: false,
+        author: this.form.author,
+        status: 'draft',
+      });
+
+      this.resetForm(); // Clean!
+
+      this.$emit('save-on-local-storage', "posts");
+
+      this.$router.push({ name: 'ListPosts' });
 
 
     },
+    // Clears the values entered in the form inputs.
+    resetForm: function () {
+
+      this.form.title = '';
+      this.form.summary = '';
+      this.form.content = '';
+      this.form.aurhor = '';
+      this.$emit('notEditing');
+      this.editingIndex = '';
+      this.form.publicationDate = '';
+      this.form.image = '';
+      // this.$refs.fileinput.value = null;
+    },
+    
+
+    // Inserts the values of the selected post into the form inputs
+    editPost: function (post) {
+
+      this.form.title = post.title;
+      this.form.summary = post.summary;
+      this.form.content = post.content;
+      this.form.aurhor = post.author;
+      this.editing = true;
+      this.editingIndex = this.posts.indexOf(post);
+      this.form.publicationDate = post.publicationDate;
+
+    },
+    // Update the post data in editing.
+    updatePost: function () {
+
+      this.posts[this.editingIndex].title = this.form.title;
+      this.posts[this.editingIndex].summary = this.form.summary;
+      this.posts[this.editingIndex].content = this.form.content;
+      this.posts[this.editingIndex].author = this.form.author;
+      this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
+      this.posts[this.editingIndex].image = this.form.image;
+      this.resetForm(); // reset form values CLEAN!
+
+  },
+   
+    // Ask for confirmation to delete a post
+    confirmDel: function (post) {
+
+      var index = this.posts.indexOf(post);
+
+      this.editing = true, // Disabled all action buttons
+        this.editingIndex = index; // Set post position in array 
+      this.posts[index].isConfirming = true; // show delete confirmation table row.
+
+      // Save post in LocalStorage
+      localStorage.setItem('posts', JSON.stringify(this.posts));
+
+
+    },
+
+    // Removes the post from the array without leaving any values in its place
+    deletePost: function (post) {
+      this.posts.splice(this.posts.indexOf(post), 1);
+      this.editing = false;
+
+      // Save post in LocalStorage
+      // localStorage.setItem('posts', JSON.stringify(this.posts));
+    },
+
+
+    
+    cancelEditing: function (post) {
+
+      this.posts[this.posts.indexOf(post)].isConfirming = false;
+      this.editing = false;
+
+      // Save post in LocalStorage
+      // localStorage.setItem('posts', JSON.stringify(this.posts));
+
+
+    },
+    getToday: function () {
+      var d = new Date();
+      var month = d.getMonth() + 1;
+      var day = d.getDate();
+    
+      var output =
+        d.getFullYear() +
+        "/" +
+        (month < 10 ? "0" : "") +
+        month +
+        "/" +
+        (day < 10 ? "0" : "") +
+        day;
+    
+      return output;
+    }
+    
+},
     computed: {
-        dataAdded: function () {
-            return this.form.title && this.form.author;
-        }
+      dataAdded: function () {
+        return this.form.title && this.form.author;
+      }
     },
 
 
@@ -75,4 +209,4 @@ export default {
 
 
 
-}
+  }

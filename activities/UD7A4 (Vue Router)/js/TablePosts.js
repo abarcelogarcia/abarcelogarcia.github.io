@@ -2,7 +2,7 @@ export default {
 
   name: "TablePosts",
   props: ['posts', 'editing', 'authors'],
-  emits:['deletePost', 'editPost', 'confirmDel', 'cancelDel', 'savePost'],
+  emits:['deletePost', 'editPost', 'confirmDel', 'cancelDel', 'savePost','saveOnLocalStorage','notEditing'],
   template: `
 
   
@@ -14,7 +14,7 @@ export default {
           <h1 v-else class="display-3">There are no posts created</h1>
         </div>
         <div class="col-auto me-3 text-end">
-          <button class="btn btn-success" @click="newPost">New Post</button>
+          <button class="btn btn-info" @click="newPost">New Post</button>
         </div>
       </div>
     </div>
