@@ -11,10 +11,12 @@
   <link rel="stylesheet" href="css/bootstrap_custom.css" />
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dark-hive/jquery-ui.css" />
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
 </head>
 
 <body>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 
   <div id="app">
 
@@ -29,7 +31,8 @@
             <div class="ms-5">My Posts</div>
           </div>
           <div class="col-auto me-3">
-            <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" />
+            <!-- <img class="img-fluid" src="img/logo_headings.png" alt="logo_headings" /> -->
+            <router-link to="/">Show Post List</router-link>
           </div>
         </div>
       </div>
@@ -38,27 +41,8 @@
     <div v-if="posts.length" class="container-fluid p-4">
       <h1 class="display-4">List</h1>
 
-      <table class="table table-striped align-middle">
-        <caption>
-          List of posts
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Summary</th>
-            <th scope="col">Image</th>
-            <th scope="col">Content</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr is="vue:Post" v-for="post in posts" :post="post" :editing="editing"
-            v-on:delete-post="deletePost(post)" v-on:edit-post="editPost(post)" v-on:confirm-del="confirmDel"
-            v-on:cancel-del="cancelEditing(post)">
-          </tr>
-        </tbody>
-      </table>
+      <router-view :posts :editing @delete-post="deletePost(post)" @edit-post="editPost(post)" @confirm-del="confirmDel"
+        @cancel-del="cancelEditing(post)"></router-view>
     </div>
     <!-- Empty posts list -->
     <div v-else class="container-fluid p-4">

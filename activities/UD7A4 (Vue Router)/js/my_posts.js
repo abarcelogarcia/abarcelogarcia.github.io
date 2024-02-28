@@ -1,6 +1,7 @@
 import HeaderBlog from "./HeaderBlog.js";
 import FooterBlog from "./FooterBlog.js";
-import Post from "./Post.js";
+import router from "./router.js";
+
 
 const { createApp } = Vue;
 
@@ -45,7 +46,6 @@ let app = createApp({
 
     HeaderBlog,
     FooterBlog,
-    Post
 
   },
   methods: {
@@ -194,7 +194,7 @@ let app = createApp({
 
     }
   }
-}).mount("#app");
+}).use(router).mount("#app");
 
 
 
