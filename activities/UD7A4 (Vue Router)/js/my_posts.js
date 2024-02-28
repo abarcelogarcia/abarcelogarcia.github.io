@@ -72,6 +72,8 @@ let app = createApp({
 
       this.resetForm(); // Clean!
 
+      this.$router.push({ name: 'ListPosts' });
+
     },
 
     // Inserts the values of the selected post into the form inputs
@@ -139,7 +141,7 @@ let app = createApp({
       this.editingIndex = '';
       this.form.publicationDate = '';
       this.form.image = '';
-      this.$refs.fileinput.value = null;
+      // this.$refs.fileinput.value = null;
     },
     cancelEditing: function (post) {
 
@@ -162,22 +164,12 @@ let app = createApp({
       }
     },
 
-    // Capture the image path 
-    onFileChange: function (e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (files.length) {
-        this.form.image = URL.createObjectURL(files[0]);
-      }
-    },
+
 
   },
 
   // Ensures that title and author fields have values
-  computed: {
-    dataAdded: function () {
-      return this.form.title && this.form.author;
-    }
-  },
+
   mounted() {
 
     if (localStorage.getItem('posts')) {

@@ -1,8 +1,14 @@
 export default {
 
-    name: "TablePosts",
-    props: ['posts', 'editing'],
-    template: `
+  name: "TablePosts",
+  props: ['posts', 'editing'],
+  template: `
+
+    <!-- Empty posts list -->
+    <div class="container-fluid p-4">
+    <h1 v-if="posts.length" class="display-4">List</h1>
+    <h1 v-else class="display-3">There are no posts created</h1>
+    </div>
 
     <table class="table table-striped align-middle">
         <caption>
@@ -33,7 +39,6 @@ export default {
             :disabled=editing>
             Edit
             </button>
-            
             <button class="btn btn-danger me-2"
             @click="$emit('confirm-del', post)"
             :disabled=editing>
