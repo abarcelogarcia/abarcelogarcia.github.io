@@ -2,7 +2,7 @@ export default {
 
   name: "TablePosts",
   props: ['posts', 'editing', 'authors'],
-  emits:['deletePost', 'editPost', 'confirmDel', 'cancelDel', 'savePost','saveOnLocalStorage','notEditing'],
+  emits:['deletePost', 'editPost', 'confirm-del', 'cancelDel', 'savePost','saveOnLocalStorage','notEditing', 'isEditing'],
   template: `
 
   
@@ -19,8 +19,6 @@ export default {
       </div>
     </div>
 
-  
-    
 
     <table class="table table-striped align-middle">
         <caption>
@@ -38,7 +36,7 @@ export default {
         </thead>
         <tbody>
 
-        <tr v-for="post in posts">
+        <tr v-for="(post, index) in posts">
           <td>{{post.id + 1}}</td>
           <td>{{post.title}}</td>
           <td>{{post.summary}}</td>
@@ -47,12 +45,12 @@ export default {
 
           <td class="col-4 col-md-3 text-end">
             <button class="btn btn-warning me-2"
-            @click="$emit('edit-post', post)"
+            @click="editPost(post, index)"
             :disabled=editing>
             Edit
             </button>
             <button class="btn btn-danger me-2"
-            @click="$emit('confirm-del', post)"
+            @click="confirmDel(post)"
             :disabled=editing>
             Delete
           </button>
@@ -79,12 +77,6 @@ export default {
         </tbody>
       </table>
     
-
-
-
-
-    
-    
     `,
 
     methods:{
@@ -92,22 +84,19 @@ export default {
       newPost: function(){
         this.$router.push({name:'CreatePost'});
       },
-      editPost: function(post){
 
-        console.log(post.id);
-        this.$router.push(`/edit}`);
+      editPost: function(post, index){
 
+        this.$router.push({
+          name:'EditPost', 
+          params:{
+            index: index,
+            postobj: JSON.stringify(post)
+          }
+        });
 
-
-      }
-
-
+      },
 
     }
-
-
-
-
-
 
 }

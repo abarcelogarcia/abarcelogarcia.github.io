@@ -14,12 +14,10 @@ export default {
     };
   },
 
-
-
   name: "FormPost",
 
   props: ['posts', 'editing', 'authors'],
-  emits: ['saveOnLocalStorage','notEditing'],
+  emits: ['save-on-local-storage','notEditing','deletePost', 'editPost', 'confirmDel', 'cancelDel', 'savePost', 'isEditing'],
 
   template:
     `
@@ -99,7 +97,7 @@ export default {
 
       this.$emit('save-on-local-storage', "posts");
 
-      this.$router.push({ name: 'ListPosts' });
+      this.$router.push({ name: 'TablePost' });
 
 
     },
@@ -139,24 +137,15 @@ export default {
       this.posts[this.editingIndex].author = this.form.author;
       this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
       this.posts[this.editingIndex].image = this.form.image;
-      this.resetForm(); // reset form values CLEAN!
+
+      this.resetForm(); // Clean!
+
+      this.$emit('save-on-local-storage', "posts");
+
+      this.$router.push({ name: 'TablePosts' });
 
   },
    
-    // Ask for confirmation to delete a post
-    confirmDel: function (post) {
-
-      var index = this.posts.indexOf(post);
-
-      this.editing = true, // Disabled all action buttons
-        this.editingIndex = index; // Set post position in array 
-      this.posts[index].isConfirming = true; // show delete confirmation table row.
-
-      // Save post in LocalStorage
-      localStorage.setItem('posts', JSON.stringify(this.posts));
-
-
-    },
 
     // Removes the post from the array without leaving any values in its place
     deletePost: function (post) {
@@ -203,16 +192,26 @@ export default {
       }
     },
 
-    // mounted(){
+    mounted(){
 
-    //   if(this.$route.params.postid){
+      if(this.$route.params){
 
-    //     console.log(this.$route.params.postid.id);
+        const post = JSON.parse(this.$route.params.postobj);
+        const index = this.$route.params.index;
 
-    //   }
+
+        this.form.title = post.title;
+        this.form.summary = post.summary;
+        this.form.content = post.content;
+        this.form.aurhor = post.author;
+        this.$emit('isEditing');
+        this.editingIndex = index;
+        this.form.publicationDate = post.publicationDate;
+
+      }
 
 
-    // }
+    }
 
 
 

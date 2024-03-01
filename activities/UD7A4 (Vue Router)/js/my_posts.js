@@ -51,14 +51,29 @@ let app = createApp({
       }
     },
 
+    // Ask for confirmation to delete a post
+    confirmDel: function (post) {
+      console.log(post);
+
+      var index = this.posts.indexOf(post);
+
+      this.editing = true, // Disabled all action buttons
+      this.editingIndex = index; // Set post position in array
+      this.posts[index].isConfirming = true; // show delete confirmation table row.
+
+      // Save post in LocalStorage
+      this.saveOnLocalStorage(this.posts);
+
+
+    },
+
 
     saveOnLocalStorage: function(posts){
 
+
+
       localStorage.setItem('posts', JSON.stringify(posts));
 
-      console.log(this.editing);
-  
-  
   
     },
 
@@ -84,7 +99,7 @@ let app = createApp({
 
     }
 
-    this.$router.push({name:'ListPosts'});
+    this.$router.push({name:'TablePosts'});
 
 
   }
