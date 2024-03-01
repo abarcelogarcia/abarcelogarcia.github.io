@@ -91,6 +91,14 @@ export default {
 
       newPost: function(){
         this.$router.push({name:'CreatePost'});
+      },
+      editPost: function(post){
+
+        console.log(post.id);
+        this.$router.push(`/edit}`);
+
+
+
       }
 
 

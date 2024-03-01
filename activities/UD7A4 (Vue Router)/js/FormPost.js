@@ -203,6 +203,17 @@ export default {
       }
     },
 
+    // mounted(){
+
+    //   if(this.$route.params.postid){
+
+    //     console.log(this.$route.params.postid.id);
+
+    //   }
+
+
+    // }
+
 
 
 
