@@ -8,9 +8,10 @@ export default {
         title: "",
         summary: "",
         content: "",
-        image: '',
+        image: "",
         author: "",
-      }
+      },
+      editingIndex:"",
     };
   },
 
@@ -51,20 +52,18 @@ export default {
             <button v-on:click="updatePost" type="button" class="btn btn-info me-2">
               Update
             </button>
+            </div>
+            <div v-else>
+            <button @click="savePost" type="button" class="btn btn-info me-2" :disabled="!dataAdded">
+            Save
+            </button>
+            </div>
             <button v-on:click="resetForm" type="button" class="btn btn-danger me-2">
               Cancel
             </button>
-          </div>
-          <div v-else>
-            <button @click="savePost" type="button" class="btn btn-info me-2" :disabled="!dataAdded">
-              Save
-            </button>
-          </div>
         </div>
       </form>
     </div>
-
-    
     `,
   methods: {
 
@@ -79,7 +78,11 @@ export default {
     // Saves the post capturing the values entered.
     savePost: function (e) {
 
+      if(this.form.image===''){
 
+        this.form.image = 'img/LogoBloggIn_login.png';
+
+      }
       this.posts.push({
         id: this.posts.length > 0 ? this.posts.slice(-1)[0].id + 1 : 0, // set last id or id=0 if is an empty array
         title: this.form.title,
@@ -93,14 +96,12 @@ export default {
         status: 'draft',
       });
 
+      this.$emit('save-on-local-storage', this.posts);
+      
       this.resetForm(); // Clean!
 
-      this.$emit('save-on-local-storage', "posts");
-
-      this.$router.push({ name: 'TablePost' });
-
-
     },
+
     // Clears the values entered in the form inputs.
     resetForm: function () {
 
@@ -109,25 +110,15 @@ export default {
       this.form.content = '';
       this.form.aurhor = '';
       this.$emit('notEditing');
-      this.editingIndex = '';
       this.form.publicationDate = '';
       this.form.image = '';
-      // this.$refs.fileinput.value = null;
+      this.$refs.fileinput.value = null;
+
+      this.$router.push({ name: 'TablePosts' });
+
     },
     
 
-    // Inserts the values of the selected post into the form inputs
-    editPost: function (post) {
-
-      this.form.title = post.title;
-      this.form.summary = post.summary;
-      this.form.content = post.content;
-      this.form.aurhor = post.author;
-      this.editing = true;
-      this.editingIndex = this.posts.indexOf(post);
-      this.form.publicationDate = post.publicationDate;
-
-    },
     // Update the post data in editing.
     updatePost: function () {
 
@@ -137,37 +128,12 @@ export default {
       this.posts[this.editingIndex].author = this.form.author;
       this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
       this.posts[this.editingIndex].image = this.form.image;
-
+      
+      this.$emit('save-on-local-storage', this.posts);
+      
       this.resetForm(); // Clean!
-
-      this.$emit('save-on-local-storage', "posts");
-
-      this.$router.push({ name: 'TablePosts' });
-
   },
-   
-
-    // Removes the post from the array without leaving any values in its place
-    deletePost: function (post) {
-      this.posts.splice(this.posts.indexOf(post), 1);
-      this.editing = false;
-
-      // Save post in LocalStorage
-      // localStorage.setItem('posts', JSON.stringify(this.posts));
-    },
-
-
     
-    cancelEditing: function (post) {
-
-      this.posts[this.posts.indexOf(post)].isConfirming = false;
-      this.editing = false;
-
-      // Save post in LocalStorage
-      // localStorage.setItem('posts', JSON.stringify(this.posts));
-
-
-    },
     getToday: function () {
       var d = new Date();
       var month = d.getMonth() + 1;
@@ -194,11 +160,10 @@ export default {
 
     mounted(){
 
-      if(this.$route.params){
+      if(this.$route.params.new=='false'){
 
         const post = JSON.parse(this.$route.params.postobj);
         const index = this.$route.params.index;
-
 
         this.form.title = post.title;
         this.form.summary = post.summary;
@@ -207,16 +172,7 @@ export default {
         this.$emit('isEditing');
         this.editingIndex = index;
         this.form.publicationDate = post.publicationDate;
-
+        
       }
-
-
     }
-
-
-
-
-
-
-
   }

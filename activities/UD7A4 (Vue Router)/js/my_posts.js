@@ -1,5 +1,5 @@
-import HeaderBlog from "./HeaderBlog.js";
-import FooterBlog from "./FooterBlog.js";
+import HeaderBlog from "./components/HeaderBlog.js";
+import FooterBlog from "./components/FooterBlog.js";
 import router from "./router.js";
 
 
@@ -29,7 +29,6 @@ let app = createApp({
       ],
       authors: readData(),
       editing: false,
-      editingIndex: '',
 
     };
   },
@@ -52,10 +51,7 @@ let app = createApp({
     },
 
     // Ask for confirmation to delete a post
-    confirmDel: function (post) {
-      console.log(post);
-
-      var index = this.posts.indexOf(post);
+    confirmDel: function (index) {
 
       this.editing = true, // Disabled all action buttons
       this.editingIndex = index; // Set post position in array
@@ -66,14 +62,31 @@ let app = createApp({
 
 
     },
+    cancelDel: function(index){
+
+      this.editing = false, // Disabled all action buttons
+      this.editingIndex = index; // Set post position in array
+      this.posts[index].isConfirming = false; // show delete confirmation table row.
+
+      // Save post in LocalStorage
+      this.saveOnLocalStorage(this.posts);
+
+
+    },
+
+     // Removes the post from the array without leaving any values in its place
+     deletePost: function (post) {
+      this.posts.splice(this.posts.indexOf(post), 1);
+      this.editing = false;
+
+      // Save post in LocalStorage
+      this.saveOnLocalStorage(this.posts);
+    },
 
 
     saveOnLocalStorage: function(posts){
 
-
-
       localStorage.setItem('posts', JSON.stringify(posts));
-
   
     },
 

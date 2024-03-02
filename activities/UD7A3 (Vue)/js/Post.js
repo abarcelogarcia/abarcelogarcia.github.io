@@ -1,5 +1,5 @@
 export default {
-  name: "post",
+  name: "Post",
   props: ['post', 'editing'],
   inheritAttrs: false,
   template: `

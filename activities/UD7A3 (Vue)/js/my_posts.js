@@ -45,6 +45,7 @@ let app = createApp({
 
     HeaderBlog,
     FooterBlog,
+    Post
 
   },
   methods: {
