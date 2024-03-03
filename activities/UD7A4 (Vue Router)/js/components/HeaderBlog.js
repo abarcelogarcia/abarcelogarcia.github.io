@@ -40,10 +40,9 @@ export default {
             </div>
             <div class="col-auto">
 
-              <a href="my_posts.html" class="btn btn-outline-info" id="btn_my_posts">My Posts</a>
+              <a href="my_posts.html" class="btn btn-outline-info me-1" id="btn_my_posts">My Posts</a>
               <!-- Button trigger modal -->
-              <button class="btn btn-info ms-1" data-bs-toggle="modal" data-bs-target="#login" id="btn_login"><i
-                  class="bi bi-box-arrow-in-right"></i> Login</button>
+              <button class="btn btn-info" onclick="setLogout()"><i class="bi bi-box-arrow-left me-1"></i> Logout</button>
             </div>
           </div>
         </div>

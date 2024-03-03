@@ -49,16 +49,19 @@ export default {
         <input v-model="form.publicationDate" type="date" class="form-control" id="publicationDate" />
         <div class="mt-2 d-grid gap-2 d-md-flex justify-content-md-end">
           <div v-if="editing">
-            <button v-on:click="updatePost" type="button" class="btn btn-info me-2">
+            <button v-on:click="updatePost" type="button" class="btn btn-info">
+            <i class="bi bi-copy me-1"></i>
               Update
             </button>
             </div>
             <div v-else>
-            <button @click="savePost" type="button" class="btn btn-info me-2" :disabled="!dataAdded">
+            <button @click="savePost" type="button" class="btn btn-info" :disabled="!dataAdded">
+            <i class="bi bi-save me-1"></i>
             Save
             </button>
             </div>
-            <button v-on:click="resetForm" type="button" class="btn btn-danger me-2">
+            <button v-on:click="resetForm" type="button" class="btn btn-danger">
+            <i class="bi bi-x-square me-1"></i>
               Cancel
             </button>
         </div>

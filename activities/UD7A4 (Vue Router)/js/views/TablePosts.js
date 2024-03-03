@@ -14,7 +14,7 @@ export default {
           <h1 v-else class="display-3">There are no posts created</h1>
         </div>
         <div class="col-auto me-3 text-end">
-          <button class="btn btn-info" @click="newPost">New Post</button>
+          <button class="btn btn-info" @click="newPost"><i class="bi bi-plus-square me-1"></i>New Post</button>
         </div>
       </div>
     </div>
@@ -43,14 +43,16 @@ export default {
           <td><img :src="post.image" style="max-width: 100px" /></td>
           <td>{{post.content}}</td>
           <td class="col-4 col-md-3 text-end">
-            <button class="btn btn-warning me-2"
+            <button class="btn btn-warning me-1"
             @click="editPost(post, index)"
             :disabled=editing>
+            <i class="bi bi-pencil-square me-1"></i>
             Edit
             </button>
-            <button class="btn btn-danger me-2"
+            <button class="btn btn-danger"
             @click="$emit('confirm-del', index)"
             :disabled=editing>
+            <i class="bi bi-trash3 me-1"></i>
             Delete
           </button>
           </td>
@@ -63,9 +65,11 @@ export default {
                   <b>IRREVERSIBLE</b>. Are you sure about it?
               </p>
               <button type="button" class="btn btn-danger" @click="$emit('delete-post', post)" >
+              <i class="bi bi-hand-thumbs-up me-1"></i>
               Yes, I'm sure.
               </button>
               <button type="button" class="btn btn-info ms-2" @click="$emit('cancel-del', index)">
+              <i class="bi bi-x-square me-1"></i>
               Cancel
               </button>
             </div>

@@ -195,12 +195,12 @@ function setUser() {
         document.getElementById("btn_login").removeAttribute("data-bs-toggle");
         document.getElementById("btn_login").removeAttribute("data-bs-target");
         document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-        document.getElementById("btn_login").textContent = "Logout";
+        document.getElementById("btn_login").textContent = "<i class='bi bi-box-arrow-left'></i> Logout";
         document.getElementById("user_name_figcaption").innerText = cursor.value.name;
 
       } else {
-        // window.location.href = "index.html";
-         // If there is not login data, redirect to homepage
+        window.location.href = "index.html";
+        //  If there is not login data, redirect to homepage
       }
 
 
