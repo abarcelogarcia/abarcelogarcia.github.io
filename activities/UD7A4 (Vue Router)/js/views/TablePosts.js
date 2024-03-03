@@ -14,7 +14,7 @@ export default {
           <h1 v-else class="display-3">There are no posts created</h1>
         </div>
         <div class="col-auto me-3 text-end">
-          <button class="btn btn-info" @click="newPost"><i class="bi bi-plus-square me-1"></i>New Post</button>
+          <button class="btn btn-info" @click="newPost" :disabled=editing><i class="bi bi-plus-square me-1"></i>New Post</button>
         </div>
       </div>
     </div>
