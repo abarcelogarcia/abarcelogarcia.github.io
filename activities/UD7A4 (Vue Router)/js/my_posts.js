@@ -192,10 +192,6 @@ function setUser() {
 
         document.getElementById("img-profile").src = cursor.value.avatar;
         document.getElementById("img-profile").hidden = false;
-        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-        document.getElementById("btn_login").removeAttribute("data-bs-target");
-        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-        document.getElementById("btn_login").textContent = "<i class='bi bi-box-arrow-left'></i> Logout";
         document.getElementById("user_name_figcaption").innerText = cursor.value.name;
 
       } else {

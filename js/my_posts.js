@@ -1,5 +1,5 @@
-import HeaderBlog from "./HeaderBlog.js";
-import FooterBlog from "./FooterBlog.js";
+import HeaderBlog from "./components/HeaderBlog.js";
+import FooterBlog from "./components/FooterBlog.js";
 import router from "./router.js";
 
 
@@ -9,14 +9,6 @@ const { createApp } = Vue;
 let app = createApp({
   data() {
     return {
-      form: {
-        id: "",
-        title: "",
-        summary: "",
-        content: "",
-        image: '',
-        author: "",
-      },
 
       posts: [
         {
@@ -37,8 +29,6 @@ let app = createApp({
       ],
       authors: readData(),
       editing: false,
-      editingIndex: '',
-      topics: ["Nature", "Sports", "News", "Games", "Society"],
 
     };
   },
@@ -50,110 +40,6 @@ let app = createApp({
   },
   methods: {
 
-
-    // Saves the post capturing the values entered.
-    savePost: function (e) {
-
-      this.posts.push({
-        id: this.posts.length > 0 ? this.posts.slice(-1)[0].id + 1 : 0, // set last id or id=0 if is an empty array
-        title: this.form.title,
-        summary: this.form.summary,
-        content: this.form.content,
-        creationDate: today(),
-        publicationDate: this.form.publicationDate,
-        image: this.form.image,
-        isConfirming: false,
-        author: this.form.author,
-        status: 'draft',
-      });
-
-      // Save post in LocalStorage
-      localStorage.setItem('posts', JSON.stringify(this.posts));
-
-      this.resetForm(); // Clean!
-
-      this.$router.push({ name: 'ListPosts' });
-
-    },
-
-    // Inserts the values of the selected post into the form inputs
-    editPost: function (post) {
-
-      this.form.title = post.title;
-      this.form.summary = post.summary;
-      this.form.content = post.content;
-      this.form.aurhor = post.author;
-      this.editing = true;
-      this.editingIndex = this.posts.indexOf(post);
-      this.form.publicationDate = post.publicationDate;
-
-    },
-
-    // Update the post data in editing.
-    updatePost: function () {
-
-      this.posts[this.editingIndex].title = this.form.title;
-      this.posts[this.editingIndex].summary = this.form.summary;
-      this.posts[this.editingIndex].content = this.form.content;
-      this.posts[this.editingIndex].author = this.form.author;
-      this.posts[this.editingIndex].publicationDate = this.form.publicationDate;
-      this.posts[this.editingIndex].image = this.form.image;
-
-      // Save post in LocalStorage
-      localStorage.setItem('posts', JSON.stringify(this.posts));
-
-      this.resetForm(); // reset form values CLEAN!
-
-    },
-    // Ask for confirmation to delete a post
-    confirmDel: function (post) {
-
-      var index = this.posts.indexOf(post);
-
-      this.editing = true, // Disabled all action buttons
-        this.editingIndex = index; // Set post position in array 
-      this.posts[index].isConfirming = true; // show delete confirmation table row.
-
-      // Save post in LocalStorage
-      localStorage.setItem('posts', JSON.stringify(this.posts));
-
-
-    },
-
-    // Removes the post from the array without leaving any values in its place
-    deletePost: function (post) {
-      this.posts.splice(this.posts.indexOf(post), 1);
-      this.editing = false;
-
-      // Save post in LocalStorage
-      localStorage.setItem('posts', JSON.stringify(this.posts));
-    },
-
-
-    // Clears the values entered in the form inputs.
-    resetForm: function () {
-
-      this.form.title = '';
-      this.form.summary = '';
-      this.form.content = '';
-      this.form.aurhor = '';
-      this.editing = false;
-      this.editingIndex = '';
-      this.form.publicationDate = '';
-      this.form.image = '';
-      // this.$refs.fileinput.value = null;
-    },
-    cancelEditing: function (post) {
-
-      this.posts[this.posts.indexOf(post)].isConfirming = false;
-      this.editing = false;
-
-      // Save post in LocalStorage
-      localStorage.setItem('posts', JSON.stringify(this.posts));
-
-
-    },
-
     // Switch between published and draft
     togglePublish: function (post) {
 
@@ -164,9 +50,49 @@ let app = createApp({
       }
     },
 
+    // Ask for confirmation to delete a post
+    confirmDel: function (index) {
 
+      this.editing = true, // Disabled all action buttons
+      this.editingIndex = index; // Set post position in array
+      this.posts[index].isConfirming = true; // show delete confirmation table row.
+
+      // Save post in LocalStorage
+      this.saveOnLocalStorage(this.posts);
+
+
+    },
+    cancelDel: function(index){
+
+      this.editing = false, // Disabled all action buttons
+      this.editingIndex = index; // Set post position in array
+      this.posts[index].isConfirming = false; // show delete confirmation table row.
+
+      // Save post in LocalStorage
+      this.saveOnLocalStorage(this.posts);
+
+
+    },
+
+     // Removes the post from the array without leaving any values in its place
+     deletePost: function (post) {
+      this.posts.splice(this.posts.indexOf(post), 1);
+      this.editing = false;
+
+      // Save post in LocalStorage
+      this.saveOnLocalStorage(this.posts);
+    },
+
+
+    saveOnLocalStorage: function(posts){
+
+      localStorage.setItem('posts', JSON.stringify(posts));
+  
+    },
 
   },
+
+ 
 
   // Ensures that title and author fields have values
 
@@ -186,7 +112,7 @@ let app = createApp({
 
     }
 
-    this.$router.push({name:'ListPosts'});
+    this.$router.push({name:'TablePosts'});
 
 
   }
@@ -266,15 +192,11 @@ function setUser() {
 
         document.getElementById("img-profile").src = cursor.value.avatar;
         document.getElementById("img-profile").hidden = false;
-        document.getElementById("btn_login").removeAttribute("data-bs-toggle");
-        document.getElementById("btn_login").removeAttribute("data-bs-target");
-        document.getElementById("btn_login").setAttribute("onclick", "setLogout()");
-        document.getElementById("btn_login").textContent = "Logout";
         document.getElementById("user_name_figcaption").innerText = cursor.value.name;
 
       } else {
-        // window.location.href = "index.html";
-         // If there is not login data, redirect to homepage
+        window.location.href = "index.html";
+        //  If there is not login data, redirect to homepage
       }
 
 
